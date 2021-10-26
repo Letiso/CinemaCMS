@@ -1,21 +1,26 @@
-body {background-color: #fff}
-
 .logo {max-height: 100px}
+.social-links {max-height: 36px}
 
 .navbar-toggle {
     margin-top: 30px;
     margin-right:20px;
     }
 
-.social-links {max-height: 36px}
+nav .link {
+    color: #52A2EF;
+    font-size: 16px;
+    font-weight: 550;
+    }
+nav .link:hover{color: #fff;}
+
+nav .transform {transition: transform .3s;}
+nav .transform:hover {transform: scale(1.05);}
 
 main .features {
     text-align: center;
     width: 75%;
     }
-
 main .features h1 {font-size: 35px}
-
 main .features p {
     max-width: 400px;
     margin: 20px auto;
