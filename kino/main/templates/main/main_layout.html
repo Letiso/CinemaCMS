@@ -1,14 +1,118 @@
-<!doctype html>
-<html lang="ru">
+{% load static %}
+
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %}</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'main/css/main_layout.css' %}">
+
+  <!-- Optional theme -->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+
 </head>
 <body>
-    {% block title %}
+  <nav class="navbar navbar-default" role="navigation" style="background-color: transparent">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-md-2 navbar-header text-center">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main_navbar-collapse">
+            <!--lines on button-->
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <img src="{% static 'main/img/logo.png' %}" alt="Лого" class="rounded logo">
+        </div>
+
+        <div class="collapse navbar-collapse" id="main_navbar-collapse">
+          <ul class="col nav navbar-nav navbar-right" style="padding-left: 10px; padding-right: 12px;">
+            <li><form class="navbar-form" role="search">
+              <input type="text" class="form-control" placeholder="Поиск">
+            </form></li>
+            <li><form class="navbar-form text-center">
+              <a href="https://facebook.com/" title="Facebook">
+                <img src="{% static 'main/img/social_icons/facebook.png' %}" class="social-links"></a>
+              <a href="https://twitter.com/" title="Twitter">
+                <img src="{% static 'main/img/social_icons/twitter.png' %}" class="social-links"></a>
+              <a href="https://vk.com/" title="Вконтакте">
+                <img src="{% static 'main/img/social_icons/vkontakte.png' %}" class="social-links"></a>
+              <a href="https://ok.ru/" title="Одноклассники">
+                <img src="{% static 'main/img/social_icons/odnoklassniki.png' %}" class="social-links"></a>
+              <a href="https://plus.google.com/" title="Google +">
+                <img src="{% static 'main/img/social_icons/google_plus.png' %}" class="social-links"></a>
+              <a href="" title="???">
+                <img src="{% static 'main/img/social_icons/vkontakte.png' %}" class="social-links"></a>
+              <a href="" title="???">
+                <img src="{% static 'main/img/social_icons/vkontakte.png' %}" class="social-links"></a>
+            </form></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Позвонить<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">Vodafone</li>
+                <li><a href="#">+380-<span style="color: red">95</span>-777-77-77</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Lifecell</li>
+                <li><a href="#">+380-<span style="color: orange">63</span>--777-77-77</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Киевстар</li>
+                <li><a href="#">+380-<span style="color: blue">67</span>-777-77-77</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">RU<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Русский</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Украинский</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Английский</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="col-md-10 nav navbar-nav">
+                <li class="active"><a href="{% url 'main' %}">Главная</a></li>
+                <li><a href="{% url 'poster' %}">Афиша</a></li>
+                <li><a href="{% url 'timetable' %}">Расписание</a></li>
+                <li><a href="{% url 'soon' %}">Скоро</a></li>
+                <li><a href="{% url 'cinemas' %}">Кинотеатры</a></li>
+                <li><a href="{% url 'promotion' %}">Акции</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">О кинотеатре <b class="caret"></b></a>
+
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'about_the_cinema' %}">О кинотеатре</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'news' %}">Новости</a></li>
+                    <li><a href="{% url 'advertising' %}">Реклама</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'cafe_bar' %}">Кафе</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'mobile_applications' %}">Мобильные приложения</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'contacts' %}">Контакты</a></li>
+
+                  </ul>
+                </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    {% block content %}
     {% endblock %}
+  </main>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
