@@ -1,5 +1,6 @@
 .logo {max-height: 100px}
-.social-link {max-height: 36px;}
+.link-height {max-height: 36px;}
+.social-links a {padding-left: 2px; padding-right: 2px;}
 
 nav .transform {transition: transform .3s;}
 nav .transform:hover {transform: scale(1.05);}
