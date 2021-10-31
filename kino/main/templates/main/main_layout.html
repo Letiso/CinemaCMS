@@ -121,25 +121,25 @@
 
         <div class="col-12 navbar">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item {% if request.path == '/' %}active{% endif %}">
               <a class="nav-link"
                  href="{% url 'main' %}">Главная</a></li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.path == '/poster' %}active{% endif %}">
               <a class="nav-link"
                  href="{% url 'poster' %}">Афиша</a></li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.path == '/timetable' %}active{% endif %}">
               <a class="nav-link"
                  href="{% url 'timetable' %}">Расписание</a></li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.path == '/soon' %}active{% endif %}">
               <a class="nav-link"
                  href="{% url 'soon' %}">Скоро</a></li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.path == '/cinemas' %}active{% endif %}">
               <a class="nav-link"
                  href="{% url 'cinemas' %}">Кинотеатры</a></li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.path == '/promotion' %}active{% endif %}">
               <a class="nav-link"
                  href="{% url 'promotion' %}">Акции</a></li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown {% if request.path == '/about_the_cinema' or request.path == '/about_the_cinema/news' or request.path == '/about_the_cinema/advertising' or request.path == '/about_the_cinema/cafe-bar' or request.path == '/about_the_cinema/mobile_applications' or request.path == '/about_the_cinema/contacts'%}active{% endif %}">
               <a class="nav-link dropdown-toggle"
                  href="#" id="navbarDropdown"
                  role="button"
