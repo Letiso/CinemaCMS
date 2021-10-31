@@ -21,5 +21,4 @@ urlpatterns = [
     path('about_the_cinema/mobile_applications', views.mobile_applications, name="mobile_applications"),
     path('about_the_cinema/news', views.news, name="news"),
     path('about_the_cinema/vip_hall', views.vip_hall, name="vip_hall"),
-    path('user_account', views.user_account, name="user_account")
     ]
