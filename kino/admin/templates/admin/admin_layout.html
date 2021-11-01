@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+    <!-- Additional stylesheets -->
+    {% block stylesheets %}
+
+    {% endblock %}
   </head>
   <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -122,7 +126,12 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
+          <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+          <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
+        </div>
         {% block content-wrapper %}
+
         {% endblock %}
       </div>
       <!-- /.content-wrapper -->
@@ -151,7 +160,6 @@
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
-
     <!-- jQuery -->
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
     <!-- Bootstrap 4 -->
