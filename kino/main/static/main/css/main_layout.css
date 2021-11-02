@@ -16,7 +16,6 @@ nav a:hover {transform: scale(1.05);}
 .navbar .nav-item .nav-link:hover {color: #fff;}
 
 .navbar-default .navbar-nav > .active > a {
-    padding-left: 20px;
     margin-right: 5px;
     margin-left: 5px;
     background-color: #52A2EF;
