@@ -108,7 +108,7 @@
               <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
               <li class="nav-item">
-                <a href="{% url 'statistics' %}" class="nav-link">
+                <a href="{% url 'statistics' %}" class="nav-link {% block statistics %}{% endblock %}">
                   <i class="nav-icon fas fa-chart-area"></i>
                   <p>
                     Статистика
@@ -117,7 +117,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'banners' %}" class="nav-link">
+                <a href="{% url 'banners' %}" class="nav-link {% block banners %}{% endblock %}">
                   <i class="nav-icon fas fa-images"></i>
                   <p>
                     Баннеры
@@ -127,7 +127,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="{% url 'movies' %}" class="nav-link">
+                <a href="{% url 'movies' %}" class="nav-link {% block movies %}{% endblock %}">
                   <i class="nav-icon fas fa-film"></i>
                   <p>
                     Фильмы
@@ -136,7 +136,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'cinemas_conf' %}" class="nav-link">
+                <a href="{% url 'cinemas_conf' %}" class="nav-link {% block cinemas_conf %}{% endblock %}">
                   <i class="nav-icon fas fa-hotel"></i>
                   <p>
                     Кинотеатры
@@ -145,7 +145,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'news_conf' %}" class="nav-link">
+                <a href="{% url 'news_conf' %}" class="nav-link {% block news_conf %}{% endblock %}">
                   <i class="nav-icon fas fa-newspaper"></i>
                   <p>
                     Новости
@@ -154,7 +154,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'promotion_conf' %}" class="nav-link">
+                <a href="{% url 'promotion_conf' %}" class="nav-link {% block promotion_conf %}{% endblock %}">
                   <i class="nav-icon fas fa-percentage"></i>
                   <p>
                     Акции
@@ -163,7 +163,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'pages' %}" class="nav-link">
+                <a href="{% url 'pages' %}" class="nav-link {% block pages %}{% endblock %}">
                   <i class="nav-icon fas fa-window-restore"></i>
                   <p>
                     Страницы
@@ -172,7 +172,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'users' %}" class="nav-link">
+                <a href="{% url 'users' %}" class="nav-link {% block users %}{% endblock %}">
                   <i class="nav-icon fas fa-users"></i>
                   <p>
                     Пользователи
@@ -181,7 +181,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'mailing' %}" class="nav-link">
+                <a href="{% url 'mailing' %}" class="nav-link {% block mailing %}{% endblock %}">
                   <i class="nav-icon fas fa-paper-plane"></i>
                   <p>
                     Рассылка
