@@ -1,0 +1,1 @@
+python kino\manage.py runserver
