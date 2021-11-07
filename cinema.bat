@@ -1,1 +1,1 @@
-python kino\manage.py runserver
+python3 cinema\manage.py runserver

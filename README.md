@@ -1,2 +1,2 @@
-# KinoCMS
+# CinemaCMS
 Practice

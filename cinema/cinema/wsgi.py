@@ -1,5 +1,5 @@
 """
-WSGI config for kino project.
+WSGI config for cinema project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'kino.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cinema.settings')
 
 application = get_wsgi_application()
