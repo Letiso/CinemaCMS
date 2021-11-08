@@ -10,8 +10,8 @@ class CustomUser(AbstractBaseUser):
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
     GENDERS = (
-        ('m', 'мужской'),
-        ('m', 'женский')
+        ('m', 'мужчина'),
+        ('f', 'женщина')
     )
     username_validator = UnicodeUsernameValidator()
     objects = UserManager()
@@ -26,9 +26,10 @@ class CustomUser(AbstractBaseUser):
             'unique': _("A user with that username already exists."),
         },
     )
+    email = models.EmailField(_('email address'), blank=True)
+
     first_name = models.CharField(_('first name'), max_length=150, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
-    email = models.EmailField(_('email address'), blank=True)
 
     gender = models.CharField('Пол', max_length=1, choices=GENDERS, default='')
     birth_date = models.DateField('Дата рождения', default='2000-06-15')
