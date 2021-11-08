@@ -9,10 +9,10 @@
     {% block meta %}
     {% endblock %}
     <title>{% block title %}{% endblock %}</title>
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
-    <link rel="stylesheet"
-          href="{% static 'main/css/main_layout.css' %}">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'main/css/main_layout.css' %}">
     {% block stylesheets %}
     {% endblock %}
   </head>
@@ -180,6 +180,6 @@
     <!-- jQuery -->
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
     <!-- Bootstrap 4 -->
-    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'dist/js/bootstrap.bundle.min.js' %}"></script>
   </body>
 </html>
