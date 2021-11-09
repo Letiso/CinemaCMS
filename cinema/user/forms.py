@@ -50,13 +50,17 @@ class LoginForm(forms.ModelForm):
         fields = ('username', 'password')
         widgets = {
             'username': forms.TextInput(attrs={
-                'label': 'Логин',
+                'placeholder': 'Имя пользователя или почта',
                 'autofocus': True
             }),
             'password': forms.PasswordInput(attrs={
-                'label': 'Пароль',
+                'placeholder': '•' * 15,
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = 'Логин'
 
     def clean(self):
         username = self.cleaned_data['username']

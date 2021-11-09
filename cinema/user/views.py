@@ -13,10 +13,13 @@ class LoginView(View):
         context = {
             'form': form,
         }
-        return render(request, 'user/signin.html', context)
+        return render(request, 'user/login.html', context)
 
     def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST or None)
+        context = {
+            'form': form,
+        }
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -24,7 +27,7 @@ class LoginView(View):
             if user:
                 login(request, user)
                 return HttpResponseRedirect('/')
-        return render(request, 'user/signin.html', {'form': form, })
+        return render(request, 'user/login.html')
 
 
 class SignUpView(CreateView):
