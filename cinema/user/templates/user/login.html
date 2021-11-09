@@ -2,12 +2,12 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block title %}Авторизация{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
 <div class="row" style="margin-top: 200px; margin-bottom: 100px;">
   <div class="col-md-6 mx-auto">
-    <h3 class="text-center">Авторизация</h3>
+    <h3 class="text-center">{{ title }}</h3>
     <hr>
     <form action="" method="POST">
       {% csrf_token %}
@@ -21,7 +21,7 @@
     <hr>
     <div class="row my-2">
       <span class="col-12">Еще нет учетной записи?</span>
-      <a href="{% url 'signup' %}" class="col-6 ml-auto" style="">Пройти регистрацию</a>
+      <a href="{% url 'signup' %}" class="col-6 ml-auto" style="">Зарегистрироваться</a>
     </div>
 
   </div>

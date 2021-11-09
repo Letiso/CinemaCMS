@@ -8,14 +8,17 @@ from .forms import LoginForm, CustomUserCreationForm, CustomUserChangeForm
 
 class LoginView(View):
 
-    def get(self, request, *args, **kwargs):
+    @staticmethod
+    def get(request):
         form = LoginForm(request.POST or None)
         context = {
+            'title': 'Авторизация',
             'form': form,
-        }
+            }
         return render(request, 'user/login.html', context)
 
-    def post(self, request, *args, **kwargs):
+    @staticmethod
+    def post(request):
         form = LoginForm(request.POST or None)
         context = {
             'form': form,
@@ -27,7 +30,7 @@ class LoginView(View):
             if user:
                 login(request, user)
                 return HttpResponseRedirect('/')
-        return render(request, 'user/login.html')
+        return render(request, 'user/login.html', context)
 
 
 class SignUpView(CreateView):
