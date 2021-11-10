@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import View, CreateView
+from django.views.generic import View
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
 from django.http import HttpResponseRedirect
@@ -15,14 +15,16 @@ class LoginView(View):
         context = {
             'title': 'Авторизация',
             'form': form,
-            }
+        }
         return render(request, 'user/login.html', context)
 
     @staticmethod
     def post(request):
         form = LoginForm(request.POST or None)
         context = {
+            'title': 'Авторизация',
             'form': form,
+
         }
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -50,6 +52,7 @@ class SignUpView(View):
         if form.is_valid():
             new_user = CustomUser.objects.create_user(
                 username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'],
                 email=form.cleaned_data['email'],
                 phone=form.cleaned_data['phone'],
                 first_name=form.cleaned_data['first_name'],
@@ -65,3 +68,8 @@ class SignUpView(View):
             'form': form,
         }
         return render(request, 'user/signup.html', context)
+
+
+def user_account(request):
+    context = {}
+    return render(request, 'user/account.html', context)

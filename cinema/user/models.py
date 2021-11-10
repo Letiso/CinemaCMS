@@ -30,7 +30,7 @@ class CustomUser(AbstractBaseUser):
             'unique': _("A user with that username already exists."),
         },
     )
-    email = models.EmailField(_('email address'), blank=True)
+    email = models.EmailField(_('email address'))
     phone = models.CharField('Номер телефона', max_length=12, blank=True)
 
     first_name = models.CharField(_('first name'), max_length=150, blank=True)

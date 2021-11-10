@@ -44,7 +44,7 @@ class SignUpForm(forms.ModelForm):
         self.fields['password'].label = 'Пароль'
         self.fields['confirm_password'].label = 'Повторите пароль'
 
-    def cleaned_username(self):
+    def clean_username(self):
         username = self.cleaned_data['username']
         if CustomUser.objects.filter(username=username).exists():
             raise forms.ValidationError('Выбраный логин уже занят')
