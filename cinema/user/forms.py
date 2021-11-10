@@ -5,10 +5,6 @@ from .models import CustomUser
 
 class LoginForm(forms.ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
-        self.fields['username'].label = 'Логин'
-
     def clean(self):
         username = self.cleaned_data['username']
         password = self.cleaned_data['password']
@@ -23,6 +19,9 @@ class LoginForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'password')
+        labels = {
+            'username': 'Логин',
+        }
         widgets = {
             'username': forms.TextInput(attrs={
                 'placeholder': 'Имя пользователя или почта',
@@ -36,13 +35,14 @@ class LoginForm(forms.ModelForm):
 
 class SignUpForm(forms.ModelForm):
 
-    password = forms.CharField(widget=forms.PasswordInput)
-    confirm_password = forms.CharField(widget=forms.PasswordInput)
-
-    def __init__(self, *args, **kwargs):
-        super(SignUpForm, self).__init__(*args, **kwargs)
-        self.fields['password'].label = 'Пароль'
-        self.fields['confirm_password'].label = 'Повторите пароль'
+    password = forms.CharField(
+        label='Пароль',
+        widget=forms.PasswordInput
+    )
+    confirm_password = forms.CharField(
+        label='Повторите пароль',
+        widget=forms.PasswordInput
+    )
 
     def clean_username(self):
         username = self.cleaned_data['username']
