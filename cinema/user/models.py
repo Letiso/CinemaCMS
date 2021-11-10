@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, UserManager
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser, UserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
@@ -10,14 +10,19 @@ class CustomUser(AbstractBaseUser):
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
     GENDERS = (
-        ('m', 'мужчина'),
-        ('f', 'женщина')
+        ('m', 'мужской'),
+        ('f', 'женский')
+    )
+    LANGUAGES = (
+        ('ru', 'Русский'),
+        ('ua', 'Українська'),
+        ('en', 'English')
     )
     username_validator = UnicodeUsernameValidator()
     objects = UserManager()
 
     username = models.CharField(
-        _('username'),
+        'Логин',
         max_length=50,
         unique=True,
         validators=[username_validator],
@@ -26,17 +31,28 @@ class CustomUser(AbstractBaseUser):
         },
     )
     email = models.EmailField(_('email address'), blank=True)
+    phone = models.CharField('Номер телефона', max_length=12, blank=True)
 
     first_name = models.CharField(_('first name'), max_length=150, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
 
     gender = models.CharField('Пол', max_length=1, choices=GENDERS, default='')
+    language = models.CharField('Язык', max_length=2, choices=LANGUAGES, default='')
     birth_date = models.DateField('Дата рождения', default='2000-06-15')
+    address = models.CharField('Адрес', max_length=150, blank=True)
 
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
         help_text=_('Designates whether the user can log into this admin site.'),
+    )
+    is_superuser = models.BooleanField(
+        _('superuser status'),
+        default=False,
+        help_text=_(
+            'Designates that this user has all permissions without '
+            'explicitly assigning them.'
+        )
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 

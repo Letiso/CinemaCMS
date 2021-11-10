@@ -1,23 +1,9 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 
 from .models import CustomUser
 
 
 class LoginForm(forms.ModelForm):
-
-    class Meta:
-        model = CustomUser
-        fields = ('username', 'password')
-        widgets = {
-            'username': forms.TextInput(attrs={
-                'placeholder': 'Имя пользователя или почта',
-                'autofocus': True
-            }),
-            'password': forms.PasswordInput(attrs={
-                'placeholder': '•' * 15,
-            }),
-        }
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
@@ -34,12 +20,63 @@ class LoginForm(forms.ModelForm):
                 raise forms.ValidationError('Неверный пароль')
         return self.cleaned_data
 
-
-class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'first_name', 'last_name', 'gender', 'birth_date')
+        fields = ('username', 'password')
         widgets = {
+            'username': forms.TextInput(attrs={
+                'placeholder': 'Имя пользователя или почта',
+                'autofocus': True
+            }),
+            'password': forms.PasswordInput(attrs={
+                'placeholder': '•' * 15,
+            }),
+        }
+
+
+class SignUpForm(forms.ModelForm):
+
+    password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)
+
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        self.fields['password'].label = 'Пароль'
+        self.fields['confirm_password'].label = 'Повторите пароль'
+
+    def cleaned_username(self):
+        username = self.cleaned_data['username']
+        if CustomUser.objects.filter(username=username).exists():
+            raise forms.ValidationError('Выбраный логин уже занят')
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError('Данная почта уже привязана к другой учетной записи')
+        return email
+
+    def clean(self):
+        password = self.cleaned_data['password']
+        confirm_password = self.cleaned_data['confirm_password']
+        if password != confirm_password:
+            raise forms.ValidationError('Пароли не совпадают')
+        return self.cleaned_data
+
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'password', 'confirm_password', 'email', 'phone',
+                  'first_name', 'last_name', 'gender', 'language', 'birth_date', 'address', )
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'placeholder': 'Username',
+            }),
+            'email': forms.EmailInput(attrs={
+                'placeholder': 'example@email.com',
+            }),
+            'phone': forms.NumberInput(attrs={
+                'placeholder': '095-123-45-15',
+            }),
             'first_name': forms.TextInput(attrs={
                 'placeholder': 'Иван',
             }),
@@ -49,23 +86,14 @@ class CustomUserCreationForm(UserCreationForm):
             'gender': forms.Select(attrs={
                 'class': 'custom-select mr-sm-2 my-2',
             }),
+            'language': forms.Select(attrs={
+                'class': 'custom-select mr-sm-2 my-2',
+            }),
             'birth_date': forms.DateInput(attrs={
                 'type': 'date',
                 'class': 'form-control mb-2',
             }),
-            'password1': forms.PasswordInput(attrs={
-                'autocomplete': 'new-password',
-                'placeholder': 'Введите пароль',
-            }),
-            'password2': forms.PasswordInput(attrs={
-                'autocomplete': 'new-password',
-                'placeholder': 'Введите пароль',
+            'address': forms.TextInput(attrs={
+                'placeholder': 'Приморский район, ул. Екатерининская, 156',
             }),
         }
-
-
-class CustomUserChangeForm(UserChangeForm):
-
-    class Meta:
-        model = CustomUser
-        fields = ('is_staff', 'first_name', 'last_name', 'gender', 'birth_date', 'username', 'email', )
