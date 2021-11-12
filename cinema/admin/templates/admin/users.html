@@ -2,13 +2,110 @@
 {% load static %}
 
 {% block stylesheets %}
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
 {% endblock %}
 
 {% block users %}active{% endblock %}
 
+{% block current_page %}{{ title }}{% endblock %}
+
+{% block path %}
+<li class="breadcrumb-item active">{{ title }}</li>
+{% endblock %}
+
 {% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+
+            <div class="card">
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                     <tr>
+                         {% for field in fields %}
+                         <th>{{ field }}</th>
+                         {% endfor %}
+                     </tr>
+                  </thead>
+                  <tbody>
+                    {% for user in users %}
+                      <tr>
+                          <td>{{ user.id}}</td>
+                          <td>{{ user.username}}</td>
+                          <td>{{ user.email}}</td>
+                          <td>{{ user.first_name}}</td>
+                          <td>{{ user.last_name}}</td>
+                          <td>{{ user.gender}}</td>
+                          <td>{{ user.language}}</td>
+                          <td>{{ user.birth_date}}</td>
+                          <td>{{ user.address}}</td>
+                          <td>{{ user.date_joined}}</td>
+                          <td>{{ user.is_employee}}</td>
+                          <td>{{ user.is_superuser}}</td>
+                          <td>
+                              <div class="row">
+                                  <a href=""
+                                     class="fas fa-pen text-primary mx-auto"></a>
+                                  <a href=""
+                                     class="fas fa-minus-circle text-danger mx-auto"></a>
+                              </div>
+                          </td>
+                      </tr>
+                    {% endfor %}
+                    {% for user in users %}
+                      <tr>
+                          <td>{{ user.id}}</td>
+                          <td>{{ user.username}}</td>
+                          <td>{{ user.email}}</td>
+                          <td>{{ user.first_name}}</td>
+                          <td>{{ user.last_name}}</td>
+                          <td>{{ user.gender}}</td>
+                          <td>{{ user.language}}</td>
+                          <td>{{ user.birth_date}}</td>
+                          <td>{{ user.address}}</td>
+                          <td>{{ user.date_joined}}</td>
+                          <td>{{ user.is_employee}}</td>
+                          <td>{{ user.is_superuser}}</td>
+                          <td>
+                              <div class="row">
+                                  <a href=""
+                                     class="fas fa-pen text-primary mx-auto"></a>
+                                  <a href=""
+                                     class="fas fa-minus-circle text-danger mx-auto"></a>
+                              </div>
+                          </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 {% endblock %}
 
 {% block scripts %}
+<!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  });
+</script>
 {% endblock %}
 

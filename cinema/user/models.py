@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser, UserManager
+from django.contrib.auth.models import AbstractBaseUser, UserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
@@ -10,8 +10,8 @@ class CustomUser(AbstractBaseUser):
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
     GENDERS = (
-        ('m', 'мужской'),
-        ('f', 'женский')
+        ('m', 'Мужской'),
+        ('f', 'Женский')
     )
     LANGUAGES = (
         ('ru', 'Русский'),

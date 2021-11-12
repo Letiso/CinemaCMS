@@ -6,6 +6,13 @@
 
 {% block banners %}active{% endblock %}
 
+{% block current_page %}{{ title }}{% endblock %}
+
+{% block path %}
+<li class="breadcrumb-item active">{{ title }}</li>
+{% endblock %}
+
+
 {% block content %}
 <!-- Main top banner -->
 <div class="row">

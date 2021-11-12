@@ -174,7 +174,7 @@
                   <i class="nav-icon fas fa-users"></i>
                   <p>
                     Пользователи
-                    <span class="right badge badge-primary">Сверстать</span>
+                    <span class="right badge badge-light">Почти</span>
                   </p>
                 </a>
               </li>
@@ -201,6 +201,23 @@
         <div class="preloader flex-column justify-content-center align-items-center">
           <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
         </div>
+        <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>{% block current_page %} {% endblock %}</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{% url 'statistics' %}">Панель администратора</a></li>
+                {% block path %}
+                {% endblock %}
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
         {% block content %}
 
         {% endblock %}

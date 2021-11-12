@@ -1,37 +1,70 @@
 from django.shortcuts import render
+from django.contrib.auth import get_user_model
 
 
 def statistics(request):
-    return render(request, 'admin/statistics.html')
+    context = {
+        'title': 'Статистика',
+    }
+    return render(request, 'admin/statistics.html', context)
 
 
 def banners(request):
-    return render(request, 'admin/banners.html')
+    context = {
+        'title': 'Банеры',
+    }
+    return render(request, 'admin/banners.html', context)
 
 
 def movies(request):
-    return render(request, 'admin/movies.html')
+    context = {
+        'title': 'Фильмы',
+    }
+    return render(request, 'admin/movies.html', context)
 
 
 def cinemas(request):
-    return render(request, 'admin/cinemas.html')
+    context = {
+        'title': 'Кинотеатры',
+    }
+    return render(request, 'admin/cinemas.html', context)
 
 
 def news(request):
-    return render(request, 'admin/news.html')
+    context = {
+        'title': 'Новости',
+    }
+    return render(request, 'admin/news.html', context)
 
 
 def promotion(request):
-    return render(request, 'admin/promotion.html')
+    context = {
+        'title': 'Акции',
+    }
+    return render(request, 'admin/promotion.html', context)
 
 
 def pages(request):
-    return render(request, 'admin/pages.html')
+    context = {
+        'title': 'Страницы',
+    }
+    return render(request, 'admin/pages.html', context)
 
 
 def users(request):
-    return render(request, 'admin/users.html')
+    context = {
+        'title': 'Пользователи',
+        'fields': ['ID', 'Логин', 'Email',
+                   'Имя', 'Фамилия', 'Пол', 'Язык', 'Дата рождения', 'Адрес',
+                   'Регистрация', 'Сотрудник', 'Администратор', 'Ред./Удал.', ],
+        'users': get_user_model().objects.filter(),
+    }
+
+    return render(request, 'admin/users.html', context)
 
 
 def mailing(request):
-    return render(request, 'admin/mailing.html')
+    context = {
+        'title': 'Рассылка',
+    }
+    return render(request, 'admin/mailing.html', context)
