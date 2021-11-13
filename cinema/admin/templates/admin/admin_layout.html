@@ -84,7 +84,13 @@
               <img src="{% static 'dist/img/user8-128x128.jpg' %}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="#" class="d-block">{{ request.user.get_full_name}}</a>
+              <a href="#" class="d-block">{{ user.get_full_name}}
+                {% if user.is_superuser %}
+                <span class="badge badge-success ml-4" style="font-size: 18px;">A</span>
+                {% elif user.is_staff %}
+                <span class="badge badge-warning ml-4" style="font-size: 18px;">C</span>
+                {% endif %}
+              </a>
             </div>
           </div>
 
