@@ -1,0 +1,23 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block users %}active{% endblock %}
+
+{% block current_page %}Удалить пользователя{% endblock %}
+
+{% block path %}
+<li class="breadcrumb-item"><a href="{% url 'users' %}">Пользователи</a></li>
+<li class="breadcrumb-item active">Удалить пользователя</li>
+{% endblock %}
+
+{% block content %}
+<div class="row" style="margin-top: 100px; margin-bottom: 100px;">
+  <div class="col-md-6 mx-auto">
+    <h3 class="text-center" style="margin-top: 100px;">Вы уверены, что хотите удалить пользователя <span class="text-primary">{{ username }}</span>?</h3>
+    <hr>
+    <form action="" method="POST" class="mt-5 text-center">
+      {% csrf_token %}
+      <input type="submit" class="btn btn-danger px-5" value="Удалить пользователя">
+    </form>
+  </div>
+</div>
+{% endblock %}

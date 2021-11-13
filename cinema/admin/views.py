@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import View, UpdateView, DeleteView
 from django.contrib.auth import get_user_model
 
 
@@ -60,7 +61,23 @@ def users(request):
         'users': get_user_model().objects.filter(),
     }
 
-    return render(request, 'admin/users.html', context)
+    return render(request, 'admin/users/users.html', context)
+
+
+class UserUpdateView(UpdateView):
+    model = get_user_model()
+    template_name = 'admin/users/update.html'
+
+
+class UserDeleteView(DeleteView):
+    model = get_user_model()
+    success_url = '/admin/users'
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'username': self.model.objects.get(pk=request.path.split('/')[-2]).username,
+        }
+        return render(request, 'admin/users/delete.html', context)
 
 
 def mailing(request):

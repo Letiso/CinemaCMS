@@ -89,7 +89,7 @@ class SignUpForm(forms.ModelForm):
             'language': forms.Select(attrs={
                 'class': 'custom-select mr-sm-2 my-2',
             }),
-            'birth_date': forms.DateInput(attrs={
+            'birth_date': forms.DateInput(format=('%Y-%m-%d'), attrs={
                 'type': 'date',
                 'class': 'form-control mb-2',
             }),

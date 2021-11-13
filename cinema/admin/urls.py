@@ -10,5 +10,7 @@ urlpatterns = [
     path('promotion', views.promotion, name="promotion_conf"),
     path('pages', views.pages, name="pages"),
     path('users', views.users, name="users"),
+    path('users/<int:pk>/update', views.UserUpdateView.as_view(), name="update_user"),
+    path('users/<int:pk>/delete', views.UserDeleteView.as_view(), name="delete_user"),
     path('mailing', views.mailing, name="mailing"),
     ]
