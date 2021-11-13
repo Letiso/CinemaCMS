@@ -4,6 +4,7 @@
 {% block stylesheets %}
   <!-- DataTables -->
   <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/css/users.css' %}">
 {% endblock %}
 
 {% block users %}active{% endblock %}
@@ -37,21 +38,53 @@
                           <td>{{ user.id}}</td>
                           <td>{{ user.username}}</td>
                           <td>{{ user.email}}</td>
+                          <td>{{ user.phone_number}}</td>
                           <td>{{ user.first_name}}</td>
                           <td>{{ user.last_name}}</td>
-                          <td>{{ user.gender}}</td>
-                          <td>{{ user.language}}</td>
+                          <td>
+                              {% if user.gender == 'm' %}
+                              <p>Мужской</p>
+                              {% elif user.gender == 'f' %}
+                              <p>Женский</p>
+                              {% endif %}
+                          </td>
+                          <td>
+                              {% if user.language == 'ru' %}
+                              <p>Русский</p>
+                              {% elif user.language == 'uk' %}
+                              <p>Українська</p>
+                              {% elif user.language == 'en' %}
+                              <p>English</p>
+                              {% endif %}
+                          </td>
                           <td>{{ user.birth_date}}</td>
                           <td>{{ user.address}}</td>
+                          <td>{{ user.last_login}}</td>
                           <td>{{ user.date_joined}}</td>
-                          <td>{{ user.is_employee}}</td>
-                          <td>{{ user.is_superuser}}</td>
                           <td>
                               <div class="row">
+                                  {% if user.is_staff %}
+                                  <i class="fas fa-check text-success mx-auto mt-2"></i>
+                                  {% else %}
+                                  <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                                  {% endif %}
+                              </div>
+                          </td>
+                          <td>
+                              <div class="row">
+                                  {% if user.is_superuser %}
+                                  <i class="fas fa-check text-success mx-auto mt-2"></i>
+                                  {% else %}
+                                  <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                                  {% endif %}
+                              </div>
+                          </td>
+                          <td>
+                              <div class="row buttons">
                                   <a href="{% url 'update_user' user.pk %}"
-                                     class="fas fa-pen text-primary mx-auto"></a>
+                                     class="fas fa-pen text-primary mx-auto my-3"></a>
                                   <a href="{% url 'delete_user' user.pk %}"
-                                     class="fas fa-minus-circle text-danger mx-auto"></a>
+                                     class="fas fa-minus-circle text-danger ml-2 mr-auto my-3"></a>
                               </div>
                           </td>
                       </tr>

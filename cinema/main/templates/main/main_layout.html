@@ -144,7 +144,7 @@
             </li>
           </ul>
           <ul class="navbar-nav ml-auto">
-            {% if not request.user.is_authenticated %}
+            {% if not user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link"
                    href="{% url 'login' %}">Войти</a>
@@ -154,7 +154,7 @@
                    href="{% url 'signup' %}">Регистрация</a>
               </li>
             {% endif %}
-            {% if request.user.is_authenticated %}
+            {% if user.is_authenticated %}
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle"
                      href=""
@@ -163,8 +163,8 @@
                      data-toggle="dropdown"
                      aria-haspopup="true"
                      aria-expanded="false">
-                    Здравствуйте,<span class="badge badge-success" style="text-decoration: none; font-size: 16px; color: #fff;">
-                      {{ request.user.username }}
+                    Здравствуйте, <span class="badge badge-success" style="text-decoration: none; font-size: 16px; color: #fff;">
+                      {{ user.username }}
                     </span></a>
 
                   <div class="dropdown-menu dropdown-menu-right"
@@ -174,12 +174,11 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item"
                        href="#">Корзина</a>
+                    {% if user.is_staff or user.is_superuser %}
                     <div class="dropdown-divider"></div>
-
-                    <!-- TODO make access restriction -->
                     <a class="dropdown-item"
                        href="{% url 'statistics' %}">Панель администратора</a>
-                    <!-- TODO make access restriction -->
+                    {% endif %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger"
                        href="{% url 'logout' %}">Выйти</a>
