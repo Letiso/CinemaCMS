@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import View, UpdateView, DeleteView
+from django.views.generic import UpdateView, DeleteView
 from django.contrib.auth import get_user_model
+from .forms import FullUserUpdateForm
 
 
 def statistics(request):
@@ -58,7 +59,7 @@ def users(request):
         'fields': ['ID', 'Логин', 'Email', 'Номер телефона',
                    'Имя', 'Фамилия', 'Пол', 'Язык', 'Дата рождения', 'Адрес', 'Был(а)',
                    'Регистрация', 'Сотрудник', 'Админ', 'Ред./Удал.', ],
-        'users': get_user_model().objects.filter(),
+        'users': get_user_model().objects.all(),
     }
 
     return render(request, 'admin/users/users.html', context)
@@ -66,7 +67,10 @@ def users(request):
 
 class UserUpdateView(UpdateView):
     model = get_user_model()
+    success_url = '/admin/users'
     template_name = 'admin/users/update.html'
+
+    form_class = FullUserUpdateForm
 
 
 class UserDeleteView(DeleteView):

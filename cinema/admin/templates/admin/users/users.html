@@ -38,9 +38,33 @@
                           <td>{{ user.id}}</td>
                           <td>{{ user.username}}</td>
                           <td>{{ user.email}}</td>
-                          <td>{{ user.phone_number}}</td>
-                          <td>{{ user.first_name}}</td>
-                          <td>{{ user.last_name}}</td>
+                          <td>
+                              {% if user.phone %}
+                              +38{{ user.phone}}
+                              {% else %}
+                              <div class="row">
+                                <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                              </div>
+                              {% endif %}
+                          </td>
+                          <td>
+                              {% if user.first_name %}
+                              {{ user.first_name}}
+                              {% else %}
+                              <div class="row">
+                                <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                              </div>
+                              {% endif %}
+                          </td>
+                          <td>
+                              {% if user.last_name %}
+                              {{ user.last_name}}
+                              {% else %}
+                              <div class="row">
+                                <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                              </div>
+                              {% endif %}
+                          </td>
                           <td>
                               {% if user.gender == 'm' %}
                               <p>Мужской</p>
@@ -58,7 +82,15 @@
                               {% endif %}
                           </td>
                           <td>{{ user.birth_date}}</td>
-                          <td>{{ user.address}}</td>
+                          <td>
+                              {% if user.last_name %}
+                              {{ user.address}}
+                              {% else %}
+                              <div class="row">
+                                <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                              </div>
+                              {% endif %}
+                          </td>
                           <td>{{ user.last_login}}</td>
                           <td>{{ user.date_joined}}</td>
                           <td>

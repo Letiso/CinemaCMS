@@ -9,6 +9,8 @@
     {% block meta %}
     {% endblock %}
     <title>{% block title %}{% endblock %}</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
     <!-- Bootstrap core CSS -->
     <link href="{% static 'dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -99,7 +101,7 @@
           <ul class="navbar-nav mr-auto">
             <li class="nav-item {% block main_main %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'main' %}">Главная</a></li>
+                 href="{% url 'main' %}"><i class="fas fa-home mx-2 text-light" style="font-size:23px;"></i></a></li>
             <li class="nav-item {% block main_poster %} {% endblock %}">
               <a class="nav-link"
                  href="{% url 'poster' %}">Афиша</a></li>

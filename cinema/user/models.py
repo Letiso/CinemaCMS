@@ -31,13 +31,13 @@ class CustomUser(AbstractBaseUser):
         },
     )
     email = models.EmailField(_('email address'))
-    phone = models.CharField('Номер телефона', max_length=12, blank=True)
+    phone = models.CharField('Номер телефона', max_length=10, blank=True)
 
     first_name = models.CharField(_('first name'), max_length=150, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
 
-    gender = models.CharField('Пол', max_length=1, choices=GENDERS, default='')
-    language = models.CharField('Язык', max_length=2, choices=LANGUAGES, default='')
+    gender = models.CharField('Пол', max_length=1, choices=GENDERS)
+    language = models.CharField('Язык', max_length=2, choices=LANGUAGES)
     birth_date = models.DateField('Дата рождения', default='2000-06-15')
     address = models.CharField('Адрес', max_length=150, blank=True)
 

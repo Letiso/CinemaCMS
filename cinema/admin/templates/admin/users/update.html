@@ -1,5 +1,5 @@
 {% extends 'admin/admin_layout.html' %}
-
+{% load crispy_forms_tags %}
 {% block users %}active{% endblock %}
 
 {% block current_page %}Изменить пользователя{% endblock %}
@@ -7,4 +7,18 @@
 {% block path %}
 <li class="breadcrumb-item"><a href="{% url 'users' %}">Пользователи</a></li>
 <li class="breadcrumb-item active">Изменить пользователя</li>
+{% endblock %}
+
+{% block content %}
+<div class="row col" style="margin-top: 50px; padding-bottom: 100px;">
+  <div class="col-md-4 mx-auto">
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{ form|crispy }}
+        <div class="container text-center mt-4">
+            <input type="submit" class="btn btn-success px-5" value="Сохранить изменения" style="font-size: 20px;">
+        </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

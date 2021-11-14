@@ -74,8 +74,55 @@ class SignUpForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={
                 'placeholder': 'example@email.com',
             }),
-            'phone': forms.NumberInput(attrs={
+            'phone': forms.TextInput(attrs={
                 'placeholder': '095-123-45-15',
+            }),
+            'first_name': forms.TextInput(attrs={
+                'placeholder': 'Иван',
+            }),
+            'last_name': forms.TextInput(attrs={
+                'placeholder': 'Иванов',
+            }),
+            'gender': forms.Select(attrs={
+                'class': 'custom-select mr-sm-2 my-2',
+            }),
+            'language': forms.Select(attrs={
+                'class': 'custom-select mr-sm-2 my-2',
+            }),
+            'birth_date': forms.DateInput(format=('%Y-%m-%d'), attrs={
+                'type': 'date',
+                'class': 'form-control mb-2',
+            }),
+            'address': forms.TextInput(attrs={
+                'placeholder': 'Приморский район, ул. Екатерининская, 156',
+            }),
+        }
+
+
+class UserUpdateForm(forms.ModelForm):
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if CustomUser.objects.exclude(pk=self.instance.pk).filter(username=username).exists():
+            raise forms.ValidationError('Выбраный логин уже занят')
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if CustomUser.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+            raise forms.ValidationError('Данная почта уже привязана к другой учетной записи')
+        return email
+
+    def clean(self):
+        return self.cleaned_data
+
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'phone',
+                  'first_name', 'last_name', 'gender', 'language', 'birth_date', 'address', )
+        widgets = {
+            'phone': forms.TextInput(attrs={
+                'placeholder': '',
             }),
             'first_name': forms.TextInput(attrs={
                 'placeholder': 'Иван',

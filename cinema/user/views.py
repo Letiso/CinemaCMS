@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.views.generic import View
+from django.views.generic import View, UpdateView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import CustomUser
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm, SignUpForm, UserUpdateForm
 
 
 class LoginView(View):
@@ -73,3 +74,11 @@ class SignUpView(View):
 def user_account(request):
     context = {}
     return render(request, 'user/account.html', context)
+
+
+class UserUpdateView(UpdateView):
+    model = CustomUser
+    template_name = 'admin/users/update.html'
+    success_url = '/admin/users'
+
+    form_class = UserUpdateForm
