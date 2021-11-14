@@ -18,9 +18,14 @@ from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
 
+from decorator_include import decorator_include
+
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.admin.views.decorators import user_passes_test
+
 urlpatterns = [
     path('', include('main.urls')),
-    path('admin/', include('admin.urls')),
+    path('admin/', decorator_include(staff_member_required(login_url='/user/login'), include('admin.urls'))),
     path('user/', include('user.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
