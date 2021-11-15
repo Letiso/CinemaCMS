@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.views.generic import View, UpdateView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import CustomUser
 from .forms import LoginForm, SignUpForm, UserUpdateForm
@@ -77,8 +76,9 @@ def user_account(request):
 
 
 class UserUpdateView(UpdateView):
+
     model = CustomUser
-    template_name = 'admin/users/update.html'
-    success_url = '/admin/users'
+    template_name = 'user/update.html'
+    success_url = '/'
 
     form_class = UserUpdateForm

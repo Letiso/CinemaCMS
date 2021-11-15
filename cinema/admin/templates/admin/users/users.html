@@ -19,123 +19,113 @@
 {% if user.is_superuser %}
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col">
-
-            <div class="card">
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                     <tr>
-                         {% for field in fields %}
-                         <th>{{ field }}</th>
-                         {% endfor %}
-                     </tr>
-                  </thead>
-                  <tbody>
-                    {% for user in users %}
-                      <tr>
-                          <td>{{ user.id}}</td>
-                          <td>{{ user.username}}</td>
-                          <td>{{ user.email}}</td>
-                          <td>
-                              {% if user.phone %}
-                              +38{{ user.phone}}
+        <div class="card">
+          <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+                 <tr>
+                     {% for field in fields %}
+                     <th>{{ field }}</th>
+                     {% endfor %}
+                 </tr>
+              </thead>
+              <tbody>
+                {% for user in users %}
+                  <tr>
+                      <td>{{ user.id}}</td>
+                      <td>{{ user.username}}</td>
+                      <td>{{ user.email}}</td>
+                      <td>
+                          {% if user.phone %}
+                          +38{{ user.phone}}
+                          {% else %}
+                          <div class="row">
+                            <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                          </div>
+                          {% endif %}
+                      </td>
+                      <td>
+                          {% if user.first_name %}
+                          {{ user.first_name}}
+                          {% else %}
+                          <div class="row">
+                            <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                          </div>
+                          {% endif %}
+                      </td>
+                      <td>
+                          {% if user.last_name %}
+                          {{ user.last_name}}
+                          {% else %}
+                          <div class="row">
+                            <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                          </div>
+                          {% endif %}
+                      </td>
+                      <td>
+                          {% if user.gender == 'm' %}
+                          <p>Мужской</p>
+                          {% elif user.gender == 'f' %}
+                          <p>Женский</p>
+                          {% endif %}
+                      </td>
+                      <td>
+                          {% if user.language == 'ru' %}
+                          <p>RU</p>
+                          {% elif user.language == 'ua' %}
+                          <p>UA</p>
+                          {% elif user.language == 'en' %}
+                          <p>EN</p>
+                          {% endif %}
+                      </td>
+                      <td>{{ user.birth_date}}</td>
+                      <td>
+                          {% if user.address %}
+                          {{ user.address}}
+                          {% else %}
+                          <div class="row">
+                            <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                          </div>
+                          {% endif %}
+                      </td>
+                      <td>{{ user.last_login}}</td>
+                      <td>{{ user.date_joined}}</td>
+                      <td>
+                          <div class="row">
+                              {% if user.is_staff %}
+                              <i class="fas fa-check text-success mx-auto mt-2"></i>
                               {% else %}
-                              <div class="row">
-                                <i class="fas fa-times text-dark mx-auto mt-2"></i>
-                              </div>
+                              <!-- space '<i> </i>' needed for filtering -->
+                              <i class="fas fa-times text-dark mx-auto mt-2"> </i>
                               {% endif %}
-                          </td>
-                          <td>
-                              {% if user.first_name %}
-                              {{ user.first_name}}
+                          </div>
+                      </td>
+                      <td>
+                          <div class="row">
+                              {% if user.is_superuser %}
+                              <i class="fas fa-check text-success mx-auto mt-2"></i>
                               {% else %}
-                              <div class="row">
-                                <i class="fas fa-times text-dark mx-auto mt-2"></i>
-                              </div>
+                              <!-- space '<i> </i>' needed for filtering -->
+                              <i class="fas fa-times text-dark mx-auto mt-2"> </i>
                               {% endif %}
-                          </td>
-                          <td>
-                              {% if user.last_name %}
-                              {{ user.last_name}}
-                              {% else %}
-                              <div class="row">
-                                <i class="fas fa-times text-dark mx-auto mt-2"></i>
-                              </div>
-                              {% endif %}
-                          </td>
-                          <td>
-                              {% if user.gender == 'm' %}
-                              <p>Мужской</p>
-                              {% elif user.gender == 'f' %}
-                              <p>Женский</p>
-                              {% endif %}
-                          </td>
-                          <td>
-                              {% if user.language == 'ru' %}
-                              <p>RU</p>
-                              {% elif user.language == 'ua' %}
-                              <p>UA</p>
-                              {% elif user.language == 'en' %}
-                              <p>EN</p>
-                              {% endif %}
-                          </td>
-                          <td>{{ user.birth_date}}</td>
-                          <td>
-                              {% if user.address %}
-                              {{ user.address}}
-                              {% else %}
-                              <div class="row">
-                                <i class="fas fa-times text-dark mx-auto mt-2"></i>
-                              </div>
-                              {% endif %}
-                          </td>
-                          <td>{{ user.last_login}}</td>
-                          <td>{{ user.date_joined}}</td>
-                          <td>
-                              <div class="row">
-                                  {% if user.is_staff %}
-                                  <i class="fas fa-check text-success mx-auto mt-2"></i>
-                                  {% else %}
-                                  <!-- space '<i> </i>' needed for filtering -->
-                                  <i class="fas fa-times text-dark mx-auto mt-2"> </i>
-                                  {% endif %}
-                              </div>
-                          </td>
-                          <td>
-                              <div class="row">
-                                  {% if user.is_superuser %}
-                                  <i class="fas fa-check text-success mx-auto mt-2"></i>
-                                  {% else %}
-                                  <!-- space '<i> </i>' needed for filtering -->
-                                  <i class="fas fa-times text-dark mx-auto mt-2"> </i>
-                                  {% endif %}
-                              </div>
-                          </td>
-                          <td>
-                              <div class="row buttons">
-                                  <a href="{% url 'update_user' user.pk %}"
-                                     class="fas fa-pen text-primary mx-auto my-3"></a>
-                                  <a href="{% url 'delete_user' user.pk %}"
-                                     class="fas fa-minus-circle text-danger ml-2 mr-auto my-3"></a>
-                              </div>
-                          </td>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+                          </div>
+                      </td>
+                      <td>
+                          <div class="row buttons">
+                              <a href="{% url 'update_user' user.pk %}"
+                                 class="fas fa-pen text-primary mx-auto my-3"></a>
+                              <a href="{% url 'delete_user' user.pk %}"
+                                 class="fas fa-minus-circle text-danger ml-2 mr-auto my-3"></a>
+                          </div>
+                      </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
-          <!-- /.col -->
+          <!-- /.card-body -->
         </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
+        <!-- /.card -->
     </section>
     <!-- /.content -->
 {% else %}

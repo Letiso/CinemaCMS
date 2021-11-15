@@ -1,0 +1,19 @@
+{% extends 'main/main_layout.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Изменить данные{% endblock %}
+
+{% block content %}
+<div class="row " style="margin-top: 100px; margin-bottom: 100px;">
+  <div class="col-md-3 mx-auto">
+    <h3 class="text-center">Изменить данные</h3>
+    <hr>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" class="btn btn-primary px-5" value="Сохранить">
+    </form>
+  </div>
+</div>
+{% endblock %}
