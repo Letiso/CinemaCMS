@@ -165,14 +165,14 @@
                      data-toggle="dropdown"
                      aria-haspopup="true"
                      aria-expanded="false">
-                    Здравствуйте, <span class="badge badge-success" style="text-decoration: none; font-size: 16px; color: #fff;">
+                    Здравствуйте, <span class="badge badge-success" style="text-decoration: none; font-size: 18px; color: #fff;">
                       {{ user.username }}
                     </span></a>
 
                   <div class="dropdown-menu dropdown-menu-right"
                        aria-labelledby="langDropdown">
                     <a class="dropdown-item"
-                       href="{% url 'update_account' user.pk %}">Изменить данные</a>
+                       href="{% url 'update_account' user.pk %}">Изменить мои данные</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item"
                        href="#">Мои билеты</a>

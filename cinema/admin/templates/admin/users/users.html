@@ -32,12 +32,12 @@
               <tbody>
                 {% for user in users %}
                   <tr>
-                      <td>{{ user.id}}</td>
-                      <td>{{ user.username}}</td>
-                      <td>{{ user.email}}</td>
+                      <td>{{ user.id }}</td>
+                      <td>{{ user.username }}</td>
+                      <td>{{ user.email }}</td>
                       <td>
                           {% if user.phone %}
-                          +38{{ user.phone}}
+                          +38{{ user.phone }}
                           {% else %}
                           <div class="row">
                             <i class="fas fa-times text-dark mx-auto mt-2"></i>
@@ -46,7 +46,7 @@
                       </td>
                       <td>
                           {% if user.first_name %}
-                          {{ user.first_name}}
+                          {{ user.first_name }}
                           {% else %}
                           <div class="row">
                             <i class="fas fa-times text-dark mx-auto mt-2"></i>
@@ -55,7 +55,7 @@
                       </td>
                       <td>
                           {% if user.last_name %}
-                          {{ user.last_name}}
+                          {{ user.last_name }}
                           {% else %}
                           <div class="row">
                             <i class="fas fa-times text-dark mx-auto mt-2"></i>
@@ -78,18 +78,18 @@
                           <p>EN</p>
                           {% endif %}
                       </td>
-                      <td>{{ user.birth_date}}</td>
+                      <td>{{ user.birth_date }}</td>
                       <td>
                           {% if user.address %}
-                          {{ user.address}}
+                          {{ user.address }}
                           {% else %}
                           <div class="row">
                             <i class="fas fa-times text-dark mx-auto mt-2"></i>
                           </div>
                           {% endif %}
                       </td>
-                      <td>{{ user.last_login}}</td>
-                      <td>{{ user.date_joined}}</td>
+                      <td>{{ user.last_login }}</td>
+                      <td>{{ user.date_joined }}</td>
                       <td>
                           <div class="row">
                               {% if user.is_staff %}
