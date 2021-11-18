@@ -1,7 +1,10 @@
 from django import forms
-from django.contrib.auth import get_user_model
-from user.forms import UserUpdateForm
+from user.forms import UserUpdateForm  # , UpdateUserProfileForm
+
+from copy import copy
 
 
-class FullUserUpdateForm(UserUpdateForm):
-    UserUpdateForm.Meta.fields += ('is_staff', 'is_superuser')
+class ExtendedUserUpdateForm(UserUpdateForm):
+
+    Meta = copy(UserUpdateForm.Meta)
+    Meta.fields += ('is_staff', 'is_superuser')

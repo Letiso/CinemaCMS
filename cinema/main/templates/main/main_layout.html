@@ -16,9 +16,26 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{% static 'main/css/main_layout.css' %}">
     {% block stylesheets %}
+
     {% endblock %}
   </head>
   <body class="mb-5">
+    <!-- Banner above navbar-->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+<!--        {% for banner in banners %}-->
+        <div class="carousel-item">
+          <img class="d-block w-100" src="..." alt="">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="..." alt="">
+        </div>
+<!--        {% endfor %}-->
+      </div>
+    </div>
+    <!-- end of banner-->
+
+    <!-- Navbar-->
     <nav class="nav navbar-default navbar-expand-lg navbar-light bg-dark pt-2 mb-4">
 
       <div class="navbar col-lg-2">

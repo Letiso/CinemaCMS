@@ -25,7 +25,7 @@
               <thead>
                  <tr>
                      {% for field in fields %}
-                     <th>{{ field }}</th>
+                        <th>{{ field }}</th>
                      {% endfor %}
                  </tr>
               </thead>
@@ -39,8 +39,8 @@
                           {% if user.phone %}
                           +38{{ user.phone }}
                           {% else %}
-                          <div class="row">
-                            <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                          <div class="text-center">
+                            <i class="fas fa-times text-dark"></i>
                           </div>
                           {% endif %}
                       </td>
@@ -48,8 +48,8 @@
                           {% if user.first_name %}
                           {{ user.first_name }}
                           {% else %}
-                          <div class="row">
-                            <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                          <div class="text-center">
+                            <i class="fas fa-times text-dark"></i>
                           </div>
                           {% endif %}
                       </td>
@@ -57,8 +57,8 @@
                           {% if user.last_name %}
                           {{ user.last_name }}
                           {% else %}
-                          <div class="row">
-                            <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                          <div class="text-center">
+                            <i class="fas fa-times text-dark"></i>
                           </div>
                           {% endif %}
                       </td>
@@ -83,39 +83,39 @@
                           {% if user.address %}
                           {{ user.address }}
                           {% else %}
-                          <div class="row">
-                            <i class="fas fa-times text-dark mx-auto mt-2"></i>
+                          <div class="text-center">
+                            <i class="fas fa-times text-dark"></i>
                           </div>
                           {% endif %}
                       </td>
                       <td>{{ user.last_login }}</td>
                       <td>{{ user.date_joined }}</td>
                       <td>
-                          <div class="row">
+                          <div class="text-center">
                               {% if user.is_staff %}
-                              <i class="fas fa-check text-success mx-auto mt-2"></i>
+                              <i class="fas fa-check text-success"></i>
                               {% else %}
                               <!-- space '<i> </i>' needed for filtering -->
-                              <i class="fas fa-times text-dark mx-auto mt-2"> </i>
+                              <i class="fas fa-times text-dark"> </i>
                               {% endif %}
                           </div>
                       </td>
                       <td>
-                          <div class="row">
+                          <div class="text-center">
                               {% if user.is_superuser %}
-                              <i class="fas fa-check text-success mx-auto mt-2"></i>
+                              <i class="fas fa-check text-success"></i>
                               {% else %}
                               <!-- space '<i> </i>' needed for filtering -->
-                              <i class="fas fa-times text-dark mx-auto mt-2"> </i>
+                              <i class="fas fa-times text-dark"> </i>
                               {% endif %}
                           </div>
                       </td>
                       <td>
                           <div class="row buttons">
                               <a href="{% url 'update_user' user.pk %}"
-                                 class="fas fa-pen text-primary mx-auto my-3"></a>
+                                 class="fas fa-pen text-primary mx-auto"></a>
                               <a href="{% url 'delete_user' user.pk %}"
-                                 class="fas fa-minus-circle text-danger ml-2 mr-auto my-3"></a>
+                                 class="fas fa-minus-circle text-danger ml-2 mr-auto"></a>
                           </div>
                       </td>
                   </tr>

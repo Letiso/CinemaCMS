@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import UpdateView, DeleteView
 from django.contrib.auth import get_user_model
-from .forms import FullUserUpdateForm
+from .forms import ExtendedUserUpdateForm  # , UpdateUserProfileForm
 
 
 def statistics(request):
@@ -70,7 +70,7 @@ class UserUpdateView(UpdateView):
     success_url = '/admin/users'
     template_name = 'admin/users/update.html'
 
-    form_class = FullUserUpdateForm
+    form_class = ExtendedUserUpdateForm
 
 
 class UserDeleteView(DeleteView):
@@ -79,7 +79,7 @@ class UserDeleteView(DeleteView):
 
     def get(self, request, *args, **kwargs):
         context = {
-            'username': self.model.objects.get(pk=request.path.split('/')[-2]).username,
+            'username': self.model.objects.get(pk=kwargs['pk']).username,
         }
         return render(request, 'admin/users/delete.html', context)
 

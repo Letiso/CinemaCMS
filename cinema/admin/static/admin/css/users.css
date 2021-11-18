@@ -1,7 +1,11 @@
-.row i {
+.text-center i {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
     font-size: 25px;
 }
 
 .buttons a {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
     font-size: 19px;
 }

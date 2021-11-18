@@ -50,18 +50,8 @@ class SignUpView(View):
     def post(request):
         form = SignUpForm(request.POST or None)
         if form.is_valid():
-            new_user = CustomUser.objects.create_user(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password'],
-                email=form.cleaned_data['email'],
-                phone=form.cleaned_data['phone'],
-                first_name=form.cleaned_data['first_name'],
-                last_name=form.cleaned_data['last_name'],
-                gender=form.cleaned_data['gender'],
-                language=form.cleaned_data['language'],
-                birth_date=form.cleaned_data['birth_date'],
-                address=form.cleaned_data['address'],
-            )
+            del form.cleaned_data['confirm_password']
+            new_user = CustomUser.objects.create_user(**form.cleaned_data)
             login(request, new_user)
             return HttpResponseRedirect('/')
         context = {

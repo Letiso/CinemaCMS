@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import CustomUser
+from .models import CustomUser  # , CustomUserProfile
 
 
 class LoginForm(forms.ModelForm):
@@ -89,7 +89,7 @@ class SignUpForm(forms.ModelForm):
             'language': forms.Select(attrs={
                 'class': 'custom-select mr-sm-2 my-2',
             }),
-            'birth_date': forms.DateInput(format=('%Y-%m-%d'), attrs={
+            'birth_date': forms.DateInput(format='%Y-%m-%d', attrs={
                 'type': 'date',
                 'class': 'form-control mb-2',
             }),
@@ -119,7 +119,7 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'phone',
-                  'first_name', 'last_name', 'gender', 'language', 'birth_date', 'address', )
+                  'first_name', 'last_name', 'gender', 'language', 'birth_date', 'address')
         widgets = {
             'phone': forms.TextInput(attrs={
                 'placeholder': '',
@@ -144,3 +144,28 @@ class UserUpdateForm(forms.ModelForm):
                 'placeholder': 'Приморский район, ул. Екатерининская, 156',
             }),
         }
+
+
+# class UpdateUserProfileForm(forms.ModelForm):
+#     model = CustomUserProfile
+#
+#     def clean_photo(self):
+#         avatar_raw = self.data['avatar']
+#         avatar = self.cleaned_data['avatar']
+#         print(avatar, avatar_raw)
+#         print(avatar, avatar_raw)
+#
+#     def clean(self):
+#         return self.cleaned_data
+#
+#     class Meta:
+#         fields = ('avatar',)
+#
+#         widgets = {
+#             'avatar': forms.FileInput(attrs={
+#                 # 'id': 'actual-btn',
+#                 'enctype': 'multipart/form-data',
+#                 'method': 'post',
+#                 # 'hidden': True,
+#             }),
+#         }
