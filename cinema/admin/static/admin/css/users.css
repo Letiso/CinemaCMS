@@ -1,13 +1,14 @@
-.text-center i, .buttons a {
+table .fas {
     margin-top: 2vh;
     margin-bottom: 2vh;
+    cursor: pointer;
 }
 
-.text-center i{
+.text-center i.fas{
     font-size: 25px;
 }
 
-.buttons a {
+.buttons a.fas {
     font-size: 19px;
 }
 

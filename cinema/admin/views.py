@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.views.generic import UpdateView, DeleteView
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import UpdateView, DeleteView, View
 from django.contrib.auth import get_user_model
 from .forms import ExtendedUserUpdateForm  # , UpdateUserProfileForm
 
@@ -84,10 +84,14 @@ class UserUpdateView(UpdateView):
     form_class = ExtendedUserUpdateForm
 
 
-class UserDeleteView(DeleteView):
-    model = get_user_model()
-    success_url = '/admin/users'
-    template_name = 'admin/users/delete.html'
+class UserDeleteView(View):
+
+    @staticmethod
+    def get(request, pk):
+        model = get_user_model()
+        user_to_delete = get_object_or_404(model, pk=pk)
+        user_to_delete.delete()
+        return redirect('users')
 
 
 def mailing(request):

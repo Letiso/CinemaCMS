@@ -20,7 +20,7 @@
     <!-- Main content -->
     <div class="card">
       <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
+        <table id="usersList" class="table table-bordered table-striped">
           <thead>
              <tr>
                  {% for field in fields %}
@@ -36,11 +36,40 @@
                       <div class="row buttons">
                           <a href="{% url 'update_user' user.pk %}"
                              class="fas fa-pen text-primary mx-auto"></a>
-                          <a href="{% url 'delete_user' user.pk %}"
-                             class="fas fa-minus-circle text-danger ml-2 mr-auto"></a>
                           <!-- Button trigger modal -->
-                          <a type="button" class="fas fa-minus-circle text-danger ml-2 mr-auto"
-                             data-toggle="modal" data-target="#exampleModalCenter"></a>
+                          <a class="fas fa-minus-circle text-danger ml-2 mr-auto"
+                             data-toggle="modal" data-target="#deleteUserModal-{{ forloop.counter }}"></a>
+                          <!-- Modal -->
+                        <div class="modal fade" id="deleteUserModal-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle-{{ forloop.counter }}">
+                                    Подтверждение удаления
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body text-center">
+                                <span style="font-size: 20px;">
+                                    Вы уверены, что хотите удалить этого пользователя?
+                                </span>
+                                <span class="text-primary" style="font-size: 35px;">
+                                    {{ user.username }}
+                                </span>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Назад
+                                </button>
+                                  <a href="{% url 'delete_user' user.pk %}" class="btn btn-danger">
+                                      Удалить учетную запись
+                                  </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                   </td>
                   <td>{{ user.username }}</td>
@@ -130,32 +159,6 @@
     <!-- /.card -->
     <!-- /.content -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Назад
-        </button>
-          <form action="" method="POST">
-            {% csrf_token %}
-            <input type="submit" class="btn btn-danger px-5" value="Удалить учетную запись">
-          </form>
-
-      </div>
-    </div>
-  </div>
-</div>
 {% else %}
 <div class="card row bg-dark" style="margin-top: 200px;">
     <p class="text-light mx-auto mt-3" style="font-size: 40px;">Требуется статус администратора</p>
@@ -169,9 +172,9 @@
 <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 <script>
   $(function () {
-    $("#example1").DataTable({
+    $("#usersList").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#usersList_wrapper .col-md-6:eq(0)');
   });
 </script>
 {% endblock %}
