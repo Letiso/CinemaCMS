@@ -12,4 +12,7 @@
 
 .card-body {
     overflow-x: scroll;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vw;
 }

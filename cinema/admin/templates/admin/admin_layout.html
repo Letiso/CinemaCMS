@@ -207,7 +207,7 @@
           <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
         </div>
         <!-- Content Header (Page header) -->
-      <section class="content-header">
+      <section class="content-header pt-4">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
@@ -223,9 +223,11 @@
           </div>
         </div><!-- /.container-fluid -->
       </section>
+        <section class="content pb-5">
         {% block content %}
 
         {% endblock %}
+        </section>
       </div>
       <!-- /.content-wrapper -->
 
