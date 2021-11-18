@@ -9,3 +9,7 @@
     margin-bottom: 2vh;
     font-size: 19px;
 }
+
+.card-body {
+    overflow-x: scroll;
+}

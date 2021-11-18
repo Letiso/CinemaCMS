@@ -33,6 +33,14 @@
                 {% for user in users %}
                   <tr>
                       <td>{{ user.id }}</td>
+                      <td>
+                          <div class="row buttons">
+                              <a href="{% url 'update_user' user.pk %}"
+                                 class="fas fa-pen text-primary mx-auto"></a>
+                              <a href="{% url 'delete_user' user.pk %}"
+                                 class="fas fa-minus-circle text-danger ml-2 mr-auto"></a>
+                          </div>
+                      </td>
                       <td>{{ user.username }}</td>
                       <td>{{ user.email }}</td>
                       <td>
@@ -108,14 +116,6 @@
                               <!-- space '<i> </i>' needed for filtering -->
                               <i class="fas fa-times text-dark"> </i>
                               {% endif %}
-                          </div>
-                      </td>
-                      <td>
-                          <div class="row buttons">
-                              <a href="{% url 'update_user' user.pk %}"
-                                 class="fas fa-pen text-primary mx-auto"></a>
-                              <a href="{% url 'delete_user' user.pk %}"
-                                 class="fas fa-minus-circle text-danger ml-2 mr-auto"></a>
                           </div>
                       </td>
                   </tr>
