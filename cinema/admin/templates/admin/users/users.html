@@ -38,6 +38,9 @@
                              class="fas fa-pen text-primary mx-auto"></a>
                           <a href="{% url 'delete_user' user.pk %}"
                              class="fas fa-minus-circle text-danger ml-2 mr-auto"></a>
+                          <!-- Button trigger modal -->
+                          <a type="button" class="fas fa-minus-circle text-danger ml-2 mr-auto"
+                             data-toggle="modal" data-target="#exampleModalCenter"></a>
                       </div>
                   </td>
                   <td>{{ user.username }}</td>
@@ -126,6 +129,33 @@
     </div>
     <!-- /.card -->
     <!-- /.content -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Назад
+        </button>
+          <form action="" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-danger px-5" value="Удалить учетную запись">
+          </form>
+
+      </div>
+    </div>
+  </div>
+</div>
 {% else %}
 <div class="card row bg-dark" style="margin-top: 200px;">
     <p class="text-light mx-auto mt-3" style="font-size: 40px;">Требуется статус администратора</p>

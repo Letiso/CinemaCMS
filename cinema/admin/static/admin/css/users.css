@@ -1,12 +1,13 @@
-.text-center i {
+.text-center i, .buttons a {
     margin-top: 2vh;
     margin-bottom: 2vh;
+}
+
+.text-center i{
     font-size: 25px;
 }
 
 .buttons a {
-    margin-top: 2vh;
-    margin-bottom: 2vh;
     font-size: 19px;
 }
 

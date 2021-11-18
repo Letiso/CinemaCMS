@@ -53,6 +53,17 @@ def pages(request):
     return render(request, 'admin/pages.html', context)
 
 
+# def users(request):
+#     context = {
+#         'title': 'Пользователи',
+#         'fields': ['ID', 'Ред./Удал.','Логин', 'Email', 'Номер телефона',
+#                    'Имя', 'Фамилия', 'Пол', 'Язык', 'Дата рождения', 'Адрес', 'Был(а)',
+#                    'Регистрация', 'Сотрудник', 'Админ', ],
+#         'users': get_user_model().objects.all(),
+#     }
+#
+#     return render(request, 'admin/users/users.html', context)
+
 def users(request):
     context = {
         'title': 'Пользователи',
@@ -76,12 +87,7 @@ class UserUpdateView(UpdateView):
 class UserDeleteView(DeleteView):
     model = get_user_model()
     success_url = '/admin/users'
-
-    def get(self, request, *args, **kwargs):
-        context = {
-            'username': self.model.objects.get(pk=kwargs['pk']).username,
-        }
-        return render(request, 'admin/users/delete.html', context)
+    template_name = 'admin/users/delete.html'
 
 
 def mailing(request):
