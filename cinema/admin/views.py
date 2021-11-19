@@ -12,10 +12,8 @@ def statistics(request):
 
 
 def banners(request):
-    context = {
-        'title': 'Банеры',
-    }
-    return render(request, 'admin/banners.html', context)
+    context = {}
+    return render(request, 'admin/banners/index.html', context)
 
 
 def movies(request):

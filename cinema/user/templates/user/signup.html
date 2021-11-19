@@ -16,34 +16,11 @@
     <form action="" method="POST">
       {% csrf_token %}
       {% for field in form %}
-        {% if field.name != 'photo' %}
-          {{ field|as_crispy_field }}
-        {% else %}
-      <div style="display:block;">
-        <div class="text-center mt-5">
-          <span id="file-chosen">Файл не выбран</span>
-        </div>
-        <div class="text-center">
-          <!-- actual upload which is hidden -->
-          {{ field }}
-          <!-- our custom upload button -->
-          <label for="actual-btn" class="badge badge-pill badge-primary my-3 label">Выбрать файл</label>
-          <!-- name of file chosen -->
-        </div>
-      </div>
-        {% endif %}
+        {{ field|as_crispy_field }}
       {% endfor %}
       <input type="submit" class="btn btn-primary px-5" value="Зарегистрироваться">
     </form>
   </div>
 </div>
-<!--<script>-->
-<!--const actualBtn = document.getElementById('actual-btn');-->
 
-<!--const fileChosen = document.getElementById('file-chosen');-->
-
-<!--actualBtn.addEventListener('change', function(){-->
-<!--  fileChosen.textContent = this.files[0].name-->
-<!--})-->
-<!--</script>-->
 {% endblock %}
