@@ -14,165 +14,87 @@
 
 
 {% block content %}
-<!-- Main top banner -->
-<div class="row">
-    <section class="col-12 mx-auto">
-        <div class="container-fluid mt-3">
-            <!-- Section header -->
-            <div class="row content-header mb-2">
-                <h1 class="mx-auto">Баннеры на главной странице</h1>
+<div class="card mx-4">
+  <div class="card-header d-flex mt-2">
+    <h4 class="col-11 text-center">
+        На главной верх
+    </h4>
+    <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseTopBanner" role="button" aria-expanded="false" aria-controls="collapseTopBanner">
+    <i class="fas fa-bars" style="font-size: 22px;"></i>
+    </a>
+  </div>
+    <div class="collapse" id="collapseTopBanner">
+        <div class="card-body mx-5 mt-1">
+            <div class="row justify-content-start">
+                <h5>Размер: 1000x190</h5>
             </div>
-            <!-- Cards -->
-            <div class="row justify-content-around my-4">
-                <div class="card card-purple col-3">
-                    <!-- Banners header -->
-                    <div class="card-header row">
-                        <h3 class="card-title">Баннер</h3>
-                        <div class="card-tools ml-auto">
-                          <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                          </button>
-                </div>
-                  </div>
-                  <!-- form start -->
-                  <form>
-                    <div class="card-body">
-                        <img src="{% static 'img/kong_skull_island.png' %}" alt="thumbnail" class="img-thumbnail">
-
-                      <div class="form-group mt-3">
-                        <div class="input-group">
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="fileChose1">
-                              <label class="custom-file-label" for="fileChose1">Выберите файл</label>
-                            </div>
-                        </div>
-                        <div class="input-group mt-3">
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon31">Можно url</span>
-                              </div>
-                              <input type="text" class="form-control" id="basic-url1" aria-describedby="basic-addon31">
-                            </div>
-                            <div class="input-group mt-2 mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon312">Описание</span>
-                              </div>
-                              <input type="text" class="form-control" id="basic-url21" aria-describedby="basic-addon31">
-                            </div>
-                        </div>
-                        <div class="row">
-                          <button type="submit" class="btn btn-primary mx-auto">Обновить</button>
-                        </div>
-                      </div>
-
-                    </div>
-                    <!-- /.card-body -->
-                  </form>
-                </div>
+            <div class="row justify-content-center mt-3 mb-5">
+                Место под карточки
+            </div>
+            <div class="row justify-content-around mb-2">
+                <p>Скорость вращения</p>
+                <button class="btn btn-success">Сохранить изменения</button>
+                <span class="col-1"></span>
             </div>
         </div>
-    </section>
-    <!-- end of main top banner section-->
-    <section class="col-12 mx-auto">
-        <!-- Section header -->
-        <div class="row border border-dark">
-            <div class="col-12 row content-header my-2">
-                <h1 class="mx-auto">Сквозной баннер на заднем фоне</h1>
-            </div>
-            <div class="card card-dark col-6 mt-2 mb-5 mx-auto">
-                    <div class="row card-header">
-                        <h3 class="card-title">Баннер</h3>
-                        <div class="card-tools ml-auto">
-                          <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                          </button>
-                        </div>
-                    </div>
-                  <!-- form start -->
-                  <form>
-                    <div class="card-body">
-                        <img src="{% static 'img/kong_skull_island.png' %}" alt="thumbnail" class="img-thumbnail">
-
-                      <div class="form-group mt-3">
-                        <div class="input-group">
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="fileChose55">
-                              <label class="custom-file-label" for="fileChose55">Выберите файл</label>
-                            </div>
-                        </div>
-                        <div class="input-group mt-3">
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon355">или url</span>
-                              </div>
-                              <input type="text" class="form-control" id="basic-url55" aria-describedby="basic-addon33">
-                            </div>
-                        </div>
-                        <div class="row">
-                          <button type="submit" class="btn btn-primary mx-auto">Обновить</button>
-                        </div>
-                      </div>
-
-                    </div>
-                    <!-- /.card-body -->
-                  </form>
-                </div>
-
-        </div>
-    </section>
-    <!-- end of main top banner section-->
-    <section class="col-12 mx-auto">
-        <div class="container-fluid mb-3">
-            <!-- Section header -->
-            <div class="row content-header my-2">
-                <h1 class="mx-auto">Новости и акции</h1>
-            </div>
-            <!-- Cards -->
-            <div class="row justify-content-around my-4">
-                <div class="card card-purple col-3">
-                    <!-- Banners header -->
-                    <div class="card-header row">
-                        <h3 class="card-title">Акция</h3>
-                        <div class="card-tools ml-auto">
-                          <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                          </button>
-                </div>
-                  </div>
-                  <!-- form start -->
-                  <form>
-                    <div class="card-body">
-                        <img src="{% static 'img/promotion.png' %}" alt="thumbnail" class="img-thumbnail">
-
-                      <div class="form-group mt-3">
-                        <div class="input-group">
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="fileChose122">
-                              <label class="custom-file-label" for="fileChose1">Выберите файл</label>
-                            </div>
-                        </div>
-                        <div class="input-group mt-3">
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon3121">Можно url</span>
-                              </div>
-                              <input type="text" class="form-control" id="basic-url12" aria-describedby="basic-addon31">
-                            </div>
-                        </div>
-                        <div class="row">
-                          <button type="submit" class="btn btn-primary mx-auto">Обновить</button>
-                        </div>
-                      </div>
-
-                    </div>
-                    <!-- /.card-body -->
-                  </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- end of main top banner section -->
+        <!-- /.card-body -->
+    </div>
 </div>
+<!-- /.card -->
+<div class="card mx-4">
+  <div class="card-header d-flex mt-2">
+    <h4 class="col-11 text-center">
+        На главной фон
+    </h4>
+    <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseBackgroundBanner" role="button" aria-expanded="false" aria-controls="collapseBackgroundBanner">
+    <i class="fas fa-bars" style="font-size: 22px;"></i>
+    </a>
+  </div>
+    <div class="collapse" id="collapseBackgroundBanner">
+        <div class="card-body mx-5 mt-1">
+            <div class="row justify-content-start">
+                <h5>Размер: 2000x3000</h5>
+            </div>
+            <div class="row justify-content-center mt-3 mb-5">
+                Место под карточки
+            </div>
+            <div class="row justify-content-around mb-2">
+                <p>Скорость вращения</p>
+                <button class="btn btn-success">Сохранить изменения</button>
+                <span class="col-1"></span>
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+</div>
+<!-- /.card -->
+<div class="card mx-4">
+  <div class="card-header d-flex mt-2">
+    <h4 class="col-11 text-center">
+        На главной Новости | Акции
+    </h4>
+    <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseNewsBanner" role="button" aria-expanded="false" aria-controls="collapseNewsBanner">
+    <i class="fas fa-bars" style="font-size: 22px;"></i>
+    </a>
+  </div>
+    <div class="collapse" id="collapseNewsBanner">
+        <div class="card-body mx-5 mt-1">
+            <div class="row justify-content-start">
+                <h5>Размер: 1000x190</h5>
+            </div>
+            <div class="row justify-content-center mt-3 mb-5">
+                Место под карточки
+            </div>
+            <div class="row justify-content-around mb-2">
+                <p>Скорость вращения</p>
+                <button class="btn btn-success">Сохранить изменения</button>
+                <span class="col-1"></span>
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+</div>
+<!-- /.card -->
 {% endblock %}
 
 {% block scripts %}

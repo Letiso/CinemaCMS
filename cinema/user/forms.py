@@ -144,28 +144,3 @@ class UserUpdateForm(forms.ModelForm):
                 'placeholder': 'Приморский район, ул. Екатерининская, 156',
             }),
         }
-
-
-# class UpdateUserProfileForm(forms.ModelForm):
-#     model = CustomUserProfile
-#
-#     def clean_photo(self):
-#         avatar_raw = self.data['avatar']
-#         avatar = self.cleaned_data['avatar']
-#         print(avatar, avatar_raw)
-#         print(avatar, avatar_raw)
-#
-#     def clean(self):
-#         return self.cleaned_data
-#
-#     class Meta:
-#         fields = ('avatar',)
-#
-#         widgets = {
-#             'avatar': forms.FileInput(attrs={
-#                 # 'id': 'actual-btn',
-#                 'enctype': 'multipart/form-data',
-#                 'method': 'post',
-#                 # 'hidden': True,
-#             }),
-#         }

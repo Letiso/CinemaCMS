@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import UpdateView, DeleteView, View
+from django.views.generic import UpdateView, View
 from django.contrib.auth import get_user_model
-from .forms import ExtendedUserUpdateForm  # , UpdateUserProfileForm
+from .forms import ExtendedUserUpdateForm
 
 
 def statistics(request):
@@ -53,21 +53,10 @@ def pages(request):
     return render(request, 'admin/pages.html', context)
 
 
-# def users(request):
-#     context = {
-#         'title': 'Пользователи',
-#         'fields': ['ID', 'Ред./Удал.','Логин', 'Email', 'Номер телефона',
-#                    'Имя', 'Фамилия', 'Пол', 'Язык', 'Дата рождения', 'Адрес', 'Был(а)',
-#                    'Регистрация', 'Сотрудник', 'Админ', ],
-#         'users': get_user_model().objects.all(),
-#     }
-#
-#     return render(request, 'admin/users/users.html', context)
-
 def users(request):
     context = {
         'title': 'Пользователи',
-        'fields': ['ID', 'Ред./Удал.','Логин', 'Email', 'Номер телефона',
+        'fields': ['ID', 'Ред./Удал.', 'Логин', 'Email', 'Номер телефона',
                    'Имя', 'Фамилия', 'Пол', 'Язык', 'Дата рождения', 'Адрес', 'Был(а)',
                    'Регистрация', 'Сотрудник', 'Админ', ],
         'users': get_user_model().objects.all(),

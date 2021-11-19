@@ -1,5 +1,6 @@
 from django import forms
-from user.forms import UserUpdateForm  # , UpdateUserProfileForm
+from user.forms import UserUpdateForm
+
 
 from copy import copy
 
