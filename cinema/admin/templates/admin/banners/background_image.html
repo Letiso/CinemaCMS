@@ -1,3 +1,5 @@
+{% load crispy_forms_tags %}
+
 <div class="card mx-4">
   <div class="card-header d-flex mt-2">
     <h4 class="col-11 text-center">
@@ -13,11 +15,15 @@
                 <h5>Размер: 2000x3000</h5>
             </div>
             <div class="row justify-content-center mt-3 mb-5">
-                Место под карточки
+                <form id="background" action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ forms.background|crispy }}
+                    <div class="text-center">
+                        <button class="btn btn-success">Сохранить изменения</button>
+                    </div>
+                </form>
             </div>
-            <div class="text-center">
-                <button class="btn btn-success">Сохранить изменения</button>
-            </div>
+
         </div>
         <!-- /.card-body -->
     </div>

@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import UpdateView, View
 from django.contrib.auth import get_user_model
-from .forms import ExtendedUserUpdateForm
+from .forms import ExtendedUserUpdateForm, BackgroundImageForm
+from django.http import HttpResponseRedirect
 
 
 def statistics(request):
@@ -11,9 +12,37 @@ def statistics(request):
     return render(request, 'admin/statistics.html', context)
 
 
-def banners(request):
-    context = {}
-    return render(request, 'admin/banners/index.html', context)
+# region Banners
+class BannersView(View):
+
+    def get(self, request):
+        background_form = BackgroundImageForm(request.POST or None)
+
+        context = {
+            'forms': {
+                # 'top_banner': TopBannerForm(),
+                'background': background_form,
+            }
+        }
+
+        return render(request, 'admin/banners/index.html', context)
+
+    def post(self, request):
+        background_form = BackgroundImageForm(request.POST, request.FILES)
+
+        context = {
+            'forms': {
+                # 'top_banner': TopBannerForm(),
+                'background': background_form,
+            }
+        }
+
+        if background_form.is_valid():
+            background_form.save()
+            return HttpResponseRedirect('banners')
+
+        return render(request, 'admin/banners/index.html', context)
+# endregion Banners
 
 
 def movies(request):
@@ -51,6 +80,7 @@ def pages(request):
     return render(request, 'admin/pages.html', context)
 
 
+# region User
 def users(request):
     context = {
         'title': 'Пользователи',
@@ -79,6 +109,7 @@ class UserDeleteView(View):
         user_to_delete = get_object_or_404(model, pk=pk)
         user_to_delete.delete()
         return redirect('users')
+# endregion User
 
 
 def mailing(request):
