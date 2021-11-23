@@ -23,14 +23,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # custom libs
-    'crispy_forms',
-    'debug_toolbar',
-
     # apps
     'main.apps.MainConfig',
     'admin.apps.AdminConfig',
     'user.apps.UserConfig',
+
+    # custom libs
+    'crispy_forms',
+    'debug_toolbar',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

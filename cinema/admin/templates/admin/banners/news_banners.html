@@ -1,3 +1,6 @@
+{% load crispy_forms_tags %}
+{% load static %}
+
 <div class="card mx-4">
   <div class="card-header d-flex mt-2">
     <h4 class="col-11 text-center">
@@ -12,13 +15,15 @@
             <div class="row justify-content-start">
                 <h5>Размер: 1000x190</h5>
             </div>
-            <div class="row justify-content-center mt-3 mb-5">
-                Место под карточки
-            </div>
-            <div class="row justify-content-around mb-2">
-                <p>Скорость вращения</p>
-                <button class="btn btn-success">Сохранить изменения</button>
-                <span class="col-1"></span>
+            <div class="row justify-content-center mt-3 mb-3">
+                <form id="background" action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <img src="" alt="" style="border: 2px solid #000;">
+                    {{ forms.news_banners|crispy }}
+                    <div class="text-center mt-4">
+                        <input type="submit" class="btn btn-success" value="Сохранить изменения">
+                    </div>
+                </form>
             </div>
         </div>
         <!-- /.card-body -->

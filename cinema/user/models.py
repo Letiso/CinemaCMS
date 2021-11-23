@@ -55,7 +55,6 @@ class CustomUser(AbstractBaseUser):
         )
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
-    # profile = models.OneToOneField('CustomUserProfile', on_delete=models.CASCADE, null=True)
 
     class Meta:
         verbose_name = _('user')
@@ -71,11 +70,3 @@ class CustomUser(AbstractBaseUser):
         """
         full_name = f'{self.first_name} {self.last_name}'
         return full_name.strip()
-
-
-# class CustomUserProfile(models.Model):
-#     avatar = models.ImageField('Аватар', upload_to='user/profile/', blank=True)
-#     objects = UserManager()
-#
-#     class Meta:
-#         verbose_name = 'Профиль пользователя'

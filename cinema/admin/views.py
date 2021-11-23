@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import UpdateView, View
 from django.contrib.auth import get_user_model
-from .forms import ExtendedUserUpdateForm, BackgroundImageForm
+from .forms import ExtendedUserUpdateForm, TopBannerFormSet, BackgroundImageFormSet, NewsBannerFormSet
 from django.http import HttpResponseRedirect
 
 
@@ -16,32 +16,37 @@ def statistics(request):
 class BannersView(View):
 
     def get(self, request):
-        background_form = BackgroundImageForm(request.POST or None)
-
         context = {
             'forms': {
-                # 'top_banner': TopBannerForm(),
-                'background': background_form,
-            }
+                'top_banners': TopBannerFormSet(request.POST or None, request.FILES or None, prefix='top_banners'),
+                'background': BackgroundImageFormSet(request.POST or None, request.FILES or None, prefix='background'),
+                'news_banners': NewsBannerFormSet(request.POST or None, request.FILES or None, prefix='news_banners'),
+            },
         }
-
         return render(request, 'admin/banners/index.html', context)
 
     def post(self, request):
-        background_form = BackgroundImageForm(request.POST, request.FILES)
-
         context = {
             'forms': {
-                # 'top_banner': TopBannerForm(),
-                'background': background_form,
-            }
+                'top_banners': TopBannerFormSet(request.POST or None, request.FILES or None, prefix='top_banners'),
+                'background': BackgroundImageFormSet(request.POST or None, request.FILES or None, prefix='background'),
+                'news_banners': NewsBannerFormSet(request.POST or None, request.FILES or None, prefix='news_banners'),
+            },
         }
 
-        if background_form.is_valid():
-            background_form.save()
-            return HttpResponseRedirect('banners')
+        def get_current_form():
+            forms = list(context['forms'])
+            for key in forms:
+                if key in request.POST:
+                    return context['forms'][key]
 
+        formset = get_current_form()
+        if formset.is_valid():
+            formset.save()
+            return HttpResponseRedirect('banners')
         return render(request, 'admin/banners/index.html', context)
+
+
 # endregion Banners
 
 
@@ -109,6 +114,8 @@ class UserDeleteView(View):
         user_to_delete = get_object_or_404(model, pk=pk)
         user_to_delete.delete()
         return redirect('users')
+
+
 # endregion User
 
 

@@ -1,6 +1,7 @@
 from django import forms
 from user.forms import UserUpdateForm
-from main.models import TopBanner, BackgroundImage
+from main.models import TopBanner, BackgroundImage, NewsBanner
+from django.forms import modelformset_factory
 
 from copy import copy
 
@@ -14,16 +15,19 @@ class ExtendedUserUpdateForm(UserUpdateForm):
 
 
 # region Banners
-# class TopBannerForm(forms.ModelForm):
-#
-#     class Meta:
-#         model = TopBanner
-#         fields = ('image', 'is_active')
-#         labels = {
-#             'image': 'Баннер',
-#             'is_active': 'Вкл/Выкл.',
-#         }
-#         widgets = {}
+class TopBannerForm(forms.ModelForm):
+
+    class Meta:
+        model = TopBanner
+        fields = ('image', 'is_active')
+        labels = {
+            'image': 'Баннер',
+            'is_active': 'Вкл/Выкл.',
+        }
+        widgets = {}
+
+
+TopBannerFormSet = modelformset_factory(TopBanner, form=TopBannerForm, extra=1)
 
 
 class BackgroundImageForm(forms.ModelForm):
@@ -42,7 +46,24 @@ class BackgroundImageForm(forms.ModelForm):
         model = BackgroundImage
         fields = ('image', 'is_active')
         labels = {
+            'is_active': 'Картинка на фоне',
+        }
+
+
+BackgroundImageFormSet = modelformset_factory(BackgroundImage, form=BackgroundImageForm, extra=1, max_num=1)
+
+
+class NewsBannerForm(forms.ModelForm):
+
+    class Meta:
+        model = TopBanner
+        fields = ('image', 'is_active')
+        labels = {
             'image': 'Баннер',
             'is_active': 'Вкл/Выкл.',
         }
+        widgets = {}
+
+
+NewsBannerFormSet = modelformset_factory(NewsBanner, form=NewsBannerForm, extra=1)
 # endregion Banners
