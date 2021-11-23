@@ -27,7 +27,8 @@ class TopBannerForm(forms.ModelForm):
         widgets = {}
 
 
-TopBannerFormSet = modelformset_factory(TopBanner, form=TopBannerForm, extra=1)
+TopBannerFormSet = modelformset_factory(TopBanner, form=TopBannerForm,
+                                        extra=1)
 
 
 class BackgroundImageForm(forms.ModelForm):
@@ -35,8 +36,8 @@ class BackgroundImageForm(forms.ModelForm):
     def clean_image(self):
         image = self.cleaned_data['image']
         width, height = '1000', '190'
-        # if image.image.size != (width, height):
-        #     raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}')
+        if image.image.size != (width, height):
+            raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}')
         return image
 
     def clean(self):
@@ -50,7 +51,8 @@ class BackgroundImageForm(forms.ModelForm):
         }
 
 
-BackgroundImageFormSet = modelformset_factory(BackgroundImage, form=BackgroundImageForm, extra=1, max_num=1)
+BackgroundImageFormSet = modelformset_factory(BackgroundImage, form=BackgroundImageForm,
+                                              extra=1, max_num=1)
 
 
 class NewsBannerForm(forms.ModelForm):
@@ -65,5 +67,6 @@ class NewsBannerForm(forms.ModelForm):
         widgets = {}
 
 
-NewsBannerFormSet = modelformset_factory(NewsBanner, form=NewsBannerForm, extra=1)
+NewsBannerFormSet = modelformset_factory(NewsBanner, form=NewsBannerForm,
+                                         extra=1)
 # endregion Banners

@@ -17,33 +17,36 @@ class BannersView(View):
 
     def get(self, request):
         context = {
-            'forms': {
-                'top_banners': TopBannerFormSet(request.POST or None, request.FILES or None, prefix='top_banners'),
-                'background': BackgroundImageFormSet(request.POST or None, request.FILES or None, prefix='background'),
-                'news_banners': NewsBannerFormSet(request.POST or None, request.FILES or None, prefix='news_banners'),
+            'formsets': {
+                'top_banners': TopBannerFormSet(request.POST or None, request.FILES or None),
+                'background': BackgroundImageFormSet(request.POST or None, request.FILES or None),
+                'news_banners': NewsBannerFormSet(request.POST or None, request.FILES or None),
             },
         }
+
         return render(request, 'admin/banners/index.html', context)
 
     def post(self, request):
         context = {
-            'forms': {
-                'top_banners': TopBannerFormSet(request.POST or None, request.FILES or None, prefix='top_banners'),
-                'background': BackgroundImageFormSet(request.POST or None, request.FILES or None, prefix='background'),
-                'news_banners': NewsBannerFormSet(request.POST or None, request.FILES or None, prefix='news_banners'),
+            'formsets': {
+                'top_banners': TopBannerFormSet(request.POST or None, request.FILES or None),
+                'background': BackgroundImageFormSet(request.POST or None, request.FILES or None),
+                'news_banners': NewsBannerFormSet(request.POST or None, request.FILES or None),
             },
         }
 
-        def get_current_form():
-            forms = list(context['forms'])
-            for key in forms:
-                if key in request.POST:
-                    return context['forms'][key]
+        def get_current_formset(formsets):
+            formset_names = list(formsets)
+            for name in formset_names:
+                if name in request.POST:
+                    return formsets[name]
 
-        formset = get_current_form()
+        formset = get_current_formset(context['formsets'])
         if formset.is_valid():
             formset.save()
+
             return HttpResponseRedirect('banners')
+
         return render(request, 'admin/banners/index.html', context)
 
 
@@ -54,6 +57,7 @@ def movies(request):
     context = {
         'title': 'Фильмы',
     }
+
     return render(request, 'admin/movies.html', context)
 
 

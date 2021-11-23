@@ -18,10 +18,16 @@
             <div class="row justify-content-center mt-3 mb-3">
                 <form id="background" action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <img src="" alt="" style="border: 2px solid #000;">
-                    {{ forms.news_banners|crispy }}
+                    {% for formset in formsets.news_banners %}
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="" alt="" style="border: 2px solid #000;">
+                            {{ formset|crispy }}
+                        </div>
+                    </div>
+                    {% endfor %}
                     <div class="text-center mt-4">
-                        <input type="submit" class="btn btn-success" value="Сохранить изменения">
+                        <input type="submit" name="news_banners" class="btn btn-success" value="Сохранить изменения">
                     </div>
                 </form>
             </div>
