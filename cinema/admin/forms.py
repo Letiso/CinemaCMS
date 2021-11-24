@@ -3,6 +3,7 @@ from user.forms import UserUpdateForm
 from main.models import TopBanner, BackgroundImage, NewsBanner
 from django.forms import modelformset_factory
 
+from PIL import Image
 from copy import copy
 
 
@@ -17,17 +18,23 @@ class ExtendedUserUpdateForm(UserUpdateForm):
 # region Banners
 class TopBannerForm(forms.ModelForm):
 
+    def clean_image(self):
+        image = self.cleaned_data['image']
+        width, height = 1000, 190
+        if Image.open(image).size != (width, height):
+            raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}')
+        return image
+
     class Meta:
         model = TopBanner
         fields = ('image', 'is_active')
         labels = {
             'image': 'Баннер',
-            'is_active': 'Вкл/Выкл.',
+            'is_active': 'Активен',
         }
-        widgets = {}
 
 
-TopBannerFormSet = modelformset_factory(TopBanner, form=TopBannerForm,
+TopBannerFormSet = modelformset_factory(TopBannerForm.Meta.model, form=TopBannerForm,
                                         extra=1)
 
 
@@ -35,13 +42,10 @@ class BackgroundImageForm(forms.ModelForm):
 
     def clean_image(self):
         image = self.cleaned_data['image']
-        width, height = '1000', '190'
-        if image.image.size != (width, height):
+        width, height = 2000, 3000
+        if Image.open(image).size != (width, height):
             raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}')
         return image
-
-    def clean(self):
-        return self.cleaned_data
 
     class Meta:
         model = BackgroundImage
@@ -51,22 +55,28 @@ class BackgroundImageForm(forms.ModelForm):
         }
 
 
-BackgroundImageFormSet = modelformset_factory(BackgroundImage, form=BackgroundImageForm,
+BackgroundImageFormSet = modelformset_factory(BackgroundImageForm.Meta.model, form=BackgroundImageForm,
                                               extra=1, max_num=1)
 
 
 class NewsBannerForm(forms.ModelForm):
 
+    def clean_image(self):
+        image = self.cleaned_data['image']
+        width, height = 1000, 190
+        if Image.open(image).size != (width, height):
+            raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}')
+        return image
+
     class Meta:
-        model = TopBanner
+        model = NewsBanner
         fields = ('image', 'is_active')
         labels = {
             'image': 'Баннер',
-            'is_active': 'Вкл/Выкл.',
+            'is_active': 'Активен',
         }
-        widgets = {}
 
 
-NewsBannerFormSet = modelformset_factory(NewsBanner, form=NewsBannerForm,
+NewsBannerFormSet = modelformset_factory(NewsBannerForm.Meta.model, form=NewsBannerForm,
                                          extra=1)
 # endregion Banners

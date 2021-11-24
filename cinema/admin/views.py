@@ -18,9 +18,9 @@ class BannersView(View):
     def get(self, request):
         context = {
             'formsets': {
-                'top_banners': TopBannerFormSet(request.POST or None, request.FILES or None),
-                'background': BackgroundImageFormSet(request.POST or None, request.FILES or None),
-                'news_banners': NewsBannerFormSet(request.POST or None, request.FILES or None),
+                'top_banners': TopBannerFormSet(prefix='top_banners'),
+                'background': BackgroundImageFormSet(prefix='background'),
+                'news_banners': NewsBannerFormSet(prefix='news_banners'),
             },
         }
 
@@ -29,9 +29,9 @@ class BannersView(View):
     def post(self, request):
         context = {
             'formsets': {
-                'top_banners': TopBannerFormSet(request.POST or None, request.FILES or None),
-                'background': BackgroundImageFormSet(request.POST or None, request.FILES or None),
-                'news_banners': NewsBannerFormSet(request.POST or None, request.FILES or None),
+                'top_banners': TopBannerFormSet(prefix='top_banners'),
+                'background': BackgroundImageFormSet(prefix='background'),
+                'news_banners': NewsBannerFormSet(prefix='news_banners'),
             },
         }
 
@@ -39,12 +39,12 @@ class BannersView(View):
             formset_names = list(formsets)
             for name in formset_names:
                 if name in request.POST:
+                    formsets[name] = formsets[name].__class__(request.POST or None, request.FILES or None, prefix=name)
                     return formsets[name]
 
         formset = get_current_formset(context['formsets'])
         if formset.is_valid():
             formset.save()
-
             return HttpResponseRedirect('banners')
 
         return render(request, 'admin/banners/index.html', context)

@@ -18,11 +18,11 @@
             <div class="row justify-content-center mt-3 mb-3">
                 <form id="background" action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {% for formset in formsets.news_banners %}
+                    {{ formsets.news_banners.management_form }}
+                    {% for form in formsets.news_banners %}
                     <div class="card">
                         <div class="card-body">
-                            <img src="" alt="" style="border: 2px solid #000;">
-                            {{ formset|crispy }}
+                            {{ form|crispy }}
                         </div>
                     </div>
                     {% endfor %}

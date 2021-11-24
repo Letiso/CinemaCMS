@@ -13,6 +13,7 @@ def background_path(instance, filename):
 class TopBanner(models.Model):
     image = models.ImageField('Баннер', upload_to=f'{banners_path}/top')
     is_active = models.BooleanField(default=False)
+    objects = models.Manager()
 
 
 class BackgroundImage(models.Model):
@@ -26,4 +27,5 @@ class BackgroundImage(models.Model):
 class NewsBanner(models.Model):
     image = models.ImageField('Баннер', upload_to=f'{banners_path}/news')
     is_active = models.BooleanField(default=False)
+    objects = models.Manager()
 # endregion Banners
