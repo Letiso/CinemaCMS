@@ -10,23 +10,26 @@
     <i class="fas fa-bars" style="font-size: 22px;"></i>
     </a>
   </div>
-    <div class="collapse" id="collapseTopBanner">
-        <div class="card-body mx-5 mt-1">
+    <div class="collapse bg-light" id="collapseTopBanner">
+        <div class="card-body mx-5 mt-1 mb-3">
             <div class="row justify-content-start">
                 <h5>Размер: 1000x190</h5>
             </div>
-            <div class="row justify-content-center mt-3 mb-3">
-                <form id="background" action="" method="POST" enctype="multipart/form-data">
+            <div class="row justify-content-center mt-3">
+                <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ formsets.top_banners.management_form }}
                     {% for form in formsets.top_banners %}
                     <div class="card">
                         <div class="card-body">
+                            {% for hidden in form.hidden_fields %}
+                                {{ hidden }}
+                            {% endfor %}
                             {{ form|crispy }}
                         </div>
                     </div>
                     {% endfor %}
-                    <div class="text-center mt-4">
+                    <div class="text-center mt-5">
                         <input type="submit" name="top_banners" class="btn btn-success" value="Сохранить изменения">
                     </div>
                 </form>

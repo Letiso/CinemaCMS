@@ -56,7 +56,7 @@ class BackgroundImageForm(forms.ModelForm):
 
 
 BackgroundImageFormSet = modelformset_factory(BackgroundImageForm.Meta.model, form=BackgroundImageForm,
-                                              extra=1, max_num=1)
+                                              extra=1, max_num=1, can_delete=True)
 
 
 class NewsBannerForm(forms.ModelForm):
