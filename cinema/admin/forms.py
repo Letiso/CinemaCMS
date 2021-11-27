@@ -35,7 +35,7 @@ class TopBannerForm(forms.ModelForm):
 
 
 TopBannerFormSet = modelformset_factory(TopBannerForm.Meta.model, form=TopBannerForm,
-                                        extra=1)
+                                        extra=0, can_delete=True)
 
 
 class BackgroundImageForm(forms.ModelForm):
@@ -56,7 +56,7 @@ class BackgroundImageForm(forms.ModelForm):
 
 
 BackgroundImageFormSet = modelformset_factory(BackgroundImageForm.Meta.model, form=BackgroundImageForm,
-                                              extra=1, max_num=1, can_delete=True)
+                                              extra=0, max_num=1, can_delete=True)
 
 
 class NewsBannerForm(forms.ModelForm):
@@ -78,5 +78,5 @@ class NewsBannerForm(forms.ModelForm):
 
 
 NewsBannerFormSet = modelformset_factory(NewsBannerForm.Meta.model, form=NewsBannerForm,
-                                         extra=1)
+                                         extra=0, can_delete=True)
 # endregion Banners

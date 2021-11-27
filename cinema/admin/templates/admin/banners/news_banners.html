@@ -19,8 +19,8 @@
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ formsets.news_banners.management_form }}
-                    {% for form in formsets.news_banners %}
 
+                    {% for form in formsets.news_banners %}
                     <div class="card">
                         <div class="card-body">
                             {% for hidden in form.hidden_fields %}
@@ -30,14 +30,6 @@
                         </div>
                     </div>
                     {% endfor %}
-                    <div class="card">
-                        <div class="card-body" id="formset-empty-form">
-                            {% for hidden in form.hidden_fields %}
-                                {{ hidden }}
-                            {% endfor %}
-                            {{ formsets.news_banners.empty_form|crispy }}
-                        </div>
-                    </div>
                     <div class="text-center mt-5">
                         <input type="submit" name="news_banners" class="btn btn-success" value="Сохранить изменения">
                     </div>
@@ -48,3 +40,7 @@
     </div>
 </div>
 <!-- /.card -->
+
+<script>
+
+</script>

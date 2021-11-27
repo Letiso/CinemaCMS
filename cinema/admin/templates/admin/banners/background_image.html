@@ -19,10 +19,9 @@
                 <form enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
                     {{ formsets.background.management_form }}
-                    {% for form in formsets.background %}
 
+                    {% for form in formsets.background %}
                     <div class="card">
-                        <img class="card-img-top" src="{{ form.instance.image.url }}" alt="" style="width: 550px;">
                         <div class="card-body">
                             {% for hidden in form.hidden_fields %}
                                 {{ hidden }}
