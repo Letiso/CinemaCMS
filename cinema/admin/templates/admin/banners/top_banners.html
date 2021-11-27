@@ -32,7 +32,7 @@
                             {% endfor %}
                         <div class="card top-banner">
                             <div class="card-header text-right">
-                                {{ form.DELETE}}
+                                {{ form.DELETE }}
                             </div>
                             <img class="card-img-top" src="{{ form.instance.image.url }}" alt="" style="width: 550px;">
                             <div class="card-body">
@@ -42,8 +42,12 @@
                         </div>
                         {% endfor %}
                         <div id="empty-form" class="hidden">
+                            <div class="card-header text-right">
+                                {{ formsets.top_banners.empty_form.DELETE }}
+                            </div>
                             <div class="card-body">
-                                {{ formsets.top_banners.empty_form|crispy }}
+                                {{ formsets.top_banners.empty_form.image|as_crispy_field }}
+                                {{ formsets.top_banners.empty_form.is_active|as_crispy_field }}
                             </div>
                         </div>
 
@@ -83,14 +87,5 @@
         totalForms.setAttribute('value', currentFormCount + 1)
 
         formCopyTarget.append(copyEmptyFormEl)
-    }
-</script>
-
-<script>
-    const addFormBtn = document.getElementById('add-empty-form')
-    addFormBtn.addEventListener('click', add_empty_form)
-
-    function delete_form(event) {
-
     }
 </script>
