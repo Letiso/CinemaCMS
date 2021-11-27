@@ -27,14 +27,20 @@
                     {{ formsets.top_banners.management_form }}
                     <div id="top-banners-list">
                         {% for form in formsets.top_banners %}
+                            {% for hidden in form.hidden_fields %}
+                                {{ hidden }}
+                            {% endfor %}
                         <div class="card top-banner">
+                            <div class="card-header text-right">
+                                {{ form.DELETE}}
+                            </div>
                             <img class="card-img-top" src="{{ form.instance.image.url }}" alt="" style="width: 550px;">
                             <div class="card-body">
-                                {{ form|crispy }}
+                                {{ form.image|as_crispy_field }}
+                                {{ form.is_active|as_crispy_field }}
                             </div>
                         </div>
                         {% endfor %}
-
                         <div id="empty-form" class="hidden">
                             <div class="card-body">
                                 {{ formsets.top_banners.empty_form|crispy }}
@@ -43,7 +49,7 @@
 
                     </div>
                     <div class="text-center mt-5">
-                        <input type="button" id="add-empty-form" class="btn btn-light px-5" value="+" style="font-size: 30px;">
+                        <input type="button" id="add-empty-form" class="btn btn-light px-5" value="+" style="font-size: 75px;">
                     </div>
                     <div class="text-center mt-5">
                         <input type="submit" name="top_banners" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">
@@ -77,5 +83,14 @@
         totalForms.setAttribute('value', currentFormCount + 1)
 
         formCopyTarget.append(copyEmptyFormEl)
+    }
+</script>
+
+<script>
+    const addFormBtn = document.getElementById('add-empty-form')
+    addFormBtn.addEventListener('click', add_empty_form)
+
+    function delete_form(event) {
+
     }
 </script>

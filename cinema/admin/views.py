@@ -39,7 +39,7 @@ class BannersView(View):
             formset_names = list(formsets)
             for name in formset_names:
                 if name in request.POST:
-                    formsets[name] = formsets[name].__class__(request.POST or None, request.FILES or None, prefix=name)
+                    formsets[name] = formsets[name].__class__(request.POST, request.FILES, prefix=name)
                     return formsets[name]
 
         formset = get_current_formset(context['formsets'])
