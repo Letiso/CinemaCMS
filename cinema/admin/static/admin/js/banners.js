@@ -1,29 +1,28 @@
 
 
-function add_empty_form(event) {
+function add_empty_form(event, currentFormset) {
     if (event) {
         event.preventDefault()
     }
 
-    let currentFormSet = event.target.getAttribute('name')
     const formset = {
-        total: `id_${currentFormSet}-TOTAL_FORMS`,
-        list: `${currentFormSet}-list`,
-        empty_form: `${currentFormSet}-empty-form`,
-        class: `card ${currentFormSet}`,
+        total: `id_${currentFormset}-TOTAL_FORMS`,
+        list: `${currentFormset}-list`,
+        empty_form: `${currentFormset}-empty-form`,
+        class: `card ${currentFormset}`,
     }
 
     let totalForms = document.getElementById(formset.total)
-    let formsCount = document.getElementsByClassName(currentFormSet).length
+    let formsCount = document.getElementsByClassName(currentFormset).length
 
     const formCopyTarget = document.getElementById(formset.list)
-    const copyEmptyFormEl = document.getElementById(formset.empty_form).cloneNode(true)
+    let copyEmptyFormEl = document.getElementById(formset.empty_form).cloneNode(true)
 
     const regex = new RegExp('__prefix__', 'g')
     copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, formsCount)
 
     copyEmptyFormEl.setAttribute('class', formset.class)
-    copyEmptyFormEl.setAttribute('id', `id_${currentFormSet}-${formsCount}`)
+    copyEmptyFormEl.setAttribute('id', `id_${currentFormset}-${formsCount}`)
 
     totalForms.setAttribute('value', formsCount + 1)
 
