@@ -19,7 +19,7 @@
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ formsets.top_banners.management_form }}
-                    <div id="top-banners-list">
+                    <div id="top-banners-list"  style="width: 550px;">
                         {% for form in formsets.top_banners %}
                             {% for hidden in form.hidden_fields %}
                                 {{ hidden }}
@@ -28,7 +28,9 @@
                             <div class="card-header text-right">
                                 {{ form.DELETE|as_crispy_field }}
                             </div>
-                            <img class="card-img-top" src="{{ form.instance.image.url }}" alt="" style="width: 550px;">
+                            {% if form.instance.image %}
+                                <img class="card-img-top" src="{{ form.instance.image.url }}" alt="">
+                            {% endif %}
                             <div class="card-body">
                                 {{ form.image|as_crispy_field }}
                                 {{ form.is_active|as_crispy_field }}
