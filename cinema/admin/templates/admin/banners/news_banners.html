@@ -19,6 +19,7 @@
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ formsets.news_banners.management_form }}
+
                     <div id="news_banners-list"  style="width: 550px;">
                         {% for form in formsets.news_banners %}
                             {% for hidden in form.hidden_fields %}
@@ -48,7 +49,7 @@
                         </div>
                     </div>
                     <div class="text-center mt-5">
-                        <input type="button" name="news_banners" id="news_banners-add" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                        <input type="button" onclick="add_empty_form(event)" name="news_banners" id="news_banners-add" class="btn btn-light px-5" value="+" style="font-size: 75px;">
                     </div>
                     <div class="text-center mt-5">
                         <input type="submit" name="news_banners" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">
