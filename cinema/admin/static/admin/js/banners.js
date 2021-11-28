@@ -1,41 +1,27 @@
 
-// const addFormBtn = document.getElementById('top-banners-add-empty-form')
-// const totalForms = document.getElementById('id_top_banners-TOTAL_FORMS')
-//
-// addFormBtn.addEventListener('click', add_empty_form)
-// function add_empty_form(event) {
-//     if (event) {
-//         event.preventDefault()
-//     }
-//     const currentForms = document.getElementsByClassName('top-banner')
-//     let currentFormCount = currentForms.length
-//     const formCopyTarget = document.getElementById('top-banners-list')
-//     const copyEmptyFormEl = document.getElementById('top-banners-empty-form').cloneNode(true)
-//     copyEmptyFormEl.setAttribute('class', 'card top-banner')
-//     copyEmptyFormEl.setAttribute('id', `id_top_banners-${currentFormCount}-`)
-//     const regex = new RegExp('__prefix__', 'g')
-//
-//     copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
-//     totalForms.setAttribute('value', currentFormCount + 1)
-//
-//     formCopyTarget.append(copyEmptyFormEl)
-// }
+
+const addFormBtnTopBanners = document.getElementById('top_banners-add')
+const addFormBtnNewsBanners = document.getElementById('news_banners-add')
+
+addFormBtnTopBanners.addEventListener('click', add_empty_form)
+addFormBtnNewsBanners.addEventListener('click', add_empty_form)
 
 
-const addFormBtn = document.getElementById('news-banners-add-empty-form')
-const totalForms = document.getElementById('id_news_banners-TOTAL_FORMS')
-
-addFormBtn.addEventListener('click', add_empty_form)
 function add_empty_form(event) {
     if (event) {
         event.preventDefault()
     }
-    const currentForms = document.getElementsByClassName('news-banner')
+    let currentFormSet = event.target.getAttribute('name')
+
+    const totalForms = document.getElementById(`id_${currentFormSet}-TOTAL_FORMS`)
+    const currentForms = document.getElementsByClassName(currentFormSet)
     let currentFormCount = currentForms.length
-    const formCopyTarget = document.getElementById('news-banners-list')
-    const copyEmptyFormEl = document.getElementById('news-banners-empty-form').cloneNode(true)
-    copyEmptyFormEl.setAttribute('class', 'card news-banner')
-    copyEmptyFormEl.setAttribute('id', `id_news_banners-${currentFormCount}-`)
+
+    const formCopyTarget = document.getElementById(`${currentFormSet}-list`)
+    const copyEmptyFormEl = document.getElementById(`${currentFormSet}-empty-form`).cloneNode(true)
+
+    copyEmptyFormEl.setAttribute('class', `card ${currentFormSet}`)
+    copyEmptyFormEl.setAttribute('id', `id_${currentFormSet}-${currentFormCount}-`)
     const regex = new RegExp('__prefix__', 'g')
 
     copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
@@ -43,3 +29,26 @@ function add_empty_form(event) {
 
     formCopyTarget.append(copyEmptyFormEl)
 }
+
+
+// const addFormBtn = document.getElementById('news-banners-add-empty-form')
+// const totalForms = document.getElementById('id_news_banners-TOTAL_FORMS')
+//
+// addFormBtn.addEventListener('click', add_empty_form)
+// function add_empty_form(event) {
+//     if (event) {
+//         event.preventDefault()
+//     }
+//     const currentForms = document.getElementsByClassName('news-banner')
+//     let currentFormCount = currentForms.length
+//     const formCopyTarget = document.getElementById('news-banners-list')
+//     const copyEmptyFormEl = document.getElementById('news-banners-empty-form').cloneNode(true)
+//     copyEmptyFormEl.setAttribute('class', 'card news-banner')
+//     copyEmptyFormEl.setAttribute('id', `id_news_banners-${currentFormCount}-`)
+//     const regex = new RegExp('__prefix__', 'g')
+//
+//     copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
+//     totalForms.setAttribute('value', currentFormCount + 1)
+//
+//     formCopyTarget.append(copyEmptyFormEl)
+// }

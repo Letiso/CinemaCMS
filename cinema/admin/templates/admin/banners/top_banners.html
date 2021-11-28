@@ -19,12 +19,12 @@
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ formsets.top_banners.management_form }}
-                    <div id="top-banners-list"  style="width: 550px;">
+                    <div id="top_banners-list"  style="width: 550px;">
                         {% for form in formsets.top_banners %}
                             {% for hidden in form.hidden_fields %}
                                 {{ hidden }}
                             {% endfor %}
-                        <div class="card top-banner">
+                        <div class="card top_banners">
                             <div class="card-header text-right">
                                 {{ form.DELETE|as_crispy_field }}
                             </div>
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         {% endfor %}
-                        <div id="top-banners-empty-form" class="hidden">
+                        <div id="top_banners-empty-form" class="hidden">
                             <div class="card-header text-right">
                                 {{ formsets.top_banners.empty_form.DELETE|as_crispy_field }}
                             </div>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="text-center mt-5">
-                        <input type="button" id="top-banners-add-empty-form" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                        <input type="button"  name="top_banners" id="top_banners-add" class="btn btn-light px-5" value="+" style="font-size: 75px;">
                     </div>
                     <div class="text-center mt-5">
                         <input type="submit" name="top_banners" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">
