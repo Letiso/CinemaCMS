@@ -22,11 +22,18 @@
 
                     {% for form in formsets.background %}
                     <div class="card">
+                        <div class="card-header text-right">
+                            {{ form.DELETE|as_crispy_field }}
+                        </div>
+                        {% if form.instance.image %}
+                            <img class="card-img-top" src="{{ form.instance.image.url }}" alt="" style="width: 550px;">
+                        {% endif %}
                         <div class="card-body">
                             {% for hidden in form.hidden_fields %}
                                 {{ hidden }}
                             {% endfor %}
-                            {{ form|crispy }}
+                            {{ form.image|as_crispy_field }}
+                            {{ form.is_active|as_crispy_field }}
                         </div>
                     </div>
                     {% endfor %}

@@ -29,7 +29,7 @@ class TopBannerForm(forms.ModelForm):
         model = TopBanner
         fields = ('image', 'is_active')
         labels = {
-            'image': 'Баннер',
+            'image': 'Баннер над навбаром',
             'is_active': 'Активен',
         }
 
@@ -56,7 +56,7 @@ class BackgroundImageForm(forms.ModelForm):
 
 
 BackgroundImageFormSet = modelformset_factory(BackgroundImageForm.Meta.model, form=BackgroundImageForm,
-                                              extra=0, max_num=1, can_delete=True)
+                                              extra=1, max_num=1, can_delete=True)
 
 
 class NewsBannerForm(forms.ModelForm):
@@ -72,7 +72,7 @@ class NewsBannerForm(forms.ModelForm):
         model = NewsBanner
         fields = ('image', 'is_active')
         labels = {
-            'image': 'Баннер',
+            'image': 'Новости | Акции',
             'is_active': 'Активен',
         }
 
