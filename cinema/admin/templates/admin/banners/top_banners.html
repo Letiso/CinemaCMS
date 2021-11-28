@@ -1,12 +1,6 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-<style>
-    .hidden {
-        display: none;
-    }
-</style>
-
 <div class="card mx-4">
   <div class="card-header d-flex mt-2">
     <h4 class="col-11 text-center">
@@ -32,7 +26,7 @@
                             {% endfor %}
                         <div class="card top-banner">
                             <div class="card-header text-right">
-                                {{ form.DELETE }}
+                                {{ form.DELETE|as_crispy_field }}
                             </div>
                             <img class="card-img-top" src="{{ form.instance.image.url }}" alt="" style="width: 550px;">
                             <div class="card-body">
@@ -41,19 +35,18 @@
                             </div>
                         </div>
                         {% endfor %}
-                        <div id="empty-form" class="hidden">
+                        <div id="top-banners-empty-form" class="hidden">
                             <div class="card-header text-right">
-                                {{ formsets.top_banners.empty_form.DELETE }}
+                                {{ formsets.top_banners.empty_form.DELETE|as_crispy_field }}
                             </div>
                             <div class="card-body">
                                 {{ formsets.top_banners.empty_form.image|as_crispy_field }}
                                 {{ formsets.top_banners.empty_form.is_active|as_crispy_field }}
                             </div>
                         </div>
-
                     </div>
                     <div class="text-center mt-5">
-                        <input type="button" id="add-empty-form" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                        <input type="button" id="top-banners-add-empty-form" class="btn btn-light px-5" value="+" style="font-size: 75px;">
                     </div>
                     <div class="text-center mt-5">
                         <input type="submit" name="top_banners" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">
@@ -65,27 +58,3 @@
     </div>
 </div>
 <!-- /.card -->
-
-<script>
-    const addFormBtn = document.getElementById('add-empty-form')
-    const totalForms = document.getElementById('id_top_banners-TOTAL_FORMS')
-
-    addFormBtn.addEventListener('click', add_empty_form)
-    function add_empty_form(event) {
-        if (event) {
-            event.preventDefault()
-        }
-        const currentForms = document.getElementsByClassName('top-banner')
-        let currentFormCount = currentForms.length
-        const formCopyTarget = document.getElementById('top-banners-list')
-        const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
-        copyEmptyFormEl.setAttribute('class', 'card top-banner')
-        copyEmptyFormEl.setAttribute('id', `id_top_banners-${currentFormCount}-`)
-        const regex = new RegExp('__prefix__', 'g')
-
-        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
-        totalForms.setAttribute('value', currentFormCount + 1)
-
-        formCopyTarget.append(copyEmptyFormEl)
-    }
-</script>

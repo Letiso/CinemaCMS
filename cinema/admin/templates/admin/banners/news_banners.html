@@ -19,17 +19,35 @@
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ formsets.news_banners.management_form }}
-
-                    {% for form in formsets.news_banners %}
-                    <div class="card">
-                        <div class="card-body">
+                    <div id="news-banners-list">
+                        {% for form in formsets.news_banners %}
                             {% for hidden in form.hidden_fields %}
                                 {{ hidden }}
                             {% endfor %}
-                            {{ form|crispy }}
+                        <div class="card news-banner">
+                            <div class="card-header text-right">
+                                {{ form.DELETE|as_crispy_field }}
+                            </div>
+                            <img class="card-img-top" src="{{ form.instance.image.url }}" alt="" style="width: 550px;">
+                            <div class="card-body">
+                                {{ form.image|as_crispy_field }}
+                                {{ form.is_active|as_crispy_field }}
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
+                    <div id="news-banners-empty-form" class="hidden">
+                        <div class="card-header text-right">
+                            {{ formsets.news_banners.empty_form.DELETE|as_crispy_field }}
+                        </div>
+                        <div class="card-body">
+                            {{ formsets.news_banners.empty_form.image|as_crispy_field }}
+                            {{ formsets.news_banners.empty_form.is_active|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <input type="button" id="news-banners-add-empty-form" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                    </div>
                     <div class="text-center mt-5">
                         <input type="submit" name="news_banners" class="btn btn-success" value="Сохранить изменения">
                     </div>
@@ -40,7 +58,3 @@
     </div>
 </div>
 <!-- /.card -->
-
-<script>
-
-</script>

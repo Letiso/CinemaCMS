@@ -8,6 +8,11 @@
 
 
 {% block content %}
+<style>
+    .hidden {
+        display: none;
+    }
+</style>'
 
     {% include './top_banners.html' %}
     {% include './background_image.html' %}
@@ -15,3 +20,6 @@
 
 {% endblock %}
 
+{% block scripts %}
+<script src="{% static 'admin/js/banners.js' %}"></script>
+{% endblock %}
