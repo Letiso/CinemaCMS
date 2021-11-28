@@ -13,19 +13,19 @@ function add_empty_form(event) {
     }
     let currentFormSet = event.target.getAttribute('name')
 
-    const totalForms = document.getElementById(`id_${currentFormSet}-TOTAL_FORMS`)
-    const currentForms = document.getElementsByClassName(currentFormSet)
-    let currentFormCount = currentForms.length
+    let totalForms = document.getElementById(`id_${currentFormSet}-TOTAL_FORMS`)
+    let formsCount = document.getElementsByClassName(currentFormSet).length
 
     const formCopyTarget = document.getElementById(`${currentFormSet}-list`)
     const copyEmptyFormEl = document.getElementById(`${currentFormSet}-empty-form`).cloneNode(true)
 
-    copyEmptyFormEl.setAttribute('class', `card ${currentFormSet}`)
-    copyEmptyFormEl.setAttribute('id', `id_${currentFormSet}-${currentFormCount}-`)
     const regex = new RegExp('__prefix__', 'g')
+    copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, formsCount)
 
-    copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
-    totalForms.setAttribute('value', currentFormCount + 1)
+    copyEmptyFormEl.setAttribute('class', `card ${currentFormSet}`)
+    copyEmptyFormEl.setAttribute('id', `id_${currentFormSet}-${formsCount}-`)
+
+    totalForms.setAttribute('value', formsCount + 1)
 
     formCopyTarget.append(copyEmptyFormEl)
 }
