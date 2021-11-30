@@ -1,11 +1,10 @@
 
-
 function add_empty_form(event, currentFormset) {
     // page reloading stop
     if (event) {
         event.preventDefault()
     }
-
+    
     const totalForms = document.getElementById(`id_${currentFormset}-TOTAL_FORMS`)
     const formIndex = document.getElementsByClassName(currentFormset).length
 

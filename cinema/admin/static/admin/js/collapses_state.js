@@ -5,7 +5,7 @@ if (collapses) {
     collapses = JSON.parse(collapses)
 }
 
-if (!collapses || collapses.name !== location.pathname) {
+if (!collapses || (collapses.name !== location.pathname)) {
     collapses = {
       name: location.pathname,
       toShow: {}
