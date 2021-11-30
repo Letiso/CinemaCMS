@@ -278,13 +278,19 @@
         localStorage.setItem('collapses', JSON.stringify(collapses))
       }
 
-      // console.log(localStorage.getItem('collapses'))
-      // console.log(collapses)
+      let key;
+      for (key in collapses.toShow) {
+        console.log(key)
+        console.log(collapses.toShow[key])
+      }
+
+      console.log(localStorage.getItem('collapses'))
+      console.log(collapses)
     </script>
 
     <script>
       function toggle_show(collapse) {
-        // console.log(collapse)
+        console.log(collapse)
         if (collapse in collapses.toShow) {
           delete collapses.toShow[`${collapse}`]
         }
@@ -293,7 +299,7 @@
         }
 
         localStorage.setItem('collapses', JSON.stringify(collapses))
-        // console.log(JSON.parse(localStorage.getItem('collapses')).toShow)
+        console.log(JSON.parse(localStorage.getItem('collapses')).toShow)
       }
     </script>
 
