@@ -1,21 +1,16 @@
 
 
 function add_empty_form(event, currentFormset) {
+    // page reloading stop
     if (event) {
         event.preventDefault()
     }
 
-    const formset = {
-        total: `id_${currentFormset}-TOTAL_FORMS`,
-        list: `${currentFormset}-list`,
-        empty_form: `${currentFormset}-empty-form`,
-    }
-
-    const totalForms = document.getElementById(formset.total)
+    const totalForms = document.getElementById(`id_${currentFormset}-TOTAL_FORMS`)
     const formIndex = document.getElementsByClassName(currentFormset).length
 
-    const formCopyTarget = document.getElementById(formset.list)
-    let copyEmptyFormEl = document.getElementById(formset.empty_form).cloneNode(true)
+    const formCopyTarget = document.getElementById(`${currentFormset}-list`)
+    let copyEmptyFormEl = document.getElementById(`${currentFormset}-empty-form`).cloneNode(true)
 
     copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(
         RegExp('__prefix__', 'g'), formIndex
@@ -26,11 +21,8 @@ function add_empty_form(event, currentFormset) {
             RegExp('hidden'), currentFormset
         )
     )
-    // copyEmptyFormEl.setAttribute('class', formset.class)
-
     copyEmptyFormEl.setAttribute('id', `id_${currentFormset}-${formIndex}`)
 
     totalForms.setAttribute('value', formIndex + 1)
-
     formCopyTarget.append(copyEmptyFormEl)
 }
