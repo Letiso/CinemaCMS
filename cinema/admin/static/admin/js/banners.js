@@ -12,8 +12,8 @@ function add_empty_form(event, currentFormset) {
         class: `card ${currentFormset}`,
     }
 
-    let totalForms = document.getElementById(formset.total)
-    let formsCount = document.getElementsByClassName(currentFormset).length
+    const totalForms = document.getElementById(formset.total)
+    const formsCount = document.getElementsByClassName(currentFormset).length
 
     const formCopyTarget = document.getElementById(formset.list)
     let copyEmptyFormEl = document.getElementById(formset.empty_form).cloneNode(true)

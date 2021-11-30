@@ -262,6 +262,27 @@
     <!-- AdminLTE App -->
     <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
 
+
+    <script>
+      let collapses = localStorage.getItem('collapses')
+
+      if (collapses) {
+        collapses = JSON.parse(collapses)
+      }
+
+      if (!collapses || collapses.name !== location.pathname) {
+        collapses = {
+          name: location.pathname,
+          toShow: {}
+        }
+        localStorage.setItem('collapses', JSON.stringify(collapses))
+      }
+
+      // console.log(localStorage.getItem('collapses'))
+      // console.log(collapses)
+    </script>
+
+
     {% block scripts %}
     {% endblock %}
   </body>
