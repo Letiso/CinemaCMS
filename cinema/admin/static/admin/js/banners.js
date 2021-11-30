@@ -9,22 +9,28 @@ function add_empty_form(event, currentFormset) {
         total: `id_${currentFormset}-TOTAL_FORMS`,
         list: `${currentFormset}-list`,
         empty_form: `${currentFormset}-empty-form`,
-        class: `card ${currentFormset}`,
     }
 
     const totalForms = document.getElementById(formset.total)
-    const formsCount = document.getElementsByClassName(currentFormset).length
+    const formIndex = document.getElementsByClassName(currentFormset).length
 
     const formCopyTarget = document.getElementById(formset.list)
     let copyEmptyFormEl = document.getElementById(formset.empty_form).cloneNode(true)
 
-    const regex = new RegExp('__prefix__', 'g')
-    copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, formsCount)
+    copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(
+        RegExp('__prefix__', 'g'), formIndex
+    )
 
-    copyEmptyFormEl.setAttribute('class', formset.class)
-    copyEmptyFormEl.setAttribute('id', `id_${currentFormset}-${formsCount}`)
+    copyEmptyFormEl.setAttribute('class',
+        copyEmptyFormEl.getAttribute('class').replace(
+            RegExp('hidden'), currentFormset
+        )
+    )
+    // copyEmptyFormEl.setAttribute('class', formset.class)
 
-    totalForms.setAttribute('value', formsCount + 1)
+    copyEmptyFormEl.setAttribute('id', `id_${currentFormset}-${formIndex}`)
+
+    totalForms.setAttribute('value', formIndex + 1)
 
     formCopyTarget.append(copyEmptyFormEl)
 }
