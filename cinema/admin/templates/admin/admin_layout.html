@@ -263,7 +263,9 @@
     <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
 
 
+    <!-- localStorage onload -->
     <script>
+      // init data
       let collapses = localStorage.getItem('collapses')
 
       if (collapses) {
@@ -278,27 +280,34 @@
         localStorage.setItem('collapses', JSON.stringify(collapses))
       }
 
-      let key;
+      // showing remembered collapses
+      let key, target;
       for (key in collapses.toShow) {
-        console.log(key)
-        console.log(collapses.toShow[key])
+        target = document.getElementById(collapses.toShow[key]);
+        target.setAttribute('class', `${target.getAttribute('class')} show`)
       }
 
+      // log
       console.log(localStorage.getItem('collapses'))
       console.log(collapses)
     </script>
 
+    <!-- localStorage data toggle -->
     <script>
-      function toggle_show(collapse) {
+      function toggle_show(event, collapse) {
+        // log
         console.log(collapse)
+
+        // update record about collapses at localStorage
         if (collapse in collapses.toShow) {
           delete collapses.toShow[`${collapse}`]
         }
         else {
-          collapses.toShow[`${collapse}`] = true
+          collapses.toShow[`${collapse}`] = event.currentTarget.getAttribute('aria-controls')
         }
-
         localStorage.setItem('collapses', JSON.stringify(collapses))
+
+        // log
         console.log(JSON.parse(localStorage.getItem('collapses')).toShow)
       }
     </script>
