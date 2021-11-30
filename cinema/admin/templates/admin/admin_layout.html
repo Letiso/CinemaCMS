@@ -282,6 +282,20 @@
       // console.log(collapses)
     </script>
 
+    <script>
+      function toggle_show(collapse) {
+        // console.log(collapse)
+        if (collapse in collapses.toShow) {
+          delete collapses.toShow[`${collapse}`]
+        }
+        else {
+          collapses.toShow[`${collapse}`] = true
+        }
+
+        localStorage.setItem('collapses', JSON.stringify(collapses))
+        // console.log(JSON.parse(localStorage.getItem('collapses')).toShow)
+      }
+    </script>
 
     {% block scripts %}
     {% endblock %}
