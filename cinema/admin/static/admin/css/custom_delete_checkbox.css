@@ -1,0 +1,20 @@
+input[type="checkbox"][id$="DELETE"] {
+    display: none;
+}
+
+label[for*="DELETE"] {
+    font-size: 0;
+}
+label[for*="DELETE"]::before {
+    font-size : medium;
+    vertical-align: center;
+    padding-right: 24px;
+    transition: 0.15s;
+    content: '';
+    background-image: url("https://img.icons8.com/windows/24/000000/cancel.png")
+}
+
+input[type="checkbox"][id$="DELETE"]:checked + label::before {
+   background-image: url("https://img.icons8.com/color/24/000000/cancel--v1.png")
+}
+

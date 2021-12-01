@@ -1,6 +1,10 @@
 ﻿{% extends 'admin/admin_layout.html' %}
 {% load static %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'admin/css/custom_delete_checkbox.css' %}">
+{% endblock %}
+
 {% block banners %}active{% endblock %}
 
 {% block current_page %}Баннеры{% endblock %}
@@ -12,7 +16,7 @@
     .hidden {
         display: none;
     }
-</style>'
+</style>
 
     {% include './top_banners.html' %}
     {% include './background_image.html' %}
