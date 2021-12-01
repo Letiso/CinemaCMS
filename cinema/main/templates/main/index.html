@@ -3,13 +3,23 @@
 {% block title %}Cinema CMS | Главная{% endblock %}
 {% block main_main %}active{% endblock %}
 
+{% block stylesheets %}
+<style>
+  main {
+      background: url('{% if background_image.banner.is_active %}{{ background_image.banner.image.url}}{% endif %}') top left;
+      min-height: 90vh;
+  }
+</style>
+{% endblock %}
+
 {% block top_banner %}
 <div id="topBannersCarousel" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     {% for banner in top_banners.banners %}
       {% if banner.is_active %}
       <div class="carousel-item {% if top_banners.active_slide == banner %}active{% endif %}" data-interval="{{ top_banners.data_interval }}">
-        <img class="d-block w-100 img-fluid" src="{{ banner.image.url }}" alt="">
+<!--        <img class="d-block w-100 img-fluid" src="{{ banner.image.url }}" alt="" style="min-height: 190px;">-->
+        <img class="d-block w-100 img-fluid" src="{{ banner.image.url }}" alt="" style="max-height: 190px;">
       </div>
       {% endif %}
     {% endfor %}
@@ -26,5 +36,13 @@
 {% endblock %}
 
 {% block content %}
-
+<div class="row">
+    <div class="card mx-auto mt-5" style="width: 550px;">
+        <div class="card-body">
+            <h1>Скоро</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, consectetur consequatur eveniet impedit, ipsum magnam maiores nemo, optio reiciendis repellat repellendus soluta unde? Consequatur delectus ducimus molestias repellendus sapiente.</p>
+            <button class="btn btn-warning">Принять</button>
+        </div>
+    </div>
+</div>
 {% endblock %}

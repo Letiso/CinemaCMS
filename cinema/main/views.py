@@ -11,7 +11,7 @@ def index(request):
             },
 
             'background_image': {
-                'banners': BackgroundImage.objects.first(),
+                'banner': BackgroundImage.objects.first(),
             },
 
             'news_banners': {

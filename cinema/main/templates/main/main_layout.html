@@ -19,12 +19,12 @@
 
     {% endblock %}
   </head>
-  <body class="mb-5">
+  <body>
     {% block top_banner %}
 
     {% endblock %}
     <!-- Navbar-->
-    <nav class="nav navbar-default navbar-expand-lg navbar-light bg-dark pt-2 mb-4">
+    <nav class="nav navbar-default navbar-expand-lg navbar-light bg-dark pt-2">
 
       <div class="navbar col-lg-2">
         <img src="{% static 'img/logo.png' %}"
@@ -224,7 +224,7 @@
       </div>
     </nav>
 
-    <main>
+    <main class="container-fluid img-fluid">
       {% block content %}
 
       {% endblock %}
