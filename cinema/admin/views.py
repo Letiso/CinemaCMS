@@ -14,26 +14,21 @@ def statistics(request):
 
 # region Banners
 class BannersView(View):
+    @staticmethod
+    def get_context():
+        return {
+            'formsets': {
+                'top_banners': TopBannerFormSet(prefix='top_banners'),
+                'background': BackgroundImageFormSet(prefix='background'),
+                'news_banners': NewsBannerFormSet(prefix='news_banners'),
+            },
+        }
 
     def get(self, request):
-        context = {
-            'formsets': {
-                'top_banners': TopBannerFormSet(prefix='top_banners'),
-                'background': BackgroundImageFormSet(prefix='background'),
-                'news_banners': NewsBannerFormSet(prefix='news_banners'),
-            },
-        }
-
-        return render(request, 'admin/banners/index.html', context)
+        return render(request, 'admin/banners/index.html', self.get_context())
 
     def post(self, request):
-        context = {
-            'formsets': {
-                'top_banners': TopBannerFormSet(prefix='top_banners'),
-                'background': BackgroundImageFormSet(prefix='background'),
-                'news_banners': NewsBannerFormSet(prefix='news_banners'),
-            },
-        }
+        context = self.get_context()
 
         def get_current_formset(formsets):
             formset_names = list(formsets)

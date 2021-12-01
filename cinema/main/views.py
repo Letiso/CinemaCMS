@@ -7,7 +7,7 @@ def index(request):
             'top_banners': {
                 'banners': TopBanner.objects.all(),
                 'active_slide': TopBanner.objects.first(),
-                'data_interval': '2500',
+                'data_interval': '2500',  # ?
             },
 
             'background_image': {
