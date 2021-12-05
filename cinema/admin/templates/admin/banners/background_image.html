@@ -3,7 +3,7 @@
 
 <form enctype="multipart/form-data" method="POST">
     {% csrf_token %}
-    <div class="card" style="width: 550px;">
+    <div class="col-sm-12 col-lg-5 card px-0 mx-auto" style="min-width: 25vw;">
         {% with background_image as form %}
             {% if form.instance.image %}
                 <img class="card-img-top" src="{{ form.instance.image.url }}" alt="thumbnail">

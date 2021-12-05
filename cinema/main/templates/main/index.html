@@ -4,12 +4,14 @@
 {% block main_main %}active{% endblock %}
 
 {% block stylesheets %}
+    {% if background_image.is_active %}
     <style>
       main {
-          background: url('{% if background_image %}{{ background_image.image.url}}{% endif %}') top center;
+          background: url('{{ background_image.image.url}}') top center;
           min-height: 90vh;
       }
     </style>
+    {% endif %}
 {% endblock %}
 
 {% block top_banner %}

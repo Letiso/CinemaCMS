@@ -34,6 +34,12 @@ TopBannerFormSet = modelformset_factory(TopBannerForm.Meta.model, form=TopBanner
 
 
 class BackgroundImageForm(forms.ModelForm):
+    is_active = forms.TypedChoiceField(
+                   label='',
+                   coerce=lambda x: x == 'True',
+                   choices=((True, 'Изображение на фоне'), (False, 'Цвет на фоне')),
+                   widget=forms.RadioSelect
+                )
 
     def clean_image(self):
         image = self.cleaned_data['image']
