@@ -12,25 +12,31 @@
   </div>
     <div class="collapse bg-light" id="collapseNewsBanner">
         <div class="card-body mx-5 mt-1 mb-3">
-            <div class="row justify-content-start">
-                <h5>Размер: 1000x190</h5>
-            </div>
-            <div class="row justify-content-center mt-3">
-                <form action="" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data">
+
+                <div class="row">
+                    <h4 class="mr-auto">Размер: 1000x190</h4>
+                    <div class="custom-control custom-switch">
+                        {{ news_banners.carousel.is_active }}
+                        <label for="{{ news_banners.carousel.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
+                    </div>
+                </div>
+
+                <div class="container-fluid">
                     {% csrf_token %}
                     {{ news_banners.formset.management_form }}
 
-                    <div id="news_banners-list"  style="width: 550px;">
+                    <div class="row justify-content-between justify-content-around" id="news_banners-list">
                         {% for form in news_banners.formset %}
                             {% for hidden in form.hidden_fields %}
                                 {{ hidden }}
                             {% endfor %}
-                        <div class="card news_banners">
+                        <div class="col-sm-12 col-lg-5 card px-0 mt-5 news_banners">
                             <div class="card-header text-right">
                                 {{ form.DELETE|as_crispy_field }}
                             </div>
                             {% if form.instance.image %}
-                                <img class="card-img-top" src="{{ form.instance.image.url }}" alt="" style="width: 550px;">
+                                <img class="card-img-top" src="{{ form.instance.image.url }}" alt="">
                             {% endif %}
                             <div class="card-body">
                                 {{ form.image|as_crispy_field }}
@@ -38,7 +44,7 @@
                             </div>
                         </div>
                         {% endfor %}
-                        <div id="news_banners-empty-form" class="card hidden">
+                        <div id="news_banners-empty-form" class="col-sm-12 col-lg-5 card px-0 mt-5 hidden">
                             {% with news_banners.formset.empty_form as empty_form %}
                                 <div class="card-header text-right">
                                     {{ empty_form.DELETE|as_crispy_field }}
@@ -50,14 +56,18 @@
                             {% endwith %}
                         </div>
                     </div>
-                    <div class="text-center mt-5">
-                        <input type="button" onclick="add_empty_form(event, 'news_banners')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
-                    </div>
-                    <div class="text-center mt-5">
-                        <input type="submit" name="news_banners" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="text-center mt-5">
+                    <input type="button" onclick="add_empty_form(event, 'news_banners')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                </div>
+                <div class="row">
+                    <label for="{{ news_banners.carousel.data_interval.id_for_label }}" class="my-auto" style="font-size: 22px; font-weight: normal;">{{news_banners.carousel.data_interval.label}}</label>
+                    {{ news_banners.carousel.data_interval }}
+                </div>
+                <div class="text-center mt-5">
+                    <input type="submit" name="news_banners" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">
+                </div>
+            </form>
         </div>
         <!-- /.card-body -->
     </div>

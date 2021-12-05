@@ -31,15 +31,16 @@ class BannersView(View):
             'top_banners': {
                 'formset': TopBannerFormSet(prefix='top_banners'),
                 'carousel': BannersCarouselForm(
-                    instance=self.get_instance(BannersCarouselForm.Meta.model, 'top_banners'), prefix='carousel')
+                    instance=self.get_instance(BannersCarouselForm.Meta.model, 'top_banners'), prefix='top_banners')
             },
 
-            'background_image': BackgroundImageForm(instance=self.get_instance(BackgroundImageForm.Meta.model), prefix='background_image'),
+            'background_image': BackgroundImageForm(
+                instance=self.get_instance(BackgroundImageForm.Meta.model), prefix='background_image'),
 
             'news_banners': {
                 'formset': NewsBannerFormSet(prefix='news_banners'),
                 'carousel': BannersCarouselForm(
-                    instance=self.get_instance(BannersCarouselForm.Meta.model, 'news_banners'), prefix='carousel')
+                    instance=self.get_instance(BannersCarouselForm.Meta.model, 'news_banners'), prefix='news_banners')
             },
         }
 
@@ -57,7 +58,7 @@ class BannersView(View):
 
                         formset = formset.__class__(request.POST, request.FILES, prefix=name)
                         carousel = carousel.__class__(request.POST, request.FILES,
-                                                      instance=carousel.instance, prefix='carousel')
+                                                      instance=carousel.instance, prefix=name)
                         return formset, carousel
                     else:
                         context[name] = context[name].__class__(request.POST, request.FILES,
