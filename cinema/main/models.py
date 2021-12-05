@@ -25,7 +25,7 @@ class NewsBanner(models.Model):
 
 class BannersCarousel(models.Model):
     TIME = tuple(
-        (f'{second}000', str(second)) for second in range(1, 10)
+        (f'{second}000', str(second) + ' с') for second in range(1, 10)
     )
 
     name = models.CharField(max_length=128, unique=True)

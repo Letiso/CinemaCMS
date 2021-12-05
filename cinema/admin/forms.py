@@ -79,7 +79,7 @@ class BannersCarouselForm(forms.ModelForm):
             }),
             'data_interval': forms.Select(attrs={
                 'class': 'form-control ml-4 mr-auto',
-                'style': 'width: 55px;'
+                'style': 'width: 64px;'
             }),
         }
 

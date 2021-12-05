@@ -21,16 +21,16 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-center mt-3">
+                <div class="container-fluid">
                     {% csrf_token %}
                     {{ top_banners.formset.management_form }}
 
-                    <div id="top_banners-list"  style="width: 550px;">
+                    <div class="row justify-content-between justify-content-around" id="top_banners-list">
                         {% for form in top_banners.formset %}
                             {% for hidden in form.hidden_fields %}
                                 {{ hidden }}
                             {% endfor %}
-                        <div class="card top_banners">
+                        <div class="col-sm-12 col-lg-5 card px-0 mt-5 top_banners">
                             <div class="card-header text-right">
                                 {{ form.DELETE|as_crispy_field }}
                             </div>
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         {% endfor %}
-                        <div id="top_banners-empty-form" class="card hidden">
+                        <div id="top_banners-empty-form" class="col-sm-12 col-lg-5 card px-0 mt-5 hidden">
                             {% with top_banners.formset.empty_form as empty_form %}
                                 <div class="card-header text-right">
                                     {{ empty_form.DELETE|as_crispy_field }}
