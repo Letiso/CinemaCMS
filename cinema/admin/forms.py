@@ -1,17 +1,18 @@
 from django import forms
 from user.forms import UserUpdateForm
-from main.models import TopBanner, BackgroundImage, NewsBanner
+from main.models import TopBanner, BackgroundImage, NewsBanner, BannersCarousel
 from django.forms import modelformset_factory
 
 from PIL import Image
-from copy import copy
+
+from crispy_forms.helper import FormHelper
 
 
 # region User
 class ExtendedUserUpdateForm(UserUpdateForm):
-
-    Meta = copy(UserUpdateForm.Meta)
-    Meta.fields += ('is_staff', 'is_superuser')
+    def __init__(self):
+        super().__init__()
+        super().Meta.fields += ('is_staff', 'is_superuser')
 # endregion User
 
 
@@ -28,10 +29,6 @@ class TopBannerForm(forms.ModelForm):
     class Meta:
         model = TopBanner
         fields = ('image', 'is_active')
-        labels = {
-            'image': 'Баннер над навбаром',
-            'is_active': 'Активен',
-        }
 
 
 TopBannerFormSet = modelformset_factory(TopBannerForm.Meta.model, form=TopBannerForm,
@@ -50,13 +47,6 @@ class BackgroundImageForm(forms.ModelForm):
     class Meta:
         model = BackgroundImage
         fields = ('image', 'is_active')
-        labels = {
-            'is_active': 'Картинка на фоне',
-        }
-
-
-BackgroundImageFormSet = modelformset_factory(BackgroundImageForm.Meta.model, form=BackgroundImageForm,
-                                              extra=1, max_num=1, can_delete=True)
 
 
 class NewsBannerForm(forms.ModelForm):
@@ -73,10 +63,22 @@ class NewsBannerForm(forms.ModelForm):
         fields = ('image', 'is_active')
         labels = {
             'image': 'Новости | Акции',
-            'is_active': 'Активен',
         }
 
 
 NewsBannerFormSet = modelformset_factory(NewsBannerForm.Meta.model, form=NewsBannerForm,
                                          extra=0, can_delete=True)
+
+
+class BannersCarouselForm(forms.ModelForm):
+
+    class Meta:
+        model = BannersCarousel
+        fields = ('is_active', 'data_interval')
+        widgets = {
+            'data_interval': forms.Select(attrs={
+                'class': 'form-control',
+            }),
+        }
+
 # endregion Banners

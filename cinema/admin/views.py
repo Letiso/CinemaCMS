@@ -1,7 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import UpdateView, View
 from django.contrib.auth import get_user_model
-from .forms import ExtendedUserUpdateForm, TopBannerFormSet, BackgroundImageFormSet, NewsBannerFormSet
+from .forms import (
+    ExtendedUserUpdateForm,
+    TopBannerFormSet, BackgroundImageForm, NewsBannerFormSet, BannersCarouselForm
+)
 from django.http import HttpResponseRedirect
 
 
@@ -14,13 +17,29 @@ def statistics(request):
 
 # region Banners
 class BannersView(View):
+
     @staticmethod
-    def get_context():
+    def get_instance(model, prefix=None):
+        # {'name': prefix} using for get_or_create BannersCarousel instances
+        # {'pk': 1} using for get_or_create BackgroundImage singleton-instance
+        key = {'name': prefix} if prefix else {'pk': 1}
+        instance, created = model.objects.get_or_create(**key)
+        return instance
+
+    def get_context(self):
         return {
-            'formsets': {
-                'top_banners': TopBannerFormSet(prefix='top_banners'),
-                'background': BackgroundImageFormSet(prefix='background'),
-                'news_banners': NewsBannerFormSet(prefix='news_banners'),
+            'top_banners': {
+                'formset': TopBannerFormSet(prefix='top_banners'),
+                'carousel': BannersCarouselForm(
+                    instance=self.get_instance(BannersCarouselForm.Meta.model, 'top_banners'), prefix='carousel')
+            },
+
+            'background_image': BackgroundImageForm(instance=self.get_instance(BackgroundImageForm.Meta.model), prefix='background_image'),
+
+            'news_banners': {
+                'formset': NewsBannerFormSet(prefix='news_banners'),
+                'carousel': BannersCarouselForm(
+                    instance=self.get_instance(BannersCarouselForm.Meta.model, 'news_banners'), prefix='carousel')
             },
         }
 
@@ -30,16 +49,25 @@ class BannersView(View):
     def post(self, request):
         context = self.get_context()
 
-        def get_current_formset(formsets):
-            formset_names = list(formsets)
-            for name in formset_names:
+        def get_current_form(context):
+            for name in context.keys():
                 if name in request.POST:
-                    formsets[name] = formsets[name].__class__(request.POST, request.FILES, prefix=name)
-                    return formsets[name]
+                    if 'formset' in context[name]:
+                        formset, carousel = context[name]['formset'], context[name]['carousel']
 
-        formset = get_current_formset(context['formsets'])
-        if formset.is_valid():
-            formset.save()
+                        formset = formset.__class__(request.POST, request.FILES, prefix=name)
+                        carousel = carousel.__class__(request.POST, request.FILES,
+                                                      instance=carousel.instance, prefix='carousel')
+                        return formset, carousel
+                    else:
+                        context[name] = context[name].__class__(request.POST, request.FILES,
+                                                                instance=context[name].instance, prefix=name)
+                        return context[name],
+
+        forms = get_current_form(context)
+        if False not in [form.is_valid() for form in forms]:
+            for form in forms:
+                form.save()
             return HttpResponseRedirect('banners')
 
         return render(request, 'admin/banners/index.html', context)

@@ -18,10 +18,10 @@
             <div class="row justify-content-center mt-3">
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ formsets.news_banners.management_form }}
+                    {{ news_banners.formset.management_form }}
 
                     <div id="news_banners-list"  style="width: 550px;">
-                        {% for form in formsets.news_banners %}
+                        {% for form in news_banners.formset %}
                             {% for hidden in form.hidden_fields %}
                                 {{ hidden }}
                             {% endfor %}
@@ -39,13 +39,15 @@
                         </div>
                         {% endfor %}
                         <div id="news_banners-empty-form" class="card hidden">
-                            <div class="card-header text-right">
-                                {{ formsets.news_banners.empty_form.DELETE|as_crispy_field }}
-                            </div>
-                            <div class="card-body">
-                                {{ formsets.news_banners.empty_form.image|as_crispy_field }}
-                                {{ formsets.news_banners.empty_form.is_active|as_crispy_field }}
-                            </div>
+                            {% with news_banners.formset.empty_form as empty_form %}
+                                <div class="card-header text-right">
+                                    {{ empty_form.DELETE|as_crispy_field }}
+                                </div>
+                                <div class="card-body">
+                                    {{ empty_form.image|as_crispy_field }}
+                                    {{ empty_form.is_active|as_crispy_field }}
+                                </div>
+                            {% endwith %}
                         </div>
                     </div>
                     <div class="text-center mt-5">

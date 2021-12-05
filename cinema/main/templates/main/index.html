@@ -4,45 +4,44 @@
 {% block main_main %}active{% endblock %}
 
 {% block stylesheets %}
-<style>
-  main {
-      background: url('{% if background_image.banner.is_active %}{{ background_image.banner.image.url}}{% endif %}') top center;
-      min-height: 90vh;
-  }
-</style>
+    <style>
+      main {
+          background: url('{% if background_image %}{{ background_image.image.url}}{% endif %}') top center;
+          min-height: 90vh;
+      }
+    </style>
 {% endblock %}
 
 {% block top_banner %}
-<div id="topBannersCarousel" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-    {% for banner in top_banners.banners %}
-      {% if banner.is_active %}
-      <div class="carousel-item {% if top_banners.active_slide == banner %}active{% endif %}" data-interval="{{ top_banners.data_interval }}">
-<!--        <img class="d-block w-100 img-fluid" src="{{ banner.image.url }}" alt="" style="min-height: 190px;">-->
-        <img class="d-block w-100 img-fluid" src="{{ banner.image.url }}" alt="" style="max-height: 190px;">
-      </div>
-      {% endif %}
-    {% endfor %}
-  </div>
-   <button class="carousel-control-prev" type="button" data-target="#topBannersCarousel" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-target="#topBannersCarousel" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </button>
-</div>
+    {% if top_banners.carousel and top_banners.carousel.is_active %}
+        <div id="topBannersCarousel" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            {% for banner in top_banners.banners %}
+              <div class="carousel-item {% if top_banners.active_slide == banner %}active{% endif %}" data-interval="{{ top_banners.carousel.data_interval }}">
+                <img class="d-block w-100 img-fluid" src="{{ banner.image.url }}" alt="" style="max-height: 190px;">
+              </div>
+            {% endfor %}
+          </div>
+           <button class="carousel-control-prev" type="button" data-target="#topBannersCarousel" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Предыдущий</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-target="#topBannersCarousel" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Следующий</span>
+          </button>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="card mx-auto mt-5" style="width: 550px;">
-        <div class="card-body">
-            <h1>Скоро</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, consectetur consequatur eveniet impedit, ipsum magnam maiores nemo, optio reiciendis repellat repellendus soluta unde? Consequatur delectus ducimus molestias repellendus sapiente.</p>
-            <button class="btn btn-warning">Принять</button>
+    <div class="row">
+        <div class="card mx-auto mt-5" style="width: 550px;">
+            <div class="card-body">
+                <h1>Скоро</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, consectetur consequatur eveniet impedit, ipsum magnam maiores nemo, optio reiciendis repellat repellendus soluta unde? Consequatur delectus ducimus molestias repellendus sapiente.</p>
+                <button class="btn btn-warning">Принять</button>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}

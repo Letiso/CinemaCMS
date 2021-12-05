@@ -12,16 +12,21 @@
   </div>
     <div class="collapse bg-light" id="collapseTopBanner">
         <div class="card-body mx-5 mt-1 mb-3">
-            <div class="row justify-content-start">
-                <h5>Размер: 1000x190</h5>
-            </div>
-            <div class="row justify-content-center mt-3">
-                <form action="" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data">
+
+                <div class="row">
+                    <h4 class="mr-auto">Размер: 1000x190</h4>
+                    <div class="ml-auto">
+                        {{ top_banners.carousel.is_active }}
+                    </div>
+                </div>
+
+                <div class="row justify-content-center mt-3">
                     {% csrf_token %}
-                    {{ formsets.top_banners.management_form }}
+                    {{ top_banners.formset.management_form }}
 
                     <div id="top_banners-list"  style="width: 550px;">
-                        {% for form in formsets.top_banners %}
+                        {% for form in top_banners.formset %}
                             {% for hidden in form.hidden_fields %}
                                 {{ hidden }}
                             {% endfor %}
@@ -39,23 +44,33 @@
                         </div>
                         {% endfor %}
                         <div id="top_banners-empty-form" class="card hidden">
-                            <div class="card-header text-right">
-                                {{ formsets.top_banners.empty_form.DELETE|as_crispy_field }}
-                            </div>
-                            <div class="card-body">
-                                {{ formsets.top_banners.empty_form.image|as_crispy_field }}
-                                {{ formsets.top_banners.empty_form.is_active|as_crispy_field }}
-                            </div>
+                            {% with top_banners.formset.empty_form as empty_form %}
+                                <div class="card-header text-right">
+                                    {{ empty_form.DELETE|as_crispy_field }}
+                                </div>
+                                <div class="card-body">
+                                    {{ empty_form.image|as_crispy_field }}
+                                    {{ empty_form.is_active|as_crispy_field }}
+                                </div>
+                            {% endwith %}
                         </div>
                     </div>
-                    <div class="text-center mt-5">
-                        <input type="button" onclick="add_empty_form(event, 'top_banners')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                </div>
+                <div class="text-center mt-5">
+                    <input type="button" onclick="add_empty_form(event, 'top_banners')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                </div>
+                <div class="row">
+                    <div class="px-auto mr-4 mt-1">
+                        <h4>{{ top_banners.carousel.data_interval.label }}</h4>
                     </div>
-                    <div class="text-center mt-5">
-                        <input type="submit" name="top_banners" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">
+                    <div style="width: 55px;">
+                        {{ top_banners.carousel.data_interval }}
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="text-center mt-4">
+                    <input type="submit" name="top_banners" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">
+                </div>
+            </form>
         </div>
         <!-- /.card-body -->
     </div>

@@ -1,23 +1,22 @@
 from django.shortcuts import render
-from .models import TopBanner, BackgroundImage, NewsBanner
+from .models import TopBanner, BackgroundImage, NewsBanner, BannersCarousel
 
 
 def index(request):
     context = {
-            'top_banners': {
-                'banners': TopBanner.objects.all(),
-                'active_slide': TopBanner.objects.first(),
-                'data_interval': '2500',  # ?
-            },
+        'top_banners': {
+            'banners': TopBanner.objects.filter(is_active=True),
+            'active_slide': TopBanner.objects.first(),
+            'carousel': BannersCarousel.objects.get(name='top_banners'),
+        },
 
-            'background_image': {
-                'banner': BackgroundImage.objects.first(),
-            },
+        'background_image': BackgroundImage.objects.filter(is_active=True),
 
-            'news_banners': {
-                'banners': NewsBanner.objects.all(),
-                'active_slide': NewsBanner.objects.first()
-            },
+        'news_banners': {
+            'banners': NewsBanner.objects.filter(is_active=True),
+            'carousel': BannersCarousel.objects.get(name='news_banners'),  # ?
+            'active_slide': NewsBanner.objects.first()
+        },
     }
     return render(request, 'main/index.html', context)
 

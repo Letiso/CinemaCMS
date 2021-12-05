@@ -18,27 +18,19 @@
             <div class="row justify-content-center mt-3">
                 <form enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
-                    {{ formsets.background.management_form }}
-
-                    {% for form in formsets.background %}
                     <div class="card" style="width: 550px;">
-                        <div class="card-header text-right">
-                            {{ form.DELETE|as_crispy_field }}
-                        </div>
-                        {% if form.instance.image %}
-                            <img class="card-img-top" src="{{ form.instance.image.url }}" alt="">
-                        {% endif %}
-                        <div class="card-body">
-                            {% for hidden in form.hidden_fields %}
-                                {{ hidden }}
-                            {% endfor %}
-                            {{ form.image|as_crispy_field }}
-                            {{ form.is_active|as_crispy_field }}
-                        </div>
+                        {% with background_image as form %}
+                            {% if form.instance.image %}
+                                <img class="card-img-top" src="{{ form.instance.image.url }}" alt="thumbnail">
+                            {% endif %}
+                            <div class="card-body">
+                                {{ form.image|as_crispy_field }}
+                                {{ form.is_active|as_crispy_field }}
+                            </div>
+                        {% endwith %}
                     </div>
-                    {% endfor %}
                     <div class="text-center mt-5">
-                        <input type="submit" name="background" class="btn btn-success" value="Сохранить изменения">
+                        <input type="submit" name="background_image" class="btn btn-success" value="Сохранить изменения">
                     </div>
                 </form>
             </div>
