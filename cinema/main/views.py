@@ -10,7 +10,7 @@ def index(request):
             'carousel': BannersCarousel.objects.get(name='top_banners'),
         },
 
-        'background_image': BackgroundImage.objects.filter(is_active=True),
+        'background_image': BackgroundImage.objects.get(pk=1),
 
         'news_banners': {
             'banners': NewsBanner.objects.filter(is_active=True),

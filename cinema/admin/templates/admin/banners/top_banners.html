@@ -1,6 +1,5 @@
 {% load crispy_forms_tags %}
 {% load static %}
-
 <div class="card mx-4">
   <div class="card-header d-flex mt-2">
     <h4 class="col-11 text-center">
@@ -16,8 +15,9 @@
 
                 <div class="row">
                     <h4 class="mr-auto">Размер: 1000x190</h4>
-                    <div class="ml-auto">
+                    <div class="custom-control custom-switch">
                         {{ top_banners.carousel.is_active }}
+                        <label for="{{ top_banners.carousel.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
                     </div>
                 </div>
 
@@ -60,12 +60,8 @@
                     <input type="button" onclick="add_empty_form(event, 'top_banners')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
                 </div>
                 <div class="row">
-                    <div class="px-auto mr-4 mt-1">
-                        <h4>{{ top_banners.carousel.data_interval.label }}</h4>
-                    </div>
-                    <div style="width: 55px;">
-                        {{ top_banners.carousel.data_interval }}
-                    </div>
+                    <label for="{{ top_banners.carousel.data_interval.id_for_label }}" class="my-auto" style="font-size: 22px; font-weight: normal;">{{top_banners.carousel.data_interval.label}}</label>
+                    {{ top_banners.carousel.data_interval }}
                 </div>
                 <div class="text-center mt-4">
                     <input type="submit" name="top_banners" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">

@@ -5,13 +5,11 @@ from django.forms import modelformset_factory
 
 from PIL import Image
 
-from crispy_forms.helper import FormHelper
-
 
 # region User
 class ExtendedUserUpdateForm(UserUpdateForm):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(self, *args, **kwargs)
         super().Meta.fields += ('is_staff', 'is_superuser')
 # endregion User
 
@@ -76,8 +74,12 @@ class BannersCarouselForm(forms.ModelForm):
         model = BannersCarousel
         fields = ('is_active', 'data_interval')
         widgets = {
+            'is_active': forms.CheckboxInput(attrs={
+                'class': 'custom-control-input',
+            }),
             'data_interval': forms.Select(attrs={
-                'class': 'form-control',
+                'class': 'form-control ml-4 mr-auto',
+                'style': 'width: 55px;'
             }),
         }
 

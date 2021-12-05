@@ -13,12 +13,12 @@
 {% endblock %}
 
 {% block top_banner %}
-    {% if top_banners.carousel and top_banners.carousel.is_active %}
+    {% if top_banners.carousel.is_active %}
         <div id="topBannersCarousel" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             {% for banner in top_banners.banners %}
               <div class="carousel-item {% if top_banners.active_slide == banner %}active{% endif %}" data-interval="{{ top_banners.carousel.data_interval }}">
-                <img class="d-block w-100 img-fluid" src="{{ banner.image.url }}" alt="" style="max-height: 190px;">
+                <img class="d-block w-100 img-fluid" src="{{ banner.image.url }}" alt="">
               </div>
             {% endfor %}
           </div>
