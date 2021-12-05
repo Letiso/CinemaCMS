@@ -18,10 +18,62 @@
     }
 </style>
 
-    {% include './top_banners.html' %}
-    {% include './background_image.html' %}
-    {% include './news_banners.html' %}
-
+<div class="card mx-4">
+  <div class="card-header d-flex mt-2">
+    <h4 class="col-11 text-center">
+        На главной верх
+    </h4>
+    <a class="nav-link ml-auto" onclick="toggle_show(event, 'TopBanner')" data-toggle="collapse" href="#collapseTopBanner" role="button" aria-expanded="false" aria-controls="collapseTopBanner">
+    <i class="fas fa-bars" style="font-size: 22px;"></i>
+    </a>
+  </div>
+    <div class="collapse bg-light" id="collapseTopBanner">
+        <div class="card-body mx-5 mt-1 mb-3">
+            {% include './top_banners.html' %}
+        </div>
+        <!-- /.card-body -->
+    </div>
+</div>
+<!-- /.card -->
+<div class="card mx-4">
+  <div class="card-header d-flex mt-2">
+    <h4 class="col-11 text-center">
+        На главной фон
+    </h4>
+    <a class="nav-link ml-auto" onclick="toggle_show(event, 'BackgroundImage')" data-toggle="collapse" href="#collapseBackgroundImage" role="button" aria-expanded="false" aria-controls="collapseBackgroundImage">
+    <i class="fas fa-bars" style="font-size: 22px;"></i>
+    </a>
+  </div>
+    <div class="collapse bg-light" id="collapseBackgroundImage">
+        <div class="card-body mx-5 mt-1 mb-3">
+            <div class="row justify-content-start">
+                <h5>Размер: 2000x3000</h5>
+            </div>
+            <div class="row justify-content-center mt-3">
+                {% include './background_image.html' %}
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+</div>
+<!-- /.card -->
+<div class="card mx-4">
+  <div class="card-header d-flex mt-2">
+    <h4 class="col-11 text-center">
+        На главной Новости | Акции
+    </h4>
+    <a class="nav-link ml-auto" onclick="toggle_show(event, 'NewsBanner')" data-toggle="collapse" href="#collapseNewsBanner" role="button" aria-expanded="false" aria-controls="collapseNewsBanner">
+    <i class="fas fa-bars" style="font-size: 22px;"></i>
+    </a>
+  </div>
+    <div class="collapse bg-light" id="collapseNewsBanner">
+        <div class="card-body mx-5 mt-1 mb-3">
+            {% include './news_banners.html' %}
+        </div>
+        <!-- /.card-body -->
+    </div>
+</div>
+<!-- /.card -->
 {% endblock %}
 
 {% block scripts %}

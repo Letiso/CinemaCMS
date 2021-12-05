@@ -1,42 +1,20 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-<div class="card mx-4">
-  <div class="card-header d-flex mt-2">
-    <h4 class="col-11 text-center">
-        На главной фон
-    </h4>
-    <a class="nav-link ml-auto" onclick="toggle_show(event, 'BackgroundImage')" data-toggle="collapse" href="#collapseBackgroundImage" role="button" aria-expanded="false" aria-controls="collapseBackgroundImage">
-    <i class="fas fa-bars" style="font-size: 22px;"></i>
-    </a>
-  </div>
-    <div class="collapse bg-light" id="collapseBackgroundImage">
-        <div class="card-body mx-5 mt-1 mb-3">
-            <div class="row justify-content-start">
-                <h5>Размер: 2000x3000</h5>
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <div class="card" style="width: 550px;">
+        {% with background_image as form %}
+            {% if form.instance.image %}
+                <img class="card-img-top" src="{{ form.instance.image.url }}" alt="thumbnail">
+            {% endif %}
+            <div class="card-body">
+                {{ form.image|as_crispy_field }}
+                {{ form.is_active|as_crispy_field }}
             </div>
-            <div class="row justify-content-center mt-3">
-                <form enctype="multipart/form-data" method="POST">
-                    {% csrf_token %}
-                    <div class="card" style="width: 550px;">
-                        {% with background_image as form %}
-                            {% if form.instance.image %}
-                                <img class="card-img-top" src="{{ form.instance.image.url }}" alt="thumbnail">
-                            {% endif %}
-                            <div class="card-body">
-                                {{ form.image|as_crispy_field }}
-                                {{ form.is_active|as_crispy_field }}
-                            </div>
-                        {% endwith %}
-                    </div>
-                    <div class="text-center mt-5">
-                        <input type="submit" name="background_image" class="btn btn-success" value="Сохранить изменения">
-                    </div>
-                </form>
-            </div>
-
-        </div>
-        <!-- /.card-body -->
+        {% endwith %}
     </div>
-</div>
-<!-- /.card -->
+    <div class="text-center mt-5">
+        <input type="submit" name="background_image" class="btn btn-success" value="Сохранить изменения">
+    </div>
+</form>
