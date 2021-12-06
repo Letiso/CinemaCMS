@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import UpdateView, View
 from django.contrib.auth import get_user_model
@@ -5,7 +7,7 @@ from .forms import (
     ExtendedUserUpdateForm,
     TopBannerFormSet, BackgroundImageForm, NewsBannerFormSet, BannersCarouselForm
 )
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 
 
 def statistics(request):
@@ -16,6 +18,16 @@ def statistics(request):
 
 
 # region Banners
+class BannerImageValidationView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        image = data['image'].image
+        width, height = 2000, 3000
+        if not image or image.image.size != (width, height):
+            return JsonResponse({'image_error': f'Выберите изображение с разрешением {width}x{height}'})
+        return JsonResponse({'image_valid': True})
+
+
 class BannersView(View):
 
     @staticmethod

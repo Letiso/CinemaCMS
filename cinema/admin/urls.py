@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.statistics, name="statistics"),
     path('banners', views.BannersView.as_view(), name="banners"),
+    path('banner_image_validation', views.BannerImageValidationView.as_view(), name="banner_image_validation"),
     path('movies', views.movies, name="movies"),
     path('cinemas', views.cinemas, name="cinemas_conf"),
     path('news', views.news, name="news_conf"),

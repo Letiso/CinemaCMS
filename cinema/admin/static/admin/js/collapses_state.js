@@ -21,8 +21,8 @@ for (key in collapses.toShow) {
 }
 
 // log
-console.log(localStorage.getItem('collapses'))
-console.log(collapses)
+// console.log(localStorage.getItem('collapses'))
+// console.log(collapses)
 
 
 // update localStorage record about collapses
@@ -36,6 +36,6 @@ function toggle_show(event, collapse) {
     localStorage.setItem('collapses', JSON.stringify(collapses))
 
     // log
-    console.log(collapse)
-    console.log(JSON.parse(localStorage.getItem('collapses')).toShow)
+    // console.log(collapse)
+    // console.log(JSON.parse(localStorage.getItem('collapses')).toShow)
 }
