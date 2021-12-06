@@ -27,9 +27,6 @@ class TopBannerForm(forms.ModelForm):
     class Meta:
         model = TopBanner
         fields = ('image', 'is_active')
-        widgets = {
-            'image': forms.ClearableFileInput(attrs={"onchange": "validate_then_set_thumbnail(event)"})
-        }
 
 
 TopBannerFormSet = modelformset_factory(TopBannerForm.Meta.model, form=TopBannerForm,

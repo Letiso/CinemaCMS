@@ -1,7 +1,8 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-<form action="" method="POST" enctype="multipart/form-data">
+<form id="top_banners" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 
     <div class="row">
         <h4 class="mr-auto">Размер: 1000x190</h4>
@@ -12,7 +13,6 @@
     </div>
 
     <div class="container-fluid">
-        {% csrf_token %}
         {{ top_banners.formset.management_form }}
 
         <div class="row justify-content-between justify-content-around" id="top_banners-list">
@@ -25,7 +25,7 @@
                     {{ form.DELETE|as_crispy_field }}
                 </div>
                 {% if form.instance.image %}
-                    <img class="card-img-top" src="{{ form.instance.image.url }}" alt="">
+                    <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{{ form.instance.image.url }}" alt="">
                 {% endif %}
                 <div class="card-body">
                     {{ form.image|as_crispy_field }}
@@ -38,6 +38,7 @@
                     <div class="card-header text-right">
                         {{ empty_form.DELETE|as_crispy_field }}
                     </div>
+                    <img id="{{ empty_form.image.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
                     <div class="card-body">
                         {{ empty_form.image|as_crispy_field }}
                         {{ empty_form.is_active|as_crispy_field }}
