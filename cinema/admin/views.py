@@ -5,7 +5,7 @@ from .forms import (
     ExtendedUserUpdateForm,
     TopBannerFormSet, BackgroundImageForm, NewsBannerFormSet, BannersCarouselForm
 )
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect
 
 
 def statistics(request):
@@ -50,30 +50,28 @@ class BannersView(View):
     def post(self, request):
         context = self.get_context()
 
-        def get_current_form(context):
+        def get_current_form():
             for name in context.keys():
                 if name in request.POST:
                     if 'formset' in context[name]:
                         formset, carousel = context[name]['formset'], context[name]['carousel']
 
-                        formset = formset.__class__(request.POST, request.FILES, prefix=name)
-                        carousel = carousel.__class__(request.POST, request.FILES,
-                                                      instance=carousel.instance, prefix=name)
-                        return formset, carousel
+                        context[name]['formset'] = formset.__class__(request.POST, request.FILES, prefix=name)
+                        context[name]['carousel'] = carousel.__class__(request.POST, request.FILES,
+                                                                       instance=carousel.instance, prefix=name)
+                        return context[name]['formset'], context[name]['carousel']
                     else:
                         context[name] = context[name].__class__(request.POST, request.FILES,
                                                                 instance=context[name].instance, prefix=name)
                         return context[name],
 
-        forms = get_current_form(context)
+        forms = get_current_form()
         if False not in [form.is_valid() for form in forms]:
             for form in forms:
                 form.save()
             return HttpResponseRedirect('banners')
 
         return render(request, 'admin/banners/index.html', context)
-
-
 # endregion Banners
 
 

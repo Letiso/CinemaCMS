@@ -2,6 +2,8 @@ const fileInputs = document.getElementsByClassName('form-control-file')
 
 for (let i = 0; i < fileInputs.length; i++) {
     fileInputs[i].setAttribute('onchange', "set_thumbnail(event)")
+    // fileInputs[i].addEventListener('change', set_thumbnail)
+
 }
 
 function set_thumbnail(event) {
