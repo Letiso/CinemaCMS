@@ -1,27 +1,25 @@
 const fileInputs = document.getElementsByClassName('form-control-file')
 
 for (let i = 0; i < fileInputs.length; i++) {
-    fileInputs[i].setAttribute('onchange', "set_thumbnail(event)")
+    fileInputs[i].setAttribute('onchange', "validate_then_set_thumbnail(event)")
     // fileInputs[i].addEventListener('change', set_thumbnail)
 }
 
-function set_thumbnail(event) {
+function validate_then_set_thumbnail(event) {
     const imageInput = event.currentTarget;
     const reader = new FileReader();
 
     reader.onload = function(){
-
+        const required_size = [2000, 190]
         // TODO проверять индивидуальные разрешения изображений
-        image_validation(reader.result, [1000, 190], (is_valid) => {
+        image_validation(reader.result, required_size, (is_valid) => {
 
             if (is_valid) {
                 const thumbnail = document.getElementById(`${imageInput.id}-thumbnail`);
                 thumbnail.src = reader.result;
-
-                toggle_error_show(true, imageInput)
+                toggle_error_show(true, imageInput, required_size)
             } else {
-
-                toggle_error_show(false, imageInput)
+                toggle_error_show(false, imageInput, required_size)
                 // TODO возвращать стандартную картинку в случае неудачной валидации
             }
         })
@@ -43,7 +41,7 @@ function image_validation(src, required_size, callback) {
     image.src = src;
 }
 
-function toggle_error_show(validation_succeed, imageInput) {
+function toggle_error_show(validation_succeed, imageInput, required_size) {
     const imageField = imageInput.parentNode;
 
     if (validation_succeed) {
@@ -58,7 +56,7 @@ function toggle_error_show(validation_succeed, imageInput) {
             const p = document.createElement("p");
             p.id = `error_1_${imageInput.id}`;
             p.className = "invalid-feedback";
-            p.innerHTML = '<strong>Выберите изображение с разрешением 1000x190</strong>';
+            p.innerHTML = `<strong>Выберите изображение с разрешением ${required_size[0]}x${required_size[1]} </strong>`;
 
             imageField.append(p);
         }

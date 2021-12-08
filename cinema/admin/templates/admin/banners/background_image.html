@@ -3,8 +3,12 @@
 
 <form enctype="multipart/form-data" method="POST">
     {% csrf_token %}
+    <div class="row">
+        <h4 class="mr-auto">{{ background_image.required_size.0 }}x{{ background_image.required_size.1 }} px</h4>
+    </div>
+
     <div class="col-sm-12 col-lg-5 card px-0 mx-auto" style="min-width: 25vw;">
-        {% with background_image as form %}
+        {% with background_image.form as form %}
             {% if form.instance.image %}
                 <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{{ form.instance.image.url }}" alt="">
             {% endif %}

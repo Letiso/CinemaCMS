@@ -28,7 +28,7 @@ def clean_image(image, required_size):
 
 class TopBannerForm(forms.ModelForm):
     def clean_image(self):
-        return clean_image(self.cleaned_data['image'], required_size=(1000, 190))
+        return clean_image(self.cleaned_data['image'], self.Meta.model.required_size)
 
     class Meta:
         model = TopBanner
@@ -48,7 +48,7 @@ class BackgroundImageForm(forms.ModelForm):
                 )
 
     def clean_image(self):
-        return clean_image(image=self.cleaned_data['image'], required_size=(2000, 3000))
+        return clean_image(self.cleaned_data['image'], self.Meta.model.required_size)
 
     class Meta:
         model = BackgroundImage
@@ -57,7 +57,7 @@ class BackgroundImageForm(forms.ModelForm):
 
 class NewsBannerForm(forms.ModelForm):
     def clean_image(self):
-        return clean_image(image=self.cleaned_data['image'], required_size=(1000, 190))
+        return clean_image(self.cleaned_data['image'], self.Meta.model.required_size)
 
     class Meta:
         model = NewsBanner

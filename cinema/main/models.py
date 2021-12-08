@@ -6,18 +6,21 @@ banners_path = 'main/index/banners'
 
 
 class TopBanner(models.Model):
+    required_size = (1000, 190)
     image = models.ImageField('Баннер', upload_to=f'{banners_path}/top')
     is_active = models.BooleanField('Активен', default=False)
     objects = models.Manager()
 
 
 class BackgroundImage(models.Model):
+    required_size = (2000, 3000)
     image = models.ImageField('Фоновое изображение', upload_to=f'{banners_path}/background')
     is_active = models.BooleanField('Фоновое изображение', default=False)
     objects = models.Manager()
 
 
 class NewsBanner(models.Model):
+    required_size = (1000, 190)
     image = models.ImageField('Баннер', upload_to=f'{banners_path}/news')
     is_active = models.BooleanField('Активен', default=False)
     objects = models.Manager()

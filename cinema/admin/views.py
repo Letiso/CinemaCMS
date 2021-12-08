@@ -29,15 +29,19 @@ class BannersView(View):
     def get_context(self):
         return {
             'top_banners': {
+                'required_size': TopBannerFormSet.model.required_size,
                 'formset': TopBannerFormSet(prefix='top_banners'),
                 'carousel': BannersCarouselForm(
                     instance=self.get_instance(BannersCarouselForm.Meta.model, 'top_banners'), prefix='top_banners')
             },
 
-            'background_image': BackgroundImageForm(
-                instance=self.get_instance(BackgroundImageForm.Meta.model), prefix='background_image'),
-
+            'background_image': {
+                'required_size': BackgroundImageForm.Meta.model.required_size,
+                'form': BackgroundImageForm(
+                    instance=self.get_instance(BackgroundImageForm.Meta.model), prefix='background_image'),
+            },
             'news_banners': {
+                'required_size': TopBannerFormSet.model.required_size,
                 'formset': NewsBannerFormSet(prefix='news_banners'),
                 'carousel': BannersCarouselForm(
                     instance=self.get_instance(BannersCarouselForm.Meta.model, 'news_banners'), prefix='news_banners')
@@ -61,9 +65,10 @@ class BannersView(View):
                                                                        instance=carousel.instance, prefix=name)
                         return context[name]['formset'], context[name]['carousel']
                     else:
-                        context[name] = context[name].__class__(request.POST, request.FILES,
-                                                                instance=context[name].instance, prefix=name)
-                        return context[name],
+                        context[name]['form'] = context[name]['form'].__class__(request.POST, request.FILES,
+                                                                                instance=context[name]['form'].instance,
+                                                                                prefix=name)
+                        return context[name]['form'],
 
         forms = get_current_form()
         if False not in [form.is_valid() for form in forms]:
@@ -72,6 +77,8 @@ class BannersView(View):
             return HttpResponseRedirect('banners')
 
         return render(request, 'admin/banners/index.html', context)
+
+
 # endregion Banners
 
 
