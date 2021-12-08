@@ -5,7 +5,7 @@
     {% csrf_token %}
 
     <div class="row">
-        <h4 class="mr-auto">{{ top_banners.required_size.0 }}x{{ top_banners.required_size.1 }} px</h4>
+        <h4 class="required-size mr-auto">{{ top_banners.required_size.0 }}x{{ top_banners.required_size.1 }} px</h4>
         <div class="custom-control custom-switch">
             {{ top_banners.carousel.is_active }}
             <label for="{{ top_banners.carousel.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>

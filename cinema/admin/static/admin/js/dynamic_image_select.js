@@ -10,17 +10,17 @@ function validate_then_set_thumbnail(event) {
     const reader = new FileReader();
 
     reader.onload = function(){
-        const required_size = [2000, 190]
-        // TODO проверять индивидуальные разрешения изображений
-        image_validation(reader.result, required_size, (is_valid) => {
+        const required_size = document.getElementById(
+            imageInput.name.split('-')[0]).getElementsByClassName(
+                'required-size')[0].innerHTML.split(' px')[0].split('x')
 
+        image_validation(reader.result, required_size, (is_valid) => {
             if (is_valid) {
                 const thumbnail = document.getElementById(`${imageInput.id}-thumbnail`);
                 thumbnail.src = reader.result;
                 toggle_error_show(true, imageInput, required_size)
             } else {
                 toggle_error_show(false, imageInput, required_size)
-                // TODO возвращать стандартную картинку в случае неудачной валидации
             }
         })
     };
@@ -32,7 +32,7 @@ function image_validation(src, required_size, callback) {
     const image = new Image();
 
     image.onload = function() {
-        if (JSON.stringify([image.naturalWidth, image.naturalHeight]) === JSON.stringify(required_size)) {
+        if (JSON.stringify(['' + image.naturalWidth, '' + image.naturalHeight]) === JSON.stringify(required_size)) {
             callback(true);
         } else {
             callback(false);
@@ -60,5 +60,8 @@ function toggle_error_show(validation_succeed, imageInput, required_size) {
 
             imageField.append(p);
         }
+
+        // TODO возвращать стандартную картинку в случае неудачной валидации
+
     }
 }
