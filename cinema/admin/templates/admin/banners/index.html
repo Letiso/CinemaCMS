@@ -3,6 +3,8 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{% static 'admin/css/custom_delete_checkbox.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
+
 {% endblock %}
 
 {% block banners %}active{% endblock %}
@@ -72,6 +74,9 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+
 <script src="{% static 'admin/js/dynamic_formset.js' %}"></script>
 <script src="{% static 'admin/js/dynamic_image_select.js' %}"></script>
+<script src="{% static 'admin/js/custom_toastr.js' %}"></script>
 {% endblock %}

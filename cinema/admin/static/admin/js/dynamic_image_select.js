@@ -6,13 +6,15 @@ for (let i = 0; i < fileInputs.length; i++) {
 }
 
 function validate_then_set_thumbnail(event) {
+    toastr.info('Был выбран файл');
+
     const imageInput = event.currentTarget;
     const reader = new FileReader();
 
     reader.onload = function(){
         const required_size = document.getElementById(
             imageInput.name.split('-')[0]).getElementsByClassName(
-                'required-size')[0].innerHTML.split(' px')[0].split('x')
+                'required-size')[0].innerHTML.split('x')
 
         image_validation(reader.result, required_size, (is_valid) => {
             if (is_valid) {
