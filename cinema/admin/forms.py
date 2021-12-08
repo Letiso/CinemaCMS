@@ -1,9 +1,8 @@
 from django import forms
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from user.forms import UserUpdateForm
 from main.models import TopBanner, BackgroundImage, NewsBanner, BannersCarousel
 from django.forms import modelformset_factory
-
-from PIL import Image
 
 
 # region User
@@ -15,14 +14,21 @@ class ExtendedUserUpdateForm(UserUpdateForm):
 
 
 # region Banners
-class TopBannerForm(forms.ModelForm):
+def clean_image(image, required_size):
+    if isinstance(image, InMemoryUploadedFile):
+        image_size = image.image.size
+    else:
+        image_size = (image.width, image.height)
 
+    if image_size != required_size:
+        width, height = required_size
+        raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}', code='invalid')
+    return image
+
+
+class TopBannerForm(forms.ModelForm):
     def clean_image(self):
-        image = self.cleaned_data['image']
-        width, height = 1000, 190
-        if Image.open(image).size != (width, height):
-            raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}')
-        return image
+        return clean_image(self.cleaned_data['image'], required_size=(1000, 190))
 
     class Meta:
         model = TopBanner
@@ -42,11 +48,7 @@ class BackgroundImageForm(forms.ModelForm):
                 )
 
     def clean_image(self):
-        image = self.cleaned_data['image']
-        width, height = 2000, 3000
-        if Image.open(image).size != (width, height):
-            raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}')
-        return image
+        return clean_image(image=self.cleaned_data['image'], required_size=(2000, 3000))
 
     class Meta:
         model = BackgroundImage
@@ -54,13 +56,8 @@ class BackgroundImageForm(forms.ModelForm):
 
 
 class NewsBannerForm(forms.ModelForm):
-
     def clean_image(self):
-        image = self.cleaned_data['image']
-        width, height = 1000, 190
-        if Image.open(image).size != (width, height):
-            raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}')
-        return image
+        return clean_image(image=self.cleaned_data['image'], required_size=(1000, 190))
 
     class Meta:
         model = NewsBanner

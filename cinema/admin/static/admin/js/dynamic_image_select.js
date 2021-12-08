@@ -10,13 +10,15 @@ function set_thumbnail(event) {
     const reader = new FileReader();
 
     reader.onload = function(){
-        image_validation(reader.result, (is_valid) => {
+
+        // TODO проверять индивидуальные разрешения изображений
+        image_validation(reader.result, [1000, 190], (is_valid) => {
+
             if (is_valid) {
                 const thumbnail = document.getElementById(`${imageInput.id}-thumbnail`);
                 thumbnail.src = reader.result;
 
                 toggle_error_show(true, imageInput)
-                // TODO удалять сообщение об ошибке от предыдущей валидации
             } else {
 
                 toggle_error_show(false, imageInput)
@@ -28,11 +30,11 @@ function set_thumbnail(event) {
     reader.readAsDataURL(event.target.files[0]);
   }
 
-function image_validation(src, callback) {
+function image_validation(src, required_size, callback) {
     const image = new Image();
 
     image.onload = function() {
-        if (image.naturalWidth === 1000 && image.naturalHeight === 190) {
+        if (JSON.stringify([image.naturalWidth, image.naturalHeight]) === JSON.stringify(required_size)) {
             callback(true);
         } else {
             callback(false);
