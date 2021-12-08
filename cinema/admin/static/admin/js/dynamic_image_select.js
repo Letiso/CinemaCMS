@@ -14,6 +14,13 @@ function set_thumbnail(event) {
             if (is_valid) {
                 const thumbnail = document.getElementById(`${imageInput.id}-thumbnail`);
                 thumbnail.src = reader.result;
+
+                toggle_error_show(true, imageInput)
+                // TODO удалять сообщение об ошибке от предыдущей валидации
+            } else {
+
+                toggle_error_show(false, imageInput)
+                // TODO возвращать стандартную картинку в случае неудачной валидации
             }
         })
     };
@@ -25,14 +32,33 @@ function image_validation(src, callback) {
     const image = new Image();
 
     image.onload = function() {
-        console.log(image.naturalWidth, image.naturalHeight);
-
         if (image.naturalWidth === 1000 && image.naturalHeight === 190) {
-            console.log('valid_image');
             callback(true);
         } else {
-            console.log('invalid_image');
+            callback(false);
         }
     }
     image.src = src;
+}
+
+function toggle_error_show(validation_succeed, imageInput) {
+    const imageField = imageInput.parentNode;
+
+    if (validation_succeed) {
+        if (imageField.lastElementChild.tagName === 'P') {
+            imageInput.className = `${imageInput.className}`.replace(RegExp(' is-invalid'), '');
+            imageField.removeChild(imageField.lastElementChild);
+        }
+    } else {
+        if (imageField.lastElementChild.tagName !== 'P') {
+            imageInput.className = `${imageInput.className} is-invalid`;
+
+            const p = document.createElement("p");
+            p.id = `error_1_${imageInput.id}`;
+            p.className = "invalid-feedback";
+            p.innerHTML = '<strong>Выберите изображение с разрешением 1000x190</strong>';
+
+            imageField.append(p);
+        }
+    }
 }
