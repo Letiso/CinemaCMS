@@ -25,11 +25,11 @@ function validate_then_set_thumbnail(event) {
             const thumbnail = document.getElementById(`${imageInput.id}-thumbnail`);
 
             if (is_valid) {
-                original_thumb_url_backup(imageInput.name, thumbnail.src)
+                original_thumb_url_backup(imageInput.name, thumbnail)
                 thumbnail.src = reader.result;
                 toggle_error(true, imageInput, required_size)
             } else {
-                thumbnail.src = original_thumb_url_backup(imageInput.name, false)
+                original_thumb_url_backup(imageInput.name, thumbnail, true)
                 toggle_error(false, imageInput, required_size)
             }
         })
@@ -76,10 +76,14 @@ function toggle_error(validation_succeed, imageInput, required_size) {
 }
 
 
-function original_thumb_url_backup(name, src) {
-    if (src && !(name in original_thumbnail_urls)) {
-        original_thumbnail_urls[name] = src
+function original_thumb_url_backup(name, thumbnail, restore=false) {
+    if (!restore) {
+        if (!(name in original_thumbnail_urls)) {
+            original_thumbnail_urls[name] = thumbnail.src
+        }
     } else {
-        return original_thumbnail_urls[name]
+        if (thumbnail.src.startsWith('data:')) {
+            thumbnail.src = original_thumbnail_urls[name]
+        }
     }
 }
