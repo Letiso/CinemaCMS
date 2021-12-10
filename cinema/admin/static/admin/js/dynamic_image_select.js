@@ -11,8 +11,6 @@ for (let i = 0; i < fileInputs.length; i++) {
 
 
 function validate_then_set_thumbnail(event) {
-    toastr.info('Был выбран файл');
-
     const imageInput = event.currentTarget;
     const reader = new FileReader();
 
@@ -28,9 +26,13 @@ function validate_then_set_thumbnail(event) {
                 original_thumb_url_backup(imageInput.name, thumbnail)
                 thumbnail.src = reader.result;
                 toggle_error(true, imageInput, required_size)
+
+                toastr.success('Данные валидны');
             } else {
                 original_thumb_url_backup(imageInput.name, thumbnail, true)
                 toggle_error(false, imageInput, required_size)
+
+                toastr.error('Данные невалидны');
             }
         })
     };
