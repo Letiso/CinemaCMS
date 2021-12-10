@@ -20,10 +20,6 @@ for (key in collapses.toShow) {
     target.setAttribute('class', `${target.getAttribute('class')} show`)
 }
 
-// log
-// console.log(localStorage.getItem('collapses'))
-// console.log(collapses)
-
 
 // update localStorage record about collapses
 function toggle_show(event, collapse) {
@@ -34,8 +30,4 @@ function toggle_show(event, collapse) {
       collapses.toShow[collapse] = event.currentTarget.getAttribute('aria-controls')
     }
     localStorage.setItem('collapses', JSON.stringify(collapses))
-
-    // log
-    // console.log(collapse)
-    // console.log(JSON.parse(localStorage.getItem('collapses')).toShow)
 }
