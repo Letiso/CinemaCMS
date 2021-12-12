@@ -3,6 +3,8 @@
 {% load static %}
 
 {% block stylesheets %}
+<link rel="stylesheet" href="{% static 'admin/css/custom_delete_checkbox.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
 {% endblock %}
 
 {% block movies %}active{% endblock %}
@@ -14,59 +16,82 @@
 {% endblock %}
 
 {% block content %}
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+
 <div class="col-11 card pb-5 mx-auto releases">
     <div class="card-body" id="released-movies-list">
-        {{ form.title|as_crispy_field }}
-        {{ form.description|as_crispy_field }}
-        {{ form.main_image|as_crispy_field }}
-        {{ form.trailer_link|as_crispy_field }}
-        {{ form.movie_type|as_crispy_field }}
-        {{ form.is_active|as_crispy_field }}
-    <div class="container-fluid">
-        {% with gallery as formset %}
-            {{ formset.management_form }}
-            <div class="row justify-content-between justify-content-around">
-                {% for form in top_banners.formset %}
-                    {% for hidden in form.hidden_fields %}
-                        {{ hidden }}
-                    {% endfor %}
-                <div class="col-sm-12 col-lg-5 card px-0 mt-5 movie_frame">
-                    <div class="card-header text-right">
-                        {{ form.DELETE|as_crispy_field }}
-                    </div>
-                    {% if form.instance.image %}
-                        <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{{ form.instance.image.url }}" alt="">
-                    {% endif %}
-                    <div class="card-body">
-                        {{ form.image|as_crispy_field }}
-                        {{ form.is_active|as_crispy_field }}
-                    </div>
-                </div>
-                {% endfor %}
-                <div class="text-center mt-5">
-                    <input type="button" onclick="add_empty_form(event, 'top_banners')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
-                </div>
-                <div id="movie_frame-empty-form" class="col-sm-12 col-lg-5 card px-0 mt-5 hidden">
-                    {% with gallery.empty_form as empty_form %}
-                        <div class="card-header text-right">
-                            {{ empty_form.DELETE|as_crispy_field }}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form.title|as_crispy_field }}
+            {{ form.description|as_crispy_field }}
+            {{ form.main_image|as_crispy_field }}
+            {{ form.trailer_link|as_crispy_field }}
+            {{ form.movie_type|as_crispy_field }}
+            {{ form.is_active|as_crispy_field }}
+            <div class="container-fluid">
+                {% with gallery as formset %}
+                    {{ formset.management_form }}
+                    <div class="row justify-content-between justify-content-around" id="movie_frames-list">
+                        {% for form in formset %}
+                            {% for hidden in form.hidden_fields %}
+                                {{ hidden }}
+                            {% endfor %}
+                        <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-1 movie_frames">
+                            <div class="card-header text-right">
+                                {{ form.DELETE|as_crispy_field }}
+                            </div>
+                            {% if form.instance.image %}
+                                <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{{ form.instance.image.url }}" alt="">
+                            {% endif %}
+                            <div class="card-body">
+                                {{ form.image|as_crispy_field }}
+                                {{ form.is_active|as_crispy_field }}
+                            </div>
                         </div>
-                        <img id="{{ empty_form.image.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
-                        <div class="card-body">
-                            {{ empty_form.image|as_crispy_field }}
-                            {{ empty_form.is_active|as_crispy_field }}
+                        {% endfor %}
+                        <div id="movie_frames-empty-form" class="col-md-4 col-lg-5 card px-0 mt-5 mx-1 hidden">
+                            {% with gallery.empty_form as empty_form %}
+                                <div class="card-header text-right">
+                                    {{ empty_form.DELETE|as_crispy_field }}
+                                </div>
+                                <img id="{{ empty_form.image.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
+                                <div class="card-body">
+                                    {{ empty_form.image|as_crispy_field }}
+                                    {{ empty_form.is_active|as_crispy_field }}
+                                </div>
+                            {% endwith %}
                         </div>
-                    {% endwith %}
-                </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <input type="button" onclick="add_empty_form(event, 'movie_frames')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                    </div>
+                    <div class="text-center mt-4">
+                        <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
+                    </div>
+                {% endwith %}
             </div>
-        {% endwith %}
-    </div>
-    <div class="text-center mt-4">
-        <input type="submit" name="top_banners" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
+        </form>
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
-{% endblock %}
+<script>
+    const required_sizes = {
+        '{{ gallery.prefix }}': [
+            parseInt('{{ required_size.0 }}'), parseInt('{{ required_size.1 }}')
+        ]
+    }
+</script>
 
+<script src="{% static 'admin/js/dynamic_formset.js' %}"></script>
+<script src="{% static 'admin/js/dynamic_image_select.js' %}"></script>
+
+<script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+<script src="{% static 'admin/js/custom_toastr.js' %}"></script>
+{% endblock %}

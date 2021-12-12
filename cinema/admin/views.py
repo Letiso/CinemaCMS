@@ -96,26 +96,39 @@ class MoviesView(View):
 
 
 class MovieCardView(View):
-    @staticmethod
-    def check(pk: str):
-        return True if pk != 'new' or pk.isdigit() else False
 
-    def get_context(self, pk: str):
+    def get_context(self, request, pk: str):
         return {
-            'form': MovieCardForm(instance=MovieCardForm.Meta.model.objects.get_or_404(pk=pk)
-                                  if self.check(pk) else None,
-                                  prefix='movie_card'),
-            'gallery': MovieFrameFormset(prefix='movie_frames',
-                                         queryset=MovieFrameFormset.model.objects.filter(movie=int(pk))
-                                         if self.check(pk) else MovieFrameFormset.model.objects.none())
+            'form': MovieCardForm(request.POST or None, request.FILES or None,
+                                  instance=get_object_or_404(MovieCardForm.Meta.model, pk=int(pk))
+                                  if pk.isdigit() else None,
+                                  prefix='movie'),
+            'gallery': MovieFrameFormset(request.POST or None, request.FILES or None,
+                                         prefix='movie_frames',
+                                         queryset=MovieFrameFormset.model.objects.filter(movie_id=int(pk))
+                                         if pk.isdigit() else MovieFrameFormset.model.objects.none()),
+            'required_size': MovieFrameFormset.model.required_size,
         }
 
     def get(self, request, pk: str):
-        return render(request, 'admin/movies/movie_card.html', self.get_context(pk))
+        return render(request, 'admin/movies/movie_card.html', self.get_context(request, pk))
 
-    def post(self, request, pk):
-        return redirect('movies')
-        # return render(request, 'admin/movies/movie_card.html', context)
+    def post(self, request, pk: str):
+        context = self.get_context(request, pk)
+        movie, gallery = context['form'], context['gallery']
+
+        if False not in [movie.is_valid(), gallery.is_valid()]:
+            movie.save()
+
+            for movie_frame in gallery:
+                if movie_frame.is_valid():
+                    movie_frame = movie_frame.save(commit=False)
+                    movie_frame.movie = movie.instance
+            gallery.save()
+
+            return redirect(f'movie_card', pk=movie.instance.pk)
+
+        return render(request, 'admin/movies/movie_card.html', context)
 
 # endregion Movies
 

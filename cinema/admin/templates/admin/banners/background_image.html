@@ -1,7 +1,7 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-<form id="background_image" enctype="multipart/form-data" method="POST">
+<form enctype="multipart/form-data" method="POST">
     {% csrf_token %}
     <div class="row">
         <h4 class="required-size mr-auto">{{ background_image.required_size.0 }}x{{ background_image.required_size.1 }}</h4>

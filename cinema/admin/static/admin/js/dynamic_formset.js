@@ -22,6 +22,6 @@ function add_empty_form(event, form_prefix) {
     )
     copyEmptyFormEl.setAttribute('id', `id_${form_prefix}-${formIndex}`)
 
-    totalForms.setAttribute('value', formIndex + 1)
+    totalForms.value = formIndex + 1
     formCopyTarget.append(copyEmptyFormEl)
 }

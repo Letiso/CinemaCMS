@@ -1,6 +1,12 @@
 // init original_thumbnail_urls var
 const original_thumbnail_urls = {}
 
+// * PAY ATTENTION * you have to define
+//   const required_sizes = {
+//      form.prefix: [parseInt({{ required_size.0 }}), parseInt({{ required_size.0 }})],
+//   }
+// at the template, because we need to take data from view context for dynamic validation
+
 
 // kind of event listener for file inputs
 const fileInputs = document.getElementsByClassName('form-control-file')
@@ -15,10 +21,7 @@ function validate_then_set_thumbnail(event) {
     const reader = new FileReader();
 
     reader.onload = function() {
-        const required_size = document.getElementById(
-            imageInput.name.split('-')[0]).getElementsByClassName(
-                'required-size')[0].innerHTML.split('x')
-
+        const required_size = required_sizes[`${imageInput.name.split('-')[0]}`]
         image_validation(reader.result, required_size, (is_valid) => {
             const thumbnail = document.getElementById(`${imageInput.id}-thumbnail`);
 
@@ -45,7 +48,7 @@ function image_validation(src, required_size, callback) {
     const image = new Image();
 
     image.onload = function() {
-        if (JSON.stringify(['' + image.naturalWidth, '' + image.naturalHeight]) === JSON.stringify(required_size)) {
+        if (JSON.stringify([image.naturalWidth, image.naturalHeight]) === JSON.stringify(required_size)) {
             callback(true);
         } else {
             callback(false);

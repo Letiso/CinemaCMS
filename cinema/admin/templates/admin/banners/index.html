@@ -74,9 +74,24 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+<script>
+    const required_sizes = {
+        '{{ top_banners.formset.prefix }}': [
+            parseInt('{{ top_banners.required_size.0 }}'), parseInt('{{ top_banners.required_size.1 }}')
+        ],
+        '{{ background_image.form.prefix }}': [
+            parseInt('{{ background_image.required_size.0 }}'), parseInt('{{ background_image.required_size.1 }}')
+        ],
+        '{{ news_banners.formset.prefix }}': [
+            parseInt('{{ news_banners.required_size.0 }}'), parseInt('{{ news_banners.required_size.1 }}')
+        ],
+    }
+</script>
+
 
 <script src="{% static 'admin/js/dynamic_formset.js' %}"></script>
 <script src="{% static 'admin/js/dynamic_image_select.js' %}"></script>
+
+<script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
 <script src="{% static 'admin/js/custom_toastr.js' %}"></script>
 {% endblock %}

@@ -95,11 +95,9 @@ class MovieCardForm(forms.ModelForm):
         model = MovieCard
         fields = '__all__'
 
-    movie_type = forms.MultipleChoiceField(choices=Meta.model.TYPES,
-                                           widget=forms.CheckboxSelectMultiple(attrs={
-                                               "class": "mx-auto",
-                                           }),
-)
+    # movie_type = forms.MultipleChoiceField(choices=Meta.model.TYPES,
+    #                                        widget=forms.CheckboxSelectMultiple(),
+# )
 
     # def __init__(self, *args, **kwargs):
     #     super(MovieCardForm, self).__init__(*args, **kwargs)
@@ -107,12 +105,11 @@ class MovieCardForm(forms.ModelForm):
 
 
 class MovieFrameForm(forms.ModelForm):
-    def clean(self):
-        return self.cleaned_data
 
     class Meta:
         model = MovieFrame
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('movie', )
 
 
 MovieFrameFormset = modelformset_factory(MovieFrameForm.Meta.model, form=MovieFrameForm,
