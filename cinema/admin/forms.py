@@ -1,15 +1,15 @@
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from user.forms import UserUpdateForm
-from main.models import TopBanner, BackgroundImage, NewsBanner, BannersCarousel
+from main.models import TopBanner, BackgroundImage, NewsBanner, BannersCarousel, MovieCard, MovieFrame
 from django.forms import modelformset_factory
 
 
 # region User
 class ExtendedUserUpdateForm(UserUpdateForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(self, *args, **kwargs)
-        super().Meta.fields += ('is_staff', 'is_superuser')
+    UserUpdateForm.Meta.fields += ('is_staff', 'is_superuser')
+
+
 # endregion User
 
 
@@ -41,11 +41,11 @@ TopBannerFormSet = modelformset_factory(TopBannerForm.Meta.model, form=TopBanner
 
 class BackgroundImageForm(forms.ModelForm):
     is_active = forms.TypedChoiceField(
-                   label='',
-                   coerce=lambda x: x == 'True',
-                   choices=((True, 'Изображение на фоне'), (False, 'Цвет на фоне')),
-                   widget=forms.RadioSelect
-                )
+        label='',
+        coerce=lambda x: x == 'True',
+        choices=((True, 'Изображение на фоне'), (False, 'Цвет на фоне')),
+        widget=forms.RadioSelect
+    )
 
     def clean_image(self):
         return clean_image(self.cleaned_data['image'], self.Meta.model.required_size)
@@ -72,7 +72,6 @@ NewsBannerFormSet = modelformset_factory(NewsBannerForm.Meta.model, form=NewsBan
 
 
 class BannersCarouselForm(forms.ModelForm):
-
     class Meta:
         model = BannersCarousel
         fields = ('is_active', 'data_interval')
@@ -86,4 +85,36 @@ class BannersCarouselForm(forms.ModelForm):
             }),
         }
 
+
 # endregion Banners
+
+
+# region Movies
+class MovieCardForm(forms.ModelForm):
+    class Meta:
+        model = MovieCard
+        fields = '__all__'
+
+    movie_type = forms.MultipleChoiceField(choices=Meta.model.TYPES,
+                                           widget=forms.CheckboxSelectMultiple(attrs={
+                                               "class": "mx-auto",
+                                           }),
+)
+
+    # def __init__(self, *args, **kwargs):
+    #     super(MovieCardForm, self).__init__(*args, **kwargs)
+    #     self.fields['movie_type'].empty_label = None
+
+
+class MovieFrameForm(forms.ModelForm):
+    def clean(self):
+        return self.cleaned_data
+
+    class Meta:
+        model = MovieFrame
+        fields = '__all__'
+
+
+MovieFrameFormset = modelformset_factory(MovieFrameForm.Meta.model, form=MovieFrameForm,
+                                         extra=0, can_delete=True)
+# endregion Movies

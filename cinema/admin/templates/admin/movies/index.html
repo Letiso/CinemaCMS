@@ -1,0 +1,52 @@
+﻿{% extends 'admin/admin_layout.html' %}
+{% load static %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block movies %}active{% endblock %}
+
+{% block current_page %}{{ title }}{% endblock %}
+
+{% block path %}
+<li class="breadcrumb-item active">{{ title }}</li>
+{% endblock %}
+
+{% block content %}
+<div class="row mx-5">
+    <div class="card col-sm-12 pb-5 releases">
+        <div class="card-header text-center pb-0">
+            <h4>Вышедшие фильмы</h4>
+        </div>
+        <div class="card-body" id="released-movies-list">
+            {% for movie in releases %}
+                {{ movie.main_image.url }}
+                {{ movie.title }}
+            {% endfor %}
+        </div>
+        <div class="row justify-content-center">
+            <div class="row mr-5">
+
+            </div>
+            <a href="{% url 'movie_card' 'new' %}" class="btn btn-light px-5" style="font-size: 75px;">+</a>
+        </div>
+    </div>
+
+
+    <div class="card col-sm-12 pb-5 announcements">
+        <div class="card-header text-center pb-0">
+            <h4>Анонсированные фильмы</h4>
+        </div>
+        <div class="card-body" id="announced-movies-list">
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}
+

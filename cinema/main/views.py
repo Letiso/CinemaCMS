@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from .models import TopBanner, BackgroundImage, NewsBanner, BannersCarousel
+from .models import (
+    TopBanner, BackgroundImage, NewsBanner, BannersCarousel,
+    MovieCard
+)
 
 
 def index(request):
@@ -22,7 +25,12 @@ def index(request):
 
 
 def poster(request):
-    return render(request, 'main/poster/poster.html')
+    context = {
+        'title': 'Фильмы',
+        'releases': MovieCard.objects.filter(is_active=True),
+        'announcements': MovieCard.objects.filter(is_active=False),
+    }
+    return render(request, 'main/poster/poster.html', context)
 
 
 def movie_card(request):

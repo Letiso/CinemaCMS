@@ -1,0 +1,37 @@
+﻿{% extends 'admin/admin_layout.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block movies %}active{% endblock %}
+
+{% block current_page %}{{ title }}{% endblock %}
+
+{% block path %}
+<!--<li class="breadcrumb-item active">{{ title }}</li>-->
+{% endblock %}
+
+{% block content %}
+<div class="col-6 card pb-5 mx-auto releases">
+    <div class="card-body" id="released-movies-list">
+        {{ form.title|as_crispy_field }}
+        {{ form.description|as_crispy_field }}
+        {{ form.main_image|as_crispy_field }}
+        {{ form.trailer_link|as_crispy_field }}
+        {{ form.movie_type|as_crispy_field }}
+        {{ form.is_active|as_crispy_field }}
+
+        {% for form in gallery %}
+            <!-- {{ form.movie }}-->
+            {{ form.image|as_crispy_field }}
+            {{ form.is_active|as_crispy_field }}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+

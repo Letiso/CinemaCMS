@@ -3,8 +3,10 @@ from django.views.generic import UpdateView, View
 from django.contrib.auth import get_user_model
 from .forms import (
     ExtendedUserUpdateForm,
-    TopBannerFormSet, BackgroundImageForm, NewsBannerFormSet, BannersCarouselForm
+    TopBannerFormSet, BackgroundImageForm, NewsBannerFormSet, BannersCarouselForm,
+    MovieCardForm, MovieFrameFormset
 )
+
 from django.http import HttpResponseRedirect
 
 
@@ -81,13 +83,32 @@ class BannersView(View):
 
 # endregion Banners
 
-
-def movies(request):
+# region Movies
+class MoviesView(View):
     context = {
         'title': 'Фильмы',
+        'releases': MovieCardForm.Meta.model.objects.filter(is_active=True),
+        'announcements': MovieCardForm.Meta.model.objects.filter(is_active=False),
     }
 
-    return render(request, 'admin/movies.html', context)
+    def get(self, request):
+        return render(request, 'admin/movies/index.html', self.context)
+
+
+class MovieCardView(View):
+
+    def get(self, request, pk: str):
+        context = {
+            'form': MovieCardForm(instance=MovieCardForm.Meta.model.objects.get_or_404(pk=pk) if pk != 'new' else None,
+                                  prefix='movie_card'),
+            'gallery': MovieFrameFormset(prefix='movie_frames',
+                                         queryset=MovieFrameFormset.model.objects.filter(gallery=int(pk)) if pk != 'new'
+                                         else MovieFrameFormset.model.objects.none())
+        }
+        return render(request, 'admin/movies/movie_card.html', context)
+
+
+# endregion Movies
 
 
 def cinemas(request):
