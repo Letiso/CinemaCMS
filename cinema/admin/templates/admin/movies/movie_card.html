@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="col-6 card pb-5 mx-auto releases">
+<div class="col-11 card pb-5 mx-auto releases">
     <div class="card-body" id="released-movies-list">
         {{ form.title|as_crispy_field }}
         {{ form.description|as_crispy_field }}
@@ -22,12 +22,47 @@
         {{ form.trailer_link|as_crispy_field }}
         {{ form.movie_type|as_crispy_field }}
         {{ form.is_active|as_crispy_field }}
-
-        {% for form in gallery %}
-            <!-- {{ form.movie }}-->
-            {{ form.image|as_crispy_field }}
-            {{ form.is_active|as_crispy_field }}
-        {% endfor %}
+    <div class="container-fluid">
+        {% with gallery as formset %}
+            {{ formset.management_form }}
+            <div class="row justify-content-between justify-content-around">
+                {% for form in top_banners.formset %}
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+                <div class="col-sm-12 col-lg-5 card px-0 mt-5 movie_frame">
+                    <div class="card-header text-right">
+                        {{ form.DELETE|as_crispy_field }}
+                    </div>
+                    {% if form.instance.image %}
+                        <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{{ form.instance.image.url }}" alt="">
+                    {% endif %}
+                    <div class="card-body">
+                        {{ form.image|as_crispy_field }}
+                        {{ form.is_active|as_crispy_field }}
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="text-center mt-5">
+                    <input type="button" onclick="add_empty_form(event, 'top_banners')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                </div>
+                <div id="movie_frame-empty-form" class="col-sm-12 col-lg-5 card px-0 mt-5 hidden">
+                    {% with gallery.empty_form as empty_form %}
+                        <div class="card-header text-right">
+                            {{ empty_form.DELETE|as_crispy_field }}
+                        </div>
+                        <img id="{{ empty_form.image.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
+                        <div class="card-body">
+                            {{ empty_form.image|as_crispy_field }}
+                            {{ empty_form.is_active|as_crispy_field }}
+                        </div>
+                    {% endwith %}
+                </div>
+            </div>
+        {% endwith %}
+    </div>
+    <div class="text-center mt-4">
+        <input type="submit" name="top_banners" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
     </div>
 </div>
 {% endblock %}

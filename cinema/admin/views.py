@@ -96,17 +96,26 @@ class MoviesView(View):
 
 
 class MovieCardView(View):
+    @staticmethod
+    def check(pk: str):
+        return True if pk != 'new' or pk.isdigit() else False
 
-    def get(self, request, pk: str):
-        context = {
-            'form': MovieCardForm(instance=MovieCardForm.Meta.model.objects.get_or_404(pk=pk) if pk != 'new' else None,
+    def get_context(self, pk: str):
+        return {
+            'form': MovieCardForm(instance=MovieCardForm.Meta.model.objects.get_or_404(pk=pk)
+                                  if self.check(pk) else None,
                                   prefix='movie_card'),
             'gallery': MovieFrameFormset(prefix='movie_frames',
-                                         queryset=MovieFrameFormset.model.objects.filter(gallery=int(pk)) if pk != 'new'
-                                         else MovieFrameFormset.model.objects.none())
+                                         queryset=MovieFrameFormset.model.objects.filter(movie=int(pk))
+                                         if self.check(pk) else MovieFrameFormset.model.objects.none())
         }
-        return render(request, 'admin/movies/movie_card.html', context)
 
+    def get(self, request, pk: str):
+        return render(request, 'admin/movies/movie_card.html', self.get_context(pk))
+
+    def post(self, request, pk):
+        return redirect('movies')
+        # return render(request, 'admin/movies/movie_card.html', context)
 
 # endregion Movies
 
