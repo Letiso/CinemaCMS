@@ -69,7 +69,7 @@ class BannersView(View):
             for name in context.keys():
                 if name in request.POST:
                     return context[name]['formset'], context[name]['carousel'] if 'formset' in context[name] \
-                      else context[name]['form'],
+                        else context[name]['form'],
 
         forms = get_current_form()
         if False not in [form.is_valid() for form in forms]:
@@ -98,15 +98,20 @@ class MovieCardView(View):
 
     def get_context(self, request, pk: str):
         return {
-            'form': MovieCardForm(request.POST or None, request.FILES or None,
-                                  instance=get_object_or_404(MovieCardForm.Meta.model, pk=int(pk))
-                                  if pk.isdigit() else None,
-                                  prefix='movie'),
-            'gallery': MovieFrameFormset(request.POST or None, request.FILES or None,
-                                         prefix='movie_frames',
-                                         queryset=MovieFrameFormset.model.objects.filter(movie_id=int(pk))
-                                         if pk.isdigit() else MovieFrameFormset.model.objects.none()),
-            'required_size': MovieFrameFormset.model.required_size,
+            'movie': {
+                'form': MovieCardForm(request.POST or None, request.FILES or None,
+                                      instance=get_object_or_404(MovieCardForm.Meta.model, pk=int(pk))
+                                      if pk.isdigit() else None,
+                                      prefix='movie'),
+                'required_size': MovieCardForm.Meta.model.required_size,
+            },
+            'gallery': {
+                'formset': MovieFrameFormset(request.POST or None, request.FILES or None,
+                                             prefix='movie_frames',
+                                             queryset=MovieFrameFormset.model.objects.filter(movie_id=int(pk))
+                                             if pk.isdigit() else MovieFrameFormset.model.objects.none()),
+                'required_size': MovieFrameFormset.model.required_size,
+            }
         }
 
     def get(self, request, pk: str):
@@ -114,7 +119,7 @@ class MovieCardView(View):
 
     def post(self, request, pk: str):
         context = self.get_context(request, pk)
-        movie, gallery = context['form'], context['gallery']
+        movie, gallery = context['movie']['form'], context['gallery']['formset']
 
         if False not in [movie.is_valid(), gallery.is_valid()]:
             movie.save()

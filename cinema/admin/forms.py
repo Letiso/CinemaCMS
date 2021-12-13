@@ -93,17 +93,17 @@ class BannersCarouselForm(forms.ModelForm):
 
 # region Movies
 class MovieCardForm(forms.ModelForm):
+    def clean_movie_type(self):
+        return self.cleaned_data['movie_type'][0]
+
     class Meta:
         model = MovieCard
         fields = '__all__'
 
-    # movie_type = forms.MultipleChoiceField(choices=Meta.model.TYPES,
-    #                                        widget=forms.CheckboxSelectMultiple(),
-# )
-
-    # def __init__(self, *args, **kwargs):
-    #     super(MovieCardForm, self).__init__(*args, **kwargs)
-    #     self.fields['movie_type'].empty_label = None
+    movie_type = forms.MultipleChoiceField(
+        choices=Meta.model.TYPES,
+        widget=forms.CheckboxSelectMultiple(),
+    )
 
 
 class MovieFrameForm(forms.ModelForm):
@@ -112,8 +112,7 @@ class MovieFrameForm(forms.ModelForm):
 
     class Meta:
         model = MovieFrame
-        # fields = '__all__'
-        exclude = ('movie', )
+        exclude = ('movie',)
 
 
 MovieFrameFormset = modelformset_factory(MovieFrameForm.Meta.model, form=MovieFrameForm,

@@ -46,6 +46,7 @@ class MovieCard(models.Model):
 
     title = models.CharField('Название фильма', max_length=256)
     description = models.TextField('Описание')
+    required_size = (1000, 190)
     main_image = models.ImageField('Главная картинка')
     trailer_link = models.CharField('Ссылка на трейлер', max_length=256)
     movie_type = models.CharField('Тип кино', max_length=10, choices=TYPES)

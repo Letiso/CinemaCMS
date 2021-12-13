@@ -5,7 +5,7 @@
     {% csrf_token %}
 
     <div class="row">
-        <h4 class="mr-auto">{{ news_banners.required_size.0 }}x{{ news_banners.required_size.1 }}</h4>
+        <h4 class="mr-auto">Размер: {{ news_banners.required_size.0 }}x{{ news_banners.required_size.1 }}</h4>
         <div class="custom-control custom-switch">
             {{ news_banners.carousel.is_active }}
             <label for="{{ news_banners.carousel.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
@@ -24,9 +24,7 @@
                 <div class="card-header text-right">
                     {{ form.DELETE|as_crispy_field }}
                 </div>
-                {% if form.instance.image %}
-                    <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{{ form.instance.image.url }}" alt="">
-                {% endif %}
+                    <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image %}{{ form.instance.image.url }}{% endif %}" alt="">
                 <div class="card-body">
                     {{ form.image|as_crispy_field }}
                     {{ form.is_active|as_crispy_field }}
