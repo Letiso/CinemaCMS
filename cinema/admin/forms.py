@@ -14,7 +14,9 @@ class ExtendedUserUpdateForm(UserUpdateForm):
 
 
 # region Banners
-def clean_image(image, required_size):
+def clean_image(form):
+    image, required_size = form.cleaned_data['image'], form.Meta.model.required_size
+
     if isinstance(image, InMemoryUploadedFile):
         image_size = image.image.size
     else:
@@ -28,7 +30,7 @@ def clean_image(image, required_size):
 
 class TopBannerForm(forms.ModelForm):
     def clean_image(self):
-        return clean_image(self.cleaned_data['image'], self.Meta.model.required_size)
+        return clean_image(self)
 
     class Meta:
         model = TopBanner
@@ -48,7 +50,7 @@ class BackgroundImageForm(forms.ModelForm):
     )
 
     def clean_image(self):
-        return clean_image(self.cleaned_data['image'], self.Meta.model.required_size)
+        return clean_image(self)
 
     class Meta:
         model = BackgroundImage
@@ -57,7 +59,7 @@ class BackgroundImageForm(forms.ModelForm):
 
 class NewsBannerForm(forms.ModelForm):
     def clean_image(self):
-        return clean_image(self.cleaned_data['image'], self.Meta.model.required_size)
+        return clean_image(self)
 
     class Meta:
         model = NewsBanner
@@ -105,6 +107,8 @@ class MovieCardForm(forms.ModelForm):
 
 
 class MovieFrameForm(forms.ModelForm):
+    def clean_image(self):
+        return clean_image(self)
 
     class Meta:
         model = MovieFrame

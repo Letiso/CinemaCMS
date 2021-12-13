@@ -1,18 +1,20 @@
 // init original_thumbnail_urls var
 const original_thumbnail_urls = {}
 
-// * PAY ATTENTION * you have to define
-//   const required_sizes = {
-//      form.prefix: [parseInt({{ required_size.0 }}), parseInt({{ required_size.0 }})],
-//   }
-// at the template, because we need to take data from view context for dynamic validation
+// TODO * PAY ATTENTION * you have to define
+//  <script>
+//      const required_sizes = {
+//          your_form.prefix: [parseInt({{ required_size.0 }}), parseInt({{ required_size.0 }})],
+//      }
+//  <script>
+//   at the template, because we need to take data from view context for dynamic validation
 
 
 // kind of event listener for file inputs
 const fileInputs = document.getElementsByClassName('form-control-file')
 
 for (let i = 0; i < fileInputs.length; i++) {
-    fileInputs[i].setAttribute('onchange', "validate_then_set_thumbnail(event)")
+    fileInputs[i].setAttribute('onchange', 'validate_then_set_thumbnail(event)')
 }
 
 

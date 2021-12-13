@@ -15,12 +15,10 @@ function add_empty_form(event, form_prefix) {
         RegExp('__prefix__', 'g'), formIndex
     )
 
-    copyEmptyFormEl.setAttribute('class',
-        copyEmptyFormEl.getAttribute('class').replace(
+    copyEmptyFormEl.className = copyEmptyFormEl.className.replace(
             RegExp('hidden'), form_prefix
-        )
     )
-    copyEmptyFormEl.setAttribute('id', `id_${form_prefix}-${formIndex}`)
+    copyEmptyFormEl.id =  `id_${form_prefix}-${formIndex}`
 
     totalForms.value = formIndex + 1
     formCopyTarget.append(copyEmptyFormEl)

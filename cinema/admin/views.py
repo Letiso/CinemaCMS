@@ -10,6 +10,7 @@ from .forms import (
 from django.http import HttpResponseRedirect
 
 
+# region Statistics
 def statistics(request):
     context = {
         'title': 'Статистика',
@@ -17,60 +18,55 @@ def statistics(request):
     return render(request, 'admin/statistics.html', context)
 
 
+# endregion Statistics
+
 # region Banners
 class BannersView(View):
 
     @staticmethod
     def get_instance(model, prefix=None):
+        instance_key = {'name': prefix} if prefix else {'pk': 1}
         # {'name': prefix} using for get_or_create BannersCarousel instances
         # {'pk': 1} using for get_or_create BackgroundImage singleton-instance
-        key = {'name': prefix} if prefix else {'pk': 1}
-        instance, created = model.objects.get_or_create(**key)
+        instance, created = model.objects.get_or_create(**instance_key)
         return instance
 
-    def get_context(self):
+    def get_context(self, request):
         return {
             'top_banners': {
                 'required_size': TopBannerFormSet.model.required_size,
-                'formset': TopBannerFormSet(prefix='top_banners'),
-                'carousel': BannersCarouselForm(
-                    instance=self.get_instance(BannersCarouselForm.Meta.model, 'top_banners'), prefix='top_banners')
+                'formset': TopBannerFormSet(request.POST or None, request.FILES or None, prefix='top_banners'),
+                'carousel': BannersCarouselForm(request.POST or None,
+                                                instance=self.get_instance(BannersCarouselForm.Meta.model,
+                                                                           'top_banners'), prefix='top_banners')
             },
 
             'background_image': {
                 'required_size': BackgroundImageForm.Meta.model.required_size,
-                'form': BackgroundImageForm(
-                    instance=self.get_instance(BackgroundImageForm.Meta.model), prefix='background_image'),
+                'form': BackgroundImageForm(request.POST or None, request.FILES or None,
+                                            instance=self.get_instance(BackgroundImageForm.Meta.model),
+                                            prefix='background_image'),
             },
             'news_banners': {
                 'required_size': TopBannerFormSet.model.required_size,
-                'formset': NewsBannerFormSet(prefix='news_banners'),
-                'carousel': BannersCarouselForm(
-                    instance=self.get_instance(BannersCarouselForm.Meta.model, 'news_banners'), prefix='news_banners')
+                'formset': NewsBannerFormSet(request.POST or None, request.FILES or None, prefix='news_banners'),
+                'carousel': BannersCarouselForm(request.POST or None,
+                                                instance=self.get_instance(BannersCarouselForm.Meta.model,
+                                                                           'news_banners'), prefix='news_banners')
             },
         }
 
     def get(self, request):
-        return render(request, 'admin/banners/index.html', self.get_context())
+        return render(request, 'admin/banners/index.html', self.get_context(request))
 
     def post(self, request):
-        context = self.get_context()
+        context = self.get_context(request)
 
         def get_current_form():
             for name in context.keys():
                 if name in request.POST:
-                    if 'formset' in context[name]:
-                        formset, carousel = context[name]['formset'], context[name]['carousel']
-
-                        context[name]['formset'] = formset.__class__(request.POST, request.FILES, prefix=name)
-                        context[name]['carousel'] = carousel.__class__(request.POST, request.FILES,
-                                                                       instance=carousel.instance, prefix=name)
-                        return context[name]['formset'], context[name]['carousel']
-                    else:
-                        context[name]['form'] = context[name]['form'].__class__(request.POST, request.FILES,
-                                                                                instance=context[name]['form'].instance,
-                                                                                prefix=name)
-                        return context[name]['form'],
+                    return context[name]['formset'], context[name]['carousel'] if 'formset' in context[name] \
+                      else context[name]['form'],
 
         forms = get_current_form()
         if False not in [form.is_valid() for form in forms]:
@@ -119,7 +115,6 @@ class MovieCardView(View):
 
         if False not in [movie.is_valid(), gallery.is_valid()]:
             movie.save()
-
             for movie_frame in gallery:
                 if movie_frame.is_valid():
                     movie_frame = movie_frame.save(commit=False)
@@ -130,9 +125,10 @@ class MovieCardView(View):
 
         return render(request, 'admin/movies/movie_card.html', context)
 
+
 # endregion Movies
 
-
+# region Cinemas
 def cinemas(request):
     context = {
         'title': 'Кинотеатры',
@@ -140,6 +136,9 @@ def cinemas(request):
     return render(request, 'admin/cinemas.html', context)
 
 
+# endregion Cinemas
+
+# region News
 def news(request):
     context = {
         'title': 'Новости',
@@ -147,6 +146,9 @@ def news(request):
     return render(request, 'admin/news.html', context)
 
 
+# endregion News
+
+# region Promotion
 def promotion(request):
     context = {
         'title': 'Акции',
@@ -154,12 +156,17 @@ def promotion(request):
     return render(request, 'admin/promotion.html', context)
 
 
+# endregion Promotion
+
+# region Pages
 def pages(request):
     context = {
         'title': 'Страницы',
     }
     return render(request, 'admin/pages.html', context)
 
+
+# endregion Pages
 
 # region User
 def users(request):
@@ -194,9 +201,10 @@ class UserDeleteView(View):
 
 # endregion User
 
-
+# region Mailing
 def mailing(request):
     context = {
         'title': 'Рассылка',
     }
     return render(request, 'admin/mailing.html', context)
+# endregion Mailing

@@ -29,10 +29,9 @@
 
             {{ form.title|as_crispy_field }}
             {{ form.description|as_crispy_field }}
+
             {{ form.main_image|as_crispy_field }}
-            {{ form.trailer_link|as_crispy_field }}
-            {{ form.movie_type|as_crispy_field }}
-            {{ form.is_active|as_crispy_field }}
+
             <div class="container-fluid">
                 {% with gallery as formset %}
                     {{ formset.management_form }}
@@ -75,6 +74,10 @@
                     </div>
                 {% endwith %}
             </div>
+
+            {{ form.trailer_link|as_crispy_field }}
+            {{ form.movie_type|as_crispy_field }}
+            {{ form.is_active|as_crispy_field }}
         </form>
     </div>
 </div>
