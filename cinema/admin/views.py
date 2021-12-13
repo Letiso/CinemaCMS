@@ -24,14 +24,17 @@ def statistics(request):
 class BannersView(View):
 
     @staticmethod
-    def get_instance(model, prefix=None):
+    def get_instance(model, prefix: str = None):
+        """
+        {'name': prefix} using for get_or_create BannersCarousel instances
+        {'pk': 1} using for get_or_create BackgroundImage singleton-instance
+        """
         instance_key = {'name': prefix} if prefix else {'pk': 1}
-        # {'name': prefix} using for get_or_create BannersCarousel instances
-        # {'pk': 1} using for get_or_create BackgroundImage singleton-instance
+
         instance, created = model.objects.get_or_create(**instance_key)
         return instance
 
-    def get_context(self, request):
+    def get_context(self, request) -> dict:
         return {
             'top_banners': {
                 'required_size': TopBannerFormSet.model.required_size,
@@ -62,7 +65,7 @@ class BannersView(View):
     def post(self, request):
         context = self.get_context(request)
 
-        def get_current_form():
+        def get_current_form() -> tuple:
             for name in context.keys():
                 if name in request.POST:
                     return context[name]['formset'], context[name]['carousel'] if 'formset' in context[name] \

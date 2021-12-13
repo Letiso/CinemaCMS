@@ -32,6 +32,8 @@
 
             {{ form.main_image|as_crispy_field }}
 
+            <label>Галерея кадров из фильма</label>
+            <h4 class="mr-auto">{{ required_size.0 }}x{{ required_size.1 }}</h4>
             <div class="container-fluid">
                 {% with gallery as formset %}
                     {{ formset.management_form }}
