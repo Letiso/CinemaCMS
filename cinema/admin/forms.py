@@ -114,6 +114,7 @@ class MovieCardForm(forms.ModelForm):
         }
 
     movie_type = forms.MultipleChoiceField(
+        label='Тип кино',
         choices=Meta.model.TYPES,
         widget=forms.CheckboxSelectMultiple(),
     )

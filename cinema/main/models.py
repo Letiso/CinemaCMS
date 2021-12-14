@@ -74,10 +74,10 @@ class MovieFrame(models.Model):
 
 # region SEO
 class SEO(models.Model):
-    url = models.CharField(max_length=256)
-    title = models.CharField(max_length=256)
-    keywords = models.CharField(max_length=256)
-    description = models.TextField()
+    url = models.CharField('URL', max_length=256)
+    title = models.CharField('Заголовок', max_length=256)
+    keywords = models.CharField('Ключевые слова', max_length=256)
+    description = models.TextField('Описание', )
 
 
 # endregion SEO
