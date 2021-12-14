@@ -5,15 +5,13 @@ from main.models import TopBanner, BackgroundImage, NewsBanner, BannersCarousel,
 from django.forms import modelformset_factory
 
 
-# region User
-class ExtendedUserUpdateForm(UserUpdateForm):
-    UserUpdateForm.Meta.fields += ('is_staff', 'is_superuser')
+# region Mixins
+class DateInput(forms.DateInput):
+    def __init__(self, *args, **kwargs):
+        super(DateInput, self).__init__(*args, format='%Y-%m-%d', **kwargs)
+    input_type = 'date'
 
 
-# endregion User
-
-
-# region Banners
 def clean_image(form):
     image, required_size = form.cleaned_data['image'], form.Meta.model.required_size
 
@@ -27,6 +25,18 @@ def clean_image(form):
         raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}', code='invalid')
     return image
 
+
+# endregion Mixins
+
+# region User
+class ExtendedUserUpdateForm(UserUpdateForm):
+    UserUpdateForm.Meta.fields += ('is_staff', 'is_superuser')
+
+
+# endregion User
+
+
+# region Banners
 
 class TopBannerForm(forms.ModelForm):
     def clean_image(self):
@@ -99,6 +109,9 @@ class MovieCardForm(forms.ModelForm):
     class Meta:
         model = MovieCard
         exclude = ('seo', )
+        widgets = {
+            'release_date': DateInput(),
+        }
 
     movie_type = forms.MultipleChoiceField(
         choices=Meta.model.TYPES,

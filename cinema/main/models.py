@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 # region Banners
 banners_media_path = 'main/index/banners'
@@ -41,7 +42,6 @@ class BannersCarousel(models.Model):
 
 # endregion Banners
 
-
 # region Movies
 class MovieCard(models.Model):
     TYPES = tuple(
@@ -50,6 +50,7 @@ class MovieCard(models.Model):
 
     title = models.CharField('Название фильма', max_length=256)
     description = models.TextField('Описание')
+    release_date = models.DateField('Дата релиза', default=date.today)
     required_size = (1000, 190)
     main_image = models.ImageField('Главная картинка')
     trailer_link = models.CharField('Ссылка на трейлер', max_length=256)

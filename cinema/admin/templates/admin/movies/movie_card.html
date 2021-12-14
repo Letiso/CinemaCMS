@@ -15,7 +15,8 @@
 {% block current_page %}{{ title }}{% endblock %}
 
 {% block path %}
-<!--<li class="breadcrumb-item active">{{ title }}</li>-->
+<li class="breadcrumb-item"><a href="{% url 'movies' %}">Фильмы</a></li>
+<li class="breadcrumb-item active">{{ title }}</li>
 {% endblock %}
 
 {% block content %}
@@ -28,13 +29,17 @@
 
 <div class="col-11 card pb-5 mx-auto releases">
     <div class="card-body" id="released-movies-list">
-        <form method="POST" enctype="multipart/form-data" class="mx-5">
+        <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
             {% csrf_token %}
             {% with movie.form as form %}
                 <div class="col-5 p-0">
                     {{ form.title|as_crispy_field }}
                 </div>
                 {{ form.description|as_crispy_field }}
+                <div class="col-3 p-0">
+                    {{ form.release_date|as_crispy_field }}
+                </div>
+
                 <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
                     <div class="card-header">
                         <p>Размер: {{ main_image_width }}x{{ main_image_height }}</p>
