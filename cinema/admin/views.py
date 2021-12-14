@@ -99,6 +99,7 @@ class MovieCardView(View):
 
     def get_context(self, request, pk: str):
         return {
+            'pk': pk,
             'title': 'Карточка фильма',
             'movie': {
                 'form': MovieCardForm(request.POST or None, request.FILES or None,
