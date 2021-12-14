@@ -92,10 +92,17 @@
                 <div class="single_choice_checkbox-list">
                     {{ form.movie_type|as_crispy_field }}
                 </div>
+                <label>SEO блок:</label>
+                <div class="container">
+                    {% for field in seo.form %}
+                        {{ field|as_crispy_field }}
+                    {% endfor %}
+                </div>
                 {{ form.is_active|as_crispy_field }}
             {% endwith %}
             <div class="text-center mt-4">
                 <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
+                <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
             </div>
         </form>
     </div>

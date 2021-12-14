@@ -4,7 +4,8 @@ from django.contrib.auth import get_user_model
 from .forms import (
     ExtendedUserUpdateForm,
     TopBannerFormSet, BackgroundImageForm, NewsBannerFormSet, BannersCarouselForm,
-    MovieCardForm, MovieFrameFormset
+    MovieCardForm, MovieFrameFormset,
+    SEOForm
 )
 
 from django.http import HttpResponseRedirect
@@ -111,7 +112,14 @@ class MovieCardView(View):
                                              queryset=MovieFrameFormset.model.objects.filter(movie_id=int(pk))
                                              if pk.isdigit() else MovieFrameFormset.model.objects.none()),
                 'required_size': MovieFrameFormset.model.required_size,
-            }
+            },
+            'seo': {
+                'form': SEOForm(request.POST or None,
+                                instance=get_object_or_404(SEOForm.Meta.model, page=int(pk))
+                                if pk.isdigit() else None,
+                                prefix='seo'),
+            },
+            'currentUrl': request.get_full_path(),
         }
 
     def get(self, request, pk: str):
@@ -119,17 +127,20 @@ class MovieCardView(View):
 
     def post(self, request, pk: str):
         context = self.get_context(request, pk)
-        movie, gallery = context['movie']['form'], context['gallery']['formset']
+        movie, gallery, seo = context['movie']['form'], context['gallery']['formset'], context['seo']['form']
 
-        if False not in [movie.is_valid(), gallery.is_valid()]:
+        if False not in [movie.is_valid(), gallery.is_valid(), seo.is_valid()]:
+            movie = movie.save(commit=False)
+            movie.seo = seo.save()
             movie.save()
+
             for movie_frame in gallery:
                 if movie_frame.is_valid():
                     movie_frame = movie_frame.save(commit=False)
-                    movie_frame.movie = movie.instance
+                    movie_frame.movie = movie
             gallery.save()
 
-            return redirect(f'movie_card', pk=movie.instance.pk)
+            return redirect(f'movie_card', pk=movie.pk)
 
         return render(request, 'admin/movies/movie_card.html', context)
 

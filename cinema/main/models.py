@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # region Banners
 banners_media_path = 'main/index/banners'
 
@@ -16,6 +15,7 @@ class BackgroundImage(models.Model):
     required_size = (2000, 3000)
     image = models.ImageField('Фоновое изображение', upload_to=f'{banners_media_path}/background')
     is_active = models.BooleanField(default=False)
+
     objects = models.Manager()
 
 
@@ -23,6 +23,7 @@ class NewsBanner(models.Model):
     required_size = (1000, 190)
     image = models.ImageField('Баннер', upload_to=f'{banners_media_path}/news')
     is_active = models.BooleanField('Активен', default=False)
+
     objects = models.Manager()
 
 
@@ -34,7 +35,10 @@ class BannersCarousel(models.Model):
     name = models.CharField(max_length=128, unique=True)
     data_interval = models.CharField('Скорость вращения', max_length=4, choices=TIME, default='5000')
     is_active = models.BooleanField(default=False)
+
     objects = models.Manager()
+
+
 # endregion Banners
 
 
@@ -51,6 +55,8 @@ class MovieCard(models.Model):
     trailer_link = models.CharField('Ссылка на трейлер', max_length=256)
     movie_type = models.CharField('Тип кино', max_length=10, choices=TYPES)
     is_active = models.BooleanField('Активен', default=False)
+    seo = models.OneToOneField('SEO', on_delete=models.CASCADE, related_name='page', default=None)
+
     objects = models.Manager()
 
 
@@ -59,7 +65,18 @@ class MovieFrame(models.Model):
     required_size = (1000, 190)
     image = models.ImageField()
     is_active = models.BooleanField()
+
     objects = models.Manager()
 
 
 # endregion Movies
+
+# region SEO
+class SEO(models.Model):
+    url = models.CharField(max_length=256)
+    title = models.CharField(max_length=256)
+    keywords = models.CharField(max_length=256)
+    description = models.TextField()
+
+
+# endregion SEO

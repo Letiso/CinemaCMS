@@ -1,7 +1,7 @@
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from user.forms import UserUpdateForm
-from main.models import TopBanner, BackgroundImage, NewsBanner, BannersCarousel, MovieCard, MovieFrame
+from main.models import TopBanner, BackgroundImage, NewsBanner, BannersCarousel, MovieCard, MovieFrame, SEO
 from django.forms import modelformset_factory
 
 
@@ -98,7 +98,7 @@ class MovieCardForm(forms.ModelForm):
 
     class Meta:
         model = MovieCard
-        fields = '__all__'
+        exclude = ('seo', )
 
     movie_type = forms.MultipleChoiceField(
         choices=Meta.model.TYPES,
@@ -117,4 +117,15 @@ class MovieFrameForm(forms.ModelForm):
 
 MovieFrameFormset = modelformset_factory(MovieFrameForm.Meta.model, form=MovieFrameForm,
                                          extra=0, can_delete=True)
+
+
 # endregion Movies
+
+# region SEO
+class SEOForm(forms.ModelForm):
+    class Meta:
+        model = SEO
+        fields = '__all__'
+
+
+# endregion SEO
