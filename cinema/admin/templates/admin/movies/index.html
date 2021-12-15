@@ -4,47 +4,86 @@
 {% block stylesheets %}
 {% endblock %}
 
-{% block movies %}active{% endblock %}
+{% block movies %}
+    active
+{% endblock %}
 
-{% block current_page %}{{ title }}{% endblock %}
+{% block current_page %}
+    {{ title }}
+{% endblock %}
 
 {% block path %}
-<li class="breadcrumb-item active">{{ title }}</li>
+    <li class="breadcrumb-item active">{{ title }}</li>
 {% endblock %}
 
 {% block content %}
-<div class="row mx-5">
-    <div class="card col-sm-12 pb-5 releases">
-        <div class="card-header text-center pb-0">
-            <h4>Вышедшие фильмы</h4>
-        </div>
-        <div class="card-body" id="released-movies-list">
-            {% for movie in releases %}
-                {{ movie.main_image.url }}
-                {{ movie.title }}
-            {% endfor %}
-        </div>
-        <div class="row justify-content-center">
-            <div class="row mr-5">
+    {{ objects.ordered_by }}
+    <div class="row mx-5">
 
+        <div class="card col-sm-12 pb-5 releases">
+            <div class="card-header text-center pb-0">
+                <h4>Вышедшие фильмы</h4>
             </div>
-            <a href="{% url 'movie_card' 'new' %}" class="btn btn-light px-5" style="font-size: 75px;">+</a>
+            <div class="card-body">
+                <div class="row justify-content-around">
+                    {% for movie_card in releases %}
+                        <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-auto mb-5">
+                            <a href="{% url 'movie_card' movie_card.pk %}">
+                                <img class="card-img-top" src="{{ movie_card.main_image.url }}" alt="">
+                                <div class="card-body">
+                                    <p class="text-center text-dark">{{ movie_card.title }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-sm-12 pb-5 announcements">
+            <div class="card-header text-center pb-0">
+                <h4>Анонсированные фильмы</h4>
+            </div>
+            <div class="card-body">
+                <div class="row justify-content-around">
+                    {% for movie_card in announcements %}
+                        <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-auto mb-5">
+                            <a href="{% url 'movie_card' movie_card.pk %}">
+                                <img class="card-img-top" src="{{ movie_card.main_image.url }}" alt="">
+                                <div class="card-body">
+                                    <p class="text-center text-dark">{{ movie_card.title }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-sm-12 pb-5">
+            <div class="card-header text-center pb-0">
+                <h4>Неактивные карточки</h4>
+            </div>
+            <div class="card-body">
+                <div class="row justify-content-around">
+                    <div class="col-md-4 col-lg-2 px-0 mt-5 mx-auto mb-5 text-center">
+                        <a href="{% url 'movie_card' 'new' %}" class="btn btn-light px-5" style="font-size: 75px;">+</a>
+                    </div>
+                    {% for movie_card in inactive_cards %}
+                        <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-auto mb-5">
+                            <a href="{% url 'movie_card' movie_card.pk %}">
+                                <img class="card-img-top" src="{{ movie_card.main_image.url }}" alt="">
+                                <div class="card-body">
+                                    <p class="text-center text-dark">{{ movie_card.title }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
-
-
-    <div class="card col-sm-12 pb-5 announcements">
-        <div class="card-header text-center pb-0">
-            <h4>Анонсированные фильмы</h4>
-        </div>
-        <div class="card-body" id="announced-movies-list">
-
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block scripts %}
-
 {% endblock %}
-

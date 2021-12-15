@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import UpdateView, View
 from django.contrib.auth import get_user_model
+from django.http import HttpResponseRedirect
+
 from .forms import (
     ExtendedUserUpdateForm,
     TopBannerFormSet, BackgroundImageForm, NewsBannerFormSet, BannersCarouselForm,
@@ -8,7 +10,7 @@ from .forms import (
     SEOForm
 )
 
-from django.http import HttpResponseRedirect
+from datetime import date
 
 
 # region Statistics
@@ -85,19 +87,29 @@ class BannersView(View):
 
 # region Movies
 class MoviesView(View):
-    context = {
-        'title': 'Фильмы',
-        'releases': MovieCardForm.Meta.model.objects.filter(is_active=True),
-        'announcements': MovieCardForm.Meta.model.objects.filter(is_active=False),
-    }
+    @staticmethod
+    def get_context(order):
+        order = '-id' if not order else '-' + order
+        return {
+            'title': 'Фильмы',
+            'releases': MovieCardForm.Meta.model.objects.filter(is_active=True,
+                                                                release_date__lte=date.today()
+                                                                ).order_by(order).reverse(),
+            'announcements': MovieCardForm.Meta.model.objects.filter(is_active=True,
+                                                                     release_date__gt=date.today()
+                                                                     ).order_by(order).reverse(),
+            'inactive_cards': MovieCardForm.Meta.model.objects.exclude(is_active=True
+                                                                       ).order_by(order).reverse(),
+        }
 
-    def get(self, request):
-        return render(request, 'admin/movies/index.html', self.context)
+    def get(self, request, order: str = None):
+        return render(request, 'admin/movies/index.html', self.get_context(order=None))
 
 
 class MovieCardView(View):
 
-    def get_context(self, request, pk: str):
+    @staticmethod
+    def get_context(request, pk: str):
         return {
             'pk': pk,
             'title': 'Карточка фильма',
