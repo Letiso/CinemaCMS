@@ -1,7 +1,12 @@
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from user.forms import UserUpdateForm
-from main.models import TopBanner, BackgroundImage, NewsBanner, BannersCarousel, MovieCard, MovieFrame, SEO
+from main.models import (
+    TopBanner, BackgroundImage, NewsBanner, BannersCarousel,
+    MovieCard, MovieFrame,
+    NewsCard, NewsGallery,
+    SEO
+)
 from django.forms import modelformset_factory
 
 
@@ -12,18 +17,21 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-def clean_image(form):
-    image, required_size = form.cleaned_data['image'], form.Meta.model.required_size
+class ImageValidationMixin:
+    cleaned_data = Meta = None
 
-    if isinstance(image, InMemoryUploadedFile):
-        image_size = image.image.size
-    else:
-        image_size = (image.width, image.height)
+    def clean_image(self):
+        image, required_size = self.cleaned_data['image'], self.Meta.model.required_size
 
-    if image_size != required_size:
-        width, height = required_size
-        raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}', code='invalid')
-    return image
+        if isinstance(image, InMemoryUploadedFile):
+            image_size = image.image.size
+        else:
+            image_size = (image.width, image.height)
+
+        if image_size != required_size:
+            width, height = required_size
+            raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}', code='invalid')
+        return image
 
 
 # endregion Additional
@@ -37,11 +45,7 @@ class ExtendedUserUpdateForm(UserUpdateForm):
 
 
 # region Banners
-
-class TopBannerForm(forms.ModelForm):
-    def clean_image(self):
-        return clean_image(self)
-
+class TopBannerForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = TopBanner
         fields = ('image', 'is_active')
@@ -51,7 +55,7 @@ TopBannerFormSet = modelformset_factory(TopBannerForm.Meta.model, form=TopBanner
                                         extra=0, can_delete=True)
 
 
-class BackgroundImageForm(forms.ModelForm):
+class BackgroundImageForm(ImageValidationMixin, forms.ModelForm):
     is_active = forms.TypedChoiceField(
         label='',
         coerce=lambda x: x == 'True',
@@ -59,18 +63,12 @@ class BackgroundImageForm(forms.ModelForm):
         widget=forms.RadioSelect
     )
 
-    def clean_image(self):
-        return clean_image(self)
-
     class Meta:
         model = BackgroundImage
         fields = ('image', 'is_active')
 
 
-class NewsBannerForm(forms.ModelForm):
-    def clean_image(self):
-        return clean_image(self)
-
+class NewsBannerForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = NewsBanner
         fields = ('image', 'is_active')
@@ -108,7 +106,7 @@ class MovieCardForm(forms.ModelForm):
 
     class Meta:
         model = MovieCard
-        exclude = ('seo', 'date_created')
+        exclude = ('date_created', )
         widgets = {
             'release_date': DateInput(),
         }
@@ -120,10 +118,7 @@ class MovieCardForm(forms.ModelForm):
     )
 
 
-class MovieFrameForm(forms.ModelForm):
-    def clean_image(self):
-        return clean_image(self)
-
+class MovieFrameForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = MovieFrame
         exclude = ('movie',)
@@ -135,11 +130,33 @@ MovieFrameFormset = modelformset_factory(MovieFrameForm.Meta.model, form=MovieFr
 
 # endregion Movies
 
+# region News
+class NewsCardForm(ImageValidationMixin, forms.ModelForm):
+    class Meta:
+        model = NewsCard
+        exclude = ('date_created', )
+        widgets = {
+            'publication_date': DateInput(),
+        }
+
+
+class NewsGalleryForm(ImageValidationMixin, forms.ModelForm):
+    class Meta:
+        model = NewsGallery
+        exclude = ('news',)
+
+
+NewsGalleryFormset = modelformset_factory(NewsGalleryForm.Meta.model, form=NewsGalleryForm,
+                                          extra=0, can_delete=True)
+
+
+# endregion News
+
 # region SEO
 class SEOForm(forms.ModelForm):
     class Meta:
         model = SEO
-        fields = '__all__'
+        exclude = ('movie', 'news',)
 
 
 # endregion SEO

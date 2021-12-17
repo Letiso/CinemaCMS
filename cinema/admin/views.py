@@ -7,6 +7,7 @@ from .forms import (
     ExtendedUserUpdateForm,
     TopBannerFormSet, BackgroundImageForm, NewsBannerFormSet, BannersCarouselForm,
     MovieCardForm, MovieFrameFormset,
+    NewsCardForm, NewsGallery,
     SEOForm
 )
 
@@ -38,25 +39,27 @@ class BannersView(View):
         return instance
 
     def get_context(self, request) -> dict:
+        def try_to_bound(name):
+            return {'data': request.POST,  'files': request.FILES, } if name in request.POST else {}
+
         return {
             'top_banners': {
                 'required_size': TopBannerFormSet.model.required_size,
-                'formset': TopBannerFormSet(request.POST or None, request.FILES or None, prefix='top_banners'),
-                'carousel': BannersCarouselForm(request.POST or None,
+                'formset': TopBannerFormSet(**try_to_bound('top_banners'), prefix='top_banners'),
+                'carousel': BannersCarouselForm(**try_to_bound('top_banners'),
                                                 instance=self.get_instance(BannersCarouselForm.Meta.model,
                                                                            'top_banners'), prefix='top_banners')
             },
-
             'background_image': {
                 'required_size': BackgroundImageForm.Meta.model.required_size,
-                'form': BackgroundImageForm(request.POST or None, request.FILES or None,
+                'form': BackgroundImageForm(**try_to_bound('background_image'),
                                             instance=self.get_instance(BackgroundImageForm.Meta.model),
                                             prefix='background_image'),
             },
             'news_banners': {
                 'required_size': TopBannerFormSet.model.required_size,
-                'formset': NewsBannerFormSet(request.POST or None, request.FILES or None, prefix='news_banners'),
-                'carousel': BannersCarouselForm(request.POST or None,
+                'formset': NewsBannerFormSet(**try_to_bound('news_banners'), prefix='news_banners'),
+                'carousel': BannersCarouselForm(**try_to_bound('news_banners'),
                                                 instance=self.get_instance(BannersCarouselForm.Meta.model,
                                                                            'news_banners'), prefix='news_banners')
             },
@@ -71,8 +74,8 @@ class BannersView(View):
         def get_current_form() -> tuple:
             for name in context.keys():
                 if name in request.POST:
-                    return context[name]['formset'], context[name]['carousel'] if 'formset' in context[name] \
-                        else context[name]['form'],
+                    return (context[name]['formset'], context[name]['carousel']) \
+                        if 'formset' in context[name] else (context[name]['form'], )
 
         forms = get_current_form()
         if False not in [form.is_valid() for form in forms]:
@@ -126,7 +129,7 @@ class MovieCardView(View):
             },
             'seo': {
                 'form': SEOForm(request.POST or None,
-                                instance=get_object_or_404(SEOForm.Meta.model, page=int(pk))
+                                instance=get_object_or_404(SEOForm.Meta.model, movie_id=int(pk))
                                 if pk.isdigit() else None,
                                 prefix='seo'),
             },
@@ -141,15 +144,17 @@ class MovieCardView(View):
         movie, gallery, seo = context['movie']['form'], context['gallery']['formset'], context['seo']['form']
 
         if False not in [movie.is_valid(), gallery.is_valid(), seo.is_valid()]:
-            movie = movie.save(commit=False)
-            movie.seo = seo.save()
             movie.save()
 
             for movie_frame in gallery:
                 if movie_frame.is_valid():
                     movie_frame = movie_frame.save(commit=False)
-                    movie_frame.movie = movie
+                    movie_frame.movie = movie.instance
             gallery.save()
+
+            seo = seo.save(commit=False)
+            seo.movie = movie.instance
+            seo.save()
 
             return redirect('movies')
 
@@ -169,11 +174,25 @@ def cinemas(request):
 # endregion Cinemas
 
 # region News
-def news(request):
-    context = {
-        'title': 'Новости',
-    }
-    return render(request, 'admin/news.html', context)
+class NewsView(View):
+    @staticmethod
+    def get_context():
+        return {
+            'title': 'Новости',
+            'news': NewsCardForm.Meta.model.objects.all().order_by('date_created'),
+        }
+
+    def get(self, request):
+        return render(request, 'admin/news/index.html', self.get_context())
+
+
+class NewsCardView(View):
+    @staticmethod
+    def get(request):
+        context = {
+            'title': 'Новости',
+        }
+        return render(request, 'admin/news.html', context)
 
 
 # endregion News

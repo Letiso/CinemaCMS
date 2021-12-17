@@ -9,7 +9,9 @@ urlpatterns = [
     path('movie_card/<str:pk>', views.MovieCardView.as_view(), name="movie_card"),
 
     path('cinemas', views.cinemas, name="cinemas_conf"),
-    path('news', views.news, name="news_conf"),
+
+    path('news', views.NewsView.as_view(), name="news_conf"),
+
     path('promotion', views.promotion, name="promotion_conf"),
     path('pages', views.pages, name="pages"),
 

@@ -57,9 +57,9 @@ class MovieCard(models.Model):
     main_image = models.ImageField('Главная картинка')
     trailer_link = models.CharField('Ссылка на трейлер', max_length=256)
     movie_type = models.CharField('Тип кино', max_length=10, choices=TYPES)
+
     is_active = models.BooleanField('Активен', default=False)
-    seo = models.OneToOneField('SEO', on_delete=models.CASCADE, related_name='page', default=None)
-    date_created = models.DateTimeField('Дата релиза', default=timezone.now)
+    date_created = models.DateTimeField(default=timezone.now)
 
     objects = models.Manager()
 
@@ -67,8 +67,8 @@ class MovieCard(models.Model):
 class MovieFrame(models.Model):
     movie = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
     required_size = (1000, 190)
-    image = models.ImageField()
-    is_active = models.BooleanField()
+    image = models.ImageField('Кадр из фильма')
+    is_active = models.BooleanField('Активен', default=False)
 
     objects = models.Manager()
 
@@ -76,11 +76,34 @@ class MovieFrame(models.Model):
 # endregion Movies
 
 # region News
+class NewsCard(models.Model):
+    title = models.CharField('Название фильма', max_length=256)
+    publication_date = models.DateField(default=date.today)
+    description = models.TextField('Описание')
+    required_size = (1000, 190)
+    main_image = models.ImageField('Главная картинка')
+    video_link = models.CharField('Ссылка на видео', max_length=256)
+
+    is_active = models.BooleanField(default=False)
+    date_created = models.DateTimeField(default=timezone.now)
+
+
+class NewsGallery(models.Model):
+    news = models.ForeignKey(NewsCard, on_delete=models.CASCADE, related_name='gallery')
+    required_size = (1000, 190)
+    image = models.ImageField('Картинка к новости')
+    is_active = models.BooleanField('Активен', default=False)
+
+    objects = models.Manager()
+
 
 # endregion News
 
 # region SEO
 class SEO(models.Model):
+    movie = models.OneToOneField(MovieCard, on_delete=models.CASCADE, related_name='seo', null=True)
+    news = models.OneToOneField(NewsCard, on_delete=models.CASCADE, related_name='seo', null=True)
+
     url = models.CharField('URL', max_length=256)
     title = models.CharField('Заголовок', max_length=256)
     keywords = models.CharField('Ключевые слова', max_length=256)
