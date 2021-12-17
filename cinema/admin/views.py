@@ -93,13 +93,10 @@ class MoviesView(View):
         return {
             'title': 'Фильмы',
             'releases': MovieCardForm.Meta.model.objects.filter(is_active=True,
-                                                                release_date__lte=date.today()
-                                                                ).order_by(order).reverse(),
+                                                                release_date__lte=date.today()).order_by(order),
             'announcements': MovieCardForm.Meta.model.objects.filter(is_active=True,
-                                                                     release_date__gt=date.today()
-                                                                     ).order_by(order).reverse(),
-            'inactive_cards': MovieCardForm.Meta.model.objects.exclude(is_active=True
-                                                                       ).order_by(order).reverse(),
+                                                                     release_date__gt=date.today()).order_by(order),
+            'inactive_cards': MovieCardForm.Meta.model.objects.exclude(is_active=True).order_by(order),
         }
 
     def get(self, request):
