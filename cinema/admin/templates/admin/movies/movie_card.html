@@ -124,6 +124,7 @@
         '{{ gallery.formset.prefix }}': ['{{ movie_frame_width }}', '{{ movie_frame_height }}'],
     }
 </script>
+{% endwith %}
 
 <script src="{% static 'admin/js/dynamic_formset.js' %}"></script>
 <script src="{% static 'admin/js/dynamic_image_select.js' %}"></script>
@@ -132,5 +133,4 @@
 <script src="{% static 'admin/js/custom_toastr.js' %}"></script>
 
 <script src="{% static 'admin/js/single-choice-checkbox.js' %}"></script>
-{% endwith %}
 {% endblock %}

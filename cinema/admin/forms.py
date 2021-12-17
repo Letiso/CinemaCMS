@@ -5,7 +5,7 @@ from main.models import TopBanner, BackgroundImage, NewsBanner, BannersCarousel,
 from django.forms import modelformset_factory
 
 
-# region Mixins
+# region Additional
 class DateInput(forms.DateInput):
     def __init__(self, *args, **kwargs):
         super(DateInput, self).__init__(*args, format='%Y-%m-%d', **kwargs)
@@ -26,7 +26,7 @@ def clean_image(form):
     return image
 
 
-# endregion Mixins
+# endregion Additional
 
 # region User
 class ExtendedUserUpdateForm(UserUpdateForm):
@@ -108,7 +108,7 @@ class MovieCardForm(forms.ModelForm):
 
     class Meta:
         model = MovieCard
-        exclude = ('seo', )
+        exclude = ('seo', 'date_created')
         widgets = {
             'release_date': DateInput(),
         }

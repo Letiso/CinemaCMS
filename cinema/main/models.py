@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import date
+from django.utils import timezone
+
 
 # region Banners
 banners_media_path = 'main/index/banners'
@@ -57,6 +59,7 @@ class MovieCard(models.Model):
     movie_type = models.CharField('Тип кино', max_length=10, choices=TYPES)
     is_active = models.BooleanField('Активен', default=False)
     seo = models.OneToOneField('SEO', on_delete=models.CASCADE, related_name='page', default=None)
+    date_created = models.DateTimeField('Дата релиза', default=timezone.now)
 
     objects = models.Manager()
 
@@ -71,6 +74,10 @@ class MovieFrame(models.Model):
 
 
 # endregion Movies
+
+# region News
+
+# endregion News
 
 # region SEO
 class SEO(models.Model):

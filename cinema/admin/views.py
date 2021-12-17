@@ -88,8 +88,8 @@ class BannersView(View):
 # region Movies
 class MoviesView(View):
     @staticmethod
-    def get_context(order):
-        order = '-id' if not order else '-' + order
+    def get_context():
+        order = '-date_created'
         return {
             'title': 'Фильмы',
             'releases': MovieCardForm.Meta.model.objects.filter(is_active=True,
@@ -102,8 +102,8 @@ class MoviesView(View):
                                                                        ).order_by(order).reverse(),
         }
 
-    def get(self, request, order: str = None):
-        return render(request, 'admin/movies/index.html', self.get_context(order=None))
+    def get(self, request):
+        return render(request, 'admin/movies/index.html', self.get_context())
 
 
 class MovieCardView(View):
@@ -154,7 +154,7 @@ class MovieCardView(View):
                     movie_frame.movie = movie
             gallery.save()
 
-            return redirect(f'movie_card', pk=movie.pk)
+            return redirect('movies')
 
         return render(request, 'admin/movies/movie_card.html', context)
 
