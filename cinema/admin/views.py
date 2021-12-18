@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import UpdateView, View
 from django.contrib.auth import get_user_model
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.db.models import Model
 
 from .forms import (
     ExtendedUserUpdateForm,
@@ -15,7 +16,7 @@ from datetime import date
 
 
 # region Statistics
-def statistics(request):
+def statistics(request) -> HttpResponse:
     context = {
         'title': 'Статистика',
     }
@@ -28,7 +29,7 @@ def statistics(request):
 class BannersView(View):
 
     @staticmethod
-    def get_instance(model, prefix: str = None):
+    def get_instance(model, prefix: str = None) -> Model:
         """
         {'name': prefix} using for get_or_create BannersCarousel instances
         {'pk': 1} using for get_or_create BackgroundImage singleton-instance
@@ -39,7 +40,7 @@ class BannersView(View):
         return instance
 
     def get_context(self, request) -> dict:
-        def try_to_bound(name):
+        def try_to_bound(name) -> dict:
             return {'data': request.POST,  'files': request.FILES, } if name in request.POST else {}
 
         return {
@@ -65,10 +66,10 @@ class BannersView(View):
             },
         }
 
-    def get(self, request):
+    def get(self, request) -> HttpResponse:
         return render(request, 'admin/banners/index.html', self.get_context(request))
 
-    def post(self, request):
+    def post(self, request) -> HttpResponse:
         context = self.get_context(request)
 
         def get_current_form() -> tuple:
@@ -91,7 +92,7 @@ class BannersView(View):
 # region Movies
 class MoviesView(View):
     @staticmethod
-    def get_context():
+    def get_context() -> dict:
         order = '-date_created'
         return {
             'title': 'Фильмы',
@@ -102,14 +103,14 @@ class MoviesView(View):
             'inactive_cards': MovieCardForm.Meta.model.objects.exclude(is_active=True).order_by(order),
         }
 
-    def get(self, request):
+    def get(self, request) -> HttpResponse:
         return render(request, 'admin/movies/index.html', self.get_context())
 
 
 class MovieCardView(View):
 
     @staticmethod
-    def get_context(request, pk: str):
+    def get_context(request, pk: str) -> dict:
         return {
             'pk': pk,
             'title': 'Карточка фильма',
@@ -136,10 +137,10 @@ class MovieCardView(View):
             'currentUrl': request.get_full_path(),
         }
 
-    def get(self, request, pk: str):
+    def get(self, request, pk: str) -> HttpResponse:
         return render(request, 'admin/movies/movie_card.html', self.get_context(request, pk))
 
-    def post(self, request, pk: str):
+    def post(self, request, pk: str) -> HttpResponse:
         context = self.get_context(request, pk)
         movie, gallery, seo = context['movie']['form'], context['gallery']['formset'], context['seo']['form']
 
@@ -164,7 +165,7 @@ class MovieCardView(View):
 # endregion Movies
 
 # region Cinemas
-def cinemas(request):
+def cinemas(request) -> HttpResponse:
     context = {
         'title': 'Кинотеатры',
     }
@@ -176,19 +177,19 @@ def cinemas(request):
 # region News
 class NewsView(View):
     @staticmethod
-    def get_context():
+    def get_context() -> dict:
         return {
             'title': 'Новости',
             'news': NewsCardForm.Meta.model.objects.all().order_by('date_created'),
         }
 
-    def get(self, request):
+    def get(self, request) -> HttpResponse:
         return render(request, 'admin/news/index.html', self.get_context())
 
 
 class NewsCardView(View):
     @staticmethod
-    def get(request):
+    def get(request) -> HttpResponse:
         context = {
             'title': 'Новости',
         }
@@ -198,7 +199,7 @@ class NewsCardView(View):
 # endregion News
 
 # region Promotion
-def promotion(request):
+def promotion(request) -> HttpResponse:
     context = {
         'title': 'Акции',
     }
@@ -208,7 +209,7 @@ def promotion(request):
 # endregion Promotion
 
 # region Pages
-def pages(request):
+def pages(request) -> HttpResponse:
     context = {
         'title': 'Страницы',
     }
@@ -218,7 +219,7 @@ def pages(request):
 # endregion Pages
 
 # region User
-def users(request):
+def users(request) -> HttpResponse:
     context = {
         'title': 'Пользователи',
         'fields': ['ID', 'Ред./Удал.', 'Логин', 'Email', 'Номер телефона',
@@ -241,7 +242,7 @@ class UserUpdateView(UpdateView):
 class UserDeleteView(View):
 
     @staticmethod
-    def get(request, pk):
+    def get(request, pk) -> HttpResponseRedirect:
         model = get_user_model()
         user_to_delete = get_object_or_404(model, pk=pk)
         user_to_delete.delete()
@@ -251,7 +252,7 @@ class UserDeleteView(View):
 # endregion User
 
 # region Mailing
-def mailing(request):
+def mailing(request) -> HttpResponse:
     context = {
         'title': 'Рассылка',
     }
