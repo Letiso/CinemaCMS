@@ -11,11 +11,12 @@ urlpatterns = [
     path('cinemas', views.cinemas, name="cinemas_conf"),
 
     path('news', views.NewsView.as_view(), name="news_conf"),
+    path('news_card/<str:pk>', views.NewsCardView.as_view(), name="news_card"),
 
     path('promotion', views.promotion, name="promotion_conf"),
     path('pages', views.pages, name="pages"),
 
-    path('users', views.users, name="users"),
+    path('users', views.UsersView.as_view(), name="users"),
     path('user/<int:pk>/update', views.UserUpdateView.as_view(), name="update_user"),
     path('user/<int:pk>/delete', views.UserDeleteView.as_view(), name="delete_user"),
 

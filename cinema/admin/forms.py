@@ -136,7 +136,11 @@ class NewsCardForm(ImageValidationMixin, forms.ModelForm):
         model = NewsCard
         exclude = ('date_created', )
         widgets = {
+            'is_active': forms.CheckboxInput(attrs={
+                'class': 'custom-control-input',
+            }),
             'publication_date': DateInput(),
+
         }
 
 

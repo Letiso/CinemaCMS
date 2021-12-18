@@ -15,13 +15,13 @@
 {% block current_page %}{{ title }}{% endblock %}
 
 {% block path %}
-<li class="breadcrumb-item"><a href="{% url 'movies' %}">Фильмы</a></li>
+<li class="breadcrumb-item"><a href="{% url 'news' %}">Новости</a></li>
 <li class="breadcrumb-item active">{{ title }}</li>
 <li class="breadcrumb-item active">{{ pk }}</li>
 {% endblock %}
 
 {% block content %}
-{% with main_image_width=movie.required_size.0 main_image_height=movie.required_size.1  movie_frame_width=gallery.required_size.0 movie_frame_height=gallery.required_size.1 %}
+{% with main_image_width=news.required_size.0 main_image_height=news.required_size.1  gallery_width=gallery.required_size.0 gallery_height=gallery.required_size.1 %}
 <style>
     .hidden {
         display: none;
@@ -32,14 +32,22 @@
     <div class="card-body" id="released-movies-list">
         <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
             {% csrf_token %}
-            {% with movie.form as form %}
-                <div class="col-5 p-0">
-                    {{ form.title|as_crispy_field }}
+            {% with news.form as form %}
+                <div class="text-right mb-4">
+                    <div class="custom-control custom-switch">
+                        {{ form.is_active }}
+                        <label for="{{ form.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="col-5 p-0">
+                        {{ form.title|as_crispy_field }}
+                    </div>
+                    <div class="col-3 p-0">
+                        {{ form.publication_date|as_crispy_field }}
+                    </div>
                 </div>
                 {{ form.description|as_crispy_field }}
-                <div class="col-3 p-0">
-                    {{ form.release_date|as_crispy_field }}
-                </div>
 
                 <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
                     <div class="card-header">
@@ -53,7 +61,7 @@
 
 
                 <label>Галерея кадров из фильма</label>
-                <h5 class="ml-5">Размер: {{ movie_frame_width }}x{{ movie_frame_height }}</h5>
+                <h5 class="ml-5">Размер: {{ gallery_width }}x{{ gallery_height }}</h5>
                 <div class="container-fluid">
                     {% with gallery.formset as formset %}
                         {{ formset.management_form }}
@@ -66,9 +74,7 @@
                                 <div class="card-header text-right">
                                     {{ form.DELETE|as_crispy_field }}
                                 </div>
-                                {% if form.instance.image %}
-                                    <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{{ form.instance.image.url }}" alt="">
-                                {% endif %}
+                                <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image %}{{ form.instance.image.url }}{% endif %}" alt="">
                                 <div class="card-body">
                                     {{ form.image|as_crispy_field }}
                                     {{ form.is_active|as_crispy_field }}
@@ -94,17 +100,13 @@
                     {% endwith %}
                 </div>
 
-                {{ form.trailer_link|as_crispy_field }}
-                <div class="single_choice_checkbox-list">
-                    {{ form.movie_type|as_crispy_field }}
-                </div>
+                {{ form.video_link|as_crispy_field }}
                 <label>SEO блок:</label>
                 <div class="container">
                     {% for field in seo.form %}
                         {{ field|as_crispy_field }}
                     {% endfor %}
                 </div>
-                {{ form.is_active|as_crispy_field }}
             {% endwith %}
             <div class="text-center mt-4">
                 <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
@@ -117,11 +119,11 @@
 {% endblock %}
 
 {% block scripts %}
-{% with main_image_width=movie.required_size.0 main_image_height=movie.required_size.1  movie_frame_width=gallery.required_size.0 movie_frame_height=gallery.required_size.1 %}
+{% with main_image_width=news.required_size.0 main_image_height=news.required_size.1  gallery_width=gallery.required_size.0 gallery_height=gallery.required_size.1 %}
 <script>
     const required_sizes = {
-        '{{ movie.form.prefix }}': ['{{ main_image_width }}', '{{ main_image_height }}'],
-        '{{ gallery.formset.prefix }}': ['{{ movie_frame_width }}', '{{ movie_frame_height }}'],
+        '{{ news.form.prefix }}': ['{{ main_image_width }}', '{{ main_image_height }}'],
+        '{{ gallery.formset.prefix }}': ['{{ gallery_width }}', '{{ gallery_height }}'],
     }
 </script>
 {% endwith %}

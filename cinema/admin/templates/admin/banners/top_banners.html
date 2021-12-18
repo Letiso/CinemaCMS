@@ -13,48 +13,49 @@
     </div>
 
     <div class="container-fluid">
-        {{ top_banners.formset.management_form }}
+        {% with top_banners.formset as formset %}
+            {{ formset.management_form }}
 
-        <div class="row justify-content-between justify-content-around" id="top_banners-list">
-            {% for form in top_banners.formset %}
-                {% for hidden in form.hidden_fields %}
-                    {{ hidden }}
-                {% endfor %}
-            <div class="col-sm-12 col-lg-5 card px-0 mt-5 top_banners">
-                <div class="card-header text-right">
-                    {{ form.DELETE|as_crispy_field }}
-                </div>
-                    <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image %}{{ form.instance.image.url }}{% endif %}" alt="">
-                <div class="card-body">
-                    {{ form.image|as_crispy_field }}
-                    {{ form.is_active|as_crispy_field }}
-                </div>
-            </div>
-            {% endfor %}
-            <div id="top_banners-empty-form" class="col-sm-12 col-lg-5 card px-0 mt-5 hidden">
-                {% with top_banners.formset.empty_form as empty_form %}
+            <div class="row justify-content-between justify-content-around" id="{{ formset.prefix }}-list">
+                {% for form in formset %}
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+                <div class="col-sm-12 col-lg-5 card px-0 mt-5 {{ formset.prefix }}">
                     <div class="card-header text-right">
-                        {{ empty_form.DELETE|as_crispy_field }}
+                        {{ form.DELETE|as_crispy_field }}
                     </div>
-                    <img id="{{ empty_form.image.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
+                        <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image %}{{ form.instance.image.url }}{% endif %}" alt="">
                     <div class="card-body">
-                        {{ empty_form.image|as_crispy_field }}
-                        {{ empty_form.is_active|as_crispy_field }}
+                        {{ form.image|as_crispy_field }}
+                        {{ form.is_active|as_crispy_field }}
                     </div>
-                {% endwith %}
+                </div>
+                {% endfor %}
+                <div id="{{ formset.prefix }}-empty-form" class="col-sm-12 col-lg-5 card px-0 mt-5 hidden">
+                    {% with formset.empty_form as empty_form %}
+                        <div class="card-header text-right">
+                            {{ empty_form.DELETE|as_crispy_field }}
+                        </div>
+                        <img id="{{ empty_form.image.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
+                        <div class="card-body">
+                            {{ empty_form.image|as_crispy_field }}
+                            {{ empty_form.is_active|as_crispy_field }}
+                        </div>
+                    {% endwith %}
+                </div>
             </div>
-        </div>
-    </div>
+            <div class="text-center mt-5">
+                <input type="button" onclick="add_empty_form(event, '{{ formset.prefix }}')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+            </div>
 
-    <div class="text-center mt-5">
-        <input type="button" onclick="add_empty_form(event, 'top_banners')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
-    </div>
-
-    <div class="row">
-        <label for="{{ top_banners.carousel.data_interval.id_for_label }}" class="my-auto" style="font-size: 22px; font-weight: normal;">{{top_banners.carousel.data_interval.label}}</label>
-        {{ top_banners.carousel.data_interval }}
-    </div>
-    <div class="text-center mt-4">
-        <input type="submit" name="top_banners" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">
+            <div class="row">
+                <label for="{{ top_banners.carousel.data_interval.id_for_label }}" class="my-auto" style="font-size: 22px; font-weight: normal;">{{top_banners.carousel.data_interval.label}}</label>
+                {{ top_banners.carousel.data_interval }}
+            </div>
+            <div class="text-center mt-4">
+                <input type="submit" name="{{ formset.prefix }}" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">
+            </div>
+        {% endwith %}
     </div>
 </form>

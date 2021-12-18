@@ -8,7 +8,7 @@ from .forms import (
     ExtendedUserUpdateForm,
     TopBannerFormSet, BackgroundImageForm, NewsBannerFormSet, BannersCarouselForm,
     MovieCardForm, MovieFrameFormset,
-    NewsCardForm, NewsGallery,
+    NewsCardForm, NewsGalleryFormset,
     SEOForm
 )
 
@@ -41,7 +41,7 @@ class BannersView(View):
 
     def get_context(self, request) -> dict:
         def try_to_bound(name) -> dict:
-            return {'data': request.POST,  'files': request.FILES, } if name in request.POST else {}
+            return {'data': request.POST, 'files': request.FILES, } if name in request.POST else {}
 
         return {
             'top_banners': {
@@ -76,7 +76,7 @@ class BannersView(View):
             for name in context.keys():
                 if name in request.POST:
                     return (context[name]['formset'], context[name]['carousel']) \
-                        if 'formset' in context[name] else (context[name]['form'], )
+                        if 'formset' in context[name] else (context[name]['form'],)
 
         forms = get_current_form()
         if False not in [form.is_valid() for form in forms]:
@@ -180,7 +180,8 @@ class NewsView(View):
     def get_context() -> dict:
         return {
             'title': 'Новости',
-            'news': NewsCardForm.Meta.model.objects.all().order_by('date_created'),
+            'table_labels': ['ID', 'Название', 'Дата создания', 'Статус', 'Редактировать'],
+            'news': NewsCardForm.Meta.model.objects.all(),
         }
 
     def get(self, request) -> HttpResponse:
@@ -188,12 +189,58 @@ class NewsView(View):
 
 
 class NewsCardView(View):
+
     @staticmethod
-    def get(request) -> HttpResponse:
-        context = {
-            'title': 'Новости',
+    def get_context(request, pk: str) -> dict:
+        return {
+            'pk': pk,
+            'title': 'Карточка новости',
+            'news': {
+                'form': NewsCardForm(request.POST or None, request.FILES or None,
+                                     instance=get_object_or_404(NewsCardForm.Meta.model, pk=int(pk))
+                                     if pk.isdigit() else None,
+                                     prefix='news'),
+                'required_size': NewsCardForm.Meta.model.required_size,
+            },
+            'gallery': {
+                'formset': NewsGalleryFormset(request.POST or None, request.FILES or None,
+                                              prefix='news_image',
+                                              queryset=NewsGalleryFormset.model.objects.filter(news_id=int(pk))
+                                              if pk.isdigit() else NewsGalleryFormset.model.objects.none()),
+                'required_size': NewsGalleryFormset.model.required_size,
+            },
+            'seo': {
+                'form': SEOForm(request.POST or None,
+                                instance=get_object_or_404(SEOForm.Meta.model, news_id=int(pk))
+                                if pk.isdigit() else None,
+                                prefix='seo'),
+            },
+            'currentUrl': request.get_full_path(),
         }
-        return render(request, 'admin/news.html', context)
+
+    def get(self, request, pk: str) -> HttpResponse:
+        return render(request, 'admin/news/news_card.html', self.get_context(request, pk))
+
+    def post(self, request, pk: str) -> HttpResponse:
+        context = self.get_context(request, pk)
+        news, gallery, seo = context['news']['form'], context['gallery']['formset'], context['seo']['form']
+
+        if False not in [news.is_valid(), gallery.is_valid(), seo.is_valid()]:
+            news.save()
+
+            for news_image in gallery:
+                if news_image.is_valid():
+                    news_image = news_image.save(commit=False)
+                    news_image.movie = news.instance
+            gallery.save()
+
+            seo = seo.save(commit=False)
+            seo.news = news.instance
+            seo.save()
+
+            return redirect('news')
+
+        return render(request, 'admin/news/index.html', context)
 
 
 # endregion News
@@ -219,16 +266,19 @@ def pages(request) -> HttpResponse:
 # endregion Pages
 
 # region User
-def users(request) -> HttpResponse:
-    context = {
-        'title': 'Пользователи',
-        'fields': ['ID', 'Ред./Удал.', 'Логин', 'Email', 'Номер телефона',
-                   'Имя', 'Фамилия', 'Пол', 'Язык', 'Дата рождения', 'Адрес', 'Был(а)',
-                   'Регистрация', 'Сотрудник', 'Админ', ],
-        'users': get_user_model().objects.all(),
-    }
+class UsersView(View):
+    @staticmethod
+    def get_context():
+        return {
+            'title': 'Пользователи',
+            'table_labels': ['ID', 'Логин', 'Email', 'Номер телефона',
+                             'Имя', 'Фамилия', 'Пол', 'Язык', 'Дата рождения', 'Адрес', 'Был(а)',
+                             'Регистрация', 'Сотрудник', 'Админ', 'Ред.'],
+            'users': get_user_model().objects.all(),
+        }
 
-    return render(request, 'admin/users/users.html', context)
+    def get(self, request) -> HttpResponse:
+        return render(request, 'admin/users/users.html', self.get_context())
 
 
 class UserUpdateView(UpdateView):
