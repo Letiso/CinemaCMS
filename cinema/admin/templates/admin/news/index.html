@@ -34,10 +34,15 @@
                   <td>{{ news.id }}</td>
                   <td>{{ news.title }}</td>
                   <td>{{ news.date_created }}</td>
-                  <td>{{ news.is_active }}</td>
                   <td>
+                      {% if news.is_active %}
+                        <span>Вкл.</span>
+                      {% else %}
+                        <span>Выкл.</span>
+                      {% endif %}</td>
+                  <td class="col-1">
                       <div class="row buttons">
-                          <a href="{% url 'update_user' user.pk %}"
+                          <a href="{% url 'news_card' news.pk %}"
                              class="fas fa-pen text-primary mx-auto"></a>
                           <!-- Button trigger modal -->
                           <a class="fas fa-minus-circle text-danger ml-2 mr-auto"
@@ -53,18 +58,18 @@
                               </div>
                               <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
                                 <span style="font-size: 20px;">
-                                    Вы уверены, что хотите удалить этого пользователя?
+                                    Вы уверены, что хотите удалить эту новость?
                                 </span>
                                 <span class="text-primary" style="font-size: 35px;">
-                                    {{ user.username }}
+                                    {{ news.title }}
                                 </span>
                               </div>
                               <div class="modal-footer bg-dark">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                     Назад
                                 </button>
-                                  <a href="{% url 'delete_user' user.pk %}" class="btn btn-danger">
-                                      Удалить учетную запись
+                                  <a href="{% url 'delete_news' news.pk %}" class="btn btn-danger">
+                                      Удалить новость
                                   </a>
                               </div>
                             </div>

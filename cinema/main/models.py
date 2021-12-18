@@ -77,7 +77,7 @@ class MovieFrame(models.Model):
 
 # region News
 class NewsCard(models.Model):
-    title = models.CharField('Название фильма', max_length=256)
+    title = models.CharField('Название новости', max_length=256)
     publication_date = models.DateField('Дата публикации', default=date.today)
     description = models.TextField('Описание')
     required_size = (1000, 190)

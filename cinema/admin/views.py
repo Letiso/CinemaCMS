@@ -181,7 +181,7 @@ class NewsView(View):
         return {
             'title': 'Новости',
             'table_labels': ['ID', 'Название', 'Дата создания', 'Статус', 'Редактировать'],
-            'news': NewsCardForm.Meta.model.objects.all(),
+            'news_list': NewsCardForm.Meta.model.objects.all(),
         }
 
     def get(self, request) -> HttpResponse:
@@ -231,18 +231,25 @@ class NewsCardView(View):
             for news_image in gallery:
                 if news_image.is_valid():
                     news_image = news_image.save(commit=False)
-                    news_image.movie = news.instance
+                    news_image.news = news.instance
             gallery.save()
 
             seo = seo.save(commit=False)
             seo.news = news.instance
             seo.save()
 
-            return redirect('news')
+            return redirect('news_conf')
 
         return render(request, 'admin/news/index.html', context)
 
 
+class NewsCardDeleteView(View):
+    @staticmethod
+    def get(request, pk) -> HttpResponseRedirect:
+        model = NewsCardForm.Meta.model
+        news_to_delete = get_object_or_404(model, pk=pk)
+        news_to_delete.delete()
+        return redirect('news_conf')
 # endregion News
 
 # region Promotion
