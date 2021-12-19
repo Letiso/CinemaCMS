@@ -1,0 +1,112 @@
+﻿{% extends 'admin/admin_layout.html' %}
+{% load static %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block promotion_conf %}
+    active
+{% endblock %}
+
+{% block current_page %}
+    {{ title }}
+{% endblock %}
+
+{% block path %}
+    <li class="breadcrumb-item active">{{ title }}</li>
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <div class="card">
+      <div id="data_table_decorator" class="card-body">
+        <table id="usersList" class="table table-bordered table-striped">
+          <thead>
+             <tr>
+                 {% for column_title in table_labels %}
+                    <th>{{ column_title }}</th>
+                 {% endfor %}
+             </tr>
+          </thead>
+          <tbody>
+            {% for promotion in promotion_list %}
+              <tr>
+                  <td>{{ promotion.id }}</td>
+                  <td>{{ promotion.title }}</td>
+                  <td>{{ promotion.date_created }}</td>
+                  <td>
+                      {% if promotion.is_active %}
+                        <span>Вкл.</span>
+                      {% else %}
+                        <span>Выкл.</span>
+                      {% endif %}</td>
+                  <td class="col-1">
+                      <div class="row buttons">
+                          <a href="{% url 'promotion_card' promotion.pk %}"
+                             class="fas fa-pen text-primary mx-auto"></a>
+                          <!-- Button trigger modal -->
+                          <a class="fas fa-minus-circle text-danger ml-2 mr-auto"
+                             data-toggle="modal" data-target="#deleteUserModal-{{ forloop.counter }}"></a>
+                          <!-- Modal -->
+                        <div class="modal fade" id="deleteUserModal-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header bg-dark">
+                                <h5 class="modal-title" id="exampleModalLongTitle-{{ forloop.counter }}">
+                                    Подтверждение удаления
+                                </h5>
+                              </div>
+                              <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
+                                <span style="font-size: 20px;">
+                                    Вы уверены, что хотите удалить эту новость?
+                                </span>
+                                <span class="text-primary" style="font-size: 35px;">
+                                    {{ promotion.title }}
+                                </span>
+                              </div>
+                              <div class="modal-footer bg-dark">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Назад
+                                </button>
+                                  <a href="{% url 'delete_promotion' promotion.pk %}" class="btn btn-danger">
+                                      Удалить новость
+                                  </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block scripts %}
+<!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script>
+  $(function () {
+    $("#usersList").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+    });
+    add_create_button("usersList")
+  });
+</script>
+
+<script>
+    function add_create_button(dataTable) {
+        let left_header = document.getElementById(`${dataTable}_wrapper`).getElementsByClassName('col-sm-12')[0]
+        left_header.innerHTML = `<a href="{% url 'promotion_card' 'new' %}" class="btn btn-primary mt-2 ml-3 px-2"><i class="fas fa-plus pr-2"></i>Создать акцию</a>`
+        }
+</script>
+{% endblock %}
+

@@ -5,6 +5,7 @@ from main.models import (
     TopBanner, BackgroundImage, NewsBanner, BannersCarousel,
     MovieCard, MovieFrame,
     NewsCard, NewsGallery,
+    PromotionCard, PromotionGallery,
     SEO
 )
 from django.forms import modelformset_factory
@@ -14,6 +15,7 @@ from django.forms import modelformset_factory
 class DateInput(forms.DateInput):
     def __init__(self, *args, **kwargs):
         super(DateInput, self).__init__(*args, format='%Y-%m-%d', **kwargs)
+
     input_type = 'date'
 
 
@@ -106,7 +108,7 @@ class MovieCardForm(forms.ModelForm):
 
     class Meta:
         model = MovieCard
-        exclude = ('date_created', )
+        exclude = ('date_created',)
         widgets = {
             'release_date': DateInput(),
         }
@@ -134,7 +136,7 @@ MovieFrameFormset = modelformset_factory(MovieFrameForm.Meta.model, form=MovieFr
 class NewsCardForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = NewsCard
-        exclude = ('date_created', )
+        exclude = ('date_created',)
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
@@ -156,11 +158,36 @@ NewsGalleryFormset = modelformset_factory(NewsGalleryForm.Meta.model, form=NewsG
 
 # endregion News
 
+# region Promotion
+class PromotionCardForm(ImageValidationMixin, forms.ModelForm):
+    class Meta:
+        model = PromotionCard
+        exclude = ('date_created',)
+        widgets = {
+            'is_active': forms.CheckboxInput(attrs={
+                'class': 'custom-control-input',
+            }),
+            'publication_date': DateInput(),
+
+        }
+
+
+class PromotionGalleryForm(ImageValidationMixin, forms.ModelForm):
+    class Meta:
+        model = PromotionGallery
+        exclude = ('promotion',)
+
+
+PromotionGalleryFormset = modelformset_factory(PromotionGalleryForm.Meta.model, form=PromotionGalleryForm,
+                                               extra=0, can_delete=True)
+
+
+# endregion News
+
 # region SEO
 class SEOForm(forms.ModelForm):
     class Meta:
         model = SEO
-        exclude = ('movie', 'news',)
-
+        exclude = ('movie', 'news', 'promotion')
 
 # endregion SEO

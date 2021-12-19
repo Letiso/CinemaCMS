@@ -99,10 +99,35 @@ class NewsGallery(models.Model):
 
 # endregion News
 
+# region Promotion
+class PromotionCard(models.Model):
+    title = models.CharField('Название акции', max_length=256)
+    publication_date = models.DateField('Дата публикации', default=date.today)
+    description = models.TextField('Описание')
+    required_size = (1000, 190)
+    main_image = models.ImageField('Главная картинка')
+    video_link = models.CharField('Ссылка на видео', max_length=256)
+
+    is_active = models.BooleanField(default=False)
+    date_created = models.DateTimeField(default=timezone.now)
+
+
+class PromotionGallery(models.Model):
+    promotion = models.ForeignKey(PromotionCard, on_delete=models.CASCADE, related_name='gallery')
+    required_size = (1000, 190)
+    image = models.ImageField('Картинка к акции')
+    is_active = models.BooleanField('Активен', default=False)
+
+    objects = models.Manager()
+
+
+# endregion Promotion
+
 # region SEO
 class SEO(models.Model):
     movie = models.OneToOneField(MovieCard, on_delete=models.CASCADE, related_name='seo', null=True)
     news = models.OneToOneField(NewsCard, on_delete=models.CASCADE, related_name='seo', null=True)
+    promotion = models.OneToOneField(PromotionCard, on_delete=models.CASCADE, related_name='seo', null=True)
 
     url = models.CharField('URL', max_length=256)
     title = models.CharField('Заголовок', max_length=256)

@@ -14,7 +14,10 @@ urlpatterns = [
     path('news_card/<str:pk>', views.NewsCardView.as_view(), name="news_card"),
     path('news_card/<int:pk>/delete', views.NewsCardDeleteView.as_view(), name="delete_news"),
 
-    path('promotion', views.promotion, name="promotion_conf"),
+    path('promotion', views.PromotionListView.as_view(), name="promotion_conf"),
+    path('promotion_card/<str:pk>', views.PromotionCardView.as_view(), name="promotion_card"),
+    path('promotion_card/<int:pk>/delete', views.PromotionCardDeleteView.as_view(), name="delete_promotion"),
+
     path('pages', views.pages, name="pages"),
 
     path('users', views.UsersView.as_view(), name="users"),

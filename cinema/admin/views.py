@@ -9,6 +9,7 @@ from .forms import (
     TopBannerFormSet, BackgroundImageForm, NewsBannerFormSet, BannersCarouselForm,
     MovieCardForm, MovieFrameFormset,
     NewsCardForm, NewsGalleryFormset,
+    PromotionCardForm, PromotionGalleryFormset,
     SEOForm
 )
 
@@ -250,14 +251,87 @@ class NewsCardDeleteView(View):
         news_to_delete = get_object_or_404(model, pk=pk)
         news_to_delete.delete()
         return redirect('news_conf')
+
+
 # endregion News
 
 # region Promotion
-def promotion(request) -> HttpResponse:
-    context = {
-        'title': 'Акции',
-    }
-    return render(request, 'admin/promotion.html', context)
+class PromotionListView(View):
+    @staticmethod
+    def get_context() -> dict:
+        return {
+            'title': 'Акции',
+            'table_labels': ['ID', 'Название', 'Дата создания', 'Статус', 'Редактировать'],
+            'promotion_list': PromotionCardForm.Meta.model.objects.all(),
+        }
+
+    def get(self, request) -> HttpResponse:
+        return render(request, 'admin/promotion/index.html', self.get_context())
+
+
+class PromotionCardView(View):
+
+    @staticmethod
+    def get_context(request, pk: str) -> dict:
+        return {
+            'pk': pk,
+            'title': 'Карточка акции',
+            'promotion': {
+                'form': PromotionCardForm(request.POST or None, request.FILES or None,
+                                          instance=get_object_or_404(PromotionCardForm.Meta.model, pk=int(pk))
+                                          if pk.isdigit() else None,
+                                          prefix='promotion'),
+                'required_size': PromotionCardForm.Meta.model.required_size,
+            },
+            'gallery': {
+                'formset': PromotionGalleryFormset(request.POST or None, request.FILES or None,
+                                                   prefix='promotion_image',
+                                                   queryset=PromotionGalleryFormset.model.objects.filter(
+                                                       promotion_id=int(pk))
+                                                   if pk.isdigit() else PromotionGalleryFormset.model.objects.none()),
+                'required_size': PromotionGalleryFormset.model.required_size,
+            },
+            'seo': {
+                'form': SEOForm(request.POST or None,
+                                instance=get_object_or_404(SEOForm.Meta.model, promotion_id=int(pk))
+                                if pk.isdigit() else None,
+                                prefix='seo'),
+            },
+            'currentUrl': request.get_full_path(),
+        }
+
+    def get(self, request, pk: str) -> HttpResponse:
+        return render(request, 'admin/promotion/promotion_card.html', self.get_context(request, pk))
+
+    def post(self, request, pk: str) -> HttpResponse:
+        context = self.get_context(request, pk)
+        promotion, gallery, seo = context['promotion']['form'], context['gallery']['formset'], context['seo']['form']
+
+        if False not in [promotion.is_valid(), gallery.is_valid(), seo.is_valid()]:
+            promotion.save()
+
+            for promotion_image in gallery:
+                if promotion_image.is_valid():
+                    promotion_image = promotion_image.save(commit=False)
+                    promotion_image.promotion = promotion.instance
+            gallery.save()
+
+            seo = seo.save(commit=False)
+            seo.promotion = promotion.instance
+            seo.save()
+
+            return redirect('promotion_conf')
+
+        return render(request, 'admin/promotion/index.html', context)
+
+
+class PromotionCardDeleteView(View):
+    @staticmethod
+    def get(request, pk) -> HttpResponseRedirect:
+        model = PromotionCardForm.Meta.model
+        promotion_to_delete = get_object_or_404(model, pk=pk)
+        promotion_to_delete.delete()
+        return redirect('promotion_conf')
 
 
 # endregion Promotion
