@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.statistics, name="statistics"),
 
     path('banners', views.BannersView.as_view(), name="banners"),
+
     path('movies', views.MoviesView.as_view(), name="movies"),
     path('movie_card/<str:pk>', views.MovieCardView.as_view(), name="movie_card"),
 
@@ -18,7 +19,11 @@ urlpatterns = [
     path('promotion_card/<str:pk>', views.PromotionCardView.as_view(), name="promotion_card"),
     path('promotion_card/<int:pk>/delete', views.PromotionCardDeleteView.as_view(), name="delete_promotion"),
 
-    path('pages', views.pages, name="pages"),
+    path('pages', views.PageListView.as_view(), name="pages"),
+    path('main_page_card', views.MainPageCardView.as_view(), name="main_page_card"),
+    path('page_card/<str:pk>', views.PageCardView.as_view(), name="page_card"),
+    path('page_card/<int:pk>/delete', views.PageCardDeleteView.as_view(), name="delete_page"),
+    # path('contacts_page_card', views.ContactsPageCardView.as_view(), name="contacts_page_card"),
 
     path('users', views.UsersView.as_view(), name="users"),
     path('user/<int:pk>/update', views.UserUpdateView.as_view(), name="update_user"),

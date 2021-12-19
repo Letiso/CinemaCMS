@@ -6,6 +6,7 @@ from main.models import (
     MovieCard, MovieFrame,
     NewsCard, NewsGallery,
     PromotionCard, PromotionGallery,
+    MainPageCard, PageCard, PageGallery, ContactsPageCard,
     SEO
 )
 from django.forms import modelformset_factory
@@ -182,12 +183,57 @@ PromotionGalleryFormset = modelformset_factory(PromotionGalleryForm.Meta.model, 
                                                extra=0, can_delete=True)
 
 
-# endregion News
+# endregion Promotion
+
+# region Pages
+class MainPageCardForm(forms.ModelForm):
+    class Meta:
+        model = MainPageCard
+        exclude = ('date_created',)
+        widgets = {
+            'is_active': forms.CheckboxInput(attrs={
+                'class': 'custom-control-input',
+            }),
+        }
+
+
+class PageCardForm(ImageValidationMixin, forms.ModelForm):
+    class Meta:
+        model = PageCard
+        exclude = ('date_created',)
+        widgets = {
+            'is_active': forms.CheckboxInput(attrs={
+                'class': 'custom-control-input',
+            }),
+        }
+
+
+class PageGalleryForm(ImageValidationMixin, forms.ModelForm):
+    class Meta:
+        model = PageGallery
+        exclude = ('page',)
+
+
+PageGalleryFormset = modelformset_factory(PageGalleryForm.Meta.model, form=PageGalleryForm,
+                                          extra=0, can_delete=True)
+
+
+class ContactsPageCardForm(forms.ModelForm):
+    class Meta:
+        model = ContactsPageCard
+        exclude = ('date_created',)
+        widgets = {
+            'is_active': forms.CheckboxInput(attrs={
+                'class': 'custom-control-input',
+            }),
+        }
+
+# endregion Pages
 
 # region SEO
 class SEOForm(forms.ModelForm):
     class Meta:
         model = SEO
-        exclude = ('movie', 'news', 'promotion')
+        exclude = ('movie', 'news', 'promotion', 'main_page', 'page', 'contacts_page')
 
 # endregion SEO

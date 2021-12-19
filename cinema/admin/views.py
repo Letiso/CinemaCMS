@@ -10,6 +10,7 @@ from .forms import (
     MovieCardForm, MovieFrameFormset,
     NewsCardForm, NewsGalleryFormset,
     PromotionCardForm, PromotionGalleryFormset,
+    MainPageCardForm, PageCardForm, PageGalleryFormset, ContactsPageCardForm,
     SEOForm
 )
 
@@ -337,11 +338,122 @@ class PromotionCardDeleteView(View):
 # endregion Promotion
 
 # region Pages
-def pages(request) -> HttpResponse:
-    context = {
-        'title': 'Страницы',
-    }
-    return render(request, 'admin/pages.html', context)
+class PageListView(View):
+    @staticmethod
+    def get_context() -> dict:
+        return {
+            'title': 'Страницы',
+            'table_labels': ['Название', 'Дата создания', 'Статус', 'Редактировать'],
+            'main_page': MainPageCardForm.Meta.model.objects.get_or_create(pk=1, title='Главная страница')[0],
+            'page_list': PageCardForm.Meta.model.objects.all(),
+            'contacts_page': ContactsPageCardForm.Meta.model.objects.get_or_create(pk=1, title='Контакты')[0],
+        }
+
+    def get(self, request) -> HttpResponse:
+        return render(request, 'admin/pages/index.html', self.get_context())
+
+
+class MainPageCardView(View):
+    @staticmethod
+    def get_context(request, pk=1) -> dict:
+        return {
+            'pk': pk,
+            'title': 'Карточка главной страницы',
+            'page': {
+                'form': MainPageCardForm(request.POST or None, request.FILES or None,
+                                         instance=get_object_or_404(MainPageCardForm.Meta.model, pk=pk),
+                                         prefix='main_page'),
+            },
+            'seo': {
+                'form': SEOForm(request.POST or None,
+                                instance=get_object_or_404(SEOForm.Meta.model, main_page_id=pk)
+                                if SEOForm.Meta.model.objects.filter(main_page_id=pk).exists() else None,
+                                prefix='seo'),
+            },
+            'currentUrl': request.get_full_path(),
+        }
+
+    def get(self, request) -> HttpResponse:
+        return render(request, 'admin/pages/main_page_card.html', self.get_context(request))
+
+    def post(self, request) -> HttpResponse:
+        context = self.get_context(request, pk=1)
+        page, seo = context['page']['form'], context['seo']['form']
+
+        if False not in [page.is_valid(), seo.is_valid()]:
+            page.save()
+
+            seo = seo.save(commit=False)
+            seo.main_page = page.instance
+            seo.save()
+
+            return redirect('pages')
+
+        return render(request, 'admin/pages/index.html', context)
+
+
+class PageCardView(View):
+
+    @staticmethod
+    def get_context(request, pk: str) -> dict:
+        return {
+            'pk': pk,
+            'title': 'Карточка страницы',
+            'page': {
+                'form': PageCardForm(request.POST or None, request.FILES or None,
+                                     instance=get_object_or_404(PageCardForm.Meta.model, pk=int(pk))
+                                     if pk.isdigit() else None,
+                                     prefix='page'),
+                'required_size': PageCardForm.Meta.model.required_size,
+            },
+            'gallery': {
+                'formset': PageGalleryFormset(request.POST or None, request.FILES or None,
+                                              prefix='page_image',
+                                              queryset=PageGalleryFormset.model.objects.filter(page_id=int(pk))
+                                              if pk.isdigit() else PageGalleryFormset.model.objects.none()),
+                'required_size': PageGalleryFormset.model.required_size,
+            },
+            'seo': {
+                'form': SEOForm(request.POST or None,
+                                instance=get_object_or_404(SEOForm.Meta.model, page_id=int(pk))
+                                if pk.isdigit() else None,
+                                prefix='seo'),
+            },
+            'currentUrl': request.get_full_path(),
+        }
+
+    def get(self, request, pk: str) -> HttpResponse:
+        return render(request, 'admin/pages/page_card.html', self.get_context(request, pk))
+
+    def post(self, request, pk: str) -> HttpResponse:
+        context = self.get_context(request, pk)
+        page, gallery, seo = context['page']['form'], context['gallery']['formset'], context['seo']['form']
+
+        if False not in [page.is_valid(), gallery.is_valid(), seo.is_valid()]:
+            page.save()
+
+            for page_image in gallery:
+                if page_image.is_valid():
+                    page_image = page_image.save(commit=False)
+                    page_image.page = page.instance
+            gallery.save()
+
+            seo = seo.save(commit=False)
+            seo.page = page.instance
+            seo.save()
+
+            return redirect('pages')
+
+        return render(request, 'admin/pages/index.html', context)
+
+
+class PageCardDeleteView(View):
+    @staticmethod
+    def get(request, pk) -> HttpResponseRedirect:
+        model = PageCardForm.Meta.model
+        promotion_to_delete = get_object_or_404(model, pk=pk)
+        promotion_to_delete.delete()
+        return redirect('pages')
 
 
 # endregion Pages

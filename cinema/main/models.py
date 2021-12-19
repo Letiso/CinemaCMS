@@ -11,7 +11,6 @@ class TopBanner(models.Model):
     required_size = (1000, 190)
     image = models.ImageField('Баннер', upload_to=f'{banners_media_path}/top')
     is_active = models.BooleanField('Активен', default=False)
-    objects = models.Manager()
 
 
 class BackgroundImage(models.Model):
@@ -19,15 +18,11 @@ class BackgroundImage(models.Model):
     image = models.ImageField('Фоновое изображение', upload_to=f'{banners_media_path}/background')
     is_active = models.BooleanField(default=False)
 
-    objects = models.Manager()
-
 
 class NewsBanner(models.Model):
     required_size = (1000, 190)
     image = models.ImageField('Баннер', upload_to=f'{banners_media_path}/news')
     is_active = models.BooleanField('Активен', default=False)
-
-    objects = models.Manager()
 
 
 class BannersCarousel(models.Model):
@@ -38,8 +33,6 @@ class BannersCarousel(models.Model):
     name = models.CharField(max_length=128, unique=True)
     data_interval = models.CharField('Скорость вращения', max_length=4, choices=TIME, default='5000')
     is_active = models.BooleanField(default=False)
-
-    objects = models.Manager()
 
 
 # endregion Banners
@@ -61,16 +54,12 @@ class MovieCard(models.Model):
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)
 
-    objects = models.Manager()
-
 
 class MovieFrame(models.Model):
     movie = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
     required_size = (1000, 190)
     image = models.ImageField('Кадр из фильма')
     is_active = models.BooleanField('Активен', default=False)
-
-    objects = models.Manager()
 
 
 # endregion Movies
@@ -94,8 +83,6 @@ class NewsGallery(models.Model):
     image = models.ImageField('Картинка к новости')
     is_active = models.BooleanField('Активен', default=False)
 
-    objects = models.Manager()
-
 
 # endregion News
 
@@ -118,16 +105,58 @@ class PromotionGallery(models.Model):
     image = models.ImageField('Картинка к акции')
     is_active = models.BooleanField('Активен', default=False)
 
-    objects = models.Manager()
-
 
 # endregion Promotion
+
+# region Pages
+class MainPageCard(models.Model):
+    title = models.CharField('Название страницы', max_length=256)
+    phone = models.CharField('Телефон', max_length=256)
+    seo_text = models.TextField('SEO текст')
+
+    is_active = models.BooleanField(default=False)
+    date_created = models.DateTimeField(default=timezone.now)
+
+
+class PageCard(models.Model):
+    title = models.CharField('Название страницы', max_length=256)
+    description = models.TextField('Описание')
+    required_size = (1000, 190)
+    main_image = models.ImageField('Главная картинка')
+
+    is_active = models.BooleanField(default=False)
+    date_created = models.DateTimeField(default=timezone.now)
+
+
+class PageGallery(models.Model):
+    page = models.ForeignKey(PageCard, on_delete=models.CASCADE, related_name='gallery')
+    required_size = (1000, 190)
+    image = models.ImageField('Картинка к акции')
+
+    is_active = models.BooleanField('Активен', default=False)
+
+
+class ContactsPageCard(models.Model):
+    title = models.CharField('Название кинотеатра', max_length=256)
+    map_coordinates = models.TextField('Координаты для карты')
+    required_size = (1000, 190)
+    image = models.ImageField('Лого')
+
+    is_active = models.BooleanField('Активен', default=False)
+    date_created = models.DateTimeField(default=timezone.now)
+
+
+# endregion Pages
 
 # region SEO
 class SEO(models.Model):
     movie = models.OneToOneField(MovieCard, on_delete=models.CASCADE, related_name='seo', null=True)
     news = models.OneToOneField(NewsCard, on_delete=models.CASCADE, related_name='seo', null=True)
     promotion = models.OneToOneField(PromotionCard, on_delete=models.CASCADE, related_name='seo', null=True)
+
+    main_page = models.OneToOneField(MainPageCard, on_delete=models.CASCADE, related_name='seo', null=True)
+    page = models.OneToOneField(PageCard, on_delete=models.CASCADE, related_name='seo', null=True)
+    contacts_page = models.OneToOneField(ContactsPageCard, on_delete=models.CASCADE, related_name='seo', null=True)
 
     url = models.CharField('URL', max_length=256)
     title = models.CharField('Заголовок', max_length=256)

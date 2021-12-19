@@ -1,0 +1,64 @@
+﻿{% extends 'admin/admin_layout.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block pages %}
+    active
+{% endblock %}
+
+{% block current_page %}
+    {{ title }}
+{% endblock %}
+
+{% block path %}
+    <li class="breadcrumb-item"><a href="{% url 'pages' %}">Cтраницы</a></li>
+    <li class="breadcrumb-item active">{{ title }}</li>
+{% endblock %}
+
+{% block content %}
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+
+    <div class="col-11 card pb-5 mx-auto releases">
+        <div class="card-body" id="released-movies-list">
+            <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
+                {% csrf_token %}
+                {% with page.form as form %}
+                    <div class="text-right mb-4">
+                        <div class="custom-control custom-switch">
+                            {{ form.is_active }}
+                            <label for="{{ form.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-5 p-0">
+                            {{ form.title|as_crispy_field }}
+                        </div>
+                    </div>
+                    {{ form.phone|as_crispy_field }}
+                    {{ form.seo_text|as_crispy_field }}
+
+                    <label>SEO блок:</label>
+                    <div class="container">
+                        {% for field in seo.form %}
+                            {{ field|as_crispy_field }}
+                        {% endfor %}
+                    </div>
+                {% endwith %}
+                <div class="text-center mt-4">
+                    <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
+                    <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
