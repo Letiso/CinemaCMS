@@ -228,6 +228,11 @@ class ContactsPageCardForm(forms.ModelForm):
             }),
         }
 
+
+ContactsPageCardFormset = modelformset_factory(ContactsPageCardForm.Meta.model, form=ContactsPageCardForm,
+                                               extra=0, can_delete=True)
+
+
 # endregion Pages
 
 # region SEO

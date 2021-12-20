@@ -40,8 +40,25 @@
                       </div>
                   </td>
             </tr>
-
-            {% for page in page_list %}
+            {% for page in primary_page_list %}
+              <tr>
+                  <td>{{ page.title }}</td>
+                  <td>{{ page.date_created }}</td>
+                  <td>
+                      {% if page.is_active %}
+                        <span>Вкл.</span>
+                      {% else %}
+                        <span>Выкл.</span>
+                      {% endif %}</td>
+                  <td class="col-1">
+                      <div class="row buttons">
+                          <a href="{% url 'page_card' page.pk %}"
+                             class="fas fa-pen text-primary mx-auto"></a>
+                      </div>
+                  </td>
+              </tr>
+            {% endfor %}
+            {% for page in custom_page_list %}
               <tr>
                   <td>{{ page.title }}</td>
                   <td>{{ page.date_created }}</td>
@@ -97,7 +114,7 @@
                 <td>{% if contacts_page.is_active %}<span>Вкл.</span>{% else %}<span>Выкл.</span>{% endif %}</td>
                 <td class="col-1">
                       <div class="row buttons">
-                          <a href="{% url 'page_card' contacts_page.pk %}"
+                          <a href="{% url 'contacts_page_card' %}"
                              class="fas fa-pen text-primary mx-auto"></a>
                       </div>
                   </td>

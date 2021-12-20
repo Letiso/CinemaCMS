@@ -138,9 +138,10 @@ class PageGallery(models.Model):
 
 class ContactsPageCard(models.Model):
     title = models.CharField('Название кинотеатра', max_length=256)
-    map_coordinates = models.TextField('Координаты для карты')
+    address = models.TextField('Адрес')
+    map_coordinates = models.CharField('Координаты для карты', max_length=256)
     required_size = (1000, 190)
-    image = models.ImageField('Лого')
+    main_image = models.ImageField('Лого')
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)

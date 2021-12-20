@@ -20,10 +20,10 @@ urlpatterns = [
     path('promotion_card/<int:pk>/delete', views.PromotionCardDeleteView.as_view(), name="delete_promotion"),
 
     path('pages', views.PageListView.as_view(), name="pages"),
-    path('main_page_card', views.MainPageCardView.as_view(), name="main_page_card"),
-    path('page_card/<str:pk>', views.PageCardView.as_view(), name="page_card"),
-    path('page_card/<int:pk>/delete', views.PageCardDeleteView.as_view(), name="delete_page"),
-    # path('contacts_page_card', views.ContactsPageCardView.as_view(), name="contacts_page_card"),
+    path('pages/main_page_card', views.MainPageCardView.as_view(), name="main_page_card"),
+    path('pages/page_card/<str:pk>', views.PageCardView.as_view(), name="page_card"),
+    path('pages/page_card/<int:pk>/delete', views.PageCardDeleteView.as_view(), name="delete_page"),
+    path('pages/contacts_page_card', views.ContactsPageCardView.as_view(), name="contacts_page_card"),
 
     path('users', views.UsersView.as_view(), name="users"),
     path('user/<int:pk>/update', views.UserUpdateView.as_view(), name="update_user"),

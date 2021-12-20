@@ -10,12 +10,12 @@ from .forms import (
     MovieCardForm, MovieFrameFormset,
     NewsCardForm, NewsGalleryFormset,
     PromotionCardForm, PromotionGalleryFormset,
-    MainPageCardForm, PageCardForm, PageGalleryFormset, ContactsPageCardForm,
+    MainPageCardForm, PageCardForm, PageGalleryFormset, ContactsPageCardFormset,
     SEOForm
 )
 
 from datetime import date
-
+from itertools import chain
 
 # region Statistics
 def statistics(request) -> HttpResponse:
@@ -341,12 +341,18 @@ class PromotionCardDeleteView(View):
 class PageListView(View):
     @staticmethod
     def get_context() -> dict:
+        primary_pages = ('О кинотеатре', 'Кафе - Бар', 'VIP - зал', 'Реклама', 'Детская комната', )
+
         return {
             'title': 'Страницы',
             'table_labels': ['Название', 'Дата создания', 'Статус', 'Редактировать'],
             'main_page': MainPageCardForm.Meta.model.objects.get_or_create(pk=1, title='Главная страница')[0],
-            'page_list': PageCardForm.Meta.model.objects.all(),
-            'contacts_page': ContactsPageCardForm.Meta.model.objects.get_or_create(pk=1, title='Контакты')[0],
+            'primary_page_list': [
+                PageCardForm.Meta.model.objects.get_or_create(pk=pk, title=title)[0]
+                for pk, title in enumerate(primary_pages)
+            ],
+            'contacts_page': ContactsPageCardFormset.model.objects.get_or_create(pk=1, title='Контакты')[0],
+            'custom_page_list': PageCardForm.Meta.model.objects.exclude(id__in=list(range(len(primary_pages)))),
         }
 
     def get(self, request) -> HttpResponse:
@@ -357,7 +363,6 @@ class MainPageCardView(View):
     @staticmethod
     def get_context(request, pk=1) -> dict:
         return {
-            'pk': pk,
             'title': 'Карточка главной страницы',
             'page': {
                 'form': MainPageCardForm(request.POST or None, request.FILES or None,
@@ -416,7 +421,7 @@ class PageCardView(View):
             'seo': {
                 'form': SEOForm(request.POST or None,
                                 instance=get_object_or_404(SEOForm.Meta.model, page_id=int(pk))
-                                if pk.isdigit() else None,
+                                if pk.isdigit() and SEOForm.Meta.model.objects.filter(page_id=pk).exists() else None,
                                 prefix='seo'),
             },
             'currentUrl': request.get_full_path(),
@@ -447,12 +452,49 @@ class PageCardView(View):
         return render(request, 'admin/pages/index.html', context)
 
 
+class ContactsPageCardView(View):
+    @staticmethod
+    def get_context(request, pk=1) -> dict:
+        return {
+            'title': 'Карточка страницы контактов',
+            'page': {
+                'formset': ContactsPageCardFormset(request.POST or None, request.FILES or None, prefix='contacts_page'),
+                'required_size': ContactsPageCardFormset.model.required_size,
+            },
+            'seo': {
+                'form': SEOForm(request.POST or None,
+                                instance=get_object_or_404(SEOForm.Meta.model, contacts_page_id=pk)
+                                if SEOForm.Meta.model.objects.filter(contacts_page_id=pk).exists() else None,
+                                prefix='seo'),
+            },
+            'currentUrl': request.get_full_path(),
+        }
+
+    def get(self, request) -> HttpResponse:
+        return render(request, 'admin/pages/contacts_page_card.html', self.get_context(request))
+
+    def post(self, request) -> HttpResponse:
+        context = self.get_context(request, pk=1)
+        page, seo = context['page']['formset'], context['seo']['form']
+
+        if False not in [page.is_valid(), seo.is_valid()]:
+            page.save()
+
+            seo = seo.save(commit=False)
+            seo.contacts_page = page[0].instance
+            seo.save()
+
+            return redirect('pages')
+
+        return render(request, 'admin/pages/index.html', context)
+
+
 class PageCardDeleteView(View):
     @staticmethod
     def get(request, pk) -> HttpResponseRedirect:
         model = PageCardForm.Meta.model
-        promotion_to_delete = get_object_or_404(model, pk=pk)
-        promotion_to_delete.delete()
+        page_to_delete = get_object_or_404(model, pk=pk)
+        page_to_delete.delete()
         return redirect('pages')
 
 

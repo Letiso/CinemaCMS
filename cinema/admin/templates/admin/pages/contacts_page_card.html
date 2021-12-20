@@ -1,0 +1,139 @@
+﻿{% extends 'admin/admin_layout.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'admin/css/custom_delete_checkbox.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
+{% endblock %}
+
+{% block pages %}
+    active
+{% endblock %}
+
+{% block current_page %}
+    {{ title }}
+{% endblock %}
+
+{% block path %}
+    <li class="breadcrumb-item"><a href="{% url 'pages' %}">Cтраницы</a></li>
+    <li class="breadcrumb-item active">{{ title }}</li>
+{% endblock %}
+
+{% block content %}
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+{% with main_image_width=page.required_size.0 main_image_height=page.required_size.1  gallery_width=gallery.required_size.0 gallery_height=gallery.required_size.1 %}
+    <div class="col-11 card pb-5 mx-auto bg-light">
+        <div class="card-body" id="released-movies-list">
+            <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
+                {% csrf_token %}
+                    <div class="container-fluid">
+                        {% with page.formset as formset %}
+                            {{ formset.management_form }}
+
+                            <div class="row justify-content-between justify-content-around" id="{{ formset.prefix }}-list">
+                                {% for form in formset %}
+                                    {% for hidden in form.hidden_fields %}
+                                        {{ hidden }}
+                                    {% endfor %}
+                                <div class="col-12 card px-0 mt-5 {{ formset.prefix }}">
+                                    <div class="card-header p-0">
+                                        <div class="custom-control custom-switch ml-5 mt-2">
+                                            {{ form.is_active }}
+                                            <label for="{{ form.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
+                                        </div>
+                                        <div class="text-right mr-4 mb-4">{% if forloop.counter != 1 %}{{ form.DELETE|as_crispy_field }}{% endif %}</div>
+                                    </div>
+                                        <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image %}{{ form.instance.image.url }}{% endif %}" alt="">
+                                    <div class="card-body">
+                                        <div class="col-5 p-0">
+                                            {{ form.title|as_crispy_field }}
+                                        </div>
+                                        {{ form.address|as_crispy_field }}
+                                        {{ form.map_coordinates|as_crispy_field }}
+                                        <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
+                                            <div class="card-header">
+                                                <p>Размер: {{ main_image_width }}x{{ main_image_height }}</p>
+                                            </div>
+                                            <img id="{{ form.main_image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image %}{{ form.instance.main_image.url }}{% endif %}" alt="">
+                                            <div class="card-body">
+                                                {{ form.main_image|as_crispy_field }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <div id="{{ formset.prefix }}-empty-form" class="col-12 card px-0 mt-5 hidden">
+                                    {% with formset.empty_form as empty_form %}
+                                        <div class="card-header p-0">
+                                            <div class="custom-control custom-switch ml-5 mt-2">
+                                                {{ empty_form.is_active }}
+                                                <label for="{{ empty_form.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
+                                            </div>
+                                            <div class="text-right mr-4 mb-4">
+                                                {{ empty_form.DELETE|as_crispy_field }}
+                                            </div>
+                                        </div>
+                                        <img id="{{ empty_form.image.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
+                                        <div class="card-body">
+                                            <div class="col-5 p-0">
+                                                {{ empty_form.title|as_crispy_field }}
+                                            </div>
+                                            {{ empty_form.address|as_crispy_field }}
+                                            {{ empty_form.map_coordinates|as_crispy_field }}
+                                            <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
+                                                <div class="card-header">
+                                                    <p>Размер: {{ main_image_width }}x{{ main_image_height }}</p>
+                                                </div>
+                                                <img id="{{ empty_form.main_image.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
+                                                <div class="card-body">
+                                                    {{ empty_form.main_image|as_crispy_field }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endwith %}
+                                </div>
+                            </div>
+                            <div class="text-center mt-5">
+                                <input type="button" onclick="add_empty_form(event, '{{ formset.prefix }}')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                            </div>
+                        {% endwith %}
+                        <div class="card my-5">
+                            <div class="card-body mx-4">
+                                <label>SEO блок:</label>
+                                <div class="container">
+                                    {% for field in seo.form %}
+                                        {{ field|as_crispy_field }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
+                            <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+{% endwith %}
+{% endblock %}
+
+{% block scripts %}
+{% with main_image_width=page.required_size.0 main_image_height=page.required_size.1 %}
+<script>
+    const required_sizes = {
+        '{{ page.formset.prefix }}': ['{{ main_image_width }}', '{{ main_image_height }}'],
+    }
+</script>
+{% endwith %}
+<script src="{% static 'admin/js/dynamic_formset.js' %}"></script>
+<script src="{% static 'admin/js/dynamic_image_select.js' %}"></script>
+
+<script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+<script src="{% static 'admin/js/custom_toastr.js' %}"></script>
+{% endblock %}
