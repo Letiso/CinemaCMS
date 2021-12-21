@@ -15,7 +15,8 @@ from .forms import (
 )
 
 from datetime import date
-from itertools import chain
+
+from cinema.tasks import hello_world
 
 # region Statistics
 def statistics(request) -> HttpResponse:
@@ -356,6 +357,7 @@ class PageListView(View):
         }
 
     def get(self, request) -> HttpResponse:
+        hello_world.delay()
         return render(request, 'admin/pages/index.html', self.get_context())
 
 

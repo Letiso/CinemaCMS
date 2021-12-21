@@ -24,14 +24,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # apps
-    'main.apps.MainConfig',
-    'admin.apps.AdminConfig',
-    'user.apps.UserConfig',
+    'main',
+    'admin',
+    'user',
 
     # custom libs
     'crispy_forms',
     'debug_toolbar',
     'django_cleanup.apps.CleanupConfig',
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -66,6 +68,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'cinema.wsgi.application'
+
+
+# REDIS related settings
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+CELERY_BROKER_URL = CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
 
 
 # Database

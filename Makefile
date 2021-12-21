@@ -1,4 +1,3 @@
-migrun: migrate run
 
 reload: stop run
 
@@ -12,3 +11,10 @@ migrate:
 	python3 cinema/manage.py makemigrations
 	python3 cinema/manage.py migrate
 
+celery:
+	cd cinema; \
+	  celery --app=cinema worker -l DEBUG
+
+status:
+	cd cinema; \
+	  celery --app=cinema status
