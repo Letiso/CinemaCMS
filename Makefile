@@ -13,7 +13,7 @@ migrate:
 
 celery:
 	cd cinema; \
-	  celery --app=cinema worker -l DEBUG
+	  celery --app=cinema worker -l INFO
 
 status:
 	cd cinema; \

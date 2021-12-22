@@ -23,7 +23,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # apps
+    'channels',
+
+    # custom_apps
     'main',
     'admin',
     'user',
@@ -32,8 +34,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'debug_toolbar',
     'django_cleanup.apps.CleanupConfig',
-    'django_celery_beat',
-    'django_celery_results',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -68,12 +68,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'cinema.wsgi.application'
+ASGI_APPLICATION = 'cinema.asgi.application'
 
 
 # REDIS related settings
-REDIS_HOST = 'localhost'
-REDIS_PORT = '6379'
-CELERY_BROKER_URL = CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 
 # Database
@@ -90,8 +89,16 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'user.CustomUser'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        }
+    }
+}
 
+AUTH_USER_MODEL = 'user.CustomUser'
 LOGIN_URL = '/user/login'
 
 AUTH_PASSWORD_VALIDATORS = [

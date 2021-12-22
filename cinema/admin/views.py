@@ -18,6 +18,7 @@ from datetime import date
 
 from cinema.tasks import hello_world
 
+
 # region Statistics
 def statistics(request) -> HttpResponse:
     context = {
@@ -357,7 +358,6 @@ class PageListView(View):
         }
 
     def get(self, request) -> HttpResponse:
-        hello_world.delay()
         return render(request, 'admin/pages/index.html', self.get_context())
 
 
@@ -543,5 +543,6 @@ def mailing(request) -> HttpResponse:
     context = {
         'title': 'Рассылка',
     }
+    hello_world.delay()
     return render(request, 'admin/mailing.html', context)
 # endregion Mailing

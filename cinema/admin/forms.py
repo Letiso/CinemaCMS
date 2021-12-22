@@ -241,4 +241,5 @@ class SEOForm(forms.ModelForm):
         model = SEO
         exclude = ('movie', 'news', 'promotion', 'main_page', 'page', 'contacts_page')
 
+
 # endregion SEO

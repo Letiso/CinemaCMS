@@ -13,8 +13,19 @@
 {% endblock %}
 
 {% block content %}
+<h3 id="testing"></h3>
 {% endblock %}
 
 {% block scripts %}
+<script>
+    const socket = new WebSocket('ws://localhost:8000/ws/mailing/');
+
+    socket.onmessage = function(event) {
+        let progress = event.data;
+        console.log(progress
+        )
+        document.querySelector('#testing').innerText = progress;
+    }
+</script>
 {% endblock %}
 
