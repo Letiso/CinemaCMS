@@ -1,14 +1,7 @@
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from user.forms import UserUpdateForm
-from main.models import (
-    TopBanner, BackgroundImage, NewsBanner, BannersCarousel,
-    MovieCard, MovieFrame,
-    NewsCard, NewsGallery,
-    PromotionCard, PromotionGallery,
-    MainPageCard, PageCard, PageGallery, ContactsPageCard,
-    SEO
-)
+from main.models import *
 from django.forms import modelformset_factory
 
 
@@ -243,3 +236,29 @@ class SEOForm(forms.ModelForm):
 
 
 # endregion SEO
+
+# region Mailing
+class SendSMSForm(forms.Form):
+    mailing_type = forms.TypedChoiceField(
+        label='Выберите тип рассылки',
+        coerce=lambda x: x == 'True',
+        choices=((True, 'Все пользователи'), (False, 'Выборочно')),
+        widget=forms.RadioSelect,
+        required=True,
+    )
+    message = forms.CharField(label='Текст SMS', widget=forms.Textarea(attrs={
+        'class': 'textarea form-control'
+    }))
+
+
+class SendEmailForm(forms.Form):
+    mailing_type = forms.TypedChoiceField(
+        label='Выберите тип рассылки',
+        coerce=lambda x: x == 'True',
+        choices=((True, 'Все пользователи'), (False, 'Выборочно')),
+        widget=forms.RadioSelect,
+        required=True,
+    )
+
+
+# endregion Mailing

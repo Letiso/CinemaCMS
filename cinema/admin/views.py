@@ -4,15 +4,7 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect, HttpResponse
 from django.db.models import Model
 
-from .forms import (
-    ExtendedUserUpdateForm,
-    TopBannerFormSet, BackgroundImageForm, NewsBannerFormSet, BannersCarouselForm,
-    MovieCardForm, MovieFrameFormset,
-    NewsCardForm, NewsGalleryFormset,
-    PromotionCardForm, PromotionGalleryFormset,
-    MainPageCardForm, PageCardForm, PageGalleryFormset, ContactsPageCardFormset,
-    SEOForm
-)
+from .forms import *
 
 from datetime import date
 
@@ -539,10 +531,25 @@ class UserDeleteView(View):
 # endregion User
 
 # region Mailing
-def mailing(request) -> HttpResponse:
-    context = {
-        'title': 'Рассылка',
-    }
-    hello_world.delay()
-    return render(request, 'admin/mailing.html', context)
+class MailingView(View):
+    @staticmethod
+    def get_context(request):
+        return {
+            'title': 'Рассылка',
+            'SMS': {'form': SendSMSForm(request.POST or None)},
+            'email': {'form': SendEmailForm(request.POST or None)},
+        }
+
+    def get(self, request) -> HttpResponse:
+
+        hello_world.delay()
+
+        return render(request, 'admin/mailing.html', self.get_context(request))
+
+    def post(self, request) -> HttpResponse:
+        context = self.get_context(request)
+        if context['form'].is_valid():
+            pass
+        # hello_world.delay()
+        return render(request, 'admin/mailing.html', context)
 # endregion Mailing

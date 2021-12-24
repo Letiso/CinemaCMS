@@ -1,5 +1,6 @@
 ﻿{% extends 'admin/admin_layout.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block stylesheets %}
 {% endblock %}
@@ -9,22 +10,126 @@
 {% block current_page %}{{ title }}{% endblock %}
 
 {% block path %}
-<li class="breadcrumb-item active">{{ title }}</li>
+    <li class="breadcrumb-item active">{{ title }}</li>
 {% endblock %}
 
 {% block content %}
-<h3 id="testing"></h3>
+    <div class="row mx-5">
+
+        <div class="card col-sm-12">
+            <div class="card-header text-center pb-0">
+                <h4>SMS</h4>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% with SMS.form as form %}
+                        <div class="row mx-5">
+                            <div class="col mr-3">
+                                <div class="row">
+                                    {{ form.mailing_type|as_crispy_field }}
+
+                                    <!-- Button trigger modal -->
+                                    <a class="btn btn-light m-auto" data-toggle="modal" data-target="#deleteUserModal-{{ forloop.counter }}" style="font-size:20px;">Выбрать пользователей</a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="deleteUserModal-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-dark">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle-{{ forloop.counter }}">
+                                                        Подтверждение удаления
+                                                    </h5>
+                                                </div>
+                                            <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
+                                                <span style="font-size: 20px;">
+                                                    Вы уверены, что хотите удалить этого пользователя?
+                                                </span>
+                                                <span class="text-primary" style="font-size: 35px;">
+                                                    {{ user.username }}
+                                                </span>
+                                            </div>
+                                            <div class="modal-footer bg-dark">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Назад
+                                                </button>
+                                                <a href="{% url 'delete_user' user.pk %}" class="btn btn-danger">
+                                                    Удалить учетную запись
+                                                </a>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                </div>
+                                <div class="row justify-content-between mt-3">
+                                    <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+                                    <p>Символов: 29</p>
+                                </div>
+                                {{ form.message }}
+                            </div>
+                            <div class="col ml-5 mt-5">
+                                <h4 class="mx-auto my-5 text-center">Пользователей выбрано: <span class="text-info" style="font-size: 25px;">20000</span></h4>
+                                <div class="mx-auto my-5 text-center">
+                                    <label for="mailing_progress_bar">Рассылка еще не началась</label>
+                                    <div class="progress">
+                                        <div id="mailing_progress_bar" class="progress-bar bg-primary w-0" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endwith %}
+                    <div class="text-center mt-4">
+                        <input type="submit" class="btn btn-info" value="Начать рассылку" style="font-size: 20px">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="card col-sm-12 pb-5 announcements">
+            <div class="card-header text-center pb-0">
+                <h3>E-mail</h3>
+            </div>
+            <div class="card-body">
+                <div class="row justify-content-around">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}
 
 {% block scripts %}
+<script>
+    let labels = document.getElementsByTagName('LABEL');
+    for (let i = 0; i < labels.length; i++) {
+        if (labels[i].htmlFor !== '') {
+             let elem = document.getElementById(labels[i].htmlFor);
+             if (elem) {
+                elem.label = labels[i];
+                console.log(elem.label)
+            }
+        }
+    }
+</script>
 <script>
     const socket = new WebSocket('ws://localhost:8000/ws/mailing/');
 
     socket.onmessage = function(event) {
         let progress = event.data;
-        console.log(progress
-        )
-        document.querySelector('#testing').innerText = progress;
+        let progress_bar = document.querySelector('#mailing_progress_bar');
+
+        progress_bar['aria-valuenow'] = progress;
+        progress_bar.label.innerHTML = `Рассылка завершена на ${progress}%`;
+        progress_bar.style = `width: ${progress}%;`;
+
+        if (progress === '100') {
+            progress_bar.className = progress_bar.className.replace(RegExp('bg-primary'), 'bg-success')
+            console.log(progress_bar.className)
+        }
+
     }
 </script>
 {% endblock %}
