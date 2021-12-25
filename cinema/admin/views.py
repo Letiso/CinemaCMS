@@ -538,18 +538,20 @@ class MailingView(View):
             'title': 'Рассылка',
             'SMS': {'form': SendSMSForm(request.POST or None)},
             'email': {'form': SendEmailForm(request.POST or None)},
+            'users': get_user_model().objects.all(),
         }
 
     def get(self, request) -> HttpResponse:
 
-        hello_world.delay()
+        # hello_world.delay()
 
         return render(request, 'admin/mailing.html', self.get_context(request))
 
     def post(self, request) -> HttpResponse:
         context = self.get_context(request)
-        if context['form'].is_valid():
-            pass
-        # hello_world.delay()
+        if context['SMS']['form'].is_valid():
+            if context['SMS']['form'].cleaned_data['mailing_type']:
+                hello_world.delay()
+            return redirect('mailing')
         return render(request, 'admin/mailing.html', context)
 # endregion Mailing

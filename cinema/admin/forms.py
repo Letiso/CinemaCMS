@@ -239,12 +239,14 @@ class SEOForm(forms.ModelForm):
 
 # region Mailing
 class SendSMSForm(forms.Form):
+    prefix = 'SMS'
     mailing_type = forms.TypedChoiceField(
         label='Выберите тип рассылки',
         coerce=lambda x: x == 'True',
         choices=((True, 'Все пользователи'), (False, 'Выборочно')),
-        widget=forms.RadioSelect,
+        widget=forms.RadioSelect(),
         required=True,
+        initial=True,
     )
     message = forms.CharField(label='Текст SMS', widget=forms.Textarea(attrs={
         'class': 'textarea form-control'
@@ -252,6 +254,7 @@ class SendSMSForm(forms.Form):
 
 
 class SendEmailForm(forms.Form):
+    prefix = 'email'
     mailing_type = forms.TypedChoiceField(
         label='Выберите тип рассылки',
         coerce=lambda x: x == 'True',

@@ -30,31 +30,109 @@
                                     {{ form.mailing_type|as_crispy_field }}
 
                                     <!-- Button trigger modal -->
-                                    <a class="btn btn-light m-auto" data-toggle="modal" data-target="#deleteUserModal-{{ forloop.counter }}" style="font-size:20px;">Выбрать пользователей</a>
+                                    <a id="id_{{ form.prefix }}-select_users" class="btn btn-light m-auto disabled" data-toggle="modal" data-target="#modal_{{ form.prefix }}-select_users" style="font-size:20px;">Выбрать пользователей</a>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="deleteUserModal-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal fade" id="modal_{{ form.prefix }}-select_users" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header bg-dark">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle-{{ forloop.counter }}">
-                                                        Подтверждение удаления
+                                                    <h5 class="modal-title">
+                                                        Выберите пользователей для начала рассылки
                                                     </h5>
                                                 </div>
                                             <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
-                                                <span style="font-size: 20px;">
-                                                    Вы уверены, что хотите удалить этого пользователя?
-                                                </span>
-                                                <span class="text-primary" style="font-size: 35px;">
-                                                    {{ user.username }}
-                                                </span>
+
+                                                <table id="SMS-usersList" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Логин</th>
+                                                            <th>Email</th>
+                                                            <th>Номер телефона</th>
+                                                            <th>Имя</th>
+                                                            <th>Фамилия</th>
+                                                            <th>Пол</th>
+                                                            <th>Язык</th>
+                                                            <th>Дата рождения</th>
+                                                            <th>Адрес</th>
+                                                            <th>Был(а)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for user in users %}
+                                                            <tr>
+                                                                <td>
+                                                                    <label>
+                                                                        <input type="checkbox" id="user-{{ user.pk }}" class="SMS-mailing">
+                                                                    </label>
+                                                                </td>
+                                                                <td>{{ user.username }}</td>
+                                                                <td>{{ user.email }}</td>
+                                                                <td>
+                                                                {% if user.phone %}
+                                                                    +38{{ user.phone }}
+                                                                {% else %}
+                                                                    <div class="text-center">
+                                                                        <i class="fas fa-times text-dark"></i>
+                                                                    </div>
+                                                                {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    {% if user.first_name %}
+                                                                        {{ user.first_name }}
+                                                                    {% else %}
+                                                                        <div class="text-center">
+                                                                            <i class="fas fa-times text-dark"></i>
+                                                                        </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    {% if user.last_name %}
+                                                                        {{ user.last_name }}
+                                                                    {% else %}
+                                                                        <div class="text-center">
+                                                                            <i class="fas fa-times text-dark"></i>
+                                                                        </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    {% if user.gender == 'm' %}
+                                                                        <p>Мужской</p>
+                                                                    {% elif user.gender == 'f' %}
+                                                                        <p>Женский</p>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    {% if user.language == 'ru' %}
+                                                                        <p>RU</p>
+                                                                    {% elif user.language == 'ua' %}
+                                                                        <p>UA</p>
+                                                                    {% elif user.language == 'en' %}
+                                                                        <p>EN</p>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>{{ user.birth_date }}</td>
+                                                                <td>
+                                                                    {% if user.address %}
+                                                                        {{ user.address }}
+                                                                    {% else %}
+                                                                        <div class="text-center">
+                                                                            <i class="fas fa-times text-dark"></i>
+                                                                        </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>{{ user.last_login }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+
                                             </div>
                                             <div class="modal-footer bg-dark">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Назад
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">
+                                                    Принять
                                                 </button>
-                                                <a href="{% url 'delete_user' user.pk %}" class="btn btn-danger">
-                                                    Удалить учетную запись
-                                                </a>
+
                                             </div>
                                         </div>
                                       </div>
@@ -63,7 +141,7 @@
                                 </div>
                                 <div class="row justify-content-between mt-3">
                                     <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
-                                    <p>Символов: 29</p>
+                                    <p>Символов: <span id="id_{{ form.prefix }}-symbols_counter">0</span></p>
                                 </div>
                                 {{ form.message }}
                             </div>
@@ -72,7 +150,7 @@
                                 <div class="mx-auto my-5 text-center">
                                     <label for="mailing_progress_bar">Рассылка еще не началась</label>
                                     <div class="progress">
-                                        <div id="mailing_progress_bar" class="progress-bar bg-primary w-0" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div id="mailing_progress_bar" class="progress-bar bg-primary w-0" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
 
@@ -103,18 +181,61 @@
 
 {% block scripts %}
 <script>
-    let labels = document.getElementsByTagName('LABEL');
+    // Bind labels Elements to inputs Elements -->
+    let labels = document.getElementsByTagName('LABEL')
     for (let i = 0; i < labels.length; i++) {
         if (labels[i].htmlFor !== '') {
-             let elem = document.getElementById(labels[i].htmlFor);
+             let elem = document.getElementById(labels[i].htmlFor)
              if (elem) {
-                elem.label = labels[i];
-                console.log(elem.label)
+                elem.label = labels[i]
             }
         }
     }
 </script>
+
 <script>
+    // Define multiple forms init
+    let index, prefix;
+    const prefixes = [
+        '{{ SMS.form.prefix }}', // '{{ email.form.prefix }}'
+    ]
+</script>
+
+<script>
+    // Toggle UsersSelectButton
+    let mailingTypeRadio, usersSelectButton;
+
+    for (index in prefixes) {
+        prefix = prefixes[index]
+        for (let i=0; i < 2; i++) {
+            mailingTypeRadio = document.querySelector(`#id_${prefix}-mailing_type_${i}`)
+
+            mailingTypeRadio.onchange = () => {
+                usersSelectButton = document.querySelector(`#id_${prefix}-select_users`)
+                if (usersSelectButton.className.includes(' disabled')) {
+                    usersSelectButton.className = usersSelectButton.className.replace(RegExp(' disabled'), '')
+                } else {
+                    usersSelectButton.className += ' disabled'
+                }
+            }
+
+        }
+    }
+
+</script>
+
+<script>
+    // Dynamic textArea symbols counter
+    let textArea = document.querySelector('#id_SMS-message')
+    let symbolsCounter = document.querySelector('#id_SMS-symbols_counter')
+
+    textArea.onkeyup = () => {
+        symbolsCounter.innerHTML = textArea.value.length
+    }
+</script>
+
+<script>
+    // ProgressBar
     const socket = new WebSocket('ws://localhost:8000/ws/mailing/');
 
     socket.onmessage = function(event) {
@@ -127,9 +248,53 @@
 
         if (progress === '100') {
             progress_bar.className = progress_bar.className.replace(RegExp('bg-primary'), 'bg-success')
-            console.log(progress_bar.className)
         }
 
+    }
+</script>
+
+<!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+<script>
+    for (index in prefixes) {
+        dataTableInit(prefixes[index])
+    }
+
+    function dataTableInit(prefix) {
+        $(`#${prefix}-usersList`).DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+        });
+        addToggleAllCheckboxesButtons(prefix, `${prefix}-usersList`)
+      }
+
+    function addToggleAllCheckboxesButtons(prefix, table_id) {
+        let left_header = document.getElementById(`${table_id}_wrapper`).getElementsByClassName('col-sm-12')[0]
+        left_header.innerHTML = `
+            <div class="text-left">
+                <span class="btn btn-light mt-2 ml-3 px-2" onclick="toggleAllCheckboxes(true, '${prefix}')"><i class="fas fa-check pr-2 text-success"></i>Выделить всех</span>
+                <span class="btn btn-light mt-2 ml-3 px-2" onclick="toggleAllCheckboxes(false, '${prefix}')"><i class="fas fa-minus pr-2 text-secondary"></i>Очистить</span>
+            </div>
+        `
+        }
+</script>
+
+<script>
+
+    function toggleAllCheckboxes(check_all, prefix) {
+        const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
+
+        if (check_all) {
+            for (let i=0; i < checkboxes_list.length; i++) {
+                checkboxes_list[i].checked = true
+                console.log(checkboxes_list[i].checked)
+            }
+        } else {
+            for (let i=0; i < checkboxes_list.length; i++) {
+                checkboxes_list[i].checked = false
+            }
+        }
     }
 </script>
 {% endblock %}
