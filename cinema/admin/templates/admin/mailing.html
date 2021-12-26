@@ -397,9 +397,9 @@
             let user_checkbox = checkboxes_list[i]
             user_checkbox.onchange = () => {
                 if (user_checkbox.checked) {
-                    CHECKED_COUNTER[prefix] ++ } else { CHECKED_COUNTER[prefix] --
+                    CHECKED_COUNTER[prefix]++ } else { CHECKED_COUNTER[prefix]--
                 }
-                document.getElementById(`${prefix}-checked_users`).innerHTML = `${CHECKED_COUNTER[prefix] }`
+                document.getElementById(`${prefix}-checked_users`).innerHTML = `${CHECKED_COUNTER[prefix]}`
             }
         }
         //
@@ -434,6 +434,7 @@
     }
 </script>
 
+<!--init data collecting before make POST-->
 <script>
     function initStartMailingButton(prefix) {
         document.getElementById(`start_${prefix}_mailing`).onclick = () => {
@@ -464,4 +465,3 @@
     }
 </script>
 {% endblock %}
-

@@ -551,9 +551,12 @@ class MailingView(View):
     def post(self, request) -> HttpResponse:
         context = self.get_context(request)
 
-        if context['SMS']['form'].is_valid():
-            if context['SMS']['form'].cleaned_data['mailing_type']:
-                hello_world.delay()
-            return redirect('mailing')
+        for mailing_type, form in context['forms'].items():
+            if form.is_valid():
+
+                mailing_base = list()  # form.
+                hello_world.delay(mailing_type, mailing_base)
+
+                return redirect('mailing')
         return render(request, 'admin/mailing.html', context)
 # endregion Mailing
