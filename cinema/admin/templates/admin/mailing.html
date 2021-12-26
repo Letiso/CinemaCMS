@@ -28,7 +28,9 @@
                         <div class="row mx-5">
                             <div class="col mr-3">
                                 <div class="row">
-                                    {{ form.mailing_type|as_crispy_field }}
+                                    <div id="{{ form.prefix }}-mailing_type-choices">
+                                        {{ form.mailing_type|as_crispy_field }}
+                                    </div>
 
                                     <!-- Button trigger modal -->
                                     <a id="id_{{ form.prefix }}-select_users" class="btn btn-light m-auto disabled" data-toggle="modal" data-target="#modal_{{ form.prefix }}-select_users" style="font-size:20px;">Выбрать пользователей</a>
@@ -43,7 +45,7 @@
                                                 </div>
                                             <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
 
-                                                <table id="SMS-usersList" class="table table-bordered table-striped">
+                                                <table id="{{ form.prefix }}-usersList" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th></th>
@@ -64,7 +66,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <label>
-                                                                        <input type="checkbox" id="user-{{ user.pk }}" class="SMS-mailing">
+                                                                        <input type="checkbox" id="user-{{ user.pk }}" class="{{ form.prefix }}-mailing">
                                                                     </label>
                                                                 </td>
                                                                 <td>{{ user.username }}</td>
@@ -147,11 +149,11 @@
                                 {{ form.message }}
                             </div>
                             <div class="col ml-5 mt-5">
-                                <h4 class="mx-auto my-5 text-center">Пользователей выбрано: <span id="checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
+                                <h4 class="mx-auto my-5 text-center">Пользователей выбрано: <span id="{{ form.prefix }}-checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
                                 <div class="mx-auto my-5 text-center">
-                                    <label for="mailing_progress_bar">Рассылка еще не началась</label>
+                                    <label id="{{ form.prefix }}-mailing_progress_bar-label" for="{{ form.prefix }}-mailing_progress_bar">Рассылка еще не началась</label>
                                     <div class="progress">
-                                        <div id="mailing_progress_bar" class="progress-bar bg-primary w-0" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div id="{{ form.prefix }}-mailing_progress_bar" class="progress-bar bg-primary w-0" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
 
@@ -179,8 +181,9 @@
                         <div class="row mx-5">
                             <div class="col mr-3">
                                 <div class="row">
-                                    {{ form.mailing_type|as_crispy_field }}
-
+                                    <div id="{{ form.prefix }}-mailing_type-choices">
+                                        {{ form.mailing_type|as_crispy_field }}
+                                    </div>
                                     <!-- Button trigger modal -->
                                     <a id="id_{{ form.prefix }}-select_users" class="btn btn-light m-auto disabled" data-toggle="modal" data-target="#modal_{{ form.prefix }}-select_users" style="font-size:20px;">Выбрать пользователей</a>
                                     <!-- Modal -->
@@ -194,7 +197,7 @@
                                                 </div>
                                             <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
 
-                                                <table id="SMS-usersList" class="table table-bordered table-striped">
+                                                <table id="{{ form.prefix }}-usersList" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th></th>
@@ -215,7 +218,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <label>
-                                                                        <input type="checkbox" id="user-{{ user.pk }}" class="SMS-mailing">
+                                                                        <input type="checkbox" id="user-{{ user.pk }}" class="{{ form.prefix }}-mailing">
                                                                     </label>
                                                                 </td>
                                                                 <td>{{ user.username }}</td>
@@ -297,11 +300,11 @@
                                 {{ form.template_file }}
                             </div>
                             <div class="col ml-5 mt-5">
-                                <h4 class="mx-auto my-5 text-center">Пользователей выбрано: <span id="checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
+                                <h4 class="mx-auto my-5 text-center">Пользователей выбрано: <span id="{{ form.prefix }}-checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
                                 <div class="mx-auto my-5 text-center">
-                                    <label for="mailing_progress_bar">Рассылка еще не началась</label>
+                                    <label for="{{ form.prefix }}-mailing_progress_bar">Рассылка еще не началась</label>
                                     <div class="progress">
-                                        <div id="mailing_progress_bar" class="progress-bar bg-primary w-0" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div id="{{ form.prefix }}-mailing_progress_bar" class="progress-bar bg-primary w-0" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
 
@@ -320,123 +323,95 @@
 {% endblock %}
 
 {% block scripts %}
+<!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+<!--Toggle UsersSelectButton-->
 <script>
-    // TODO переделать под обычный id
-    // Bind labels Elements to inputs Elements -->
-    let labels = document.getElementsByTagName('LABEL')
-    for (let i = 0; i < labels.length; i++) {
-        if (labels[i].htmlFor !== '') {
-             let elem = document.getElementById(labels[i].htmlFor)
-             if (elem) {
-                elem.label = labels[i]
-            }
-        }
-    }
-</script>
+    function initSelectUsersButton(prefix) {
+        let mailingTypeChoices = document.getElementById(`${prefix}-mailing_type-choices`).getElementsByTagName('INPUT')
+        console.log(mailingTypeChoices)
 
-<script>
-    // Define multiple forms init
-    let prefix;
-    const prefixes = [
-        '{{ SMS.form.prefix }}', // '{{ email.form.prefix }}'
-    ]
-</script>
+        for (let i=0; i < mailingTypeChoices.length; i++){
+            mailingTypeChoices[i].onchange = () => {
+                let usersSelectButton = document.getElementById(`id_${prefix}-select_users`)
 
-<script>
-    // Toggle UsersSelectButton
-    let mailingTypeRadio, usersSelectButton;
-
-    for (let i=0; i < prefixes.length; i++) {
-        prefix = prefixes[i]
-        for (let i=0; i < 2; i++) {
-            mailingTypeRadio = document.querySelector(`#id_${prefix}-mailing_type_${i}`)
-
-            mailingTypeRadio.onchange = () => {
-                usersSelectButton = document.querySelector(`#id_${prefix}-select_users`)
                 if (usersSelectButton.className.includes(' disabled')) {
                     usersSelectButton.className = usersSelectButton.className.replace(RegExp(' disabled'), '')
                 } else {
                     usersSelectButton.className += ' disabled'
                 }
             }
-
         }
     }
-
 </script>
 
+<!--Dynamic textArea symbols counter-->
 <script>
-    // Dynamic textArea symbols counter
-    let textArea = document.querySelector('#id_SMS-message')
-    let symbolsCounter = document.querySelector('#id_SMS-symbols_counter')
+    function initTextSymbolsCounter(prefix) {
+        let textArea = document.querySelector(`#id_${prefix}-message`)
+        let symbolsCounter = document.querySelector(`#id_${prefix}-symbols_counter`)
 
-    textArea.onkeyup = () => {
-        symbolsCounter.innerHTML = textArea.value.length
-    }
-</script>
-
-<script>
-    // ProgressBar
-    const socket = new WebSocket('ws://localhost:8000/ws/mailing/');
-
-    socket.onmessage = function(event) {
-        let progress = event.data;
-        let progress_bar = document.querySelector('#mailing_progress_bar');
-
-        progress_bar['aria-valuenow'] = progress;
-        progress_bar.label.innerHTML = `Рассылка завершена на ${progress}%`;
-        progress_bar.style = `width: ${progress}%;`;
-
-        if (progress === '100') {
-            progress_bar.className = progress_bar.className.replace(RegExp('bg-primary'), 'bg-success')
+        textArea.onkeyup = () => {
+            symbolsCounter.innerHTML = textArea.value.length
         }
-
     }
 </script>
 
-<!-- DataTables  & Plugins -->
-<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
-
+<!--ProgressBar-->
 <script>
-    for (let i=0; i < prefixes.length; i++) {
-        dataTableInit(prefixes[i])
-    }
+    function initDynamicProgressBar(prefix) {
+        const socket = new WebSocket(`ws://localhost:8000/ws/${prefix}-mailing/`);
 
-    function dataTableInit(prefix) {
+        socket.onmessage = (event) => {
+            let progress = event.data;
+            let progress_bar = document.querySelector(`#${prefix}-mailing_progress_bar`);
+
+            document.getElementById(`${prefix}-mailing_progress_bar-label`).innerHTML = `Рассылка завершена на ${progress}%`;
+            progress_bar['aria-valuenow'] = progress;
+            progress_bar.style = `width: ${progress}%;`;
+
+            if (progress_bar['aria-valuenow'] === '100') {
+                progress_bar.className = progress_bar.className.replace(RegExp('bg-primary'), 'bg-success')
+            }
+        }
+    }
+</script>
+
+<!--init DataTable and checkboxes toggle engine-->
+<script>
+    let CHECKED_COUNTER = {};
+
+    function initDataTable(prefix) {
+        CHECKED_COUNTER[prefix] = 0
+
         $(`#${prefix}-usersList`).DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
         });
-        addToggleAllCheckboxesButtons(prefix, `${prefix}-usersList`)
-      }
 
-    function addToggleAllCheckboxesButtons(prefix, table_id) {
-        let left_header = document.getElementById(`${table_id}_wrapper`).getElementsByClassName('col-sm-12')[0]
-        left_header.innerHTML = `
+        // checkboxes EventListener for the dynamic counter label change
+        const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
+
+        for (let i=0; i < checkboxes_list.length; i++) {
+            let user_checkbox = checkboxes_list[i]
+            user_checkbox.onchange = () => {
+                if (user_checkbox.checked) {
+                    CHECKED_COUNTER[prefix] ++ } else { CHECKED_COUNTER[prefix] --
+                }
+                document.getElementById(`${prefix}-checked_users`).innerHTML = `${CHECKED_COUNTER[prefix] }`
+            }
+        }
+        //
+
+        let left_header_part = document.getElementById(`${prefix}-usersList_wrapper`).getElementsByClassName('col-sm-12')[0]
+        left_header_part.innerHTML = `
             <div class="text-left">
                 <span class="btn btn-light mt-2 ml-3 px-2" onclick="toggleAllCheckboxes(true, '${prefix}')"><i class="fas fa-check pr-2 text-success"></i>Выделить всех</span>
                 <span class="btn btn-light mt-2 ml-3 px-2" onclick="toggleAllCheckboxes(false, '${prefix}')"><i class="fas fa-minus pr-2 text-secondary"></i>Очистить</span>
             </div>
         `
         }
-</script>
-
-<script>
-    let checked_counter = 0;
-
-    const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
-
-    for (let i=0; i < checkboxes_list.length; i++) {
-        let user_checkbox = checkboxes_list[i]
-        user_checkbox.onchange = () => {
-            if (user_checkbox.checked) {
-                checked_counter++
-            } else {
-                checked_counter--
-            }
-            document.getElementById('checked_users').innerHTML = `${checked_counter}`
-        }
-    }
 
     function toggleAllCheckboxes(check_all, prefix) {
         const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
@@ -445,29 +420,47 @@
             for (let i=0; i < checkboxes_list.length; i++) {
                 checkboxes_list[i].checked = true
             }
-            checked_counter = checkboxes_list.length
+            CHECKED_COUNTER = checkboxes_list.length
+
         } else {
             for (let i=0; i < checkboxes_list.length; i++) {
                 checkboxes_list[i].checked = false
             }
-            checked_counter = 0
+            CHECKED_COUNTER = 0
         }
-        document.getElementById('checked_users').innerHTML = `${checked_counter}`
+
+        document.getElementById(`${prefix}-checked_users`).innerHTML = `${CHECKED_COUNTER}`
 
     }
 </script>
 
 <script>
-    for (let i=0; i < prefixes.length; i++) {
-        document.getElementById(`start_${prefixes[i]}_mailing`).onclick = () => {
+    function initStartMailingButton(prefix) {
+        document.getElementById(`start_${prefix}_mailing`).onclick = () => {
             const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
             let checked_checkboxes = [...checkboxes_list].filter(checkbox => checkbox.checked)
 
-            for (let i=0; i < checked_checkboxes.length; i++){
+            for (let i=0; i < checked_checkboxes.length; i++) {
                 checked_checkboxes[i] = parseInt(checked_checkboxes[i].id.replace(RegExp('user-'), ''))
             }
             document.getElementById(`id_${prefix}-checked_users`).value = JSON.stringify(checked_checkboxes)
         }
+    }
+</script>
+
+<!--init multiple html forms for working with django and js-->
+<script>
+    const prefixes = ['{{ forms.SMS.prefix }}', '{{ forms.email.prefix }}'];
+    let prefix;
+
+    initTextSymbolsCounter('{{ forms.SMS.prefix }}')
+    for (let i=0; i < prefixes.length; i++) {
+        prefix = prefixes[i];
+
+        initSelectUsersButton(prefix);
+        initDynamicProgressBar(prefix);
+        initDataTable(prefix);
+        initStartMailingButton(prefix);
     }
 </script>
 {% endblock %}

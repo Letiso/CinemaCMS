@@ -8,7 +8,7 @@ channel_layer = get_channel_layer()
 
 
 @app.task
-def hello_world():
+def hello_world(prefix):
     for i in range(0, 101, 2):
         sleep(0.05)
-        async_to_sync(channel_layer.group_send)('mailing', {'type': 'send_progress', 'text': str(i)})
+        async_to_sync(channel_layer.group_send)(f'{prefix}-mailing', {'type': 'send_progress', 'text': str(i)})
