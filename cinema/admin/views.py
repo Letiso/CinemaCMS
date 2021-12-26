@@ -535,9 +535,10 @@ class MailingView(View):
     @staticmethod
     def get_context(request):
         return {
-            'title': 'Рассылка',
-            'SMS': {'form': SendSMSForm(request.POST or None)},
-            'email': {'form': SendEmailForm(request.POST or None)},
+            'forms': {
+                'SMS': SendSMSForm(request.POST or None),
+                'email': SendEmailForm(request.POST or None)
+            },
             'users': get_user_model().objects.all(),
         }
 
@@ -549,6 +550,7 @@ class MailingView(View):
 
     def post(self, request) -> HttpResponse:
         context = self.get_context(request)
+
         if context['SMS']['form'].is_valid():
             if context['SMS']['form'].cleaned_data['mailing_type']:
                 hello_world.delay()

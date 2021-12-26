@@ -251,6 +251,7 @@ class SendSMSForm(forms.Form):
     message = forms.CharField(label='Текст SMS', widget=forms.Textarea(attrs={
         'class': 'textarea form-control'
     }))
+    checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)
 
 
 class SendEmailForm(forms.Form):
@@ -261,7 +262,10 @@ class SendEmailForm(forms.Form):
         choices=((True, 'Все пользователи'), (False, 'Выборочно')),
         widget=forms.RadioSelect,
         required=True,
+        initial=True,
     )
+    template_file = forms.FileField(label='Загрузить HTML-письмо', widget=forms.FileInput(), )
+    checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)
 
 
 # endregion Mailing
