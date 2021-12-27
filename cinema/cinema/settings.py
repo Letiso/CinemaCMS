@@ -74,6 +74,10 @@ ASGI_APPLICATION = 'cinema.asgi.application'
 # REDIS related settings
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
+# Email properties
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+DEFAULT_FROM_EMAIL = 'test@test.com'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import UpdateView, View
 from django.contrib.auth import get_user_model
@@ -8,7 +10,7 @@ from .forms import *
 
 from datetime import date
 
-from cinema.tasks import hello_world
+from cinema.tasks import send_mail
 
 
 # region Statistics
@@ -335,7 +337,7 @@ class PromotionCardDeleteView(View):
 class PageListView(View):
     @staticmethod
     def get_context() -> dict:
-        primary_pages = ('О кинотеатре', 'Кафе - Бар', 'VIP - зал', 'Реклама', 'Детская комната', )
+        primary_pages = ('О кинотеатре', 'Кафе - Бар', 'VIP - зал', 'Реклама', 'Детская комната',)
 
         return {
             'title': 'Страницы',
@@ -543,20 +545,22 @@ class MailingView(View):
         }
 
     def get(self, request) -> HttpResponse:
-
-        # hello_world.delay()
-
         return render(request, 'admin/mailing.html', self.get_context(request))
 
     def post(self, request) -> HttpResponse:
         context = self.get_context(request)
 
-        for mailing_type, form in context['forms'].items():
-            if form.is_valid():
+        for prefix, form in context['forms'].items():
+            if prefix in request.POST:
+                if form.is_valid():
+                    send_to_everyone, message, checked_users = (form.cleaned_data['mailing_type'],
+                                                                form.cleaned_data['message'],
+                                                                form.cleaned_data['checked_users'])
+                    receivers_filter = {} if send_to_everyone else {'id__in': json.loads(checked_users)}
+                    send_mail.delay(prefix, message, receivers_filter)
 
-                mailing_base = list()  # form.
-                hello_world.delay(mailing_type, mailing_base)
+                    return redirect('mailing')
+                return render(request, 'admin/mailing.html', context)
 
-                return redirect('mailing')
-        return render(request, 'admin/mailing.html', context)
+
 # endregion Mailing

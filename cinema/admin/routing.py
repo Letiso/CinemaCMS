@@ -1,7 +1,8 @@
 from django.urls import path
 
-from .consumers import MailingConsumer
+from .consumers import SMSConsumer, EmailConsumer
 
 ws_urlpatterns = [
-    path('ws/mailing/', MailingConsumer.as_asgi())
+    path('ws/SMS-mailing/', SMSConsumer.as_asgi()),
+    path('ws/email-mailing/', EmailConsumer.as_asgi())
 ]

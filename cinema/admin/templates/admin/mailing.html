@@ -331,7 +331,6 @@
 <script>
     function initSelectUsersButton(prefix) {
         let mailingTypeChoices = document.getElementById(`${prefix}-mailing_type-choices`).getElementsByTagName('INPUT')
-        console.log(mailingTypeChoices)
 
         for (let i=0; i < mailingTypeChoices.length; i++){
             mailingTypeChoices[i].onchange = () => {
@@ -362,9 +361,9 @@
 <!--ProgressBar-->
 <script>
     function initDynamicProgressBar(prefix) {
-        const socket = new WebSocket(`ws://localhost:8000/ws/${prefix}-mailing/`);
-
-        socket.onmessage = (event) => {
+        SOCKET[prefix] = new WebSocket(`ws://localhost:8000/ws/${prefix}-mailing/`);
+        SOCKET[prefix].onmessage = function(event) {
+            console.log('progress')
             let progress = event.data;
             let progress_bar = document.querySelector(`#${prefix}-mailing_progress_bar`);
 
@@ -453,6 +452,7 @@
 <script>
     const prefixes = ['{{ forms.SMS.prefix }}', '{{ forms.email.prefix }}'];
     let prefix;
+    let SOCKET = {};
 
     initTextSymbolsCounter('{{ forms.SMS.prefix }}')
     for (let i=0; i < prefixes.length; i++) {
