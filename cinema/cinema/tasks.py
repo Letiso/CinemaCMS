@@ -12,17 +12,17 @@ from math import floor
 CHANNEL_LAYER = get_channel_layer()
 
 MAILING_SERVICES = {
-    # 'SMS': lambda message, user: None,
-    'SMS': lambda message, user: send_email(subject='Рассылка от CinemaCMS',
-                                            message=message,
-                                            from_email=settings.DEFAULT_FROM_EMAIL,
-                                            recipient_list=[user.email]),
+    'SMS': lambda message, user: None,
+    'email': lambda message, user: send_email(subject='Рассылка от CinemaCMS',
+                                              message=message,
+                                              from_email=settings.DEFAULT_FROM_EMAIL,
+                                              recipient_list=[user.email]),
 }
 
 
 @app.task
 def send_mail(prefix, message, receivers_filter):
-    sleep(3)
+    sleep(1.5)
     mailing_receivers = get_user_model().objects.filter(**receivers_filter)
 
     receivers_count = len(mailing_receivers)

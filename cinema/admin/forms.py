@@ -264,7 +264,7 @@ class SendEmailForm(forms.Form):
         required=True,
         initial=True,
     )
-    template_file = forms.FileField(label='Загрузить HTML-письмо', widget=forms.FileInput(), )
+    message = forms.FileField(label='Загрузить HTML-письмо', widget=forms.FileInput(), required=False)
     checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)
 
 

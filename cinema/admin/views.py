@@ -536,10 +536,12 @@ class UserDeleteView(View):
 class MailingView(View):
     @staticmethod
     def get_context(request):
+        def try_to_bind(prefix):
+            return {'data': request.POST if prefix in request.POST else None}
         return {
             'forms': {
-                'SMS': SendSMSForm(request.POST or None),
-                'email': SendEmailForm(request.POST or None)
+                'SMS': SendSMSForm(**try_to_bind('SMS')),
+                'email': SendEmailForm(**try_to_bind('email'))
             },
             'users': get_user_model().objects.all(),
         }
@@ -557,6 +559,10 @@ class MailingView(View):
                                                                 form.cleaned_data['message'],
                                                                 form.cleaned_data['checked_users'])
                     receivers_filter = {} if send_to_everyone else {'id__in': json.loads(checked_users)}
+
+                    # Temporary for developing
+                    message = '' if not message else message
+
                     send_mail.delay(prefix, message, receivers_filter)
 
                     return redirect('mailing')

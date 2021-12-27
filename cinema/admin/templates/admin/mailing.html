@@ -295,14 +295,14 @@
 
                                 </div>
                                 <div class="row justify-content-between mt-3">
-                                    <label for="{{ form.template_file.id_for_label }}">{{ form.template_file.label }}</label>
+                                    <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
                                 </div>
-                                {{ form.template_file }}
+                                {{ form.message }}
                             </div>
                             <div class="col ml-5 mt-5">
                                 <h4 class="mx-auto my-5 text-center">Пользователей выбрано: <span id="{{ form.prefix }}-checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
                                 <div class="mx-auto my-5 text-center">
-                                    <label for="{{ form.prefix }}-mailing_progress_bar">Рассылка еще не началась</label>
+                                    <label id="{{ form.prefix }}-mailing_progress_bar-label" for="{{ form.prefix }}-mailing_progress_bar">Рассылка еще не началась</label>
                                     <div class="progress">
                                         <div id="{{ form.prefix }}-mailing_progress_bar" class="progress-bar bg-primary w-0" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
@@ -331,6 +331,7 @@
 <script>
     function initSelectUsersButton(prefix) {
         let mailingTypeChoices = document.getElementById(`${prefix}-mailing_type-choices`).getElementsByTagName('INPUT')
+        toggleAllCheckboxes(true, prefix)
 
         for (let i=0; i < mailingTypeChoices.length; i++){
             mailingTypeChoices[i].onchange = () => {
@@ -340,6 +341,7 @@
                     usersSelectButton.className = usersSelectButton.className.replace(RegExp(' disabled'), '')
                 } else {
                     usersSelectButton.className += ' disabled'
+                    toggleAllCheckboxes(true, prefix)
                 }
             }
         }
@@ -363,9 +365,8 @@
     function initDynamicProgressBar(prefix) {
         SOCKET[prefix] = new WebSocket(`ws://localhost:8000/ws/${prefix}-mailing/`);
         SOCKET[prefix].onmessage = function(event) {
-            console.log('progress')
             let progress = event.data;
-            let progress_bar = document.querySelector(`#${prefix}-mailing_progress_bar`);
+            let progress_bar = document.getElementById(`${prefix}-mailing_progress_bar`);
 
             document.getElementById(`${prefix}-mailing_progress_bar-label`).innerHTML = `Рассылка завершена на ${progress}%`;
             progress_bar['aria-valuenow'] = progress;
@@ -396,6 +397,7 @@
             let user_checkbox = checkboxes_list[i]
             user_checkbox.onchange = () => {
                 if (user_checkbox.checked) {
+                    console.log(CHECKED_COUNTER)
                     CHECKED_COUNTER[prefix]++ } else { CHECKED_COUNTER[prefix]--
                 }
                 document.getElementById(`${prefix}-checked_users`).innerHTML = `${CHECKED_COUNTER[prefix]}`
@@ -419,16 +421,16 @@
             for (let i=0; i < checkboxes_list.length; i++) {
                 checkboxes_list[i].checked = true
             }
-            CHECKED_COUNTER = checkboxes_list.length
+            CHECKED_COUNTER[prefix] = checkboxes_list.length
 
         } else {
             for (let i=0; i < checkboxes_list.length; i++) {
                 checkboxes_list[i].checked = false
             }
-            CHECKED_COUNTER = 0
+            CHECKED_COUNTER[prefix] = 0
         }
 
-        document.getElementById(`${prefix}-checked_users`).innerHTML = `${CHECKED_COUNTER}`
+        document.getElementById(`${prefix}-checked_users`).innerHTML = `${CHECKED_COUNTER[prefix]}`
 
     }
 </script>
