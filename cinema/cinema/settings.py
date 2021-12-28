@@ -51,10 +51,28 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'cinema.urls'
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os_path.join(BASE_DIR, 'files/media')
+
+STATICFILES_DIRS = [
+    BASE_DIR / "files/static",
+]
+
+MEDIA_DIRS = [
+    BASE_DIR / "files/media",
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            MEDIA_ROOT,
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,9 +93,15 @@ ASGI_APPLICATION = 'cinema.asgi.application'
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 # Email properties
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = 'test@test.com'
+# TODO
+EMAIL_HOST_USER = 'letisodianta@gmail.com'
+EMAIL_HOST_PASSWORD = 'Elenberg6007'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -133,23 +157,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os_path.join(BASE_DIR, 'files/media')
-
-STATICFILES_DIRS = [
-    BASE_DIR / "files/static",
-]
-
-MEDIA_DIRS = [
-    BASE_DIR / "files/media",
-]
 
 
 # Default primary key field type

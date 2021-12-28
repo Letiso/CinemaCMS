@@ -4,6 +4,9 @@ from user.forms import UserUpdateForm
 from main.models import *
 from django.forms import modelformset_factory
 
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
 
 # region Additional
 class DateInput(forms.DateInput):
@@ -254,8 +257,9 @@ class SendSMSForm(forms.Form):
     checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)
 
 
-class SendEmailForm(forms.Form):
+class SendEmailForm(forms.ModelForm):
     prefix = 'email'
+
     mailing_type = forms.TypedChoiceField(
         label='Выберите тип рассылки',
         coerce=lambda x: x == 'True',
@@ -264,8 +268,39 @@ class SendEmailForm(forms.Form):
         required=True,
         initial=True,
     )
-    message = forms.FileField(label='Загрузить HTML-письмо', widget=forms.FileInput(), required=False)
+    message = forms.FileField(label='Загрузить HTML-письмо', widget=forms.FileInput(attrs={'accept': '.html'}),
+                              required=False)
+
     checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)
+    checked_html_message = forms.CharField(widget=forms.HiddenInput(attrs={'value': str()}), required=False)
+
+    def clean_message(self):
+        use_cached_message = self.data[f'{self.prefix}-checked_html_message']
+
+        if use_cached_message:
+            message = EmailMailingHTMLMessage.objects.get(pk=int(use_cached_message)).message
+        else:
+            message = self.cleaned_data['message']
+            html_messages_cache = EmailMailingHTMLMessage.objects.all()
+
+            if not message and not html_messages_cache.exists():
+                raise forms.ValidationError('Загрузите хотя бы один html-файл', code='invalid')
+            else:
+                files_limit = 5
+                cached_files_count = len(html_messages_cache)
+                while cached_files_count >= files_limit:
+                    EmailMailingHTMLMessage.objects.first().delete()
+                    cached_files_count -= 1
+            message = EmailMailingHTMLMessage.objects.create(message=message).message
+
+        html_message = render_to_string(message.path)
+        text_html_message = strip_tags(html_message)
+
+        return text_html_message
+
+    class Meta:
+        model = EmailMailingHTMLMessage
+        fields = '__all__'
 
 
 # endregion Mailing

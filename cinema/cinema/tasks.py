@@ -1,22 +1,26 @@
-from django.contrib.auth import get_user_model
-from django.core.mail import send_mail as send_email
-from django.conf import settings
+from math import floor
+from time import sleep
 
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
-from cinema.celery import app
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.core.mail import EmailMultiAlternatives
 
-from time import sleep
-from math import floor
+from cinema.celery import app
 
 CHANNEL_LAYER = get_channel_layer()
 
+
+def send_email(message, user):
+    email = EmailMultiAlternatives('Рассылка от CinemaCMS', message, settings.EMAIL_HOST_USER, [user.email])
+    email.attach_alternative(message, 'text/html')
+    email.send()
+
+
 MAILING_SERVICES = {
     'SMS': lambda message, user: None,
-    'email': lambda message, user: send_email(subject='Рассылка от CinemaCMS',
-                                              message=message,
-                                              from_email=settings.DEFAULT_FROM_EMAIL,
-                                              recipient_list=[user.email]),
+    'email': lambda message, user: send_email(message, user),
 }
 
 

@@ -174,10 +174,11 @@
                 <h3>E-mail</h3>
             </div>
             <div class="card-body">
-                <form action="" method="POST">
+                <form enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
                     {% with forms.email as form %}
                         {{ form.checked_users }}
+                        {{ form.checked_html_message }}
                         <div class="row mx-5">
                             <div class="col mr-3">
                                 <div class="row">
@@ -295,9 +296,28 @@
 
                                 </div>
                                 <div class="row justify-content-between mt-3">
-                                    <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+                                    {{ form.message|as_crispy_field }}
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <span>Список последних загруженных шаблонов</span>
+                                        </div>
+                                        <div class="card-body">
+                                            {% for html_message in last_html_messages %}
+                                                <div class="row mx-2">
+                                                    <div class="mr-auto">
+                                                        <label><input type="checkbox" name="" id=""></label>
+                                                    </div>
+                                                    <div class="mx-auto">
+                                                        {{ html_message.message.url }}
+                                                    </div>
+                                                    <div class="ml-auto">
+                                                        <a class="text-red" href="#">Удалить</a>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
                                 </div>
-                                {{ form.message }}
                             </div>
                             <div class="col ml-5 mt-5">
                                 <h4 class="mx-auto my-5 text-center">Пользователей выбрано: <span id="{{ form.prefix }}-checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
@@ -327,58 +347,6 @@
 <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 
-<!--Toggle UsersSelectButton-->
-<script>
-    function initSelectUsersButton(prefix) {
-        let mailingTypeChoices = document.getElementById(`${prefix}-mailing_type-choices`).getElementsByTagName('INPUT')
-        toggleAllCheckboxes(true, prefix)
-
-        for (let i=0; i < mailingTypeChoices.length; i++){
-            mailingTypeChoices[i].onchange = () => {
-                let usersSelectButton = document.getElementById(`id_${prefix}-select_users`)
-
-                if (usersSelectButton.className.includes(' disabled')) {
-                    usersSelectButton.className = usersSelectButton.className.replace(RegExp(' disabled'), '')
-                } else {
-                    usersSelectButton.className += ' disabled'
-                    toggleAllCheckboxes(true, prefix)
-                }
-            }
-        }
-    }
-</script>
-
-<!--Dynamic textArea symbols counter-->
-<script>
-    function initTextSymbolsCounter(prefix) {
-        let textArea = document.querySelector(`#id_${prefix}-message`)
-        let symbolsCounter = document.querySelector(`#id_${prefix}-symbols_counter`)
-
-        textArea.onkeyup = () => {
-            symbolsCounter.innerHTML = textArea.value.length
-        }
-    }
-</script>
-
-<!--ProgressBar-->
-<script>
-    function initDynamicProgressBar(prefix) {
-        SOCKET[prefix] = new WebSocket(`ws://localhost:8000/ws/${prefix}-mailing/`);
-        SOCKET[prefix].onmessage = function(event) {
-            let progress = event.data;
-            let progress_bar = document.getElementById(`${prefix}-mailing_progress_bar`);
-
-            document.getElementById(`${prefix}-mailing_progress_bar-label`).innerHTML = `Рассылка завершена на ${progress}%`;
-            progress_bar['aria-valuenow'] = progress;
-            progress_bar.style = `width: ${progress}%;`;
-
-            if (progress_bar['aria-valuenow'] === '100') {
-                progress_bar.className = progress_bar.className.replace(RegExp('bg-primary'), 'bg-success')
-            }
-        }
-    }
-</script>
-
 <!--init DataTable and checkboxes toggle engine-->
 <script>
     let CHECKED_COUNTER = {};
@@ -397,7 +365,6 @@
             let user_checkbox = checkboxes_list[i]
             user_checkbox.onchange = () => {
                 if (user_checkbox.checked) {
-                    console.log(CHECKED_COUNTER)
                     CHECKED_COUNTER[prefix]++ } else { CHECKED_COUNTER[prefix]--
                 }
                 document.getElementById(`${prefix}-checked_users`).innerHTML = `${CHECKED_COUNTER[prefix]}`
@@ -435,6 +402,39 @@
     }
 </script>
 
+<!--Toggle UsersSelectButton-->
+<script>
+    function initSelectUsersButton(prefix) {
+        let mailingTypeChoices = document.getElementById(`${prefix}-mailing_type-choices`).getElementsByTagName('INPUT')
+        toggleAllCheckboxes(true, prefix)
+
+        for (let i=0; i < mailingTypeChoices.length; i++){
+            mailingTypeChoices[i].onchange = () => {
+                let usersSelectButton = document.getElementById(`id_${prefix}-select_users`)
+
+                if (usersSelectButton.className.includes(' disabled')) {
+                    usersSelectButton.className = usersSelectButton.className.replace(RegExp(' disabled'), '')
+                } else {
+                    usersSelectButton.className += ' disabled'
+                    toggleAllCheckboxes(true, prefix)
+                }
+            }
+        }
+    }
+</script>
+
+<!--Dynamic textArea symbols counter-->
+<script>
+    function initTextSymbolsCounter(prefix) {
+        let textArea = document.querySelector(`#id_${prefix}-message`)
+        let symbolsCounter = document.querySelector(`#id_${prefix}-symbols_counter`)
+
+        textArea.onkeyup = () => {
+            symbolsCounter.innerHTML = textArea.value.length
+        }
+    }
+</script>
+
 <!--init data collecting before make POST-->
 <script>
     function initStartMailingButton(prefix) {
@@ -450,6 +450,25 @@
     }
 </script>
 
+<!--ProgressBar-->
+<script>
+    function initDynamicProgressBar(prefix) {
+        SOCKET[prefix] = new WebSocket(`ws://localhost:8000/ws/${prefix}-mailing/`);
+        SOCKET[prefix].onmessage = function(event) {
+            let progress = event.data;
+            let progress_bar = document.getElementById(`${prefix}-mailing_progress_bar`);
+
+            document.getElementById(`${prefix}-mailing_progress_bar-label`).innerHTML = `Рассылка завершена на ${progress}%`;
+            progress_bar['aria-valuenow'] = progress;
+            progress_bar.style = `width: ${progress}%;`;
+
+            if (progress_bar['aria-valuenow'] === '100') {
+                progress_bar.className = progress_bar.className.replace(RegExp('bg-primary'), 'bg-success')
+            }
+        }
+    }
+</script>
+
 <!--init multiple html forms for working with django and js-->
 <script>
     const prefixes = ['{{ forms.SMS.prefix }}', '{{ forms.email.prefix }}'];
@@ -460,10 +479,10 @@
     for (let i=0; i < prefixes.length; i++) {
         prefix = prefixes[i];
 
-        initSelectUsersButton(prefix);
-        initDynamicProgressBar(prefix);
         initDataTable(prefix);
+        initSelectUsersButton(prefix);
         initStartMailingButton(prefix);
+        initDynamicProgressBar(prefix);
     }
 </script>
 {% endblock %}

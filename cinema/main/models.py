@@ -149,6 +149,14 @@ class ContactsPageCard(models.Model):
 
 # endregion Pages
 
+# region Mailing
+class EmailMailingHTMLMessage(models.Model):
+    """History of 5 last used html-messages for e-mail mailing"""
+    message = models.FileField('Загрузить HTML-письмо', upload_to='admin/mailing/last-html-messages', blank=True)
+
+
+# endregion Mailing
+
 # region SEO
 class SEO(models.Model):
     movie = models.OneToOneField(MovieCard, on_delete=models.CASCADE, related_name='seo', null=True)

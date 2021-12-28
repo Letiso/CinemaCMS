@@ -537,17 +537,18 @@ class MailingView(View):
     @staticmethod
     def get_context(request):
         def try_to_bind(prefix):
-            return {'data': request.POST if prefix in request.POST else None}
+            return {'data': request.POST, 'files': request.FILES} if prefix in request.POST else {}
         return {
             'forms': {
                 'SMS': SendSMSForm(**try_to_bind('SMS')),
                 'email': SendEmailForm(**try_to_bind('email'))
             },
             'users': get_user_model().objects.all(),
+            'last_html_messages': EmailMailingHTMLMessage.objects.all(),
         }
 
     def get(self, request) -> HttpResponse:
-        return render(request, 'admin/mailing.html', self.get_context(request))
+        return render(request, 'admin/mailing/mailing.html', self.get_context(request))
 
     def post(self, request) -> HttpResponse:
         context = self.get_context(request)
@@ -559,14 +560,10 @@ class MailingView(View):
                                                                 form.cleaned_data['message'],
                                                                 form.cleaned_data['checked_users'])
                     receivers_filter = {} if send_to_everyone else {'id__in': json.loads(checked_users)}
-
-                    # Temporary for developing
-                    message = '' if not message else message
-
                     send_mail.delay(prefix, message, receivers_filter)
 
                     return redirect('mailing')
-                return render(request, 'admin/mailing.html', context)
+                return render(request, 'admin/mailing/mailing.html', context)
 
 
 # endregion Mailing
