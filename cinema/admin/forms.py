@@ -278,10 +278,16 @@ class SendEmailForm(forms.Form):
     html_messages_on_delete = forms.CharField(widget=forms.HiddenInput(attrs={'value': []}), required=False)
 
     def clean_message(self):
+        def delete_html_messages():
+            on_delete_list = json.loads(self.data[f'{self.prefix}-html_messages_on_delete'])
+            for pk in on_delete_list:
+                EmailMailingHTMLMessage.objects.get(pk=int(pk)).delete()
+
         use_cached_message = self.data[f'{self.prefix}-checked_html_message']
 
         if use_cached_message:
             message = EmailMailingHTMLMessage.objects.get(pk=int(use_cached_message)).message
+            delete_html_messages()
         else:
             message = self.cleaned_data['message']
             html_messages_cache = EmailMailingHTMLMessage.objects.all()
@@ -291,19 +297,17 @@ class SendEmailForm(forms.Form):
             else:
                 if not message:
                     raise forms.ValidationError('Загрузите html-файл или выберите один из недавних', code='invalid')
+                delete_html_messages()
+
                 files_limit = 5
                 cached_files_count = len(html_messages_cache)
+
                 while cached_files_count >= files_limit:
                     EmailMailingHTMLMessage.objects.first().delete()
                     cached_files_count -= 1
+
             message = EmailMailingHTMLMessage.objects.create(name=message.name.replace('.html', ''),
                                                              message=message).message
-
-        on_delete_list = json.loads(self.data[f'{self.prefix}-html_messages_on_delete'])
-        if on_delete_list:
-            for pk in on_delete_list:
-                EmailMailingHTMLMessage.objects.get(pk=int(pk)).delete()
-
         html_message = render_to_string(message.path)
 
         return html_message

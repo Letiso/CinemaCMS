@@ -456,7 +456,6 @@
 <!--init select html message engine-->
 <script>
     function initSelectHtmlMessage(prefix) {
-        // Event listener binding for single-choice file inputs
         const htmlMessageSelectElements = [...document.querySelectorAll(`[id*="${prefix}-last_message-"]`)];
         const fileInput = document.getElementById(`id_${prefix}-message`)
         htmlMessageSelectElements.push(fileInput)
@@ -464,8 +463,8 @@
         for (let i = 0; i < htmlMessageSelectElements.length; i++) {
             let element = htmlMessageSelectElements[i]
             element.onchange = (event) => {
-
                 const lastChecked = event.currentTarget
+
                 for (let i = 0; i < htmlMessageSelectElements.length; i++) {
                     let element = htmlMessageSelectElements[i]
                     if (element !== lastChecked) {
@@ -474,6 +473,7 @@
                         }
                     }
                 }
+
             }
         }
     }
@@ -511,21 +511,6 @@
     }
 </script>
 
-<!--init data collecting before make POST-->
-<script>
-    function initStartMailingButton(prefix) {
-        document.getElementById(`start_${prefix}_mailing`).onclick = () => {
-            const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
-            let checked_checkboxes = [...checkboxes_list].filter(checkbox => checkbox.checked)
-
-            for (let i=0; i < checked_checkboxes.length; i++) {
-                checked_checkboxes[i] = parseInt(checked_checkboxes[i].id.replace(RegExp('user-'), ''))
-            }
-            document.getElementById(`id_${prefix}-checked_users`).value = JSON.stringify(checked_checkboxes)
-        }
-    }
-</script>
-
 <!--ProgressBar-->
 <script>
     function initDynamicProgressBar(prefix) {
@@ -542,6 +527,33 @@
                 progress_bar.className = progress_bar.className.replace(RegExp('bg-primary'), 'bg-success')
             }
         }
+    }
+</script>
+
+<!--init checked_users_list collecting before making POST-->
+<script>
+    function initStartMailingButton(prefix) {
+        document.getElementById(`start_${prefix}_mailing`).addEventListener('click', () => {
+            const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
+            let checked_checkboxes = [...checkboxes_list].filter(checkbox => checkbox.checked)
+
+            for (let i=0; i < checked_checkboxes.length; i++) {
+                checked_checkboxes[i] = parseInt(checked_checkboxes[i].id.replace(RegExp('user-'), ''))
+            }
+            document.getElementById(`id_${prefix}-checked_users`).value = JSON.stringify(checked_checkboxes)
+        })
+    }
+</script>
+
+<!--init select html message hidden input before making POST-->
+<script>
+    function initSelectHtmlMessagePOST(prefix) {
+        const checkedHtmlMessage = document.getElementById(`id_${prefix}-checked_html_message`)
+        const submitButton = document.getElementById(`start_${prefix}_mailing`)
+        submitButton.addEventListener('click', () => {
+            const checkbox = document.querySelector(`[type="checkbox"][id*="${prefix}-last_message-"]:checked`)
+            checkedHtmlMessage.value = checkbox.id.split('-last_message-')[1]
+        })
     }
 </script>
 
@@ -562,8 +574,10 @@
 
         initDataTable(prefix);
         initSelectUsersButton(prefix);
-        initStartMailingButton(prefix);
         initDynamicProgressBar(prefix);
+        initStartMailingButton(prefix);
     }
+
+    initSelectHtmlMessagePOST(prefix)
 </script>
 {% endblock %}
