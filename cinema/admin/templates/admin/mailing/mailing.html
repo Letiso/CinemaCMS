@@ -304,11 +304,11 @@
                                         <div class="card-body">
                                             {% for html_message in last_html_messages %}
                                                 <div class="row mx-2">
-                                                    <div class="mr-auto">
-                                                        <label><input type="checkbox" name="" id=""></label>
+                                                    <div class="mr-3">
+                                                        <label><input type="checkbox" id="{{ form.prefix }}-last_message-{{ html_message.pk }}"></label>
                                                     </div>
-                                                    <div class="mx-auto">
-                                                        {{ html_message.message.url }}
+                                                    <div class="mr-auto">
+                                                        {{ html_message.name}}
                                                     </div>
                                                     <div class="ml-auto">
                                                         <a class="text-red" href="#">Удалить</a>

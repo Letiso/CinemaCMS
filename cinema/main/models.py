@@ -152,6 +152,7 @@ class ContactsPageCard(models.Model):
 # region Mailing
 class EmailMailingHTMLMessage(models.Model):
     """History of 5 last used html-messages for e-mail mailing"""
+    name = models.CharField(max_length=256, default='')
     message = models.FileField('Загрузить HTML-письмо', upload_to='admin/mailing/last-html-messages', blank=True)
 
 

@@ -257,7 +257,7 @@ class SendSMSForm(forms.Form):
     checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)
 
 
-class SendEmailForm(forms.ModelForm):
+class SendEmailForm(forms.Form):
     prefix = 'email'
 
     mailing_type = forms.TypedChoiceField(
@@ -286,21 +286,19 @@ class SendEmailForm(forms.ModelForm):
             if not message and not html_messages_cache.exists():
                 raise forms.ValidationError('Загрузите хотя бы один html-файл', code='invalid')
             else:
+                if not message:
+                    raise forms.ValidationError('Загрузите html-файл или выберите один из недавних', code='invalid')
                 files_limit = 5
                 cached_files_count = len(html_messages_cache)
                 while cached_files_count >= files_limit:
                     EmailMailingHTMLMessage.objects.first().delete()
                     cached_files_count -= 1
-            message = EmailMailingHTMLMessage.objects.create(message=message).message
+            message = EmailMailingHTMLMessage.objects.create(name=message.name.replace('.html', ''),
+                                                             message=message).message
 
         html_message = render_to_string(message.path)
-        text_html_message = strip_tags(html_message)
 
-        return text_html_message
-
-    class Meta:
-        model = EmailMailingHTMLMessage
-        fields = '__all__'
+        return html_message
 
 
 # endregion Mailing
