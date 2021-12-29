@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from user.forms import UserUpdateForm
@@ -273,7 +275,7 @@ class SendEmailForm(forms.Form):
 
     checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)
     checked_html_message = forms.CharField(widget=forms.HiddenInput(), required=False)
-    html_messages_on_delete = forms.CharField(widget=forms.HiddenInput(), required=False)
+    html_messages_on_delete = forms.CharField(widget=forms.HiddenInput(attrs={'value': []}), required=False)
 
     def clean_message(self):
         use_cached_message = self.data[f'{self.prefix}-checked_html_message']
@@ -296,6 +298,11 @@ class SendEmailForm(forms.Form):
                     cached_files_count -= 1
             message = EmailMailingHTMLMessage.objects.create(name=message.name.replace('.html', ''),
                                                              message=message).message
+
+        on_delete_list = json.loads(self.data[f'{self.prefix}-html_messages_on_delete'])
+        if on_delete_list:
+            for pk in on_delete_list:
+                EmailMailingHTMLMessage.objects.get(pk=int(pk)).delete()
 
         html_message = render_to_string(message.path)
 

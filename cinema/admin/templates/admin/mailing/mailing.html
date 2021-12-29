@@ -4,7 +4,7 @@
 
 {% block stylesheets %}
 <style>
-    form input[type='button'][class*='on_delete'] {
+    form input[type='button'][id*='on_delete'] {
         background: none;
         border: none;
         color: red;
@@ -12,7 +12,7 @@
         cursor: pointer;
         transition: color .35s;
     }
-    form input[type='button'][class*='on_delete']:hover {
+    form input[type='button'][id*='on_delete']:hover {
         color: darkred;
     }
 </style>
@@ -317,7 +317,7 @@
                                         </div>
                                         <div class="card-body">
                                             {% for html_message in last_html_messages %}
-                                                <div class="row mx-2">
+                                                <div id="{{ form.prefix }}-last_message_row-{{ html_message.pk }}" class="row mx-2">
                                                     <div class="mr-3">
                                                         <label><input type="checkbox" id="{{ form.prefix }}-last_message-{{ html_message.pk }}"></label>
                                                     </div>
@@ -479,6 +479,38 @@
     }
 </script>
 
+<!--init cached html message delete-->
+<script>
+    // Event listener binding for html-message file delete
+    function initCachedHtmlMessageDelete(prefix) {
+        const htmlMessageDeleteButtonElements = [...document.querySelectorAll(`[id*="${prefix}-on_delete-"]`)];
+        const htmlMessagesOnDelete = document.getElementById(`id_${prefix}-html_messages_on_delete`);
+
+        // visually remove already checked on_delete html-messages when page reload happened because of ValidationError
+        const onDeleteList = JSON.parse(htmlMessagesOnDelete.value)
+        for (let i=0; i < onDeleteList.length; i++) {
+            document.getElementById(`${prefix}-last_message_row-${onDeleteList[i]}`).remove()
+        }
+        //
+
+        for (let i=0; i < htmlMessageDeleteButtonElements.length; i++) {
+            const on_delete = htmlMessageDeleteButtonElements[i]
+            const row = document.getElementById(`${on_delete.id.replace(RegExp('on_delete'), 'last_message_row')}`);
+            const checkbox = document.getElementById(`${on_delete.id.replace(RegExp('on_delete'), 'last_message')}`);
+
+            on_delete.onclick = () => {
+                row.remove()
+                checkbox.checked = false;
+
+                const value = JSON.parse(htmlMessagesOnDelete.value)
+                value.push(on_delete.id.split('on_delete-')[1])
+
+                htmlMessagesOnDelete.value = JSON.stringify(value);
+            }
+        }
+    }
+</script>
+
 <!--init data collecting before make POST-->
 <script>
     function initStartMailingButton(prefix) {
@@ -515,12 +547,16 @@
 
 <!--init multiple html forms for working with django and js-->
 <script>
-    const prefixes = ['{{ forms.SMS.prefix }}', '{{ forms.email.prefix }}'];
+    const SMS_prefix = '{{ forms.SMS.prefix }}' , email_prefix = '{{ forms.email.prefix }}'
+    const prefixes = [SMS_prefix, email_prefix];
     let prefix;
     let SOCKET = {};
 
-    initTextSymbolsCounter('{{ forms.SMS.prefix }}')
-    initSelectHtmlMessage('{{ forms.email.prefix }}')
+    initTextSymbolsCounter(SMS_prefix)
+
+    initSelectHtmlMessage(email_prefix)
+    initCachedHtmlMessageDelete(email_prefix)
+
     for (let i=0; i < prefixes.length; i++) {
         prefix = prefixes[i];
 
