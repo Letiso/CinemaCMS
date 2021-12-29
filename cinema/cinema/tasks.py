@@ -26,16 +26,13 @@ MAILING_SERVICES = {
 
 @app.task
 def send_mail(prefix, message, receivers_filter):
-    sleep(1.5)
     mailing_receivers = get_user_model().objects.filter(**receivers_filter)
-
     receivers_count = len(mailing_receivers)
     prev_progress = mails_sent = 0
 
     for user in mailing_receivers:
         MAILING_SERVICES[prefix](message, user)
         mails_sent += 1
-
         progress = floor((mails_sent / receivers_count) * 100)
         if progress != prev_progress:
             prev_progress = progress

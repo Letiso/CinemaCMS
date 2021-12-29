@@ -34,9 +34,9 @@
                 <h4>SMS</h4>
             </div>
             <div class="card-body">
-                <form action="" method="POST">
+                {% with forms.SMS as form %}
+                <form id="{{ form.prefix }}-form" action="" method="POST">
                     {% csrf_token %}
-                    {% with forms.SMS as form %}
                         {{ form.checked_users }}
                         <div class="row mx-5">
                             <div class="col mr-3">
@@ -187,9 +187,9 @@
                 <h3>E-mail</h3>
             </div>
             <div class="card-body">
-                <form enctype="multipart/form-data" method="POST">
+                {% with forms.email as form %}
+                <form id="{{ form.prefix }}-form" enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
-                    {% with forms.email as form %}
                         {{ form.checked_users }}
                         {{ form.checked_html_message }}
                         {{ form.html_messages_on_delete }}
@@ -346,7 +346,7 @@
                             </div>
                         </div>
                     <div class="text-center mt-4">
-                        <input type="submit" name="{{ form.prefix }}" id="start_{{ form.prefix }}_mailing" class="btn btn-info" value="Начать рассылку" style="font-size: 20px">
+                        <button type="submit" name="{{ form.prefix }}" id="start_{{ form.prefix }}_mailing" class="btn btn-info" style="font-size: 20px">Начать рассылку</button>
                     </div>
                     {% endwith %}
 
@@ -523,8 +523,20 @@
             progress_bar['aria-valuenow'] = progress;
             progress_bar.style = `width: ${progress}%;`;
 
+            const submitButton = document.getElementById(`start_${prefix}_mailing`)
+            const form = $(`#${prefix}-form`)
+
             if (progress_bar['aria-valuenow'] === '100') {
                 progress_bar.className = progress_bar.className.replace(RegExp('bg-primary'), 'bg-success')
+                submitButton.className = submitButton.className.replace(RegExp(' disabled'), '')
+                form.unbind('submit')
+            } else {
+                if (!submitButton.className.includes(' disabled')) {
+                    submitButton.className += ' disabled'
+                    form.bind('submit', (event) => {
+                        event.preventDefault(); // <==stop page refresh==>
+                    });
+                }
             }
         }
     }
@@ -551,8 +563,10 @@
         const checkedHtmlMessage = document.getElementById(`id_${prefix}-checked_html_message`)
         const submitButton = document.getElementById(`start_${prefix}_mailing`)
         submitButton.addEventListener('click', () => {
-            const checkbox = document.querySelector(`[type="checkbox"][id*="${prefix}-last_message-"]:checked`)
-            checkedHtmlMessage.value = checkbox.id.split('-last_message-')[1]
+            let checkbox = document.querySelector(`[type="checkbox"][id*="${prefix}-last_message-"]:checked`)
+            if (checkbox) {
+                checkedHtmlMessage.value = checkbox.id.split('-last_message-')[1]
+            }
         })
     }
 </script>
