@@ -326,7 +326,7 @@
                                                     </div>
 
                                                     <div class="ml-auto">
-                                                        <input type="button" class="py-0 {{ form.prefix }}-on_delete" value="Удалить">
+                                                        <input type="button" id="{{ form.prefix }}-on_delete-{{ html_message.pk }}" class="py-0" value="Удалить">
                                                     </div>
                                                 </div>
                                             {% endfor %}
@@ -453,6 +453,32 @@
     }
 </script>
 
+<!--init select html message engine-->
+<script>
+    function initSelectHtmlMessage(prefix) {
+        // Event listener binding for single-choice file inputs
+        const htmlMessageSelectElements = [...document.querySelectorAll(`[id*="${prefix}-last_message-"]`)];
+        const fileInput = document.getElementById(`id_${prefix}-message`)
+        htmlMessageSelectElements.push(fileInput)
+
+        for (let i = 0; i < htmlMessageSelectElements.length; i++) {
+            let element = htmlMessageSelectElements[i]
+            element.onchange = (event) => {
+
+                const lastChecked = event.currentTarget
+                for (let i = 0; i < htmlMessageSelectElements.length; i++) {
+                    let element = htmlMessageSelectElements[i]
+                    if (element !== lastChecked) {
+                        if (element.type === 'checkbox') {
+                            element.checked = false } else { element.value = ''
+                        }
+                    }
+                }
+            }
+        }
+    }
+</script>
+
 <!--init data collecting before make POST-->
 <script>
     function initStartMailingButton(prefix) {
@@ -494,6 +520,7 @@
     let SOCKET = {};
 
     initTextSymbolsCounter('{{ forms.SMS.prefix }}')
+    initSelectHtmlMessage('{{ forms.email.prefix }}')
     for (let i=0; i < prefixes.length; i++) {
         prefix = prefixes[i];
 
