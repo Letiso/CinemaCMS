@@ -272,7 +272,8 @@ class SendEmailForm(forms.Form):
                               required=False)
 
     checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)
-    checked_html_message = forms.CharField(widget=forms.HiddenInput(attrs={'value': str()}), required=False)
+    checked_html_message = forms.CharField(widget=forms.HiddenInput(), required=False)
+    html_messages_on_delete = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     def clean_message(self):
         use_cached_message = self.data[f'{self.prefix}-checked_html_message']

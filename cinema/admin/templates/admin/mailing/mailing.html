@@ -3,6 +3,19 @@
 {% load crispy_forms_tags %}
 
 {% block stylesheets %}
+<style>
+    form input[type='button'][class*='on_delete'] {
+        background: none;
+        border: none;
+        color: red;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color .35s;
+    }
+    form input[type='button'][class*='on_delete']:hover {
+        color: darkred;
+    }
+</style>
 {% endblock %}
 
 {% block mailing %}active{% endblock %}
@@ -33,7 +46,7 @@
                                     </div>
 
                                     <!-- Button trigger modal -->
-                                    <a id="id_{{ form.prefix }}-select_users" class="btn btn-light m-auto disabled" data-toggle="modal" data-target="#modal_{{ form.prefix }}-select_users" style="font-size:20px;">Выбрать пользователей</a>
+                                    <a id="id_{{ form.prefix }}-select_users" class="btn btn-light m-auto" data-toggle="modal" data-target="#modal_{{ form.prefix }}-select_users" style="font-size:20px;">Выбрать пользователей</a>
                                     <!-- Modal -->
                                     <div class="modal fade" id="modal_{{ form.prefix }}-select_users" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-xl" role="document">
@@ -179,6 +192,7 @@
                     {% with forms.email as form %}
                         {{ form.checked_users }}
                         {{ form.checked_html_message }}
+                        {{ form.html_messages_on_delete }}
                         <div class="row mx-5">
                             <div class="col mr-3">
                                 <div class="row">
@@ -186,7 +200,7 @@
                                         {{ form.mailing_type|as_crispy_field }}
                                     </div>
                                     <!-- Button trigger modal -->
-                                    <a id="id_{{ form.prefix }}-select_users" class="btn btn-light m-auto disabled" data-toggle="modal" data-target="#modal_{{ form.prefix }}-select_users" style="font-size:20px;">Выбрать пользователей</a>
+                                    <a id="id_{{ form.prefix }}-select_users" class="btn btn-light m-auto" data-toggle="modal" data-target="#modal_{{ form.prefix }}-select_users" style="font-size:20px;">Выбрать пользователей</a>
                                     <!-- Modal -->
                                     <div class="modal fade" id="modal_{{ form.prefix }}-select_users" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-xl" role="document">
@@ -310,8 +324,9 @@
                                                     <div class="mr-auto">
                                                         {{ html_message.name}}
                                                     </div>
+
                                                     <div class="ml-auto">
-                                                        <a class="text-red" href="#">Удалить</a>
+                                                        <input type="button" class="py-0 {{ form.prefix }}-on_delete" value="Удалить">
                                                     </div>
                                                 </div>
                                             {% endfor %}
@@ -405,18 +420,21 @@
 <!--Toggle UsersSelectButton-->
 <script>
     function initSelectUsersButton(prefix) {
-        let mailingTypeChoices = document.getElementById(`${prefix}-mailing_type-choices`).getElementsByTagName('INPUT')
-        toggleAllCheckboxes(true, prefix)
+        let mailingTypeChoices = document.getElementById(`${prefix}-mailing_type-choices`).getElementsByTagName('INPUT');
+        let usersSelectButton = document.getElementById(`id_${prefix}-select_users`);
+
+        if (mailingTypeChoices[0].checked) {
+            usersSelectButton.className += ' disabled';
+            toggleAllCheckboxes(true, prefix);
+        }
 
         for (let i=0; i < mailingTypeChoices.length; i++){
             mailingTypeChoices[i].onchange = () => {
-                let usersSelectButton = document.getElementById(`id_${prefix}-select_users`)
-
-                if (usersSelectButton.className.includes(' disabled')) {
-                    usersSelectButton.className = usersSelectButton.className.replace(RegExp(' disabled'), '')
-                } else {
+                if (mailingTypeChoices[0].checked) {
                     usersSelectButton.className += ' disabled'
                     toggleAllCheckboxes(true, prefix)
+                } else {
+                    usersSelectButton.className = usersSelectButton.className.replace(RegExp(' disabled'), '')
                 }
             }
         }

@@ -102,7 +102,6 @@ EMAIL_HOST_USER = 'letisodianta@gmail.com'
 EMAIL_HOST_PASSWORD = 'Elenberg6007'
 
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
