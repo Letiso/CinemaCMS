@@ -4,7 +4,6 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
-    <link rel="stylesheet" href="{% static 'plugins/datatables-checkboxes/css/dataTables.checkboxes.css' %}">
     <style>
         form input[type='button'][id*='on_delete'] {
             background: none;
@@ -363,31 +362,27 @@
 <!-- DataTables  & Plugins -->
 <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
-<script src="{% static 'plugins/datatables-checkboxes/js/dataTables.checkboxes.min.js' %}"></script>
 
 <!--init DataTable and checkboxes toggle engine-->
 <script>
-    let CHECKED_COUNTER = {};
+    let USERS_TABLE = {}, CHECKED_COUNTER = {};
 
     function initDataTable(prefix) {
         CHECKED_COUNTER[prefix] = 0
 
-        let users_table = $(`#${prefix}-usersList`).DataTable({
+        USERS_TABLE[prefix] = $(`#${prefix}-usersList`).DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
         });
 
         // checkboxes EventListener for the dynamic counter label change
-        const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
+        let checkboxes_list = USERS_TABLE[prefix].rows().nodes()
 
-        for (let i=0; i < checkboxes_list.length; i++) {
-            let user_checkbox = checkboxes_list[i]
-            user_checkbox.onchange = () => {
-                if (user_checkbox.checked) {
-                    CHECKED_COUNTER[prefix]++ } else { CHECKED_COUNTER[prefix]--
-                }
-                document.getElementById(`${prefix}-checked_users`).innerHTML = `${CHECKED_COUNTER[prefix]}`
+         $(`.${prefix}-mailing`, checkboxes_list).on('change', function () {
+            if ($(this).prop("checked")) {
+               CHECKED_COUNTER[prefix]++ } else { CHECKED_COUNTER[prefix]--
             }
-        }
+            document.getElementById(`${prefix}-checked_users`).innerHTML = `${CHECKED_COUNTER[prefix]}`
+         })
         //
 
         let left_header_part = document.getElementById(`${prefix}-usersList_wrapper`).getElementsByClassName('col-sm-12')[0]
@@ -397,24 +392,22 @@
                 <span class="btn btn-light mt-2 ml-3 px-2" onclick="toggleAllCheckboxes(false, '${prefix}')"><i class="fas fa-minus pr-2 text-secondary"></i>Очистить</span>
             </div>
         `
+    }
 
-        return users_table
-        }
 
     function toggleAllCheckboxes(check_all, prefix) {
-        // onePageDataTableItems()
-        const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
+        let checkboxes_list = USERS_TABLE[prefix].rows().nodes()
+        {#console.log(checkboxes_list)#}
 
         if (check_all) {
-            for (let i=0; i < checkboxes_list.length; i++) {
-                checkboxes_list[i].checked = true
-            }
+            $(`.${prefix}-mailing`,checkboxes_list).each(function () {
+                $(this).prop("checked", true);
+            })
             CHECKED_COUNTER[prefix] = checkboxes_list.length
-
         } else {
-            for (let i=0; i < checkboxes_list.length; i++) {
-                checkboxes_list[i].checked = false
-            }
+            $(`.${prefix}-mailing`,checkboxes_list).each(function () {
+                $(this).prop("checked", false);
+            })
             CHECKED_COUNTER[prefix] = 0
         }
 
@@ -519,6 +512,8 @@
 
 <!--ProgressBar-->
 <script>
+    let SOCKET = {};
+
     function initDynamicProgressBar(prefix) {
         SOCKET[prefix] = new WebSocket(`ws://localhost:8000/ws/${prefix}-mailing/`);
         SOCKET[prefix].onmessage = function(event) {
@@ -551,19 +546,18 @@
 <!--init checked_users_list collecting before making POST-->
 <script>
     function initStartMailingButton(prefix) {
-        document.getElementById(`start_${prefix}_mailing`).addEventListener('click', () => {
+        document.getElementById(`start_${prefix}_mailing`).addEventListener('click', (e) => {
+            const checkboxes_list = USERS_TABLE[prefix].rows().nodes();
+            let checked_checkboxes = [];
 
-            const message = document.getElementById(`id_${prefix}-message`).value
-            // onePageDataTableItems(message)
+            $(`.${prefix}-mailing`,checkboxes_list).each(function () {
+                if ($(this).prop("checked")) {
+                    checked_checkboxes.push(parseInt($(this).prop('id').replace(RegExp('user-'), '')));
+                }
+            });
 
-            const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
-            let checked_checkboxes = [...checkboxes_list].filter(checkbox => checkbox.checked)
-
-            for (let i=0; i < checked_checkboxes.length; i++) {
-                checked_checkboxes[i] = parseInt(checked_checkboxes[i].id.replace(RegExp('user-'), ''))
-            }
-            document.getElementById(`id_${prefix}-checked_users`).value = JSON.stringify(checked_checkboxes)
-        })
+            document.getElementById(`id_${prefix}-checked_users`).value = JSON.stringify(checked_checkboxes);
+        });
     }
 </script>
 
@@ -586,7 +580,6 @@
     const SMS_prefix = '{{ forms.SMS.prefix }}' , email_prefix = '{{ forms.email.prefix }}'
     const prefixes = [SMS_prefix, email_prefix];
     let prefix;
-    let SOCKET = {};
 
     initTextSymbolsCounter(SMS_prefix)
 
@@ -596,7 +589,7 @@
     for (let i=0; i < prefixes.length; i++) {
         prefix = prefixes[i];
 
-        let USERS_TABLE = initDataTable(prefix);
+        initDataTable(prefix);
         initSelectUsersButton(prefix);
         initDynamicProgressBar(prefix);
         initStartMailingButton(prefix);
