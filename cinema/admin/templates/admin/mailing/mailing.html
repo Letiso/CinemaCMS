@@ -3,19 +3,21 @@
 {% load crispy_forms_tags %}
 
 {% block stylesheets %}
-<style>
-    form input[type='button'][id*='on_delete'] {
-        background: none;
-        border: none;
-        color: red;
-        text-decoration: none;
-        cursor: pointer;
-        transition: color .35s;
-    }
-    form input[type='button'][id*='on_delete']:hover {
-        color: darkred;
-    }
-</style>
+    <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-checkboxes/css/dataTables.checkboxes.css' %}">
+    <style>
+        form input[type='button'][id*='on_delete'] {
+            background: none;
+            border: none;
+            color: red;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color .35s;
+        }
+        form input[type='button'][id*='on_delete']:hover {
+            color: darkred;
+        }
+    </style>
 {% endblock %}
 
 {% block mailing %}active{% endblock %}
@@ -361,6 +363,7 @@
 <!-- DataTables  & Plugins -->
 <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-checkboxes/js/dataTables.checkboxes.min.js' %}"></script>
 
 <!--init DataTable and checkboxes toggle engine-->
 <script>
@@ -369,7 +372,7 @@
     function initDataTable(prefix) {
         CHECKED_COUNTER[prefix] = 0
 
-        $(`#${prefix}-usersList`).DataTable({
+        let users_table = $(`#${prefix}-usersList`).DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
         });
 
@@ -394,9 +397,12 @@
                 <span class="btn btn-light mt-2 ml-3 px-2" onclick="toggleAllCheckboxes(false, '${prefix}')"><i class="fas fa-minus pr-2 text-secondary"></i>Очистить</span>
             </div>
         `
+
+        return users_table
         }
 
     function toggleAllCheckboxes(check_all, prefix) {
+        // onePageDataTableItems()
         const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
 
         if (check_all) {
@@ -546,6 +552,10 @@
 <script>
     function initStartMailingButton(prefix) {
         document.getElementById(`start_${prefix}_mailing`).addEventListener('click', () => {
+
+            const message = document.getElementById(`id_${prefix}-message`).value
+            // onePageDataTableItems(message)
+
             const checkboxes_list = document.getElementsByClassName(`${prefix}-mailing`)
             let checked_checkboxes = [...checkboxes_list].filter(checkbox => checkbox.checked)
 
@@ -586,7 +596,7 @@
     for (let i=0; i < prefixes.length; i++) {
         prefix = prefixes[i];
 
-        initDataTable(prefix);
+        let USERS_TABLE = initDataTable(prefix);
         initSelectUsersButton(prefix);
         initDynamicProgressBar(prefix);
         initStartMailingButton(prefix);
