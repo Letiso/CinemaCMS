@@ -1,3 +1,4 @@
+import os
 from os import path as os_path
 from pathlib import Path
 
@@ -6,12 +7,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pd+lbd5_w&!a0h-q0h^#65!+l7y$b_p0wjq^ur0iwo-3=qxvx_'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -54,14 +55,12 @@ ROOT_URLCONF = 'cinema.urls'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = os_path.join(BASE_DIR, 'files/static')
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os_path.join(BASE_DIR, 'files/media')
+MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "files/static",
-]
 
 MEDIA_DIRS = [
     BASE_DIR / "files/media",
@@ -90,7 +89,7 @@ ASGI_APPLICATION = 'cinema.asgi.application'
 
 
 # REDIS related settings
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://0.0.0.0:6379/0'
 
 # Email properties
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -98,8 +97,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # TODO new account
-EMAIL_HOST_USER = 'letisodianta@gmail.com'
-EMAIL_HOST_PASSWORD = 'Elenberg6007'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 
 # Database
@@ -108,11 +107,10 @@ EMAIL_HOST_PASSWORD = 'Elenberg6007'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cinema',
-        'USER': 'letiso',
-        'PASSWORD': '1243',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'HOST': os.getenv('DB_HOST'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASS'),
     }
 }
 
@@ -120,7 +118,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': [('127.0.0.1', 6379)],
+            'hosts': [('0.0.0.0', 6379)],
         }
     }
 }

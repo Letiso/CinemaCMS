@@ -546,7 +546,7 @@
 <!--init checked_users_list collecting before making POST-->
 <script>
     function initStartMailingButton(prefix) {
-        document.getElementById(`start_${prefix}_mailing`).addEventListener('click', (e) => {
+        document.getElementById(`start_${prefix}_mailing`).addEventListener('click', () => {
             const checkboxes_list = USERS_TABLE[prefix].rows().nodes();
             let checked_checkboxes = [];
 

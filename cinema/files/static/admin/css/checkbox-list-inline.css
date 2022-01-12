@@ -1,0 +1,5 @@
+.single_choice_checkbox-list div[class="form-check"] {
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    display: inline;
+}

@@ -1,0 +1,20 @@
+table .fas {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    cursor: pointer;
+}
+
+.text-center i.fas{
+    font-size: 25px;
+}
+
+.buttons a.fas {
+    font-size: 19px;
+}
+
+.card-body {
+    overflow-x: scroll;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vw;
+}
