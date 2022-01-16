@@ -515,7 +515,7 @@
     let SOCKET = {};
 
     function initDynamicProgressBar(prefix) {
-        SOCKET[prefix] = new WebSocket(`ws://localhost:8000/ws/${prefix}-mailing/`);
+        SOCKET[prefix] = new WebSocket(`ws://0.0.0.0:8000/ws/${prefix}-mailing/`);
         SOCKET[prefix].onmessage = function(event) {
             let progress = event.data;
             let progress_bar = document.getElementById(`${prefix}-mailing_progress_bar`);

@@ -15,6 +15,3 @@ RUN apk del .tmp-build-deps
 RUN mkdir /cinema
 COPY ./cinema /app
 WORKDIR /app
-
-COPY ./entrypoint.sh /
-ENTRYPOINT ["sh", "/entrypoint.sh"]

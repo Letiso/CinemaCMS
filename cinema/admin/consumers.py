@@ -8,7 +8,7 @@ class MailingConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_add(self.group, self.channel_name)
         await self.accept()
 
-    async def disconnect(self, **kwargs):
+    async def disconnect(self, *args, **kwargs):
         await self.channel_layer.group_discard(self.group, self.channel_name)
 
     async def send_progress(self, event):

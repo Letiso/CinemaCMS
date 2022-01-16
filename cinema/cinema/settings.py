@@ -89,14 +89,15 @@ ASGI_APPLICATION = 'cinema.asgi.application'
 
 
 # REDIS related settings
-CELERY_BROKER_URL = 'redis://0.0.0.0:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+
 
 # Email properties
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-# TODO new account
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
@@ -118,8 +119,8 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': [('0.0.0.0', 6379)],
-        }
+            'hosts': [('redis', 6379)],
+        },
     }
 }
 
@@ -162,5 +163,5 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INTERNAL_IPS = [
-    '127.0.0.1',
+    '0.0.0.0',
 ]
