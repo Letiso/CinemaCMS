@@ -2,19 +2,14 @@
 reload: stop run
 
 run:
-	python3 cinema/manage.py runserver
+	docker-compose up --build
 
+#stop:
+#	sudo fuser -k 8000/tcp
 stop:
-	sudo fuser -k 8000/tcp
+	docker-compose down
 
+# Works only for active containers | You have to run docker first
 migrate:
-	python3 cinema/manage.py makemigrations
-	python3 cinema/manage.py migrate
-
-celery:
-	cd cinema; \
-	  celery --app=cinema worker -l INFO
-
-status:
-	cd cinema; \
-	  celery --app=cinema status
+	docker exec -it cinemacms-daphne-1 python3 cinema/manage.py makemigrations
+	docker exec -it cinemacms-daphne-1 python3 cinema/manage.py migrate
