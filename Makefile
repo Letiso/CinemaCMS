@@ -11,5 +11,8 @@ stop:
 
 # Works only for active containers | You have to run docker first
 migrate:
-	docker exec -it cinemacms-daphne-1 python3 cinema/manage.py makemigrations
-	docker exec -it cinemacms-daphne-1 python3 cinema/manage.py migrate
+	docker exec -it cinemacms-daphne-1 python3 manage.py makemigrations
+	docker exec -it cinemacms-daphne-1 python3 manage.py migrate
+
+su:
+	docker exec -it cinemacms-daphne-1 python3 manage.py createsuperuser
