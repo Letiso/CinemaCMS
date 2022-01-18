@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.db.models import Model
 
 from .forms import *
+from main.models import *
 
 from datetime import date
 
@@ -35,18 +36,8 @@ class StatisticsView(CustomAbstractView):
 # endregion Statistics
 
 # region Banners
-class BannersView(View):
-
-    @staticmethod
-    def get_instance(model, prefix: str = None) -> Model:
-        """
-        {'name': prefix} using for get_or_create BannersCarousel instances
-        {'pk': 1} using for get_or_create BackgroundImage singleton-instance
-        """
-        instance_key = {'name': prefix} if prefix else {'pk': 1}
-
-        instance, created = model.objects.get_or_create(**instance_key)
-        return instance
+class BannersView(CustomAbstractView):
+    template_name = 'admin/banners/index.html'
 
     def get_context(self, request) -> dict:
         def try_to_bound(name) -> dict:
@@ -57,29 +48,30 @@ class BannersView(View):
                 'required_size': TopBannerFormSet.model.required_size,
                 'formset': TopBannerFormSet(**try_to_bound('top_banners'), prefix='top_banners'),
                 'carousel': BannersCarouselForm(**try_to_bound('top_banners'),
-                                                instance=self.get_instance(BannersCarouselForm.Meta.model,
-                                                                           'top_banners'), prefix='top_banners')
+                                                instance=BannersCarousel.objects.get_or_create(pk=1)[0],
+                                                prefix='top_banners')
             },
             'background_image': {
                 'required_size': BackgroundImageForm.Meta.model.required_size,
                 'form': BackgroundImageForm(**try_to_bound('background_image'),
-                                            instance=self.get_instance(BackgroundImageForm.Meta.model),
+                                            instance=BackgroundImage.objects.get_or_create(pk=1)[0],
                                             prefix='background_image'),
             },
             'news_banners': {
                 'required_size': TopBannerFormSet.model.required_size,
                 'formset': NewsBannerFormSet(**try_to_bound('news_banners'), prefix='news_banners'),
                 'carousel': BannersCarouselForm(**try_to_bound('news_banners'),
-                                                instance=self.get_instance(BannersCarouselForm.Meta.model,
-                                                                           'news_banners'), prefix='news_banners')
+                                                instance=BannersCarousel.objects.get_or_create(pk=2)[0],
+                                                prefix='news_banners')
             },
         }
 
-    def get(self, request) -> HttpResponse:
-        return render(request, 'admin/banners/index.html', self.get_context(request))
+    def get(self, request):
+        self.context = self.get_context(request)
+        return super().get(request)
 
     def post(self, request) -> HttpResponse:
-        context = self.get_context(request)
+        self.context = self.get_context(request)
 
         def get_current_form() -> tuple:
             for name in context.keys():
@@ -93,7 +85,7 @@ class BannersView(View):
                 form.save()
             return HttpResponseRedirect('banners')
 
-        return render(request, 'admin/banners/index.html', context)
+        return super().post(request)
 
 
 # endregion Banners

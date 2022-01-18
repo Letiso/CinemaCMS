@@ -30,7 +30,6 @@ class BannersCarousel(models.Model):
         (f'{second}000', f'{second} с') for second in range(1, 10)
     )
 
-    name = models.CharField(max_length=128, unique=True)
     data_interval = models.CharField('Скорость вращения', max_length=4, choices=TIME, default='5000')
     is_active = models.BooleanField(default=False)
 

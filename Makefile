@@ -21,5 +21,8 @@ migrate:
 	docker exec -it cinemacms-daphne-1 python3 manage.py makemigrations
 	docker exec -it cinemacms-daphne-1 python3 manage.py migrate
 
-su:
+db:
+	docker exec -it cinemacms-db-1 psql -U postgres postgres
+
+superuser:
 	docker exec -it cinemacms-daphne-1 python3 manage.py createsuperuser

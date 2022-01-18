@@ -1,8 +1,9 @@
-from django.shortcuts import render
-from .models import (
-    TopBanner, BackgroundImage, NewsBanner, BannersCarousel,
-    MovieCard
-)
+from django.shortcuts import render, get_object_or_404
+from .models import *
+
+def get_or_none(model, pk):
+    try: return model.objects.get(pk=pk)
+    except model.DoesNotExist: pass
 
 
 def index(request):
@@ -10,14 +11,14 @@ def index(request):
         'top_banners': {
             'banners': TopBanner.objects.filter(is_active=True),
             'active_slide': TopBanner.objects.first(),
-            'carousel': BannersCarousel.objects.get(name='top_banners'),
+            'carousel': get_or_none(BannersCarousel, pk=1),
         },
 
-        'background_image': BackgroundImage.objects.get(pk=1),
+        'background_image': get_or_none(BackgroundImage, pk=1),
 
         'news_banners': {
             'banners': NewsBanner.objects.filter(is_active=True),
-            'carousel': BannersCarousel.objects.get(name='news_banners'),  # ?
+            'carousel': get_or_none(BannersCarousel, pk=2),
             'active_slide': NewsBanner.objects.first()
         },
     }
