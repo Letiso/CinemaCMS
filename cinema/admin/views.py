@@ -17,13 +17,20 @@ from cinema.tasks import send_mail
 
 
 class CustomAbstractView(View):
-    template_name = context = None
+    template_name = None
+    context = lambda self, request: {}
+
+    @staticmethod
+    def try_to_bound(name, request) -> dict:
+        return {'data': request.POST, 'files': request.FILES, } if name in request.POST else {}
 
     def get(self, request):
-        return render(request, self.template_name, self.context)
+        return render(request, self.template_name,
+                      self.context(request) if type(self.context) is not dict else self.context)
 
     def post(self, request):
-        return render(request, self.template_name, self.context)
+        return render(request, self.template_name,
+                      self.context(request) if type(self.context) is not dict else self.context)
 
 
 # region Statistics
@@ -39,49 +46,43 @@ class StatisticsView(CustomAbstractView):
 class BannersView(CustomAbstractView):
     template_name = 'admin/banners/index.html'
 
-    def get_context(self, request) -> dict:
-        def try_to_bound(name) -> dict:
-            return {'data': request.POST, 'files': request.FILES, } if name in request.POST else {}
-
-        return {
+    context = lambda self, request: {
             'top_banners': {
-                'required_size': TopBannerFormSet.model.required_size,
-                'formset': TopBannerFormSet(**try_to_bound('top_banners'), prefix='top_banners'),
-                'carousel': BannersCarouselForm(**try_to_bound('top_banners'),
+                'required_size': TopBanner.required_size,
+                'formset': TopBannerFormSet(**self.try_to_bound('top_banners', request), prefix='top_banners'),
+                'carousel': BannersCarouselForm(**self.try_to_bound('top_banners', request),
                                                 instance=BannersCarousel.objects.get_or_create(pk=1)[0],
                                                 prefix='top_banners')
             },
             'background_image': {
-                'required_size': BackgroundImageForm.Meta.model.required_size,
-                'form': BackgroundImageForm(**try_to_bound('background_image'),
+                'required_size': BackgroundImage.required_size,
+                'form': BackgroundImageForm(**self.try_to_bound('background_image', request),
                                             instance=BackgroundImage.objects.get_or_create(pk=1)[0],
                                             prefix='background_image'),
             },
             'news_banners': {
-                'required_size': TopBannerFormSet.model.required_size,
-                'formset': NewsBannerFormSet(**try_to_bound('news_banners'), prefix='news_banners'),
-                'carousel': BannersCarouselForm(**try_to_bound('news_banners'),
+                'required_size': NewsBanner.required_size,
+                'formset': NewsBannerFormSet(**self.try_to_bound('news_banners', request), prefix='news_banners'),
+                'carousel': BannersCarouselForm(**self.try_to_bound('news_banners', request),
                                                 instance=BannersCarousel.objects.get_or_create(pk=2)[0],
                                                 prefix='news_banners')
             },
         }
 
-    def get(self, request):
-        self.context = self.get_context(request)
-        return super().get(request)
+    def get_posted_html_form(self, request) -> tuple:
+        context = self.context
+        for prefix in context.keys():
+            if prefix in request.POST: return (
+                (context[prefix]['formset'], context[prefix]['carousel']) if 'formset' in context[prefix]
+                else (context[prefix]['form'], )
+                )
 
     def post(self, request) -> HttpResponse:
-        self.context = self.get_context(request)
+        self.context = self.context(request)
 
-        def get_current_form() -> tuple:
-            for name in context.keys():
-                if name in request.POST:
-                    return (context[name]['formset'], context[name]['carousel']) \
-                        if 'formset' in context[name] else (context[name]['form'],)
-
-        forms = get_current_form()
-        if False not in [form.is_valid() for form in forms]:
-            for form in forms:
+        posted_forms = self.get_posted_html_form(request)
+        if all([form.is_valid() for form in posted_forms]):
+            for form in posted_forms:
                 form.save()
             return HttpResponseRedirect('banners')
 
