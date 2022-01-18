@@ -5,39 +5,30 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
-
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'channels',
+
+    # custom libs
+    'django_cleanup.apps.CleanupConfig',
+    'crispy_forms',
 
     # custom_apps
     'main',
     'admin',
     'user',
-
-    # custom libs
-    'crispy_forms',
-    'debug_toolbar',
-    'django_cleanup.apps.CleanupConfig',
 ]
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -47,8 +38,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
 
 ROOT_URLCONF = 'cinema.urls'
 
@@ -61,10 +52,10 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os_path.join(BASE_DIR, 'files/media')
 MEDIA_URL = '/media/'
 
-
 MEDIA_DIRS = [
     BASE_DIR / "files/media",
 ]
+
 
 TEMPLATES = [
     {
@@ -83,6 +74,8 @@ TEMPLATES = [
         },
     },
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 WSGI_APPLICATION = 'cinema.wsgi.application'
 ASGI_APPLICATION = 'cinema.asgi.application'
@@ -149,11 +142,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Europe/Kiev'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -162,6 +152,11 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-INTERNAL_IPS = [
-    '0.0.0.0',
-]
+if DEBUG == "True":
+    import socket
+
+    INSTALLED_APPS = INSTALLED_APPS + ['debug_toolbar']
+    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
+
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ['127.0.0.1', '10.0.2.2', '0.0.0.0']
