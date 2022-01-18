@@ -15,11 +15,12 @@ from cinema.tasks import send_mail
 
 
 # region Statistics
-def statistics(request) -> HttpResponse:
-    context = {
-        'title': 'Статистика',
-    }
-    return render(request, 'admin/statistics.html', context)
+class StatisticsView(View):
+    def get(self, request) -> HttpResponse:
+        context = {
+            'title': 'Статистика',
+        }
+        return render(request, 'admin/statistics.html', context)
 
 
 # endregion Statistics
