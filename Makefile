@@ -1,11 +1,13 @@
 
 reload: stop run
+#restart:
+#	docker restart cinemacms-daphne-1
 rebuild: down build
 
 run:
-	docker-compose up
+	docker-compose up -d
 build:
-	docker-compose up --build
+	docker-compose up -d --build
 
 #stop:
 #	sudo fuser -k 8000/tcp

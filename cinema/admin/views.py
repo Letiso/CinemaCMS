@@ -1,4 +1,5 @@
 import json
+from abc import abstractmethod
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import UpdateView, View
@@ -14,14 +15,22 @@ from cinema.tasks import send_mail
 # from user.tests import create_default_users
 
 
-# region Statistics
-class StatisticsView(View):
-    def get(self, request) -> HttpResponse:
-        context = {
-            'title': 'Статистика',
-        }
-        return render(request, 'admin/statistics.html', context)
+class CustomAbstractView(View):
+    template_name = context = None
 
+    def get(self, request):
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
+        return render(request, self.template_name, self.context)
+
+
+# region Statistics
+class StatisticsView(CustomAbstractView):
+    template_name = 'admin/statistics.html'
+
+    # def get(self, request):
+    #     return super().get(request)
 
 # endregion Statistics
 
