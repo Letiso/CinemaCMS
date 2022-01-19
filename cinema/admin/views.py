@@ -418,25 +418,20 @@ class UserDeleteView(View):
 # endregion User
 
 # region Mailing
-class MailingView(View):
-    @staticmethod
-    def get_context(request):
-        def try_to_bind(prefix):
-            return {'data': request.POST, 'files': request.FILES} if prefix in request.POST else {}
-        return {
-            'forms': {
-                'SMS': SendSMSForm(**try_to_bind('SMS')),
-                'email': SendEmailForm(**try_to_bind('email'))
-            },
-            'users': get_user_model().objects.all(),
-            'last_html_messages': EmailMailingHTMLMessage.objects.all(),
-        }
+class MailingView(CustomAbstractView):
+    template_name = 'admin/mailing/mailing.html'
 
-    def get(self, request) -> HttpResponse:
-        return render(request, 'admin/mailing/mailing.html', self.get_context(request))
+    context = lambda self, request: {
+        'forms': {
+            'SMS': SendSMSForm(**self.try_to_bound('SMS', request)),
+            'email': SendEmailForm(**self.try_to_bound('email', request))
+        },
+        'users': get_user_model().objects.all(),
+        'last_html_messages': EmailMailingHTMLMessage.objects.all(),
+    }
 
     def post(self, request) -> HttpResponse:
-        context = self.get_context(request)
+        context = self.context = self.context(request)
 
         for prefix, form in context['forms'].items():
             if prefix in request.POST:
@@ -448,7 +443,7 @@ class MailingView(View):
                     send_mail.delay(prefix, message, receivers_filter)
 
                     return redirect('mailing')
-                return render(request, 'admin/mailing/mailing.html', context)
+                return super().post(request)
 
 
 # endregion Mailing
