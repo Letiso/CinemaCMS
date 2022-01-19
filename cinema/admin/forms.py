@@ -107,7 +107,7 @@ class MovieCardForm(forms.ModelForm):
 
     class Meta:
         model = MovieCard
-        exclude = ('date_created',)
+        exclude = ('date_created', 'seo')
         widgets = {
             'release_date': DateInput(),
         }
@@ -122,7 +122,7 @@ class MovieCardForm(forms.ModelForm):
 class MovieFrameForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = MovieFrame
-        exclude = ('movie',)
+        exclude = ('card',)
 
 
 MovieFrameFormset = modelformset_factory(MovieFrameForm.Meta.model, form=MovieFrameForm,

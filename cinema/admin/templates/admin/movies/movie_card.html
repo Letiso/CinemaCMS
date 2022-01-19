@@ -12,16 +12,16 @@
 
 {% block movies %}active{% endblock %}
 
-{% block current_page %}{{ title }}{% endblock %}
+{% block current_page %}Карточка фильма{% endblock %}
 
 {% block path %}
 <li class="breadcrumb-item"><a href="{% url 'movies' %}">Фильмы</a></li>
-<li class="breadcrumb-item active">{{ title }}</li>
+<li class="breadcrumb-item active">Карточка фильма</li>
 <li class="breadcrumb-item active">{{ pk }}</li>
 {% endblock %}
 
 {% block content %}
-{% with main_image_width=movie.required_size.0 main_image_height=movie.required_size.1  movie_frame_width=gallery.required_size.0 movie_frame_height=gallery.required_size.1 %}
+{% with main_image_width=card.required_size.0 main_image_height=card.required_size.1  movie_frame_width=gallery.required_size.0 movie_frame_height=gallery.required_size.1 %}
 <style>
     .hidden {
         display: none;
@@ -32,7 +32,7 @@
     <div class="card-body" id="released-movies-list">
         <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
             {% csrf_token %}
-            {% with movie.form as form %}
+            {% with card.form as form %}
                 <div class="col-5 p-0">
                     {{ form.title|as_crispy_field }}
                 </div>
@@ -117,10 +117,10 @@
 {% endblock %}
 
 {% block scripts %}
-{% with main_image_width=movie.required_size.0 main_image_height=movie.required_size.1  movie_frame_width=gallery.required_size.0 movie_frame_height=gallery.required_size.1 %}
+{% with main_image_width=card.required_size.0 main_image_height=card.required_size.1  movie_frame_width=gallery.required_size.0 movie_frame_height=gallery.required_size.1 %}
 <script>
     const required_sizes = {
-        '{{ movie.form.prefix }}': ['{{ main_image_width }}', '{{ main_image_height }}'],
+        '{{ card.form.prefix }}': ['{{ main_image_width }}', '{{ main_image_height }}'],
         '{{ gallery.formset.prefix }}': ['{{ movie_frame_width }}', '{{ movie_frame_height }}'],
     }
 </script>

@@ -2,6 +2,15 @@ from django.db import models
 from datetime import date
 from django.utils import timezone
 
+# region SEO
+class SEO(models.Model):
+    url = models.CharField('URL', max_length=256)
+    title = models.CharField('Заголовок', max_length=256)
+    keywords = models.CharField('Ключевые слова', max_length=256)
+    description = models.TextField('Описание', )
+
+
+# endregion SEO
 
 # region Banners
 banners_media_path = 'main/index/banners'
@@ -52,10 +61,11 @@ class MovieCard(models.Model):
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)
+    seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='movie', null=True)
 
 
 class MovieFrame(models.Model):
-    movie = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
+    card = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
     required_size = (1000, 190)
     image = models.ImageField('Кадр из фильма')
     is_active = models.BooleanField('Активен', default=False)
@@ -74,10 +84,11 @@ class NewsCard(models.Model):
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
+    seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='news', null=True)
 
 
 class NewsGallery(models.Model):
-    news = models.ForeignKey(NewsCard, on_delete=models.CASCADE, related_name='gallery')
+    card = models.ForeignKey(NewsCard, on_delete=models.CASCADE, related_name='gallery')
     required_size = (1000, 190)
     image = models.ImageField('Картинка к новости')
     is_active = models.BooleanField('Активен', default=False)
@@ -96,10 +107,11 @@ class PromotionCard(models.Model):
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
+    seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='promotion', null=True)
 
 
 class PromotionGallery(models.Model):
-    promotion = models.ForeignKey(PromotionCard, on_delete=models.CASCADE, related_name='gallery')
+    card = models.ForeignKey(PromotionCard, on_delete=models.CASCADE, related_name='gallery')
     required_size = (1000, 190)
     image = models.ImageField('Картинка к акции')
     is_active = models.BooleanField('Активен', default=False)
@@ -115,6 +127,7 @@ class MainPageCard(models.Model):
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
+    seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='main_page', null=True)
 
 
 class PageCard(models.Model):
@@ -125,10 +138,11 @@ class PageCard(models.Model):
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
+    seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='page', null=True)
 
 
 class PageGallery(models.Model):
-    page = models.ForeignKey(PageCard, on_delete=models.CASCADE, related_name='gallery')
+    card = models.ForeignKey(PageCard, on_delete=models.CASCADE, related_name='gallery')
     required_size = (1000, 190)
     image = models.ImageField('Картинка к акции')
 
@@ -144,6 +158,7 @@ class ContactsPageCard(models.Model):
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)
+    seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='contacts_page', null=True)
 
 
 # endregion Pages
@@ -156,21 +171,3 @@ class EmailMailingHTMLMessage(models.Model):
 
 
 # endregion Mailing
-
-# region SEO
-class SEO(models.Model):
-    movie = models.OneToOneField(MovieCard, on_delete=models.CASCADE, related_name='seo', null=True)
-    news = models.OneToOneField(NewsCard, on_delete=models.CASCADE, related_name='seo', null=True)
-    promotion = models.OneToOneField(PromotionCard, on_delete=models.CASCADE, related_name='seo', null=True)
-
-    main_page = models.OneToOneField(MainPageCard, on_delete=models.CASCADE, related_name='seo', null=True)
-    page = models.OneToOneField(PageCard, on_delete=models.CASCADE, related_name='seo', null=True)
-    contacts_page = models.OneToOneField(ContactsPageCard, on_delete=models.CASCADE, related_name='seo', null=True)
-
-    url = models.CharField('URL', max_length=256)
-    title = models.CharField('Заголовок', max_length=256)
-    keywords = models.CharField('Ключевые слова', max_length=256)
-    description = models.TextField('Описание', )
-
-
-# endregion SEO

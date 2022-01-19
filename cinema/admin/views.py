@@ -18,20 +18,50 @@ from cinema.tasks import send_mail
 
 class CustomAbstractView(View):
     template_name = None
-    context = lambda self, request: {}
+    context = lambda self, request, *args, **kwargs: {}
 
     @staticmethod
-    def try_to_bound(name, request) -> dict:
-        return {'data': request.POST, 'files': request.FILES, } if name in request.POST else {}
+    def try_to_bound(prefix, request) -> dict:
+        return {'data': request.POST, 'files': request.FILES, } if prefix in request.POST else {}
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
         return render(request, self.template_name,
-                      self.context(request) if type(self.context) is not dict else self.context)
+                      self.context(request, *args, **kwargs) if type(self.context) is not dict else self.context)
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs) -> HttpResponse:
         return render(request, self.template_name,
-                      self.context(request) if type(self.context) is not dict else self.context)
+                      self.context(request, args, kwargs) if type(self.context) is not dict else self.context)
 
+
+class CardView(CustomAbstractView):
+    success_url = None
+
+    @staticmethod
+    def save(card, gallery, seo):
+        if all([form.is_valid() for form in (card, gallery, seo)]):
+            seo.save()
+
+            card = card.save(commit=False)
+            card.seo = seo.instance
+            card.save()
+
+            for image in gallery:
+                if image.is_valid():
+                    image = image.save(commit=False)
+                    image.card = card
+            gallery.save()
+
+            return True
+
+    def post(self, request, pk, *args, **kwargs) -> HttpResponse:
+        context = self.context = self.context(request, pk, *args, **kwargs)
+
+        card, gallery, seo = context['card']['form'], context['gallery']['formset'], context['seo']['form']
+
+        if self.save(card, gallery, seo):
+            return redirect(self.success_url)
+
+        return super().post(request, pk, *args, **kwargs)
 
 # region Statistics
 class StatisticsView(CustomAbstractView):
@@ -47,27 +77,27 @@ class BannersView(CustomAbstractView):
     template_name = 'admin/banners/index.html'
 
     context = lambda self, request: {
-            'top_banners': {
-                'required_size': TopBanner.required_size,
-                'formset': TopBannerFormSet(**self.try_to_bound('top_banners', request), prefix='top_banners'),
-                'carousel': BannersCarouselForm(**self.try_to_bound('top_banners', request),
-                                                instance=BannersCarousel.objects.get_or_create(pk=1)[0],
-                                                prefix='top_banners')
-            },
-            'background_image': {
-                'required_size': BackgroundImage.required_size,
-                'form': BackgroundImageForm(**self.try_to_bound('background_image', request),
-                                            instance=BackgroundImage.objects.get_or_create(pk=1)[0],
-                                            prefix='background_image'),
-            },
-            'news_banners': {
-                'required_size': NewsBanner.required_size,
-                'formset': NewsBannerFormSet(**self.try_to_bound('news_banners', request), prefix='news_banners'),
-                'carousel': BannersCarouselForm(**self.try_to_bound('news_banners', request),
-                                                instance=BannersCarousel.objects.get_or_create(pk=2)[0],
-                                                prefix='news_banners')
-            },
-        }
+        'top_banners': {
+            'required_size': TopBanner.required_size,
+            'formset': TopBannerFormSet(**self.try_to_bound('top_banners', request), prefix='top_banners'),
+            'carousel': BannersCarouselForm(**self.try_to_bound('top_banners', request),
+                                            instance=BannersCarousel.objects.get_or_create(pk=1)[0],
+                                            prefix='top_banners')
+        },
+        'background_image': {
+            'required_size': BackgroundImage.required_size,
+            'form': BackgroundImageForm(**self.try_to_bound('background_image', request),
+                                        instance=BackgroundImage.objects.get_or_create(pk=1)[0],
+                                        prefix='background_image'),
+        },
+        'news_banners': {
+            'required_size': NewsBanner.required_size,
+            'formset': NewsBannerFormSet(**self.try_to_bound('news_banners', request), prefix='news_banners'),
+            'carousel': BannersCarouselForm(**self.try_to_bound('news_banners', request),
+                                            instance=BannersCarousel.objects.get_or_create(pk=2)[0],
+                                            prefix='news_banners')
+        },
+    }
 
     def get_posted_html_form(self, request) -> tuple:
         context = self.context
@@ -92,76 +122,46 @@ class BannersView(CustomAbstractView):
 # endregion Banners
 
 # region Movies
-class MoviesView(View):
-    @staticmethod
-    def get_context() -> dict:
-        order = '-date_created'
-        return {
-            'title': 'Фильмы',
-            'releases': MovieCardForm.Meta.model.objects.filter(is_active=True,
-                                                                release_date__lte=date.today()).order_by(order),
-            'announcements': MovieCardForm.Meta.model.objects.filter(is_active=True,
-                                                                     release_date__gt=date.today()).order_by(order),
-            'inactive_cards': MovieCardForm.Meta.model.objects.exclude(is_active=True).order_by(order),
-        }
+class MoviesView(CustomAbstractView):
+    template_name = 'admin/movies/index.html'
 
-    def get(self, request) -> HttpResponse:
-        return render(request, 'admin/movies/index.html', self.get_context())
+    order = '-date_created'
+    context = lambda self, request: {
+        'releases': MovieCard.objects.filter(
+            is_active=True,release_date__lte=date.today()).order_by(self.order),
+        'announcements': MovieCard.objects.filter(
+            is_active=True, release_date__gt=date.today()).order_by(self.order),
+        'inactive_cards': MovieCard.objects.exclude(
+            is_active=True).order_by(self.order),
+    }
 
 
-class MovieCardView(View):
+class MovieCardView(CardView):
+    template_name = 'admin/movies/movie_card.html'
+    success_url = 'movies'
 
-    @staticmethod
-    def get_context(request, pk: str) -> dict:
-        return {
-            'pk': pk,
-            'title': 'Карточка фильма',
-            'movie': {
-                'form': MovieCardForm(request.POST or None, request.FILES or None,
-                                      instance=get_object_or_404(MovieCardForm.Meta.model, pk=int(pk))
-                                      if pk.isdigit() else None,
-                                      prefix='movie'),
-                'required_size': MovieCardForm.Meta.model.required_size,
-            },
-            'gallery': {
-                'formset': MovieFrameFormset(request.POST or None, request.FILES or None,
-                                             prefix='movie_frames',
-                                             queryset=MovieFrameFormset.model.objects.filter(movie_id=int(pk))
-                                             if pk.isdigit() else MovieFrameFormset.model.objects.none()),
-                'required_size': MovieFrameFormset.model.required_size,
-            },
-            'seo': {
-                'form': SEOForm(request.POST or None,
-                                instance=get_object_or_404(SEOForm.Meta.model, movie_id=int(pk))
-                                if pk.isdigit() else None,
-                                prefix='seo'),
-            },
-            'currentUrl': request.get_full_path(),
-        }
-
-    def get(self, request, pk: str) -> HttpResponse:
-        return render(request, 'admin/movies/movie_card.html', self.get_context(request, pk))
-
-    def post(self, request, pk: str) -> HttpResponse:
-        context = self.get_context(request, pk)
-        movie, gallery, seo = context['movie']['form'], context['gallery']['formset'], context['seo']['form']
-
-        if False not in [movie.is_valid(), gallery.is_valid(), seo.is_valid()]:
-            movie.save()
-
-            for movie_frame in gallery:
-                if movie_frame.is_valid():
-                    movie_frame = movie_frame.save(commit=False)
-                    movie_frame.movie = movie.instance
-            gallery.save()
-
-            seo = seo.save(commit=False)
-            seo.movie = movie.instance
-            seo.save()
-
-            return redirect('movies')
-
-        return render(request, 'admin/movies/movie_card.html', context)
+    context = lambda self, request, pk: {
+        'pk': pk,
+        'card': {
+            'form': MovieCardForm(request.POST or None, request.FILES or None,
+                                  instance=get_object_or_404(MovieCard, pk=int(pk)) if pk.isdigit() else None,
+                                  prefix='movie'),
+            'required_size': MovieCard.required_size,
+        },
+        'gallery': {
+            'formset': MovieFrameFormset(request.POST or None, request.FILES or None,
+                                         prefix='movie_frames',
+                                         queryset=MovieFrame.objects.filter(card_id=int(pk)) if pk.isdigit()
+                                         else MovieFrame.objects.none()),
+            'required_size': MovieFrame.required_size,
+        },
+        'seo': {
+            'form': SEOForm(request.POST or None,
+                            instance=get_object_or_404(SEO, movie=int(pk)) if pk.isdigit() else None,
+                            prefix='seo'),
+        },
+        'currentUrl': request.get_full_path(),
+    }
 
 
 # endregion Movies
@@ -183,7 +183,7 @@ class NewsView(View):
         return {
             'title': 'Новости',
             'table_labels': ['ID', 'Название', 'Дата создания', 'Статус', 'Редактировать'],
-            'news_list': NewsCardForm.Meta.model.objects.all(),
+            'news_list': NewsCard.objects.all(),
         }
 
     def get(self, request) -> HttpResponse:
@@ -225,20 +225,20 @@ class NewsCardView(View):
 
     def post(self, request, pk: str) -> HttpResponse:
         context = self.get_context(request, pk)
-        news, gallery, seo = context['news']['form'], context['gallery']['formset'], context['seo']['form']
+        card, gallery, seo = context['news']['form'], context['gallery']['formset'], context['seo']['form']
 
-        if False not in [news.is_valid(), gallery.is_valid(), seo.is_valid()]:
-            news.save()
-
-            for news_image in gallery:
-                if news_image.is_valid():
-                    news_image = news_image.save(commit=False)
-                    news_image.news = news.instance
-            gallery.save()
-
-            seo = seo.save(commit=False)
-            seo.news = news.instance
+        if all([form.is_valid() for form in (card, gallery, seo)]):
             seo.save()
+
+            card = card.save(commit=False)
+            card.seo = seo.instance
+            card.save()
+
+            for image in gallery:
+                if image.is_valid():
+                    image = image.save(commit=False)
+                    image.card = card
+            gallery.save()
 
             return redirect('news_conf')
 
