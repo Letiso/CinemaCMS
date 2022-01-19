@@ -343,41 +343,39 @@ class PageCardView(CardView):
         }
 
 
-class ContactsPageCardView(View):
-    @staticmethod
-    def get_context(request, pk=1) -> dict:
-        return {
+class ContactsPageCardView(CustomAbstractView):
+    template_name = 'admin/pages/contacts_page_card.html'
+
+    context = lambda self, request, pk=1: {
             'title': 'Карточка страницы контактов',
-            'page': {
+            'card': {
                 'formset': ContactsPageCardFormset(request.POST or None, request.FILES or None, prefix='contacts_page'),
                 'required_size': ContactsPageCardFormset.model.required_size,
             },
             'seo': {
                 'form': SEOForm(request.POST or None,
-                                instance=get_object_or_404(SEOForm.Meta.model, contacts_page_id=pk)
-                                if SEOForm.Meta.model.objects.filter(contacts_page_id=pk).exists() else None,
+                                instance=instance if (instance :=
+                                                      SEO.objects.filter(contacts_page=pk).first()) else None,
                                 prefix='seo'),
             },
             'currentUrl': request.get_full_path(),
         }
 
-    def get(self, request) -> HttpResponse:
-        return render(request, 'admin/pages/contacts_page_card.html', self.get_context(request))
-
     def post(self, request) -> HttpResponse:
-        context = self.get_context(request, pk=1)
-        page, seo = context['page']['formset'], context['seo']['form']
+        context = self.context = self.context(request)
+        card, seo = context['card']['formset'], context['seo']['form']
 
-        if False not in [page.is_valid(), seo.is_valid()]:
-            page.save()
-
-            seo = seo.save(commit=False)
-            seo.contacts_page = page[0].instance
+        if all([card.is_valid(), seo.is_valid()]):
             seo.save()
+
+            first_contacts_block = card[0].save(commit=False)
+            first_contacts_block.seo = seo.instance
+            first_contacts_block.save()
+            card.save()
 
             return redirect('pages')
 
-        return render(request, 'admin/pages/index.html', context)
+        return super().post(request)
 
 
 class PageCardDeleteView(View):
