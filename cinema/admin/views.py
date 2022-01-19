@@ -390,19 +390,12 @@ class PageCardDeleteView(View):
 # endregion Pages
 
 # region User
-class UsersView(View):
-    @staticmethod
-    def get_context():
-        return {
-            'title': 'Пользователи',
-            'table_labels': ['ID', 'Логин', 'Email', 'Номер телефона',
-                             'Имя', 'Фамилия', 'Пол', 'Язык', 'Дата рождения', 'Адрес', 'Был(а)',
-                             'Регистрация', 'Сотрудник', 'Админ', 'Ред.'],
+class UsersView(CustomAbstractView):
+    template_name = 'admin/users/users.html'
+
+    context = lambda self, request: {
             'users': get_user_model().objects.all(),
         }
-
-    def get(self, request) -> HttpResponse:
-        return render(request, 'admin/users/users.html', self.get_context())
 
 
 class UserUpdateView(UpdateView):
@@ -414,7 +407,6 @@ class UserUpdateView(UpdateView):
 
 
 class UserDeleteView(View):
-
     @staticmethod
     def get(request, pk) -> HttpResponseRedirect:
         model = get_user_model()

@@ -9,10 +9,10 @@
 
 {% block users %}active{% endblock %}
 
-{% block current_page %}{{ title }}{% endblock %}
+{% block current_page %}Пользователи{% endblock %}
 
 {% block path %}
-<li class="breadcrumb-item active">{{ title }}</li>
+<li class="breadcrumb-item active">Пользователи</li>
 {% endblock %}
 
 {% block content %}
@@ -23,9 +23,21 @@
         <table id="usersList" class="table table-bordered table-striped">
           <thead>
              <tr>
-                 {% for column_title in table_labels %}
-                    <th>{{ column_title }}</th>
-                 {% endfor %}
+                 <th>ID</th>
+                 <th>Логин</th>
+                 <th>Email</th>
+                 <th>Номер телефона</th>
+                 <th>Имя</th>
+                 <th>Фамилия</th>
+                 <th>Пол</th>
+                 <th>Язык</th>
+                 <th>Дата рождения</th>
+                 <th>Адрес</th>
+                 <th>Был(а)</th>
+                 <th>Регистрация</th>
+                 <th>Сотрудник</th>
+                 <th>Админ</th>
+                 <th>Ред.</th>
              </tr>
           </thead>
           <tbody>
