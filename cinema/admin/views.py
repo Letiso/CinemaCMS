@@ -36,30 +36,33 @@ class CustomAbstractView(View):
 
 class CardView(CustomAbstractView):
     success_url = None
+    contains_gallery = True
 
     @staticmethod
-    def save(card, gallery, seo):
-        if all([form.is_valid() for form in (card, gallery, seo)]):
+    def save(card, seo, gallery=None):
+        if all([form.is_valid() for form in (card, seo, gallery) if form]):
             seo.save()
 
             card = card.save(commit=False)
             card.seo = seo.instance
             card.save()
 
-            for image in gallery:
-                if image.is_valid():
-                    image = image.save(commit=False)
-                    image.card = card
-            gallery.save()
+            if gallery:
+                for image in gallery:
+                    if image.is_valid():
+                        image = image.save(commit=False)
+                        image.card = card
+                gallery.save()
 
             return True
 
-    def post(self, request, pk, *args, **kwargs) -> HttpResponse:
-        context = self.context = self.context(request, pk, *args, **kwargs)
+    def post(self, request, *args, **kwargs) -> HttpResponse:
+        context = self.context = self.context(request, *args, **kwargs)
 
-        card, gallery, seo = context['card']['form'], context['gallery']['formset'], context['seo']['form']
+        to_save = (context['card']['form'], context['seo']['form'],
+                   context['gallery']['formset'] if self.contains_gallery else None)
 
-        if self.save(card, gallery, seo):
+        if self.save(*to_save):
             return redirect(self.success_url)
 
         return super().post(request, pk, *args, **kwargs)
@@ -266,8 +269,7 @@ class PromotionCardView(CardView):
 class PromotionCardDeleteView(View):
     @staticmethod
     def get(request, pk) -> HttpResponseRedirect:
-        model = PromotionCardForm.Meta.model
-        promotion_to_delete = get_object_or_404(model, pk=pk)
+        promotion_to_delete = get_object_or_404(PromotionCard, pk=pk)
         promotion_to_delete.delete()
         return redirect('promotion_conf')
 
@@ -275,63 +277,41 @@ class PromotionCardDeleteView(View):
 # endregion Promotion
 
 # region Pages
-class PageListView(View):
-    @staticmethod
-    def get_context() -> dict:
-        primary_pages = ('О кинотеатре', 'Кафе - Бар', 'VIP - зал', 'Реклама', 'Детская комната',)
+class PageListView(CustomAbstractView):
+    template_name = 'admin/pages/index.html'
 
-        return {
-            'title': 'Страницы',
-            'table_labels': ['Название', 'Дата создания', 'Статус', 'Редактировать'],
-            'main_page': MainPageCardForm.Meta.model.objects.get_or_create(pk=1, title='Главная страница')[0],
-            'primary_page_list': [
-                PageCardForm.Meta.model.objects.get_or_create(pk=pk, title=title)[0]
-                for pk, title in enumerate(primary_pages)
-            ],
-            'contacts_page': ContactsPageCardFormset.model.objects.get_or_create(pk=1, title='Контакты')[0],
-            'custom_page_list': PageCardForm.Meta.model.objects.exclude(id__in=list(range(len(primary_pages)))),
-        }
+    primary_pages = ('О кинотеатре', 'Кафе - Бар', 'VIP - зал', 'Реклама', 'Детская комната', )
 
-    def get(self, request) -> HttpResponse:
-        return render(request, 'admin/pages/index.html', self.get_context())
+    context = lambda self, request: {
+        'main_page': MainPageCard.objects.get_or_create(pk=1, title='Главная страница')[0],
+        'primary_page_list': [
+            PageCard.objects.get_or_create(pk=pk, title=title)[0] for pk, title in enumerate(self.primary_pages)
+        ],
+        'contacts_page': ContactsPageCard.objects.get_or_create(pk=1, title='Контакты')[0],
+        'custom_page_list': PageCard.objects.exclude(id__in=list(range(
+            len(self.primary_pages)
+        ))), # exclude *primary_page_list* from queryset by creating [0, 1, 2, ...]
+    }
 
 
-class MainPageCardView(View):
-    @staticmethod
-    def get_context(request, pk=1) -> dict:
-        return {
-            'title': 'Карточка главной страницы',
-            'page': {
-                'form': MainPageCardForm(request.POST or None, request.FILES or None,
-                                         instance=get_object_or_404(MainPageCardForm.Meta.model, pk=pk),
-                                         prefix='main_page'),
-            },
-            'seo': {
-                'form': SEOForm(request.POST or None,
-                                instance=get_object_or_404(SEOForm.Meta.model, main_page_id=pk)
-                                if SEOForm.Meta.model.objects.filter(main_page_id=pk).exists() else None,
-                                prefix='seo'),
-            },
-            'currentUrl': request.get_full_path(),
-        }
+class MainPageCardView(CardView):
+    template_name = 'admin/pages/main_page_card.html'
+    success_url = 'pages'
+    contains_gallery = False
 
-    def get(self, request) -> HttpResponse:
-        return render(request, 'admin/pages/main_page_card.html', self.get_context(request))
-
-    def post(self, request) -> HttpResponse:
-        context = self.get_context(request, pk=1)
-        page, seo = context['page']['form'], context['seo']['form']
-
-        if False not in [page.is_valid(), seo.is_valid()]:
-            page.save()
-
-            seo = seo.save(commit=False)
-            seo.main_page = page.instance
-            seo.save()
-
-            return redirect('pages')
-
-        return render(request, 'admin/pages/index.html', context)
+    context = lambda self, request, pk=1: {
+        'card': {
+            'form': MainPageCardForm(request.POST or None, instance=get_object_or_404(MainPageCard, pk=pk),
+                                     prefix='main_page'),
+        },
+        'seo': {
+            'form': SEOForm(request.POST or None,
+                            instance=instance if (instance :=
+                                                  SEO.objects.filter(main_page=pk).first())
+                            else None, prefix='seo'),
+        },
+        'currentUrl': request.get_full_path(),
+    }
 
 
 class PageCardView(View):
