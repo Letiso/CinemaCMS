@@ -307,66 +307,40 @@ class MainPageCardView(CardView):
         'seo': {
             'form': SEOForm(request.POST or None,
                             instance=instance if (instance :=
-                                                  SEO.objects.filter(main_page=pk).first())
-                            else None, prefix='seo'),
+                                                  SEO.objects.filter(main_page=pk).first()) else None,
+                            prefix='seo'),
         },
         'currentUrl': request.get_full_path(),
     }
 
 
-class PageCardView(View):
+class PageCardView(CardView):
+    template_name = 'admin/pages/page_card.html'
+    success_url = 'pages'
 
-    @staticmethod
-    def get_context(request, pk: str) -> dict:
-        return {
+    context = lambda self, request, pk: {
             'pk': pk,
-            'title': 'Карточка страницы',
-            'page': {
+            'card': {
                 'form': PageCardForm(request.POST or None, request.FILES or None,
-                                     instance=get_object_or_404(PageCardForm.Meta.model, pk=int(pk))
-                                     if pk.isdigit() else None,
+                                     instance=get_object_or_404(PageCard, pk=int(pk)) if pk.isdigit() else None,
                                      prefix='page'),
-                'required_size': PageCardForm.Meta.model.required_size,
+                'required_size': PageCard.required_size,
             },
             'gallery': {
                 'formset': PageGalleryFormset(request.POST or None, request.FILES or None,
                                               prefix='page_image',
-                                              queryset=PageGalleryFormset.model.objects.filter(page_id=int(pk))
-                                              if pk.isdigit() else PageGalleryFormset.model.objects.none()),
-                'required_size': PageGalleryFormset.model.required_size,
+                                              queryset=PageGallery.objects.filter(card_id=int(pk)) if pk.isdigit()
+                                              else PageGallery.objects.none()),
+                'required_size': PageGallery.required_size,
             },
             'seo': {
                 'form': SEOForm(request.POST or None,
-                                instance=get_object_or_404(SEOForm.Meta.model, page_id=int(pk))
-                                if pk.isdigit() and SEOForm.Meta.model.objects.filter(page_id=pk).exists() else None,
+                                instance=instance if (instance :=
+                                                      SEO.objects.filter(page=pk).first()) else None,
                                 prefix='seo'),
             },
             'currentUrl': request.get_full_path(),
         }
-
-    def get(self, request, pk: str) -> HttpResponse:
-        return render(request, 'admin/pages/page_card.html', self.get_context(request, pk))
-
-    def post(self, request, pk: str) -> HttpResponse:
-        context = self.get_context(request, pk)
-        page, gallery, seo = context['page']['form'], context['gallery']['formset'], context['seo']['form']
-
-        if False not in [page.is_valid(), gallery.is_valid(), seo.is_valid()]:
-            page.save()
-
-            for page_image in gallery:
-                if page_image.is_valid():
-                    page_image = page_image.save(commit=False)
-                    page_image.page = page.instance
-            gallery.save()
-
-            seo = seo.save(commit=False)
-            seo.page = page.instance
-            seo.save()
-
-            return redirect('pages')
-
-        return render(request, 'admin/pages/index.html', context)
 
 
 class ContactsPageCardView(View):
