@@ -135,7 +135,7 @@ MovieFrameFormset = modelformset_factory(MovieFrameForm.Meta.model, form=MovieFr
 class NewsCardForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = NewsCard
-        exclude = ('date_created',)
+        exclude = ('date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
@@ -148,7 +148,7 @@ class NewsCardForm(ImageValidationMixin, forms.ModelForm):
 class NewsGalleryForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = NewsGallery
-        exclude = ('news',)
+        exclude = ('card',)
 
 
 NewsGalleryFormset = modelformset_factory(NewsGalleryForm.Meta.model, form=NewsGalleryForm,
@@ -161,7 +161,7 @@ NewsGalleryFormset = modelformset_factory(NewsGalleryForm.Meta.model, form=NewsG
 class PromotionCardForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = PromotionCard
-        exclude = ('date_created',)
+        exclude = ('date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
@@ -174,7 +174,7 @@ class PromotionCardForm(ImageValidationMixin, forms.ModelForm):
 class PromotionGalleryForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = PromotionGallery
-        exclude = ('promotion',)
+        exclude = ('card',)
 
 
 PromotionGalleryFormset = modelformset_factory(PromotionGalleryForm.Meta.model, form=PromotionGalleryForm,
@@ -187,7 +187,7 @@ PromotionGalleryFormset = modelformset_factory(PromotionGalleryForm.Meta.model, 
 class MainPageCardForm(forms.ModelForm):
     class Meta:
         model = MainPageCard
-        exclude = ('date_created',)
+        exclude = ('date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
@@ -198,7 +198,7 @@ class MainPageCardForm(forms.ModelForm):
 class PageCardForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = PageCard
-        exclude = ('date_created',)
+        exclude = ('date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
@@ -209,7 +209,7 @@ class PageCardForm(ImageValidationMixin, forms.ModelForm):
 class PageGalleryForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = PageGallery
-        exclude = ('page',)
+        exclude = ('card',)
 
 
 PageGalleryFormset = modelformset_factory(PageGalleryForm.Meta.model, form=PageGalleryForm,
@@ -219,7 +219,7 @@ PageGalleryFormset = modelformset_factory(PageGalleryForm.Meta.model, form=PageG
 class ContactsPageCardForm(forms.ModelForm):
     class Meta:
         model = ContactsPageCard
-        exclude = ('date_created',)
+        exclude = ('date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',

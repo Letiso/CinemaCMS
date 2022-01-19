@@ -16,6 +16,7 @@ from cinema.tasks import send_mail
 # from user.tests import create_default_users
 
 
+# region Mixins
 class CustomAbstractView(View):
     template_name = None
     context = lambda self, request, *args, **kwargs: {}
@@ -63,12 +64,13 @@ class CardView(CustomAbstractView):
 
         return super().post(request, pk, *args, **kwargs)
 
+
+# endregion Mixins
+
 # region Statistics
 class StatisticsView(CustomAbstractView):
     template_name = 'admin/statistics.html'
 
-    # def get(self, request):
-    #     return super().get(request)
 
 # endregion Statistics
 
@@ -128,7 +130,7 @@ class MoviesView(CustomAbstractView):
     order = '-date_created'
     context = lambda self, request: {
         'releases': MovieCard.objects.filter(
-            is_active=True,release_date__lte=date.today()).order_by(self.order),
+            is_active=True, release_date__lte=date.today()).order_by(self.order),
         'announcements': MovieCard.objects.filter(
             is_active=True, release_date__gt=date.today()).order_by(self.order),
         'inactive_cards': MovieCard.objects.exclude(
@@ -157,7 +159,8 @@ class MovieCardView(CardView):
         },
         'seo': {
             'form': SEOForm(request.POST or None,
-                            instance=get_object_or_404(SEO, movie=int(pk)) if pk.isdigit() else None,
+                            instance=get_object_or_404(SEO, movie=int(pk)) if pk.isdigit()
+                            else None,
                             prefix='seo'),
         },
         'currentUrl': request.get_full_path(),
@@ -167,89 +170,54 @@ class MovieCardView(CardView):
 # endregion Movies
 
 # region Cinemas
-def cinemas(request) -> HttpResponse:
-    context = {
-        'title': 'Кинотеатры',
-    }
-    return render(request, 'admin/cinemas.html', context)
+class CinemasView(CustomAbstractView):
+    template_name = 'admin/cinemas.html'
 
 
 # endregion Cinemas
 
 # region News
-class NewsView(View):
-    @staticmethod
-    def get_context() -> dict:
-        return {
-            'title': 'Новости',
-            'table_labels': ['ID', 'Название', 'Дата создания', 'Статус', 'Редактировать'],
-            'news_list': NewsCard.objects.all(),
-        }
+class NewsView(CustomAbstractView):
+    template_name = 'admin/news/index.html'
 
-    def get(self, request) -> HttpResponse:
-        return render(request, 'admin/news/index.html', self.get_context())
+    context = {
+        'news_list': NewsCard.objects.all(),
+    }
 
 
-class NewsCardView(View):
+class NewsCardView(CardView):
+    template_name = 'admin/news/news_card.html'
+    success_url = 'news_conf'
 
-    @staticmethod
-    def get_context(request, pk: str) -> dict:
-        return {
-            'pk': pk,
-            'title': 'Карточка новости',
-            'news': {
-                'form': NewsCardForm(request.POST or None, request.FILES or None,
-                                     instance=get_object_or_404(NewsCardForm.Meta.model, pk=int(pk))
-                                     if pk.isdigit() else None,
-                                     prefix='news'),
-                'required_size': NewsCardForm.Meta.model.required_size,
-            },
-            'gallery': {
-                'formset': NewsGalleryFormset(request.POST or None, request.FILES or None,
-                                              prefix='news_image',
-                                              queryset=NewsGalleryFormset.model.objects.filter(news_id=int(pk))
-                                              if pk.isdigit() else NewsGalleryFormset.model.objects.none()),
-                'required_size': NewsGalleryFormset.model.required_size,
-            },
-            'seo': {
-                'form': SEOForm(request.POST or None,
-                                instance=get_object_or_404(SEOForm.Meta.model, news_id=int(pk))
-                                if pk.isdigit() else None,
-                                prefix='seo'),
-            },
-            'currentUrl': request.get_full_path(),
-        }
-
-    def get(self, request, pk: str) -> HttpResponse:
-        return render(request, 'admin/news/news_card.html', self.get_context(request, pk))
-
-    def post(self, request, pk: str) -> HttpResponse:
-        context = self.get_context(request, pk)
-        card, gallery, seo = context['news']['form'], context['gallery']['formset'], context['seo']['form']
-
-        if all([form.is_valid() for form in (card, gallery, seo)]):
-            seo.save()
-
-            card = card.save(commit=False)
-            card.seo = seo.instance
-            card.save()
-
-            for image in gallery:
-                if image.is_valid():
-                    image = image.save(commit=False)
-                    image.card = card
-            gallery.save()
-
-            return redirect('news_conf')
-
-        return render(request, 'admin/news/index.html', context)
+    context = lambda self, request, pk: {
+        'pk': pk,
+        'card': {
+            'form': NewsCardForm(request.POST or None, request.FILES or None,
+                                 instance=get_object_or_404(NewsCard, pk=int(pk)) if pk.isdigit() else None,
+                                 prefix='news'),
+            'required_size': NewsCard.required_size,
+        },
+        'gallery': {
+            'formset': NewsGalleryFormset(request.POST or None, request.FILES or None,
+                                          prefix='news_image',
+                                          queryset=NewsGallery.objects.filter(card_id=int(pk)) if pk.isdigit()
+                                          else NewsGallery.objects.none()),
+            'required_size': NewsGallery.required_size,
+        },
+        'seo': {
+            'form': SEOForm(request.POST or None,
+                            instance=get_object_or_404(SEO, news=int(pk)) if pk.isdigit()
+                            else None,
+                            prefix='seo'),
+        },
+        'currentUrl': request.get_full_path(),
+    }
 
 
 class NewsCardDeleteView(View):
     @staticmethod
     def get(request, pk) -> HttpResponseRedirect:
-        model = NewsCardForm.Meta.model
-        news_to_delete = get_object_or_404(model, pk=pk)
+        news_to_delete = get_object_or_404(NewsCard, pk=pk)
         news_to_delete.delete()
         return redirect('news_conf')
 

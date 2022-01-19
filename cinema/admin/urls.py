@@ -9,7 +9,7 @@ urlpatterns = [
     path('movies', views.MoviesView.as_view(), name="movies"),
     path('movie_card/<str:pk>', views.MovieCardView.as_view(), name="movie_card"),
 
-    path('cinemas', views.cinemas, name="cinemas_conf"),
+    path('cinemas', views.CinemasView.as_view(), name="cinemas_conf"),
 
     path('news', views.NewsView.as_view(), name="news_conf"),
     path('news_card/<str:pk>', views.NewsCardView.as_view(), name="news_card"),
