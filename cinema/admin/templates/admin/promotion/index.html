@@ -4,16 +4,12 @@
 {% block stylesheets %}
 {% endblock %}
 
-{% block promotion_conf %}
-    active
-{% endblock %}
+{% block promotion_conf %}active{% endblock %}
 
-{% block current_page %}
-    {{ title }}
-{% endblock %}
+{% block current_page %}Акции{% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item active">{{ title }}</li>
+    <li class="breadcrumb-item active">Акции</li>
 {% endblock %}
 
 {% block content %}
@@ -23,9 +19,11 @@
         <table id="usersList" class="table table-bordered table-striped">
           <thead>
              <tr>
-                 {% for column_title in table_labels %}
-                    <th>{{ column_title }}</th>
-                 {% endfor %}
+                <th>ID</th>
+                <th>Название</th>
+                <th>Дата создания</th>
+                <th>Статус</th>
+                <th>Редактировать</th>
              </tr>
           </thead>
           <tbody>
