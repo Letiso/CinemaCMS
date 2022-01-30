@@ -122,10 +122,11 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
     def get_background_image_context(self) -> dict:
         prefix = 'background_image'
 
+        required_size =  BackgroundImage.required_size
         form_instance = BackgroundImage.objects.get_or_create(pk=1)[0]
         form = BackgroundImageForm(**self.try_to_bound(prefix), instance=form_instance, prefix=prefix)
 
-        return {'required_size': BackgroundImage.required_size, 'form': form}
+        return {'required_size': required_size, 'form': form}
 
     def get_news_banners_context(self) -> dict:
         prefix = 'news_banners'
