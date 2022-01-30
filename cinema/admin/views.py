@@ -32,6 +32,7 @@ class CustomAbstractView(View):
     def post(self, request, *args, **kwargs) -> HttpResponse:
         return render(request, self.template_name, self.context)
 
+
 class SeveralHtmlFormsMixin:
     html_forms = request = current_html_form_prefix = None
 
@@ -153,7 +154,7 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
     def post(self, request) -> HttpResponse:
         self.context = self.get_context(request)
 
-        current_html_form = self.html_forms[self.current_html_form_prefix](self)
+        current_html_form = self.html_forms[self.current_html_form_prefix](self) # getting tuple of form/formset objects
         if all([form.is_valid() for form in current_html_form]):
             for form in current_html_form:
                 form.save()
