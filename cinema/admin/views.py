@@ -280,7 +280,6 @@ class NewsView(CustomAbstractView):
 
     def get_context(self, request):
         self.context = super().get_context()
-
         self.context['news_list'] = NewsCard.objects.all()
 
         return self.context
@@ -313,39 +312,23 @@ class NewsCardDeleteView(View):
 class PromotionListView(CustomAbstractView):
     template_name = 'admin/promotion/index.html'
 
-    context = lambda self, request: {
-        'promotion_list': PromotionCard.objects.all(),
-    }
+    def get_context(self, request):
+        self.context = super().get_context()
+        self.context['promotion_list'] = PromotionCard.objects.all()
 
+        return self.context
 
 class PromotionCardView(CardView):
     template_name = 'admin/promotion/promotion_card.html'
     success_url = 'promotion_conf'
 
-    context = lambda self, request, pk: {
-        'pk': pk,
-        'card': {
-            'form': PromotionCardForm(request.POST or None, request.FILES or None,
-                                      instance=get_object_or_404(PromotionCard, pk=int(pk)) if pk.isdigit()
-                                      else None,
-                                      prefix='promotion'),
-            'required_size': PromotionCard.required_size,
-        },
-        'gallery': {
-            'formset': PromotionGalleryFormset(request.POST or None, request.FILES or None,
-                                               prefix='promotion_image',
-                                               queryset=PromotionGallery.objects.filter(card_id=int(pk)) if pk.isdigit()
-                                               else PromotionGallery.objects.none()),
-            'required_size': PromotionGallery.required_size,
-        },
-        'seo': {
-            'form': SEOForm(request.POST or None,
-                            instance=get_object_or_404(SEO, promotion=int(pk))if pk.isdigit()
-                            else None,
-                            prefix='seo'),
-        },
-        'currentUrl': request.get_full_path(),
-    }
+    card_prefix = 'promotion'
+    card_model = PromotionCard
+    card_form = PromotionCardForm
+
+    gallery_prefix = 'promotion_image'
+    gallery_model = PromotionGallery
+    gallery_formset = PromotionGalleryFormset
 
 
 class PromotionCardDeleteView(View):
