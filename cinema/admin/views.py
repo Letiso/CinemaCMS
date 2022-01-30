@@ -62,29 +62,24 @@ class CardView(CustomAbstractView):
 
     seo_instance = None
 
-    def get_card_context(self):
-        pk = self.context['pk']
-
+    def get_card_context(self, pk):
         required_size = self.card_model.required_size
-
-        if pk.isdigit():
-            pk = int(pk)
+        if pk:
             self.card_instance = get_object_or_404(self.card_model, pk=pk)
 
-        form_data = {'data': self.request.POST or None,
-                     'files': self.request.FILES or None}
+        form_data = {
+            'data': self.request.POST or None,
+            'files': self.request.FILES or None
+        }
         form = self.card_form(**form_data, instance=self.card_instance, prefix=self.card_prefix)
 
         return {'required_size': required_size, 'form': form}
 
-    def get_gallery_context(self):
-        pk = self.context['pk']
-
+    def get_gallery_context(self, pk):
         required_size = self.gallery_model.required_size
 
-        if pk.isdigit():
-            pk = int(pk)
-            self.gallery_queryset = self.gallery_model.objects.filter(card_id=pk)
+        self.gallery_queryset = self.gallery_model.objects.filter(card_id=pk) \
+                     if pk else self.gallery_model.objects.none()
 
         formset_data = {'data': self.request.POST or None,
                         'files': self.request.FILES or None}
@@ -92,11 +87,8 @@ class CardView(CustomAbstractView):
 
         return {'required_size': required_size, 'formset': formset}
 
-    def get_seo_context(self):
-        pk = self.context['pk']
-
-        if pk.isdigit():
-            pk = int(pk)
+    def get_seo_context(self, pk):
+        if pk:
             related_name = {f'{self.context["card"]["form"].prefix}': pk}
 
             self.seo_instance = get_object_or_404(SEO, **related_name)
@@ -108,13 +100,14 @@ class CardView(CustomAbstractView):
 
     def get_context(self, request, pk):
         self.request = request
+        pk = int(pk) if pk.isdigit() else None
         self.context = super().get_context()
 
         self.context['pk'] = pk
-        self.context['card'] = self.get_card_context()
+        self.context['card'] = self.get_card_context(pk)
         if self.contains_gallery:
-            self.context['gallery'] = self.get_gallery_context()
-        self.context['seo'] = self.get_seo_context()
+            self.context['gallery'] = self.get_gallery_context(pk)
+        self.context['seo'] = self.get_seo_context(pk)
         self.context['currentUrl'] = request.get_full_path()
 
         return self.context
@@ -285,38 +278,25 @@ class CinemasView(CustomAbstractView):
 class NewsView(CustomAbstractView):
     template_name = 'admin/news/index.html'
 
-    context = lambda self, request: {
-        'news_list': NewsCard.objects.all(),
-    }
+    def get_context(self, request):
+        self.context = super().get_context()
+
+        self.context['news_list'] = NewsCard.objects.all()
+
+        return self.context
 
 
 class NewsCardView(CardView):
     template_name = 'admin/news/news_card.html'
     success_url = 'news_conf'
 
-    context = lambda self, request, pk: {
-        'pk': pk,
-        'card': {
-            'form': NewsCardForm(request.POST or None, request.FILES or None,
-                                 instance=get_object_or_404(NewsCard, pk=int(pk)) if pk.isdigit() else None,
-                                 prefix='news'),
-            'required_size': NewsCard.required_size,
-        },
-        'gallery': {
-            'formset': NewsGalleryFormset(request.POST or None, request.FILES or None,
-                                          prefix='news_image',
-                                          queryset=NewsGallery.objects.filter(card_id=int(pk)) if pk.isdigit()
-                                          else NewsGallery.objects.none()),
-            'required_size': NewsGallery.required_size,
-        },
-        'seo': {
-            'form': SEOForm(request.POST or None,
-                            instance=get_object_or_404(SEO, news=int(pk)) if pk.isdigit()
-                            else None,
-                            prefix='seo'),
-        },
-        'currentUrl': request.get_full_path(),
-    }
+    card_prefix = 'news'
+    card_model = NewsCard
+    card_form = NewsCardForm
+
+    gallery_prefix = 'news_image'
+    gallery_model = NewsGallery
+    gallery_formset = NewsGalleryFormset
 
 
 class NewsCardDeleteView(View):
