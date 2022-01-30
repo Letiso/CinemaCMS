@@ -345,19 +345,56 @@ class PromotionCardDeleteView(View):
 class PageListView(CustomAbstractView):
     template_name = 'admin/pages/index.html'
 
-    primary_pages = ('О кинотеатре', 'Кафе - Бар', 'VIP - зал', 'Реклама', 'Детская комната', )
+    @staticmethod
+    def get_main_page_context():
+        main_page_card = MainPageCard.objects.get_or_create(pk=1)[0]
+        if not main_page_card.title:
+            main_page_card.title = 'Главная страница'
 
-    context = lambda self, request: {
-        'main_page': MainPageCard.objects.get_or_create(pk=1, title='Главная страница')[0],
-        'primary_page_list': [
-            PageCard.objects.get_or_create(pk=pk, title=title)[0] for pk, title in enumerate(self.primary_pages)
-        ],
-        'contacts_page': ContactsPageCard.objects.get_or_create(pk=1, title='Контакты')[0],
-        'custom_page_list': PageCard.objects.exclude(id__in=list(range(
-            len(self.primary_pages)
-        ))), # exclude *primary_page_list* from queryset by creating [0, 1, 2, ...]
-    }
+        return main_page_card
 
+    @staticmethod
+    def get_primary_pages_context():
+        titles = (
+            'О кинотеатре', 'Кафе - Бар', 'VIP - зал', 'Реклама', 'Детская комната'
+        )
+        pages_count = len(titles)
+        primary_pages = [
+            PageCard.objects.get_or_create(pk=pk)[0] for pk in range(pages_count)
+        ]
+
+        for pk, page_card in enumerate(primary_pages):
+            if not page_card.title:
+                page_card.title = titles[pk]
+
+        return primary_pages
+
+    @staticmethod
+    def get_contacts_page_context():
+        contacts_page_card = ContactsPageCard.objects.get_or_create(pk=1)[0]
+        if not contacts_page_card.title:
+            contacts_page_card.title = 'Контакты'
+
+        return contacts_page_card
+
+    def get_custom_pages_context(self):
+        primary_pages_count = len(self.context['primary_page_list'])
+        not_custom_pages_id = list(range(primary_pages_count))
+        # exclude *primary_page_list* from queryset by creating [0, 1, 2, ...]
+
+        custom_pages = PageCard.objects.exclude(id__in=not_custom_pages_id)
+
+        return custom_pages
+
+    def get_context(self, request):
+        self.context = super().get_context()
+
+        self.context['main_page'] = self.get_main_page_context()
+        self.context['primary_page_list'] = self.get_primary_pages_context()
+        self.context['contacts_page'] = self.get_contacts_page_context()
+        self.context['custom_page_list'] = self.get_custom_pages_context()
+
+        return self.context
 
 class MainPageCardView(CardView):
     template_name = 'admin/pages/main_page_card.html'
