@@ -51,8 +51,73 @@ class SeveralHtmlFormsMixin:
 
 
 class CardView(CustomAbstractView):
-    success_url = None
+    success_url = request = None
     contains_gallery = True
+
+    card_prefix = card_model = card_form = None
+    card_instance = None
+
+    gallery_prefix = gallery_model = gallery_formset = None
+    gallery_queryset = None
+
+    seo_instance = None
+
+    def get_card_context(self):
+        pk = self.context['pk']
+
+        required_size = self.card_model.required_size
+
+        if pk.isdigit():
+            pk = int(pk)
+            self.card_instance = get_object_or_404(self.card_model, pk=pk)
+
+        form_data = {'data': self.request.POST or None,
+                     'files': self.request.FILES or None}
+        form = self.card_form(**form_data, instance=self.card_instance, prefix=self.card_prefix)
+
+        return {'required_size': required_size, 'form': form}
+
+    def get_gallery_context(self):
+        pk = self.context['pk']
+
+        required_size = self.gallery_model.required_size
+
+        if pk.isdigit():
+            pk = int(pk)
+            self.gallery_queryset = self.gallery_model.objects.filter(card_id=pk)
+
+        formset_data = {'data': self.request.POST or None,
+                        'files': self.request.FILES or None}
+        formset = self.gallery_formset(**formset_data, queryset=self.gallery_queryset, prefix=self.gallery_prefix)
+
+        return {'required_size': required_size, 'formset': formset}
+
+    def get_seo_context(self):
+        pk = self.context['pk']
+
+        if pk.isdigit():
+            pk = int(pk)
+            related_name = {f'{self.context["card"]["form"].prefix}': pk}
+
+            self.seo_instance = get_object_or_404(SEO, **related_name)
+
+        form_data = {'data': self.request.POST or None}
+        form = SEOForm(**form_data, instance=self.seo_instance, prefix='seo')
+
+        return {'form': form}
+
+    def get_context(self, request, pk):
+        self.request = request
+        self.context = super().get_context()
+
+        self.context['pk'] = pk
+        self.context['card'] = self.get_card_context()
+        if self.contains_gallery:
+            self.context['gallery'] = self.get_gallery_context()
+        self.context['seo'] = self.get_seo_context()
+        self.context['currentUrl'] = request.get_full_path()
+
+        return self.context
 
     @staticmethod
     def save(card, seo, gallery=None):
@@ -191,34 +256,20 @@ class MoviesView(CustomAbstractView):
         inactive_movies_cards = MovieCard.objects.exclude(is_active=True)
         self.context['inactive_cards'] = inactive_movies_cards.order_by(self.order)
 
+        return self.context
+
 
 class MovieCardView(CardView):
     template_name = 'admin/movies/movie_card.html'
     success_url = 'movies'
 
-    context = lambda self, request, pk: {
-        'pk': pk,
-        'card': {
-            'form': MovieCardForm(request.POST or None, request.FILES or None,
-                                  instance=get_object_or_404(MovieCard, pk=int(pk)) if pk.isdigit() else None,
-                                  prefix='movie'),
-            'required_size': MovieCard.required_size,
-        },
-        'gallery': {
-            'formset': MovieFrameFormset(request.POST or None, request.FILES or None,
-                                         prefix='movie_frames',
-                                         queryset=MovieFrame.objects.filter(card_id=int(pk)) if pk.isdigit()
-                                         else MovieFrame.objects.none()),
-            'required_size': MovieFrame.required_size,
-        },
-        'seo': {
-            'form': SEOForm(request.POST or None,
-                            instance=get_object_or_404(SEO, movie=int(pk)) if pk.isdigit()
-                            else None,
-                            prefix='seo'),
-        },
-        'currentUrl': request.get_full_path(),
-    }
+    card_prefix = 'movie'
+    card_model = MovieCard
+    card_form = MovieCardForm
+
+    gallery_prefix = 'movie_frame'
+    gallery_model = MovieFrame
+    gallery_formset = MovieFrameFormset
 
 
 # endregion Movies
