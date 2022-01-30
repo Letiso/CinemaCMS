@@ -56,7 +56,9 @@ class CardView(CustomAbstractView):
 
     @staticmethod
     def save(card, seo, gallery=None):
-        if all([form.is_valid() for form in (card, seo, gallery) if form]):
+        is_valid = [form.is_valid() for form in (card, seo, gallery) if form]
+
+        if all(is_valid):
             seo.save()
 
             card = card.save(commit=False)
@@ -73,12 +75,15 @@ class CardView(CustomAbstractView):
             return True
 
     def post(self, request, *args, **kwargs) -> HttpResponse:
-        context = self.context = self.context(request, *args, **kwargs)
+        context = self.context = self.get_context(request, *args, **kwargs)
 
-        to_save = (context['card']['form'], context['seo']['form'],
-                   context['gallery']['formset'] if self.contains_gallery else None)
+        forms_to_save = (
+            context['card']['form'], context['seo']['form'],
 
-        if self.save(*to_save):
+            context['gallery']['formset'] if self.contains_gallery else None
+        ) # getting tuple of form/formset objects
+
+        if self.save(*forms_to_save):
             return redirect(self.success_url)
 
         return super().post(request, pk, *args, **kwargs)
@@ -155,7 +160,9 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
         self.context = self.get_context(request)
 
         current_html_form = self.html_forms[self.current_html_form_prefix](self) # getting tuple of form/formset objects
-        if all([form.is_valid() for form in current_html_form]):
+        is_valid = [form.is_valid() for form in current_html_form]
+
+        if all(is_valid):
             for form in current_html_form:
                 form.save()
             return HttpResponseRedirect('banners')
@@ -170,14 +177,19 @@ class MoviesView(CustomAbstractView):
     template_name = 'admin/movies/index.html'
 
     order = '-date_created'
-    context = lambda self, request: {
-        'releases': MovieCard.objects.filter(
-            is_active=True, release_date__lte=date.today()).order_by(self.order),
-        'announcements': MovieCard.objects.filter(
-            is_active=True, release_date__gt=date.today()).order_by(self.order),
-        'inactive_cards': MovieCard.objects.exclude(
-            is_active=True).order_by(self.order),
-    }
+
+    def get_context(self, *args):
+        self.context = super().get_context()
+        today = date.today()
+
+        released_movies = MovieCard.objects.filter(is_active=True, release_date__lte=today)
+        self.context['releases'] = released_movies.order_by(self.order)
+
+        announced_movies = MovieCard.objects.filter(is_active=True, release_date__gt=today)
+        self.context['announcements'] = announced_movies.order_by(self.order)
+
+        inactive_movies_cards = MovieCard.objects.exclude(is_active=True)
+        self.context['inactive_cards'] = inactive_movies_cards.order_by(self.order)
 
 
 class MovieCardView(CardView):
