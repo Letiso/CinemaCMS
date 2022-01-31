@@ -186,6 +186,7 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
         prefix = 'top_banners'
 
         required_size = TopBanner.required_size
+
         bound_data = self.get_bound_data(prefix)
         formset = TopBannerFormSet(**bound_data, prefix=prefix)
 
@@ -198,6 +199,7 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
         prefix = 'background_image'
 
         required_size =  BackgroundImage.required_size
+
         form_instance = BackgroundImage.objects.get_or_create(pk=1)[0]
         bound_data = self.get_bound_data(prefix)
         form = BackgroundImageForm(**bound_data, instance=form_instance, prefix=prefix)
@@ -208,6 +210,7 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
         prefix = 'news_banners'
 
         required_size = NewsBanner.required_size
+
         bound_data = self.get_bound_data(prefix)
         formset = NewsBannerFormSet(**bound_data, prefix=prefix)
 
