@@ -18,7 +18,8 @@ from cinema.tasks import send_mail
 
 # region Mixins
 class CustomAbstractView(View):
-    template_name = context = None
+    template_name:str = None
+    context:dict = None
 
     @staticmethod
     def get_context(*args, **kwargs) -> dict:
@@ -34,7 +35,8 @@ class CustomAbstractView(View):
 
 
 class SeveralHtmlFormsMixin:
-    html_forms = request = current_html_form_prefix = None
+    html_forms:dict = None
+    request = current_html_form_prefix = None
 
     def define_current_html_form(self) -> None:
         for prefix in self.html_forms:
@@ -42,7 +44,7 @@ class SeveralHtmlFormsMixin:
                 self.current_html_form_prefix = prefix
                 break
 
-    def try_to_bound(self, prefix) -> dict:
+    def get_bound_data(self, prefix) -> dict:
         form_data = {}
         if prefix == self.current_html_form_prefix:
             form_data['data'] = self.request.POST
@@ -52,7 +54,7 @@ class SeveralHtmlFormsMixin:
 
 class CardView(CustomAbstractView):
     success_url = request = None
-    contains_gallery = True
+    contains_gallery:bool = True
 
     card_prefix = card_model = card_form = None
     card_instance = None
@@ -184,10 +186,11 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
         prefix = 'top_banners'
 
         required_size = TopBanner.required_size
-        formset = TopBannerFormSet(**self.try_to_bound(prefix), prefix=prefix)
+        bound_data = self.get_bound_data(prefix)
+        formset = TopBannerFormSet(**bound_data, prefix=prefix)
 
         carousel_instance = BannersCarousel.objects.get_or_create(pk=1)[0]
-        carousel = BannersCarouselForm(**self.try_to_bound(prefix), instance=carousel_instance, prefix=prefix)
+        carousel = BannersCarouselForm(**bound_data, instance=carousel_instance, prefix=prefix)
 
         return {'required_size': required_size, 'formset': formset, 'carousel': carousel}
 
@@ -196,7 +199,8 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
 
         required_size =  BackgroundImage.required_size
         form_instance = BackgroundImage.objects.get_or_create(pk=1)[0]
-        form = BackgroundImageForm(**self.try_to_bound(prefix), instance=form_instance, prefix=prefix)
+        bound_data = self.get_bound_data(prefix)
+        form = BackgroundImageForm(**bound_data, instance=form_instance, prefix=prefix)
 
         return {'required_size': required_size, 'form': form}
 
@@ -204,10 +208,11 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
         prefix = 'news_banners'
 
         required_size = NewsBanner.required_size
-        formset = NewsBannerFormSet(**self.try_to_bound(prefix), prefix=prefix)
+        bound_data = self.get_bound_data(prefix)
+        formset = NewsBannerFormSet(**bound_data, prefix=prefix)
 
         carousel_instance = BannersCarousel.objects.get_or_create(pk=2)[0]
-        carousel = BannersCarouselForm(**self.try_to_bound(prefix), instance=carousel_instance, prefix=prefix)
+        carousel = BannersCarouselForm(**bound_data, instance=carousel_instance, prefix=prefix)
 
         return {'required_size': required_size, 'formset': formset, 'carousel': carousel}
 
@@ -535,8 +540,10 @@ class MailingView(SeveralHtmlFormsMixin, CustomAbstractView):
         self.context = super().get_context()
 
         self.context['users'] = get_user_model().objects.all()
-        self.context['SMS'] = SendSMSForm(**self.try_to_bound('SMS'), prefix='SMS')
-        self.context['email'] = SendEmailForm(**self.try_to_bound('email'), prefix='email')
+        bound_data = self.get_bound_data('SMS')
+        self.context['SMS'] = SendSMSForm(**bound_data, prefix='SMS')
+        bound_data = self.get_bound_data('email')
+        self.context['email'] = SendEmailForm(**bound_data, prefix='email')
         self.context['last_html_messages'] = EmailMailingHTMLMessage.objects.all()
 
         return self.context
