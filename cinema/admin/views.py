@@ -115,6 +115,16 @@ class CardView(CustomAbstractView):
 
         return self.context
 
+    def get_forms_to_save(self) -> tuple:
+        forms_to_save = (
+            self.context['card']['form'],
+            self.context['seo']['form'],
+
+            self.context['gallery']['formset'] if self.contains_gallery else None
+        ) # getting tuple of form/formset objects
+
+        return forms_to_save
+
     @staticmethod
     def save(card, seo, gallery=None) -> bool:
         is_valid = [form.is_valid() for form in (card, seo, gallery) if form]
@@ -134,16 +144,6 @@ class CardView(CustomAbstractView):
                 gallery.save()
 
             return True
-
-    def get_forms_to_save(self) -> tuple:
-        forms_to_save = (
-            self.context['card']['form'],
-            self.context['seo']['form'],
-
-            self.context['gallery']['formset'] if self.contains_gallery else None
-        ) # getting tuple of form/formset objects
-
-        return forms_to_save
 
     def post(self, request, *args, **kwargs) -> HttpResponse:
         self.context = self.get_context(request, *args, **kwargs)
