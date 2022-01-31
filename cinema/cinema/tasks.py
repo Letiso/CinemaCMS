@@ -34,8 +34,9 @@ def send_mail(prefix, message, receivers_filter):
         MAILING_SERVICES[prefix](message, user)
         mails_sent += 1
         progress = floor((mails_sent / receivers_count) * 100)
+
         if progress != prev_progress:
             prev_progress = progress
-            async_to_sync(CHANNEL_LAYER.group_send)(f'{prefix}-mailing', {
-                'type': 'send_progress', 'text': str(progress)
-            })
+            async_to_sync(CHANNEL_LAYER.group_send)(
+                f'{prefix}-mailing', {'type': 'send_progress', 'text': str(progress)}
+            )

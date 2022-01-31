@@ -521,32 +521,47 @@ class UserDeleteView(View):
 # endregion User
 
 # region Mailing
-class MailingView(CustomAbstractView):
+class MailingView(SeveralHtmlFormsMixin, CustomAbstractView):
     template_name = 'admin/mailing/mailing.html'
 
-    context = lambda self, request: {
-        'forms': {
-            'SMS': SendSMSForm(**self.try_to_bound('SMS', request)),
-            'email': SendEmailForm(**self.try_to_bound('email', request))
-        },
-        'users': get_user_model().objects.all(),
-        'last_html_messages': EmailMailingHTMLMessage.objects.all(),
+    html_forms = {
+        'SMS': lambda self: self.context['SMS'],
+        'email': lambda self: self.context['email']
     }
 
+    def get_context(self, request) -> dict:
+        self.request = request
+        self.define_current_html_form()
+        self.context = super().get_context()
+
+        self.context['users'] = get_user_model().objects.all()
+        self.context['SMS'] = SendSMSForm(**self.try_to_bound('SMS'), prefix='SMS')
+        self.context['email'] = SendEmailForm(**self.try_to_bound('email'), prefix='email')
+        self.context['last_html_messages'] = EmailMailingHTMLMessage.objects.all()
+
+        return self.context
+
+    @staticmethod
+    def save(form):
+        if form.is_valid():
+            send_to_everyone, message, checked_users = (form.cleaned_data['mailing_type'],
+                                                        form.cleaned_data['message'],
+                                                        form.cleaned_data['checked_users'])
+            receivers_filter = {} if send_to_everyone \
+                else {'id__in': json.loads(checked_users)}
+
+            send_mail.delay(form.prefix, message, receivers_filter)
+
+            return True
+
     def post(self, request) -> HttpResponse:
-        context = self.context = self.context(request)
+        self.context = self.get_context(request)
 
-        for prefix, form in context['forms'].items():
-            if prefix in request.POST:
-                if form.is_valid():
-                    send_to_everyone, message, checked_users = (form.cleaned_data['mailing_type'],
-                                                                form.cleaned_data['message'],
-                                                                form.cleaned_data['checked_users'])
-                    receivers_filter = {} if send_to_everyone else {'id__in': json.loads(checked_users)}
-                    send_mail.delay(prefix, message, receivers_filter)
+        current_html_form = self.html_forms[self.current_html_form_prefix](self) # getting form object
+        if self.save(current_html_form):
+            return redirect('mailing')
 
-                    return redirect('mailing')
-                return super().post(request)
+        return super().post(request)
 
 
 # endregion Mailing

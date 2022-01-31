@@ -35,7 +35,7 @@
                 <h4>SMS</h4>
             </div>
             <div class="card-body">
-                {% with forms.SMS as form %}
+                {% with SMS as form %}
                 <form id="{{ form.prefix }}-form" action="" method="POST">
                     {% csrf_token %}
                         {{ form.checked_users }}
@@ -188,7 +188,7 @@
                 <h3>E-mail</h3>
             </div>
             <div class="card-body">
-                {% with forms.email as form %}
+                {% with email as form %}
                 <form id="{{ form.prefix }}-form" enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
                         {{ form.checked_users }}
@@ -577,7 +577,7 @@
 
 <!--init multiple html forms for working with django and js-->
 <script>
-    const SMS_prefix = '{{ forms.SMS.prefix }}' , email_prefix = '{{ forms.email.prefix }}'
+    const SMS_prefix = '{{ SMS.prefix }}' , email_prefix = '{{ email.prefix }}'
     const prefixes = [SMS_prefix, email_prefix];
     let prefix;
 
