@@ -89,7 +89,10 @@ class CardView(CustomAbstractView):
 
     def get_seo_context(self, pk):
         if pk:
-            related_name_and_pk = {f'{self.context["card"]["form"].prefix}': pk}
+            form_or_formset = "form" \
+                if "form" in self.context["card"] else "formset"
+
+            related_name_and_pk = {f'{self.context["card"][form_or_formset].prefix}': pk}
             # get something looks like  * movie_card=pk *  as a result
 
             instance = SEO.objects.filter(**related_name_and_pk).first()
@@ -117,7 +120,7 @@ class CardView(CustomAbstractView):
         return self.context
 
     @staticmethod
-    def save(card, seo, gallery=None):
+    def save(card, seo, gallery=None) -> bool:
         is_valid = [form.is_valid() for form in (card, seo, gallery) if form]
 
         if all(is_valid):
@@ -136,15 +139,20 @@ class CardView(CustomAbstractView):
 
             return True
 
-    def post(self, request, *args, **kwargs) -> HttpResponse:
-        context = self.context = self.get_context(request, *args, **kwargs)
-
+    def get_forms_to_save(self) -> tuple:
         forms_to_save = (
-            context['card']['form'], context['seo']['form'],
+            self.context['card']['form'],
+            self.context['seo']['form'],
 
-            context['gallery']['formset'] if self.contains_gallery else None
+            self.context['gallery']['formset'] if self.contains_gallery else None
         ) # getting tuple of form/formset objects
 
+        return forms_to_save
+
+    def post(self, request, *args, **kwargs) -> HttpResponse:
+        self.context = self.get_context(request, *args, **kwargs)
+
+        forms_to_save = self.get_forms_to_save()
         if self.save(*forms_to_save):
             return redirect(self.success_url)
 
@@ -434,29 +442,38 @@ class PageCardView(CardView):
     gallery_formset = PageGalleryFormset
 
 
-class ContactsPageCardView(CustomAbstractView):
+class ContactsPageCardView(CardView):
     template_name = 'admin/pages/contacts_page_card.html'
+    success_url = 'pages'
+    contains_gallery = False
 
-    context = lambda self, request, pk=1: {
-            'title': 'Карточка страницы контактов',
-            'card': {
-                'formset': ContactsPageCardFormset(request.POST or None, request.FILES or None, prefix='contacts_page'),
-                'required_size': ContactsPageCardFormset.model.required_size,
-            },
-            'seo': {
-                'form': SEOForm(request.POST or None,
-                                instance=instance if (instance :=
-                                                      SEO.objects.filter(contacts_page=pk).first()) else None,
-                                prefix='seo'),
-            },
-            'currentUrl': request.get_full_path(),
-        }
+    card_prefix = 'contacts_page'
 
-    def post(self, request) -> HttpResponse:
-        context = self.context = self.context(request)
-        card, seo = context['card']['formset'], context['seo']['form']
+    def get_card_context(self, pk):
+        required_size = ContactsPageCard.required_size
 
-        if all([card.is_valid(), seo.is_valid()]):
+        form_data = {'data': self.request.POST or None,
+                     'files': self.request.FILES or None}
+        formset = ContactsPageCardFormset(**form_data, prefix=self.card_prefix)
+
+        return {'required_size': required_size, 'formset': formset}
+
+    def get_context(self, request):
+        return super().get_context(request, pk='1')
+
+    def get_forms_to_save(self):
+        forms_to_save = (
+            self.context['card']['formset'],
+            self.context['seo']['form']
+        )
+
+        return forms_to_save
+
+    def save(self, card, seo) -> bool:
+        self.context = self.get_context(self.request)
+
+        is_valid = [card.is_valid(), seo.is_valid()]
+        if all(is_valid):
             seo.save()
 
             first_contacts_block = card[0].save(commit=False)
@@ -464,9 +481,7 @@ class ContactsPageCardView(CustomAbstractView):
             first_contacts_block.save()
             card.save()
 
-            return redirect('pages')
-
-        return super().post(request)
+            return True
 
 
 class PageCardDeleteView(View):
