@@ -543,10 +543,13 @@ class MailingView(SeveralHtmlFormsMixin, CustomAbstractView):
         self.context = super().get_context()
 
         self.context['users'] = get_user_model().objects.all()
+
         bound_data = self.get_bound_data('SMS')
         self.context['SMS'] = SendSMSForm(**bound_data, prefix='SMS')
+
         bound_data = self.get_bound_data('email')
         self.context['email'] = SendEmailForm(**bound_data, prefix='email')
+
         self.context['last_html_messages'] = EmailMailingHTMLMessage.objects.all()
 
         return self.context
