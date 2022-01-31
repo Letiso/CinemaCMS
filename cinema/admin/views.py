@@ -89,10 +89,7 @@ class CardView(CustomAbstractView):
 
     def get_seo_context(self, pk):
         if pk:
-            form_or_formset = "form" \
-                if "form" in self.context["card"] else "formset"
-
-            related_name_and_pk = {f'{self.context["card"][form_or_formset].prefix}': pk}
+            related_name_and_pk = {self.card_prefix: pk}
             # get something looks like  * movie_card=pk *  as a result
 
             instance = SEO.objects.filter(**related_name_and_pk).first()
