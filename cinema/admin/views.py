@@ -89,14 +89,18 @@ class CardView(CustomAbstractView):
 
     def get_seo_context(self, pk):
         if pk:
-            related_name = {f'{self.context["card"]["form"].prefix}': pk}
+            related_name_and_pk = {f'{self.context["card"]["form"].prefix}': pk}
+            # get something looks like  * movie_card=pk *  as a result
 
-            self.seo_instance = get_object_or_404(SEO, **related_name)
+            instance = SEO.objects.filter(**related_name_and_pk).first()
+            if instance:
+                self.seo_instance = instance
 
         form_data = {'data': self.request.POST or None}
         form = SEOForm(**form_data, instance=self.seo_instance, prefix='seo')
 
         return {'form': form}
+
 
     def get_context(self, request, pk):
         self.request = request
@@ -409,19 +413,6 @@ class MainPageCardView(CardView):
 
         form_data = {'data': self.request.POST or None}
         form = MainPageCardForm(**form_data, instance=self.card_instance, prefix=self.card_prefix)
-
-        return {'form': form}
-
-    def get_seo_context(self, pk):
-        related_name_and_pk = {f'{self.context["card"]["form"].prefix}': pk}
-        # get something looks like  * movie_card=pk *  as a result
-
-        instance = SEO.objects.filter(**related_name_and_pk).first()
-        if instance:
-            self.seo_instance = instance
-
-        form_data = {'data': self.request.POST or None}
-        form = SEOForm(**form_data, instance=self.seo_instance, prefix='seo')
 
         return {'form': form}
 
