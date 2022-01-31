@@ -347,9 +347,9 @@ class PageListView(CustomAbstractView):
 
     @staticmethod
     def get_main_page_context():
-        main_page_card = MainPageCard.objects.get_or_create(pk=1)[0]
-        if not main_page_card.title:
-            main_page_card.title = 'Главная страница'
+        main_page_card = MainPageCard.objects.filter(pk=1).first()
+        if not main_page_card:
+            main_page_card = MainPageCard.objects.get_or_create(pk=1, title='Главная страница')[0]
 
         return main_page_card
 
@@ -401,19 +401,45 @@ class MainPageCardView(CardView):
     success_url = 'pages'
     contains_gallery = False
 
-    context = lambda self, request, pk=1: {
-        'card': {
-            'form': MainPageCardForm(request.POST or None, instance=get_object_or_404(MainPageCard, pk=pk),
-                                     prefix='main_page'),
-        },
-        'seo': {
-            'form': SEOForm(request.POST or None,
-                            instance=instance if (instance :=
-                                                  SEO.objects.filter(main_page=pk).first()) else None,
-                            prefix='seo'),
-        },
-        'currentUrl': request.get_full_path(),
-    }
+    card_prefix = 'main_page'
+
+    def get_card_context(self, pk):
+        self.card_instance = get_object_or_404(MainPageCard, pk=pk)
+
+        form_data = {'data': self.request.POST or None}
+        form = MainPageCardForm(**form_data, instance=self.card_instance, prefix=self.card_prefix)
+
+        return {'form': form}
+
+    def get_seo_context(self, pk):
+        related_name_and_pk = {f'{self.context["card"]["form"].prefix}': pk}
+        # get something looks like  * movie_card=pk *  as a result
+
+        instance = SEO.objects.filter(**related_name_and_pk).first()
+        if instance:
+            self.seo_instance = instance
+
+        form_data = {'data': self.request.POST or None}
+        form = SEOForm(**form_data, instance=self.seo_instance, prefix='seo')
+
+        return {'form': form}
+
+    def get_context(self, request):
+        return super().get_context(request, pk='1')
+
+    # def get_context(self, request, pk=1):
+    #     self.context = super().get_context()
+    #     self.context['card'] = {
+    #         'form': MainPageCardForm(request.POST or None, instance=get_object_or_404(MainPageCard, pk=pk),
+    #                                  prefix='main_page'),
+    #     }
+    #     self.context['seo'] = {
+    #         'form': SEOForm(request.POST or None,
+    #                         instance=instance if (instance :=
+    #                                               SEO.objects.filter(main_page=pk).first()) else None,
+    #                         prefix='seo'),
+    #     }
+    #     self.context['currentUrl'] = request.get_full_path()
 
 
 class PageCardView(CardView):

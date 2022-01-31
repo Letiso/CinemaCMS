@@ -187,7 +187,7 @@ PromotionGalleryFormset = modelformset_factory(PromotionGalleryForm.Meta.model, 
 class MainPageCardForm(forms.ModelForm):
     class Meta:
         model = MainPageCard
-        exclude = ('title', 'date_created', 'seo')
+        exclude = ('date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
