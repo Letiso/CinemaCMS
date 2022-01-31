@@ -371,6 +371,7 @@ class PageListView(CustomAbstractView):
         for page_card in primary_pages:
             if not page_card.title:
                 page_card.title = titles[page_card.pk - 1]
+                page_card.save()
 
         return primary_pages
 
