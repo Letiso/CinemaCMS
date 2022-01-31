@@ -104,7 +104,6 @@ class CardView(CustomAbstractView):
 
         return {'form': form}
 
-
     def get_context(self, request, pk):
         self.request = request
         pk = int(pk) if pk.isdigit() else None
@@ -449,7 +448,7 @@ class ContactsPageCardView(CardView):
 
     card_prefix = 'contacts_page'
 
-    def get_card_context(self, pk):
+    def get_card_context(self, *args):
         required_size = ContactsPageCard.required_size
 
         form_data = {'data': self.request.POST or None,
@@ -470,8 +469,6 @@ class ContactsPageCardView(CardView):
         return forms_to_save
 
     def save(self, card, seo) -> bool:
-        self.context = self.get_context(self.request)
-
         is_valid = [card.is_valid(), seo.is_valid()]
         if all(is_valid):
             seo.save()
@@ -487,9 +484,10 @@ class ContactsPageCardView(CardView):
 class PageCardDeleteView(View):
     @staticmethod
     def get(request, pk) -> HttpResponseRedirect:
-        model = PageCardForm.Meta.model
-        page_to_delete = get_object_or_404(model, pk=pk)
-        page_to_delete.delete()
+        model = PageCard
+        page_card_to_delete = get_object_or_404(model, pk=pk)
+        page_card_to_delete.delete()
+
         return redirect('pages')
 
 
