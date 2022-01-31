@@ -494,9 +494,11 @@ class PageCardDeleteView(View):
 class UsersView(CustomAbstractView):
     template_name = 'admin/users/users.html'
 
-    context = lambda self, request: {
-            'users': get_user_model().objects.all(),
-        }
+    def get_context(self, request) -> dict:
+        self.context = super().get_context()
+        self.context['users'] = get_user_model().objects.all()
+
+        return self.context
 
 
 class UserUpdateView(UpdateView):
