@@ -349,7 +349,7 @@ class PageListView(CustomAbstractView):
     def get_main_page_context():
         main_page_card = MainPageCard.objects.filter(pk=1).first()
         if not main_page_card:
-            main_page_card = MainPageCard.objects.get_or_create(pk=1, title='Главная страница')[0]
+            main_page_card = MainPageCard.objects.create(pk=1, title='Главная страница')
 
         return main_page_card
 
@@ -363,19 +363,11 @@ class PageListView(CustomAbstractView):
             PageCard.objects.get_or_create(pk=pk)[0] for pk in range(pages_count)
         ]
 
-        for pk, page_card in enumerate(primary_pages):
+        for page_card in primary_pages:
             if not page_card.title:
-                page_card.title = titles[pk]
+                page_card.title = titles[page_card.pk]
 
         return primary_pages
-
-    @staticmethod
-    def get_contacts_page_context():
-        contacts_page_card = ContactsPageCard.objects.get_or_create(pk=1)[0]
-        if not contacts_page_card.title:
-            contacts_page_card.title = 'Контакты'
-
-        return contacts_page_card
 
     def get_custom_pages_context(self):
         primary_pages_count = len(self.context['primary_page_list'])
@@ -386,13 +378,21 @@ class PageListView(CustomAbstractView):
 
         return custom_pages
 
+    @staticmethod
+    def get_contacts_page_context():
+        contacts_page_card = ContactsPageCard.objects.filter(pk=1).first()
+        if not contacts_page_card:
+            contacts_page_card = ContactsPageCard.objects.create(pk=1, title='Контакты')
+
+        return contacts_page_card
+
     def get_context(self, request):
         self.context = super().get_context()
 
         self.context['main_page'] = self.get_main_page_context()
         self.context['primary_page_list'] = self.get_primary_pages_context()
-        self.context['contacts_page'] = self.get_contacts_page_context()
         self.context['custom_page_list'] = self.get_custom_pages_context()
+        self.context['contacts_page'] = self.get_contacts_page_context()
 
         return self.context
 
@@ -426,20 +426,6 @@ class MainPageCardView(CardView):
 
     def get_context(self, request):
         return super().get_context(request, pk='1')
-
-    # def get_context(self, request, pk=1):
-    #     self.context = super().get_context()
-    #     self.context['card'] = {
-    #         'form': MainPageCardForm(request.POST or None, instance=get_object_or_404(MainPageCard, pk=pk),
-    #                                  prefix='main_page'),
-    #     }
-    #     self.context['seo'] = {
-    #         'form': SEOForm(request.POST or None,
-    #                         instance=instance if (instance :=
-    #                                               SEO.objects.filter(main_page=pk).first()) else None,
-    #                         prefix='seo'),
-    #     }
-    #     self.context['currentUrl'] = request.get_full_path()
 
 
 class PageCardView(CardView):
