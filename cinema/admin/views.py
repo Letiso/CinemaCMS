@@ -358,21 +358,22 @@ class PageListView(CustomAbstractView):
         titles = (
             'О кинотеатре', 'Кафе - Бар', 'VIP - зал', 'Реклама', 'Детская комната'
         )
-        pages_count = len(titles)
+
+        pk_range = 1, len(titles) + 1
         primary_pages = [
-            PageCard.objects.get_or_create(pk=pk)[0] for pk in range(pages_count)
+            PageCard.objects.get_or_create(pk=pk)[0] for pk in range(*pk_range)
         ]
 
         for page_card in primary_pages:
             if not page_card.title:
-                page_card.title = titles[page_card.pk]
+                page_card.title = titles[page_card.pk - 1]
 
         return primary_pages
 
     def get_custom_pages_context(self):
-        primary_pages_count = len(self.context['primary_page_list'])
-        not_custom_pages_id = list(range(primary_pages_count))
-        # exclude *primary_page_list* from queryset by creating [0, 1, 2, ...]
+        primary_pages_count = len(self.context['primary_page_list']) + 1
+        not_custom_pages_id = list(range(1, primary_pages_count))
+        # exclude *primary_page_list* from queryset by creating [1, 2, 3, ...]
 
         custom_pages = PageCard.objects.exclude(id__in=not_custom_pages_id)
 
@@ -432,29 +433,13 @@ class PageCardView(CardView):
     template_name = 'admin/pages/page_card.html'
     success_url = 'pages'
 
-    context = lambda self, request, pk: {
-            'pk': pk,
-            'card': {
-                'form': PageCardForm(request.POST or None, request.FILES or None,
-                                     instance=get_object_or_404(PageCard, pk=int(pk)) if pk.isdigit() else None,
-                                     prefix='page'),
-                'required_size': PageCard.required_size,
-            },
-            'gallery': {
-                'formset': PageGalleryFormset(request.POST or None, request.FILES or None,
-                                              prefix='page_image',
-                                              queryset=PageGallery.objects.filter(card_id=int(pk)) if pk.isdigit()
-                                              else PageGallery.objects.none()),
-                'required_size': PageGallery.required_size,
-            },
-            'seo': {
-                'form': SEOForm(request.POST or None,
-                                instance=instance if (instance :=
-                                                      SEO.objects.filter(page=pk).first()) else None,
-                                prefix='seo'),
-            },
-            'currentUrl': request.get_full_path(),
-        }
+    card_prefix = 'page'
+    card_model = PageCard
+    card_form = PageCardForm
+
+    gallery_prefix = 'page_image'
+    gallery_model = PageGallery
+    gallery_formset = PageGalleryFormset
 
 
 class ContactsPageCardView(CustomAbstractView):
