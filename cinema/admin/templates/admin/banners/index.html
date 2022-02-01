@@ -25,7 +25,7 @@
     <h4 class="col-11 text-center">
         На главной верх
     </h4>
-    <a class="nav-link ml-auto" onclick="toggle_show(event, 'TopBanner')" data-toggle="collapse" href="#collapseTopBanner" role="button" aria-expanded="false" aria-controls="collapseTopBanner">
+    <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseTopBanner" role="button" aria-expanded="false" aria-controls="collapseTopBanner">
     <i class="fas fa-bars" style="font-size: 22px;"></i>
     </a>
   </div>
@@ -42,7 +42,7 @@
     <h4 class="col-11 text-center">
         На главной фон
     </h4>
-    <a class="nav-link ml-auto" onclick="toggle_show(event, 'BackgroundImage')" data-toggle="collapse" href="#collapseBackgroundImage" role="button" aria-expanded="false" aria-controls="collapseBackgroundImage">
+    <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseBackgroundImage" role="button" aria-expanded="false" aria-controls="collapseBackgroundImage">
     <i class="fas fa-bars" style="font-size: 22px;"></i>
     </a>
   </div>
@@ -59,7 +59,7 @@
     <h4 class="col-11 text-center">
         На главной Новости | Акции
     </h4>
-    <a class="nav-link ml-auto" onclick="toggle_show(event, 'NewsBanner')" data-toggle="collapse" href="#collapseNewsBanner" role="button" aria-expanded="false" aria-controls="collapseNewsBanner">
+    <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseNewsBanner" role="button" aria-expanded="false" aria-controls="collapseNewsBanner">
     <i class="fas fa-bars" style="font-size: 22px;"></i>
     </a>
   </div>
@@ -85,7 +85,6 @@
 
 <script src="{% static 'admin/js/dynamic_formset.js' %}"></script>
 <script src="{% static 'admin/js/dynamic_image_select.js' %}"></script>
-
 <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
 <script src="{% static 'admin/js/custom_toastr.js' %}"></script>
 {% endblock %}
