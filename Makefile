@@ -1,7 +1,7 @@
 
 reload: stop run
 #restart:
-#	docker restart cinemacms-daphne-1
+#	docker restart cinemacms-django_asgi-1
 rebuild: down build
 
 run:
@@ -18,11 +18,11 @@ down:
 
 # Works only for active containers | You have to run docker first
 migrate:
-	docker exec -it cinemacms-daphne-1 python3 manage.py makemigrations
-	docker exec -it cinemacms-daphne-1 python3 manage.py migrate
+	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemigrations
+	docker exec -it cinemacms-django_asgi-1 python3 manage.py migrate
 
 db:
 	docker exec -it cinemacms-db-1 psql -U postgres postgres
 
 superuser:
-	docker exec -it cinemacms-daphne-1 python3 manage.py createsuperuser
+	docker exec -it cinemacms-django_asgi-1 python3 manage.py createsuperuser

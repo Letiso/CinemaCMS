@@ -47,17 +47,16 @@ class BannersCarousel(models.Model):
 
 # region Movies
 class MovieCard(models.Model):
-    TYPES = tuple(
-        (movie_type, movie_type) for movie_type in ('2D', '3D', 'IMAX')
-    )
-
     title = models.CharField('Название фильма', max_length=256)
     description = models.TextField('Описание')
     release_date = models.DateField('Дата релиза', default=date.today)
     required_size = (1000, 190)
     main_image = models.ImageField('Главная картинка')
     trailer_link = models.CharField('Ссылка на трейлер', max_length=256)
-    movie_type = models.CharField('Тип кино', max_length=10, choices=TYPES)
+
+    two_d = models.BooleanField('2D', default=False)
+    three_d = models.BooleanField('3D', default=False)
+    imax = models.BooleanField('IMAX', default=False)
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)

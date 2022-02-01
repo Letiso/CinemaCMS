@@ -102,21 +102,12 @@ class BannersCarouselForm(forms.ModelForm):
 
 # region Movies
 class MovieCardForm(forms.ModelForm):
-    def clean_movie_type(self):
-        return self.cleaned_data['movie_type'][0]
-
     class Meta:
         model = MovieCard
         exclude = ('date_created', 'seo')
         widgets = {
             'release_date': DateInput(),
         }
-
-    movie_type = forms.MultipleChoiceField(
-        label='Тип кино',
-        choices=Meta.model.TYPES,
-        widget=forms.CheckboxSelectMultiple(),
-    )
 
 
 class MovieFrameForm(ImageValidationMixin, forms.ModelForm):

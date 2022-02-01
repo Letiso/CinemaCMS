@@ -95,9 +95,20 @@
                 </div>
 
                 {{ form.trailer_link|as_crispy_field }}
-                <div class="single_choice_checkbox-list">
-                    {{ form.movie_type|as_crispy_field }}
+
+                <label>Тип кино</label>
+                <div class="row justify-content-start">
+                    <div class="col-2 col-md-1">
+                        {{ form.two_d|as_crispy_field }}
+                    </div>
+                    <div class="col-2 col-md-1">
+                        {{ form.three_d|as_crispy_field }}
+                    </div>
+                    <div class="col-2 col-md-1">
+                        {{ form.imax|as_crispy_field }}
+                    </div>
                 </div>
+
                 <label>SEO блок:</label>
                 <div class="container">
                     {% for field in seo.form %}
@@ -131,6 +142,4 @@
 
 <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
 <script src="{% static 'admin/js/custom_toastr.js' %}"></script>
-
-<script src="{% static 'admin/js/single-choice-checkbox.js' %}"></script>
 {% endblock %}
