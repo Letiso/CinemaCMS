@@ -18,7 +18,7 @@
     <!-- Main content -->
     <div class="card">
       <div id="data_table_decorator" class="card-body">
-        <table id="usersList" class="table table-bordered table-striped">
+        <table id="pagesList" class="table table-bordered table-striped">
           <thead>
              <tr>
                 <th>Название</th>
@@ -132,21 +132,19 @@
 <!-- DataTables  & Plugins -->
 <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
-<script>
-  $(function () {
-    $("#usersList").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false, "ordering": false,
-
-    });
-    add_create_button("usersList")
-  });
-</script>
+<script src="{% static 'admin/js/get_data_table.js' %}"></script>
 
 <script>
+    const dataTableId = "pagesList";
+    getDataTable(dataTableId);
+
     function add_create_button(dataTable) {
         let left_header = document.getElementById(`${dataTable}_wrapper`).getElementsByClassName('col-sm-12')[0]
         left_header.innerHTML = `<a href="{% url 'page_card' 'new' %}" class="btn btn-primary mt-2 ml-3 px-2"><i class="fas fa-plus pr-2"></i>Создать страницу</a>`
         }
+
+    add_create_button("pagesList");
+
 </script>
 {% endblock %}
 
