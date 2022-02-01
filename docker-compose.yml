@@ -18,7 +18,7 @@ services:
     networks:
       - redisnet
 
-  daphne:
+  django_asgi:
     volumes:
       - ./cinema:/app
     env_file:
@@ -28,9 +28,12 @@ services:
     command: >
       sh -c "python3 manage.py migrate --no-input
              python3 manage.py collectstatic --no-input
-
-             python3 manage.py runserver 0.0.0.0:8000"
+      
+             gunicorn --bind 0.0.0.0:8000 cinema.asgi -w 4 -k uvicorn.workers.UvicornWorker"
+#             uvicorn cinema.asgi:application --host 0.0.0.0 --port 8000 --workers 4"
+#             python3 manage.py runserver 0.0.0.0:8000"
 #             daphne -b 0.0.0.0 -p 8000 cinema.asgi:application"
+
     ports:
       - "8000:8000"
     depends_on:
@@ -47,7 +50,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - daphne
+      - django_asgi
     networks:
       - webnet
 
@@ -59,7 +62,7 @@ services:
       - .env
     command: sh -c "celery -A cinema worker -l info"
     depends_on:
-      - daphne
+      - django_asgi
     networks:
       - webnet
       - redisnet
