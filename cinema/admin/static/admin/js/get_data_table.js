@@ -13,7 +13,6 @@ function getDataTable (id) {
             "search": "Поиск",
             "paginate": {
                 "previous": "Предыдущая",
-                "last": "Последняя",
                 "next": "Следующая",
             }
         }
