@@ -16,7 +16,7 @@
     <!-- Main content -->
     <div class="card">
       <div id="data_table_decorator" class="card-body">
-        <table id="usersList" class="table table-bordered table-striped">
+        <table id="newsList" class="table table-bordered table-striped">
           <thead>
              <tr>
                 <th>ID</th>
@@ -93,10 +93,10 @@
 <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 <script>
   $(function () {
-    $("#usersList").DataTable({
+    $("#newsList").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
     });
-    add_create_button("usersList")
+    add_create_button("newsList")
   });
 </script>
 
