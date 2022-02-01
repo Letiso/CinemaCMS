@@ -13,24 +13,29 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row mx-5">
-
-        <div class="card col-sm-12 pb-5 releases">
-            <div class="card-header text-center pb-0">
-                <h4>Вышедшие фильмы</h4>
+        <div class="card releases">
+            <div class="card-header d-flex mt-2">
+                <h4 class="col-11 text-center">
+                    Вышедшие фильмы
+                </h4>
+                <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseReleasesBanner" role="button" aria-expanded="false" aria-controls="collapseReleasesBanner">
+                    <i class="fas fa-bars" style="font-size: 22px;"></i>
+                </a>
             </div>
-            <div class="card-body">
-                <div class="row justify-content-around">
-                    {% for movie_card in releases %}
-                        <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-auto mb-5">
-                            <a href="{% url 'movie_card' movie_card.pk %}">
-                                <img class="card-img-top" src="{{ movie_card.main_image.url }}" alt="">
-                                <div class="card-body">
-                                    <p class="text-center text-dark">{{ movie_card.title }}</p>
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
+            <div class="collapse bg-light" id="collapseReleasesBanner">
+                <div class="card-body">
+                    <div class="row justify-content-around">
+                        {% for movie_card in releases %}
+                            <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-auto mb-5">
+                                <a href="{% url 'movie_card' movie_card.pk %}">
+                                    <img class="card-img-top" src="{{ movie_card.main_image.url }}" alt="">
+                                    <div class="card-body">
+                                        <p class="text-center text-dark">{{ movie_card.title }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
