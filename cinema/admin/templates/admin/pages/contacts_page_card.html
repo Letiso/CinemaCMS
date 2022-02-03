@@ -3,8 +3,13 @@
 {% load static %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{% static 'admin/css/custom_delete_checkbox.css' %}">
-<link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/custom_delete_checkbox.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 {% endblock %}
 
 {% block pages %}active{% endblock %}
@@ -17,16 +22,11 @@
 {% endblock %}
 
 {% block content %}
-<style>
-    .hidden {
-        display: none;
-    }
-</style>
-{% with main_image_width=card.required_size.0 main_image_height=card.required_size.1  gallery_width=gallery.required_size.0 gallery_height=gallery.required_size.1 %}
-    <div class="col-11 card pb-5 mx-auto bg-light">
-        <div class="card-body" id="released-movies-list">
-            <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
-                {% csrf_token %}
+    {% with main_image_width=card.required_size.0 main_image_height=card.required_size.1  gallery_width=gallery.required_size.0 gallery_height=gallery.required_size.1 %}
+        <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
+            <div class="col-11 card pb-5 mx-auto bg-light">
+                <div class="card-body" id="released-movies-list">
+                    {% csrf_token %}
                     <div class="container-fluid">
                         {% with card.formset as formset %}
                             {{ formset.management_form }}
@@ -113,10 +113,10 @@
                             <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
                         </div>
                     </div>
-            </form>
-        </div>
-    </div>
-{% endwith %}
+                </div>
+            </div>
+        </form>
+    {% endwith %}
 {% endblock %}
 
 {% block scripts %}

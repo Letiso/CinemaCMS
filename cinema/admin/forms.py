@@ -139,6 +139,9 @@ class MovieCardForm(forms.ModelForm):
         exclude = ('date_created', 'seo')
         widgets = {
             'release_date': DateInput(),
+            'is_active': forms.CheckboxInput(attrs={
+                'class': 'custom-control-input',
+            }),
         }
 
 
