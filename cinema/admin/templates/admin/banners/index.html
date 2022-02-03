@@ -4,6 +4,11 @@
 {% block stylesheets %}
 <link rel="stylesheet" href="{% static 'admin/css/custom_delete_checkbox.css' %}">
 <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 
 {% endblock %}
 
@@ -14,67 +19,60 @@
 
 
 {% block content %}
-<style>
-    .hidden {
-        display: none;
-    }
-</style>
-
-<form enctype="multipart/form-data" method="POST">
-    {% csrf_token %}
-    <div class="card mx-4">
-      <div class="card-header d-flex mt-2">
-        <h4 class="col-11 text-center">
-            На главной верх
-        </h4>
-        <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseTopBanner" role="button" aria-expanded="false" aria-controls="collapseTopBanner">
-        <i class="fas fa-bars" style="font-size: 22px;"></i>
-        </a>
-      </div>
-        <div class="collapse bg-light" id="collapseTopBanner">
-            <div class="card-body mx-5 mt-1 mb-3">
-                {% include './top_banners.html' %}
+    <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="card mx-4">
+          <div class="card-header d-flex mt-2">
+            <h4 class="col-11 text-center">
+                На главной верх
+            </h4>
+            <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseTopBanner" role="button" aria-expanded="false" aria-controls="collapseTopBanner">
+            <i class="fas fa-bars" style="font-size: 22px;"></i>
+            </a>
+          </div>
+            <div class="collapse bg-light" id="collapseTopBanner">
+                <div class="card-body mx-5 mt-1 mb-3">
+                    {% include './top_banners.html' %}
+                </div>
+                <!-- /.card-body -->
             </div>
-            <!-- /.card-body -->
         </div>
-    </div>
-    <!-- /.card -->
-    <div class="card mx-4">
-      <div class="card-header d-flex mt-2">
-        <h4 class="col-11 text-center">
-            На главной фон
-        </h4>
-        <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseBackgroundImage" role="button" aria-expanded="false" aria-controls="collapseBackgroundImage">
-        <i class="fas fa-bars" style="font-size: 22px;"></i>
-        </a>
-      </div>
-        <div class="collapse bg-light" id="collapseBackgroundImage">
-            <div class="card-body mx-5 mt-1 mb-3">
-                {% include './background_image.html' %}
+        <!-- /.card -->
+        <div class="card mx-4">
+          <div class="card-header d-flex mt-2">
+            <h4 class="col-11 text-center">
+                На главной фон
+            </h4>
+            <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseBackgroundImage" role="button" aria-expanded="false" aria-controls="collapseBackgroundImage">
+            <i class="fas fa-bars" style="font-size: 22px;"></i>
+            </a>
+          </div>
+            <div class="collapse bg-light" id="collapseBackgroundImage">
+                <div class="card-body mx-5 mt-1 mb-3">
+                    {% include './background_image.html' %}
+                </div>
+                <!-- /.card-body -->
             </div>
-            <!-- /.card-body -->
         </div>
-    </div>
-    <!-- /.card -->
-    <div class="card mx-4">
-      <div class="card-header d-flex mt-2">
-        <h4 class="col-11 text-center">
-            На главной Новости | Акции
-        </h4>
-        <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseNewsBanner" role="button" aria-expanded="false" aria-controls="collapseNewsBanner">
-        <i class="fas fa-bars" style="font-size: 22px;"></i>
-        </a>
-      </div>
-        <div class="collapse bg-light" id="collapseNewsBanner">
-            <div class="card-body mx-5 mt-1 mb-3">
-                {% include './news_banners.html' %}
+        <!-- /.card -->
+        <div class="card mx-4">
+          <div class="card-header d-flex mt-2">
+            <h4 class="col-11 text-center">
+                На главной Новости | Акции
+            </h4>
+            <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseNewsBanner" role="button" aria-expanded="false" aria-controls="collapseNewsBanner">
+            <i class="fas fa-bars" style="font-size: 22px;"></i>
+            </a>
+          </div>
+            <div class="collapse bg-light" id="collapseNewsBanner">
+                <div class="card-body mx-5 mt-1 mb-3">
+                    {% include './news_banners.html' %}
+                </div>
+                <!-- /.card-body -->
             </div>
-            <!-- /.card-body -->
         </div>
-    </div>
-    <!-- /.card -->
-</form>
-
+        <!-- /.card -->
+    </form>
 {% endblock %}
 
 {% block scripts %}

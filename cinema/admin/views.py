@@ -215,6 +215,7 @@ class BannersView(CustomAbstractView):
         }
 
         for prefix in forms_to_save:
+            # It's looking for submit name
             if prefix in self.request.POST.keys():
                 return forms_to_save[prefix]
 
@@ -592,6 +593,7 @@ class MailingView(CustomAbstractView):
         }
 
         for prefix in mailing_forms:
+            # It's looking for submit name
             if prefix in request.POST.keys():
                 return mailing_forms[prefix]
 

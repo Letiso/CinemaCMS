@@ -17,16 +17,36 @@
 {% endblock %}
 
 {% block content %}
-<!-- Main content -->
-<section class="content">
-  <div class="container-fluid">
-    <!-- Top row-->
-    <div class="row">
-      <!-- DONUT CHART -->
-      <div class="col-lg-4 col-12 mx-auto">
-        <div class="card card-danger">
+    <!-- Main content -->
+    <div class="container-fluid">
+        <!-- Top row-->
+        <div class="row">
+          <!-- DONUT CHART -->
+          <div class="col-lg-4 col-12 mx-auto">
+            <div class="card card-danger">
+                  <div class="card-header">
+                    <h3 class="card-title">Популярные жанры</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+          </div><!-- /.card -->
+          <!-- AREA CHART -->
+          <div class="col-lg-5 col-12 mx-auto">
+            <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Популярные жанры</h3>
+                <h3 class="card-title">Сеансы</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -38,145 +58,123 @@
                 </div>
               </div>
               <div class="card-body">
-                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              </div>
-              <!-- /.card-body -->
-            </div>
-      </div><!-- /.card -->
-      <!-- AREA CHART -->
-      <div class="col-lg-5 col-12 mx-auto">
-        <div class="card card-primary">
-          <div class="card-header">
-            <h3 class="card-title">Сеансы</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="chart">
-              <div id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
-            </div>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-      </div><!-- /.card -->
-      <!-- Small boxes (Stat box) -->
-      <div class="col-lg-3 col-12 ml-auto">
-        <!-- small box -->
-        <div class="small-box bg-warning">
-          <div class="inner">
-            <h3>44</h3>
-
-            <p>Пользователя</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-person-add"></i>
-          </div>
-          <a href="#" class="small-box-footer">Подробнее <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-        <!-- small box -->
-        <div class="small-box bg-danger">
-          <div class="inner">
-            <h3>65</h3>
-
-            <p>Уникальных посетителей</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-pie-graph"></i>
-          </div>
-          <a href="#" class="small-box-footer">Подробнее <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div><!-- ./col -->
-    </div>
-    <!-- /.row (top row) -->
-    <!-- Middle section -->
-    <section class="col-12">
-      <!-- AREA CHART -->
-      <div class="card card-primary">
-        <div class="card-header">
-          <h3 class="card-title">Подробно о сеансах</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="chart">
-            <div id="areaChartBig" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
-          </div>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-    </section>
-    <!-- /.section (middle section) -->
-    <!-- Bottom row -->
-    <div class="row">
-      <!-- Upper col -->
-      <section class="col-12 col-lg-6">
-            <!-- MAP & BOX PANE -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Статистика, которая появится позже</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
+                <div class="chart">
+                  <div id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
                 </div>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-              </div>
               <!-- /.card-body -->
             </div>
-        <!-- /.card -->
-      </section>
-      <!-- /.Left col -->
-      <!-- right col (We are only adding the ID to make the widgets sortable)-->
-      <section class="col-12 col-lg-6">
-        <!-- PIE CHART -->
-        <div class="card card-danger">
-              <div class="card-header">
-                <h3 class="card-title">Пол пользователей</h3>
+            <!-- /.card -->
+          </div><!-- /.card -->
+          <!-- Small boxes (Stat box) -->
+          <div class="col-lg-3 col-12 ml-auto">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>44</h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
+                <p>Пользователя</p>
               </div>
-              <div class="card-body">
-                <canvas id="pieChartGender" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
               </div>
-              <!-- /.card-body -->
+              <a href="#" class="small-box-footer">Подробнее <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-        <!-- /.card -->
-      </section>
-      <!-- right col -->
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>Уникальных посетителей</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer">Подробнее <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div><!-- ./col -->
+        </div>
+        <!-- /.row (top row) -->
+        <!-- Middle section -->
+        <section class="col-12">
+          <!-- AREA CHART -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Подробно о сеансах</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart">
+                <div id="areaChartBig" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </section>
+        <!-- /.section (middle section) -->
+        <!-- Bottom row -->
+        <div class="row">
+          <!-- Upper col -->
+          <section class="col-12 col-lg-6">
+                <!-- MAP & BOX PANE -->
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Статистика, которая появится позже</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body p-0">
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+            <!-- /.card -->
+          </section>
+          <!-- /.Left col -->
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+          <section class="col-12 col-lg-6">
+            <!-- PIE CHART -->
+            <div class="card card-danger">
+                  <div class="card-header">
+                    <h3 class="card-title">Пол пользователей</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="pieChartGender" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+            <!-- /.card -->
+          </section>
+          <!-- right col -->
+        </div>
+        <!-- /.row (bottom row) -->
     </div>
-    <!-- /.row (bottom row) -->
-  </div><!-- /.container-fluid -->
-</section>
-<!-- /.content -->
+    <!-- /.content -->
 {% endblock %}
 
 {% block scripts %}
