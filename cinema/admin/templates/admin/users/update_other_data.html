@@ -1,0 +1,36 @@
+{% extends 'admin/admin_layout.html' %}
+{% load crispy_forms_tags %}
+{% block users %}active{% endblock %}
+
+{% block current_page %}Обновить данные пользователя: <span class="text-primary">{{ chosen_user.username }}</span>{% endblock %}
+
+{% block path %}
+<li class="breadcrumb-item"><a href="{% url 'users' %}">Пользователи</a></li>
+<li class="breadcrumb-item active">Обновить пользователя</li>
+{% endblock %}
+
+{% block content %}
+{% if user.is_superuser %}
+<div class="row col" style="margin-top: 50px; padding-bottom: 100px;">
+  <div class="card col-md-4 mx-auto py-4 px-5">
+    <form action="" method="POST">
+      {% csrf_token %}
+        {{ form|crispy }}
+{#      {{ form.first_name|as_crispy_field }}#}
+{#      {{ form.last_name|as_crispy_field }}#}
+{#      {{ form.gender|as_crispy_field }}#}
+{#      {{ form.language|as_crispy_field }}#}
+{#      {{ form.birth_date|as_crispy_field }}#}
+{#      {{ form.address|as_crispy_field }}#}
+        <div class="container text-center mt-4">
+            <input type="submit" class="btn btn-success px-5" value="Сохранить изменения" style="font-size: 20px;">
+        </div>
+    </form>
+  </div>
+</div>
+{% else %}
+<div class="card row bg-dark" style="margin-top: 200px;">
+    <p class="text-light mx-auto mt-3" style="font-size: 40px;">Требуется статус администратора</p>
+</div>
+{% endif %}
+{% endblock %}

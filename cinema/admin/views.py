@@ -34,24 +34,6 @@ class CustomAbstractView(View):
         return render(request, self.template_name, self.context)
 
 
-class SeveralHtmlFormsMixin:
-    html_forms:dict = None
-    request = current_html_form_prefix = None
-
-    def define_current_html_form(self) -> None:
-        for prefix in self.html_forms:
-            if prefix in self.request.POST:
-                self.current_html_form_prefix = prefix
-                break
-
-    def get_bound_data(self, prefix) -> dict:
-        form_data = {}
-        if prefix == self.current_html_form_prefix:
-            form_data['data'] = self.request.POST
-            form_data['files'] = self.request.FILES
-        return form_data
-
-
 class CardView(CustomAbstractView):
     success_url = request = None
     contains_gallery:bool = True
@@ -69,11 +51,8 @@ class CardView(CustomAbstractView):
         if pk:
             self.card_instance = get_object_or_404(self.card_model, pk=pk)
 
-        form_data = {
-            'data': self.request.POST or None,
-            'files': self.request.FILES or None
-        }
-        form = self.card_form(**form_data, instance=self.card_instance, prefix=self.card_prefix)
+        request_data = self.request.POST or None, self.request.FILES or None
+        form = self.card_form(*request_data, instance=self.card_instance, prefix=self.card_prefix)
 
         return {'required_size': required_size, 'form': form}
 
@@ -83,9 +62,8 @@ class CardView(CustomAbstractView):
         self.gallery_queryset = self.gallery_model.objects.filter(card_id=pk) \
                      if pk else self.gallery_model.objects.none()
 
-        formset_data = {'data': self.request.POST or None,
-                        'files': self.request.FILES or None}
-        formset = self.gallery_formset(**formset_data, queryset=self.gallery_queryset, prefix=self.gallery_prefix)
+        request_data = self.request.POST or None, self.request.FILES or None
+        formset = self.gallery_formset(*request_data, queryset=self.gallery_queryset, prefix=self.gallery_prefix)
 
         return {'required_size': required_size, 'formset': formset}
 
@@ -98,14 +76,15 @@ class CardView(CustomAbstractView):
             if instance:
                 self.seo_instance = instance
 
-        form_data = {'data': self.request.POST or None}
-        form = SEOForm(**form_data, instance=self.seo_instance, prefix='seo')
+        form = SEOForm(self.request.POST or None, instance=self.seo_instance, prefix='seo')
 
         return {'form': form}
 
     def get_context(self, request, pk):
         self.request = request
         pk = int(pk) if pk.isdigit() else None
+        # For cases when we create a new card,
+        # pk at url have value "new" instead of numeric value
         self.context = super().get_context()
 
         self.context['pk'] = pk
@@ -167,31 +146,20 @@ class StatisticsView(CustomAbstractView):
 # endregion Statistics
 
 # region Banners
-class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
+class BannersView(CustomAbstractView):
     template_name = 'admin/banners/index.html'
-
-    html_forms = {
-        'top_banners': lambda self: (
-            self.context['top_banners']['formset'], self.context['top_banners']['carousel']
-        ),
-        'background_image': lambda self: (
-            self.context['background_image']['form'],
-        ),
-        'news_banners': lambda self: (
-            self.context['news_banners']['formset'], self.context['news_banners']['carousel']
-        ),
-    }
+    request = None
 
     def get_top_banners_context(self) -> dict:
         prefix = 'top_banners'
 
         required_size = TopBanner.required_size
 
-        bound_data = self.get_bound_data(prefix)
-        formset = TopBannerFormSet(**bound_data, prefix=prefix)
+        request_data = self.request.POST or None, self.request.FILES or None
+        formset = TopBannerFormSet(*request_data, prefix=prefix)
 
         carousel_instance = BannersCarousel.objects.get_or_create(pk=1)[0]
-        carousel = BannersCarouselForm(**bound_data, instance=carousel_instance, prefix=prefix)
+        carousel = BannersCarouselForm(*request_data, instance=carousel_instance, prefix=prefix)
 
         return {'required_size': required_size, 'formset': formset, 'carousel': carousel}
 
@@ -200,9 +168,9 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
 
         required_size =  BackgroundImage.required_size
 
+        request_data = self.request.POST or None, self.request.FILES or None
         form_instance = BackgroundImage.objects.get_or_create(pk=1)[0]
-        bound_data = self.get_bound_data(prefix)
-        form = BackgroundImageForm(**bound_data, instance=form_instance, prefix=prefix)
+        form = BackgroundImageForm(*request_data, instance=form_instance, prefix=prefix)
 
         return {'required_size': required_size, 'form': form}
 
@@ -211,17 +179,16 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
 
         required_size = NewsBanner.required_size
 
-        bound_data = self.get_bound_data(prefix)
-        formset = NewsBannerFormSet(**bound_data, prefix=prefix)
+        request_data = self.request.POST or None, self.request.FILES or None
+        formset = NewsBannerFormSet(*request_data, prefix=prefix)
 
         carousel_instance = BannersCarousel.objects.get_or_create(pk=2)[0]
-        carousel = BannersCarouselForm(**bound_data, instance=carousel_instance, prefix=prefix)
+        carousel = BannersCarouselForm(*request_data, instance=carousel_instance, prefix=prefix)
 
         return {'required_size': required_size, 'formset': formset, 'carousel': carousel}
 
     def get_context(self, request) -> dict:
         self.request = request
-        self.define_current_html_form()
         self.context = super().get_context()
 
         self.context['top_banners'] = self.get_top_banners_context()
@@ -230,14 +197,35 @@ class BannersView(SeveralHtmlFormsMixin, CustomAbstractView):
 
         return self.context
 
+    def get_forms_to_save(self):
+        # In cases when we have several submits at one page
+        # we have to know which was the pressed
+        forms_to_save = {
+            'top_banners': (
+                self.context['top_banners']['formset'],
+                self.context['top_banners']['carousel']
+            ),
+            'background_image': (
+                self.context['background_image']['form'],
+            ),
+            'news_banners': (
+                self.context['news_banners']['formset'],
+                self.context['news_banners']['carousel']
+            ),
+        }
+
+        for prefix in forms_to_save:
+            if prefix in self.request.POST.keys():
+                return forms_to_save[prefix]
+
     def post(self, request) -> HttpResponse:
         self.context = self.get_context(request)
 
-        current_html_form = self.html_forms[self.current_html_form_prefix](self) # getting tuple of form/formset objects
-        is_valid = [form.is_valid() for form in current_html_form]
+        forms_to_save = self.get_forms_to_save() # getting tuple of form/formset objects
+        is_valid = [form.is_valid() for form in forms_to_save]
 
         if all(is_valid):
-            for form in current_html_form:
+            for form in forms_to_save:
                 form.save()
             return HttpResponseRedirect('banners')
 
@@ -365,7 +353,7 @@ class PageListView(CustomAbstractView):
     def get_main_page_context():
         main_page_card = MainPageCard.objects.filter(pk=1).first()
         if not main_page_card:
-            main_page_card = MainPageCard.objects.create(pk=1, title='Главная страница')
+            main_page_card = MainPageCard.objects.create(subject_id=1, title='Главная страница')
 
         return main_page_card
 
@@ -400,7 +388,7 @@ class PageListView(CustomAbstractView):
     def get_contacts_page_context():
         contacts_page_card = ContactsPageCard.objects.filter(pk=1).first()
         if not contacts_page_card:
-            contacts_page_card = ContactsPageCard.objects.create(pk=1, title='Контакты')
+            contacts_page_card = ContactsPageCard.objects.create(subject_id=1, title='Контакты')
 
         return contacts_page_card
 
@@ -424,8 +412,7 @@ class MainPageCardView(CardView):
     def get_card_context(self, pk):
         self.card_instance = get_object_or_404(MainPageCard, pk=pk)
 
-        form_data = {'data': self.request.POST or None}
-        form = MainPageCardForm(**form_data, instance=self.card_instance, prefix=self.card_prefix)
+        form = MainPageCardForm(self.request.POST or None, instance=self.card_instance, prefix=self.card_prefix)
 
         return {'form': form}
 
@@ -456,9 +443,8 @@ class ContactsPageCardView(CardView):
     def get_card_context(self, *args):
         required_size = ContactsPageCard.required_size
 
-        form_data = {'data': self.request.POST or None,
-                     'files': self.request.FILES or None}
-        formset = ContactsPageCardFormset(**form_data, prefix=self.card_prefix)
+        request_data = self.request.POST or None, self.request.FILES or None
+        formset = ContactsPageCardFormset(*request_data, prefix=self.card_prefix)
 
         return {'required_size': required_size, 'formset': formset}
 
@@ -499,8 +485,9 @@ class PageCardDeleteView(View):
 # endregion Pages
 
 # region User
+
 class UsersView(CustomAbstractView):
-    template_name = 'admin/users/users.html'
+    template_name = 'admin/users/index.html'
 
     def get_context(self, request) -> dict:
         self.context = super().get_context()
@@ -509,12 +496,66 @@ class UsersView(CustomAbstractView):
         return self.context
 
 
-class UserUpdateView(UpdateView):
-    model = get_user_model()
-    success_url = '/admin/users'
-    template_name = 'admin/users/update.html'
+class UserUpdateView(CustomAbstractView):
+    template_name = 'admin/users/chose_update_option.html'
 
-    form_class = ExtendedUserUpdateForm
+    def get_context(self, request, pk) -> dict:
+        self.context = super().get_context(request, pk)
+        self.context['chosen_user'] = get_user_model().objects.get(pk=pk)
+
+        return self.context
+
+
+class UserEmailUpdateView(CustomAbstractView):
+    template_name = 'admin/users/update_email.html'
+
+    def get_context(self, request, pk) -> dict:
+        self.context = super().get_context()
+
+        chosen_user = get_user_model().objects.get(pk=pk)
+        self.context['chosen_user'] = chosen_user
+        self.context['form'] = UserEmailUpdateForm(instance=chosen_user)
+
+        return self.context
+
+
+class UserPhoneUpdateView(CustomAbstractView):
+    template_name = 'admin/users/update_phone.html'
+
+    def get_context(self, request, pk) -> dict:
+        self.context = super().get_context()
+
+        chosen_user = get_user_model().objects.get(pk=pk)
+        self.context['chosen_user'] = chosen_user
+        self.context['form'] = UserPhoneUpdateForm(instance=chosen_user)
+
+        return self.context
+
+
+class UserPasswordUpdateView(CustomAbstractView):
+    template_name = 'admin/users/update_password.html'
+
+    def get_context(self, request, pk) -> dict:
+        self.context = super().get_context()
+
+        chosen_user = get_user_model().objects.get(pk=pk)
+        self.context['chosen_user'] = chosen_user
+        self.context['form'] = UserPasswordUpdateForm(instance=chosen_user)
+
+        return self.context
+
+
+class UserDataUpdateView(CustomAbstractView):
+    template_name = 'admin/users/update_password.html'
+
+    def get_context(self, request, pk) -> dict:
+        self.context = super().get_context()
+
+        chosen_user = get_user_model().objects.get(pk=pk)
+        self.context['chosen_user'] = chosen_user
+        self.context['form'] = UserDataUpdateForm(instance=chosen_user)
+
+        return self.context
 
 
 class UserDeleteView(View):
@@ -529,33 +570,33 @@ class UserDeleteView(View):
 # endregion User
 
 # region Mailing
-class MailingView(SeveralHtmlFormsMixin, CustomAbstractView):
+class MailingView(CustomAbstractView):
     template_name = 'admin/mailing/mailing.html'
 
-    html_forms = {
-        'SMS': lambda self: self.context['SMS'],
-        'email': lambda self: self.context['email']
-    }
-
     def get_context(self, request) -> dict:
-        self.request = request
-        self.define_current_html_form()
         self.context = super().get_context()
 
         self.context['users'] = get_user_model().objects.all()
-
-        bound_data = self.get_bound_data('SMS')
-        self.context['SMS'] = SendSMSForm(**bound_data, prefix='SMS')
-
-        bound_data = self.get_bound_data('email')
-        self.context['email'] = SendEmailForm(**bound_data, prefix='email')
-
+        self.context['SMS'] = SendSMSForm(request.POST or None, prefix='SMS')
+        self.context['email'] = SendEmailForm(request.POST or None, request.FILES or None, prefix='email')
         self.context['last_html_messages'] = EmailMailingHTMLMessage.objects.all()
 
         return self.context
 
+    def get_mailing_form(self, request):
+        # In cases when we have several submits at one page
+        # we have to know which was the pressed
+        mailing_forms = {
+            'SMS': self.context['SMS'],
+            'email': self.context['email']
+        }
+
+        for prefix in mailing_forms:
+            if prefix in request.POST.keys():
+                return mailing_forms[prefix]
+
     @staticmethod
-    def save(form):
+    def start_mailing(form):
         if form.is_valid():
             send_to_everyone, message, checked_users = (form.cleaned_data['mailing_type'],
                                                         form.cleaned_data['message'],
@@ -570,8 +611,9 @@ class MailingView(SeveralHtmlFormsMixin, CustomAbstractView):
     def post(self, request) -> HttpResponse:
         self.context = self.get_context(request)
 
-        current_html_form = self.html_forms[self.current_html_form_prefix](self) # getting form object
-        if self.save(current_html_form):
+        current_form = self.get_mailing_form(request)
+        mailing_was_started = self.start_mailing(current_form)
+        if mailing_was_started:
             return redirect('mailing')
 
         return super().post(request)

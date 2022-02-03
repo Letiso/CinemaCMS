@@ -1,22 +1,19 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-<form enctype="multipart/form-data" method="POST">
-    {% csrf_token %}
-    <div class="row">
-        <h4 class="mr-auto">Размер: {{ background_image.required_size.0 }}x{{ background_image.required_size.1 }}</h4>
-    </div>
+<div class="row">
+    <h4 class="mr-auto">Размер: {{ background_image.required_size.0 }}x{{ background_image.required_size.1 }}</h4>
+</div>
 
-    <div class="col-sm-12 col-lg-5 card px-0 mx-auto" style="min-width: 25vw;">
-        {% with background_image.form as form %}
-            <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image %}{{ form.instance.image.url }}{% endif %}" alt="">
-            <div class="card-body">
-                {{ form.image|as_crispy_field }}
-                {{ form.is_active|as_crispy_field }}
-            </div>
-        {% endwith %}
-    </div>
-    <div class="text-center mt-5">
-        <input type="submit" name="background_image" class="btn btn-success" value="Сохранить изменения">
-    </div>
-</form>
+<div class="col-sm-12 col-lg-5 card px-0 mx-auto" style="min-width: 25vw;">
+    {% with background_image.form as form %}
+        <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image %}{{ form.instance.image.url }}{% endif %}" alt="">
+        <div class="card-body">
+            {{ form.image|as_crispy_field }}
+            {{ form.is_active|as_crispy_field }}
+        </div>
+    {% endwith %}
+</div>
+<div class="text-center mt-5">
+    <input type="submit" name="background_image" class="btn btn-success" value="Сохранить изменения">
+</div>

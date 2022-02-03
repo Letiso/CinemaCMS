@@ -38,14 +38,11 @@ function toggle_show(event, collapse_name) {
 
 // init EventListener on every card collapse div
 function initCollapsesEventListener() {
-    console.log('first')
     $("a[data-toggle*='collapse']").on('click', function (event) {
-        // toggle_show(event, $(this).prop("href"))
-        console.log(this)
-        console.log($(this).prop('href'))
-        console.log('second')
+        const collapse_name = $(this).prop('href').split('#')[1]
+
+        toggle_show(event, collapse_name)
     })
 }
 
-console.log('third')
 initCollapsesEventListener()

@@ -39,7 +39,39 @@ class ImageValidationMixin:
 
 # region User
 class ExtendedUserUpdateForm(UserUpdateForm):
-    UserUpdateForm.Meta.fields += ('is_staff', 'is_superuser')
+    fields = exclude = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.Meta.fields += ('is_staff', 'is_superuser')
+        self.set_fields()
+
+    def set_fields(self):
+        if self.exclude:
+            self.fields = filter(
+                lambda field: field not in exclude,
+                self.Meta.fields
+            )
+
+        self.Meta.fields = tuple(self.fields)
+        print(self.fields)
+        print(self.Meta.fields)
+
+
+class UserEmailUpdateForm(ExtendedUserUpdateForm):
+    fields = ['email']
+
+
+class UserPhoneUpdateForm(ExtendedUserUpdateForm):
+    fields = ['phone']
+
+
+class UserPasswordUpdateForm(ExtendedUserUpdateForm):
+    fields = ['password']
+
+
+class UserDataUpdateForm(ExtendedUserUpdateForm):
+    exclude = ['email', 'phone', 'password']
 
 
 # endregion User

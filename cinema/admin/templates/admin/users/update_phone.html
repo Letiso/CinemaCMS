@@ -2,11 +2,11 @@
 {% load crispy_forms_tags %}
 {% block users %}active{% endblock %}
 
-{% block current_page %}Изменить пользователя{% endblock %}
+{% block current_page %}Обновить номер пользователя: <span class="text-primary">{{ chosen_user.username }}</span>{% endblock %}
 
 {% block path %}
 <li class="breadcrumb-item"><a href="{% url 'users' %}">Пользователи</a></li>
-<li class="breadcrumb-item active">Изменить пользователя</li>
+<li class="breadcrumb-item active">Обновить пользователя</li>
 {% endblock %}
 
 {% block content %}
