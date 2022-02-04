@@ -518,6 +518,7 @@ class UserDeleteView(View):
         model = get_user_model()
         user_to_delete = get_object_or_404(model, pk=pk)
         user_to_delete.delete()
+
         return redirect('users')
 
 

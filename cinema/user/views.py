@@ -55,7 +55,11 @@ class LoginView(View):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
+                if not remember_me:
+                    request.session.set_expiry(0)
+
                 return HttpResponseRedirect('/')
+
         return render(request, 'user/login.html', context)
 
 

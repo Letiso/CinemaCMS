@@ -130,28 +130,32 @@ class UserUpdateForm(forms.ModelForm):
         }
 
 
-class LoginForm(forms.ModelForm):
+class LoginForm(forms.Form):
+    login = forms.CharField(label='Логин', max_length=50)
+    password = forms.CharField(label='Пароль', max_length=256)
+    remember_me = forms.BooleanField(label='Запомнить меня')
+
     def clean(self):
-        username = self.cleaned_data['username']
+        login = self.cleaned_data['username']
         password = self.cleaned_data['password']
 
-        if not CustomUser.objects.filter(username=username).exists():
+        if not CustomUser.objects.filter(username=login).exists():
             raise forms.ValidationError(f'Пользователя {username} не найден')
 
         user = CustomUser.objects.filter(username=username).first()
         if user:
             if not user.check_password(password):
                 raise forms.ValidationError('Неверный пароль')
+
         return self.cleaned_data
 
     class Meta:
-        model = CustomUser
         fields = ('username', 'password')
         labels = {
             'username': 'Логин',
         }
         widgets = {
-            'username': forms.TextInput(attrs={
+            'login': forms.TextInput(attrs={
                 'placeholder': 'Имя пользователя или почта',
                 'autofocus': True
             }),
