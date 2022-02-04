@@ -25,14 +25,8 @@ urlpatterns = [
     path('pages/page_card/<int:pk>/delete', views.PageCardDeleteView.as_view(), name="delete_page"),
     path('pages/contacts_page_card', views.ContactsPageCardView.as_view(), name="contacts_page_card"),
 
-    path('users', views.UsersView.as_view(), name="users"),
+    path('users', views.UsersListView.as_view(), name="users"),
     path('user/<int:pk>/update', views.UserUpdateView.as_view(), name="update_user"),
-
-    path('user/<int:pk>/update_email', views.UserEmailUpdateView.as_view(), name="update_user_email"),
-    path('user/<int:pk>/update_phone', views.UserPhoneUpdateView.as_view(), name="update_user_phone"),
-    path('user/<int:pk>/update_password', views.UserPasswordUpdateView.as_view(), name="update_user_password"),
-    path('user/<int:pk>/update_data', views.UserDataUpdateView.as_view(), name="update_user_data"),
-
     path('user/<int:pk>/delete', views.UserDeleteView.as_view(), name="delete_user"),
 
     path('mailing', views.MailingView.as_view(), name="mailing"),

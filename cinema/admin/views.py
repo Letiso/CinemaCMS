@@ -486,8 +486,7 @@ class PageCardDeleteView(View):
 # endregion Pages
 
 # region User
-
-class UsersView(CustomAbstractView):
+class UsersListView(CustomAbstractView):
     template_name = 'admin/users/index.html'
 
     def get_context(self, request) -> dict:
@@ -498,42 +497,6 @@ class UsersView(CustomAbstractView):
 
 
 class UserUpdateView(CustomAbstractView):
-    template_name = 'admin/users/chose_update_option.html'
-
-    def get_context(self, request, pk) -> dict:
-        self.context = super().get_context(request, pk)
-        self.context['chosen_user'] = get_user_model().objects.get(pk=pk)
-
-        return self.context
-
-
-class UserEmailUpdateView(CustomAbstractView):
-    template_name = 'admin/users/update_email.html'
-
-    def get_context(self, request, pk) -> dict:
-        self.context = super().get_context()
-
-        chosen_user = get_user_model().objects.get(pk=pk)
-        self.context['chosen_user'] = chosen_user
-        self.context['form'] = UserEmailUpdateForm(instance=chosen_user)
-
-        return self.context
-
-
-class UserPhoneUpdateView(CustomAbstractView):
-    template_name = 'admin/users/update_phone.html'
-
-    def get_context(self, request, pk) -> dict:
-        self.context = super().get_context()
-
-        chosen_user = get_user_model().objects.get(pk=pk)
-        self.context['chosen_user'] = chosen_user
-        self.context['form'] = UserPhoneUpdateForm(instance=chosen_user)
-
-        return self.context
-
-
-class UserPasswordUpdateView(CustomAbstractView):
     template_name = 'admin/users/update_password.html'
 
     def get_context(self, request, pk) -> dict:
@@ -541,20 +504,7 @@ class UserPasswordUpdateView(CustomAbstractView):
 
         chosen_user = get_user_model().objects.get(pk=pk)
         self.context['chosen_user'] = chosen_user
-        self.context['form'] = UserPasswordUpdateForm(instance=chosen_user)
-
-        return self.context
-
-
-class UserDataUpdateView(CustomAbstractView):
-    template_name = 'admin/users/update_password.html'
-
-    def get_context(self, request, pk) -> dict:
-        self.context = super().get_context()
-
-        chosen_user = get_user_model().objects.get(pk=pk)
-        self.context['chosen_user'] = chosen_user
-        self.context['form'] = UserDataUpdateForm(instance=chosen_user)
+        self.context['form'] = ExtendedUserUpdateForm(instance=chosen_user)
 
         return self.context
 

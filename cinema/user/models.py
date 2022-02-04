@@ -8,7 +8,7 @@ from django.utils import timezone
 class CustomUser(AbstractBaseUser):
     USERNAME_FIELD = 'username'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
+
     GENDERS = (
         ('m', 'Мужской'),
         ('f', 'Женский')
@@ -31,7 +31,7 @@ class CustomUser(AbstractBaseUser):
         },
     )
     email = models.EmailField(_('email address'))
-    phone = models.CharField('Номер телефона', max_length=10, blank=True)
+    phone = models.CharField('Номер телефона', max_length=10)
 
     first_name = models.CharField(_('first name'), max_length=150, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
