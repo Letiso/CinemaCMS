@@ -50,8 +50,10 @@ class LoginView(View):
 
         }
         if form.is_valid():
-            username = form.cleaned_data['username']
+            username = form.cleaned_data['user_login']
             password = form.cleaned_data['password']
+            remember_me = form.cleaned_data['remember_me']
+
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)

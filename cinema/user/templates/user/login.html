@@ -12,14 +12,14 @@
         <h3 class="text-center">{{ title }}</h3>
         <hr>
         <form action="" method="POST">
-          {% csrf_token %}
-          {{ form.login|crispy }}
-          <input type="submit" class="btn btn-primary px-5" value="Войти">
+            {% csrf_token %}
+            {{ form.user_login|as_crispy_field }}
+            {{ form.password|as_crispy_field }}
+            {{ form.remember_me|as_crispy_field }}
+            <div class="form-group form-check mt-3 text-center">
+                <input type="submit" class="btn btn-primary px-5" value="Войти">
+            </div>
         </form>
-        <div class="form-group form-check mt-3 text-center">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
-        </div>
         <hr>
         <div class="row my-2">
           <span class="col-12">Еще нет учетной записи?</span>

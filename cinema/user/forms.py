@@ -131,35 +131,53 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    login = forms.CharField(label='Логин', max_length=50)
-    password = forms.CharField(label='Пароль', max_length=256)
-    remember_me = forms.BooleanField(label='Запомнить меня')
+    user_login = forms.CharField(
+        label='Логин',
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Имя пользователя или почта',
+                'autofocus': True
+            }
+        )
+    )
+    password = forms.CharField(
+        label='Пароль',
+        max_length=256,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': '•' * 15,
+            }
+        )
+    )
+    remember_me = forms.BooleanField(
+        label='Запомнить меня',
+        required=False,
+        widget=forms.CheckboxInput()
+    )
+    user_model = CustomUser.objects
+
+    def clean_user_login(self):
+        user_login = self.cleaned_data['user_login']
+
+        if "@" in user_login:
+            if not self.user_model.filter(email=user_login).exists():
+                raise forms.ValidationError(f'Пользователь с почтой "{user_login}" не найден')
+
+            user_login = self.user_model.get(email=user_login).username
+        else:
+            if not self.user_model.filter(username=user_login).exists():
+                raise forms.ValidationError(f'Пользователь "{user_login}" не найден')
+
+        return user_login
 
     def clean(self):
-        login = self.cleaned_data['username']
+        user_login = self.cleaned_data['user_login']
         password = self.cleaned_data['password']
 
-        if not CustomUser.objects.filter(username=login).exists():
-            raise forms.ValidationError(f'Пользователя {username} не найден')
-
-        user = CustomUser.objects.filter(username=username).first()
+        user = CustomUser.objects.filter(username=user_login).first()
         if user:
             if not user.check_password(password):
                 raise forms.ValidationError('Неверный пароль')
 
         return self.cleaned_data
-
-    class Meta:
-        fields = ('username', 'password')
-        labels = {
-            'username': 'Логин',
-        }
-        widgets = {
-            'login': forms.TextInput(attrs={
-                'placeholder': 'Имя пользователя или почта',
-                'autofocus': True
-            }),
-            'password': forms.PasswordInput(attrs={
-                'placeholder': '•' * 15,
-            }),
-        }
