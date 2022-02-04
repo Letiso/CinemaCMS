@@ -8,8 +8,30 @@ from .models import CustomUser
 from .forms import LoginForm, SignUpForm, UserUpdateForm
 
 
-class LoginView(View):
+class SignUpView(View):
+    @staticmethod
+    def get(request):
+        form = SignUpForm(request.POST or None)
+        context = {
+            'form': form,
+        }
+        return render(request, 'user/signup.html', context)
 
+    @staticmethod
+    def post(request):
+        form = SignUpForm(request.POST or None)
+        if form.is_valid():
+            del form.cleaned_data['confirm_password']
+            new_user = CustomUser.objects.create_user(**form.cleaned_data)
+            login(request, new_user)
+            return HttpResponseRedirect('/')
+        context = {
+            'form': form,
+        }
+        return render(request, 'user/signup.html', context)
+
+
+class LoginView(View):
     @staticmethod
     def get(request):
         form = LoginForm(request.POST or None)
@@ -35,35 +57,6 @@ class LoginView(View):
                 login(request, user)
                 return HttpResponseRedirect('/')
         return render(request, 'user/login.html', context)
-
-
-class SignUpView(View):
-
-    @staticmethod
-    def get(request):
-        form = SignUpForm(request.POST or None)
-        context = {
-            'form': form,
-        }
-        return render(request, 'user/signup.html', context)
-
-    @staticmethod
-    def post(request):
-        form = SignUpForm(request.POST or None)
-        if form.is_valid():
-            del form.cleaned_data['confirm_password']
-            new_user = CustomUser.objects.create_user(**form.cleaned_data)
-            login(request, new_user)
-            return HttpResponseRedirect('/')
-        context = {
-            'form': form,
-        }
-        return render(request, 'user/signup.html', context)
-
-
-def user_account(request):
-    context = {}
-    return render(request, 'user/account.html', context)
 
 
 class UserUpdateView(UpdateView):

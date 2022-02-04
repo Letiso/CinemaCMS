@@ -133,7 +133,7 @@ class CardView(CustomAbstractView):
         if self.save(*forms_to_save):
             return redirect(self.success_url)
 
-        return super().post(request, pk, *args, **kwargs)
+        return super().post(request, *args, **kwargs)
 
 
 # endregion Mixins
@@ -496,17 +496,20 @@ class UsersListView(CustomAbstractView):
         return self.context
 
 
-class UserUpdateView(CustomAbstractView):
-    template_name = 'admin/users/update_password.html'
+class UserUpdateView(UpdateView):
+    model = get_user_model()
+    template_name = 'admin/users/update_user.html'
+    success_url = '/admin/users'
 
-    def get_context(self, request, pk) -> dict:
-        self.context = super().get_context()
+    form_class = ExtendedUserUpdateForm
 
-        chosen_user = get_user_model().objects.get(pk=pk)
-        self.context['chosen_user'] = chosen_user
-        self.context['form'] = ExtendedUserUpdateForm(instance=chosen_user)
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
 
-        return self.context
+        chosen_user = context['form'].instance
+        context['chosen_user'] = chosen_user
+
+        return context
 
 
 class UserDeleteView(View):

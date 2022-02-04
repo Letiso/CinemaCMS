@@ -2,11 +2,11 @@
 {% load crispy_forms_tags %}
 {% block users %}active{% endblock %}
 
-{% block current_page %}Обновить номер пользователя: <span class="text-primary">{{ chosen_user.username }}</span>{% endblock %}
+{% block current_page %}Обновить данные пользователя: <span class="text-primary">{{ chosen_user.username }}</span>{% endblock %}
 
 {% block path %}
 <li class="breadcrumb-item"><a href="{% url 'users' %}">Пользователи</a></li>
-<li class="breadcrumb-item active">Обновить пользователя</li>
+<li class="breadcrumb-item active">Обновить данные пользователя</li>
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
   <div class="card col-md-4 mx-auto py-4 px-5">
     <form action="" method="POST">
       {% csrf_token %}
-      {{ form|crispy }}
+        {{ form|crispy }}
         <div class="container text-center mt-4">
             <input type="submit" class="btn btn-success px-5" value="Сохранить изменения" style="font-size: 20px;">
         </div>
