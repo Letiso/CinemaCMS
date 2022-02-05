@@ -58,7 +58,7 @@ class LoginView(CustomAbstractView):
         return self.context
 
     def post(self, request):
-        self.context = super().get_context()
+        self.context = self.get_context(request)
         form = self.context['form']
 
         if form.is_valid():
