@@ -6,49 +6,61 @@ from django.http import HttpResponseRedirect
 
 from .models import CustomUser
 from .forms import LoginForm, SignUpForm, UserUpdateForm
+from django.http import HttpResponseRedirect, HttpResponse
 
 
-class SignUpView(View):
-    @staticmethod
-    def get(request):
-        form = SignUpForm(request.POST or None)
-        context = {
-            'form': form,
-        }
-        return render(request, 'user/signup.html', context)
+# region Mixins
+class CustomAbstractView(View):
+    template_name = context = None
 
     @staticmethod
-    def post(request):
-        form = SignUpForm(request.POST or None)
+    def get_context(*args, **kwargs) -> dict:
+        return {}
+
+    def get(self, request, *args, **kwargs) -> HttpResponse:
+        self.context = self.get_context(request, *args, **kwargs)
+
+        return render(request, self.template_name, self.context)
+
+    def post(self, request, *args, **kwargs) -> HttpResponse:
+        return render(request, self.template_name, self.context)
+
+
+# endregion Mixins
+
+class SignUpView(CustomAbstractView):
+    template_name = 'user/signup.html'
+
+    def get_context(self, request):
+        self.context = super().get_context()
+        self.context['form'] = SignUpForm(request.POST or None)
+
+        return self.context
+
+    def post(self, request):
+        self.context = self.get_context(request)
+        form = self.context['form']
+
         if form.is_valid():
-            del form.cleaned_data['confirm_password']
-            new_user = CustomUser.objects.create_user(**form.cleaned_data)
-            login(request, new_user)
-            return HttpResponseRedirect('/')
-        context = {
-            'form': form,
-        }
-        return render(request, 'user/signup.html', context)
+            CustomUser.objects.create_user(**form.cleaned_data)
+            return HttpResponseRedirect('login')
+
+        return super().post(request)
 
 
-class LoginView(View):
-    @staticmethod
-    def get(request):
-        form = LoginForm(request.POST or None)
-        context = {
-            'title': 'Авторизация',
-            'form': form,
-        }
-        return render(request, 'user/login.html', context)
+class LoginView(CustomAbstractView):
+    template_name = 'user/login.html'
 
-    @staticmethod
-    def post(request):
-        form = LoginForm(request.POST or None)
-        context = {
-            'title': 'Авторизация',
-            'form': form,
+    def get_context(self, request):
+        self.context = super().get_context()
+        self.context['form'] = LoginForm(request.POST or None)
 
-        }
+        return self.context
+
+    def post(self, request):
+        self.context = super().get_context()
+        form = self.context['form']
+
         if form.is_valid():
             username = form.cleaned_data['user_login']
             password = form.cleaned_data['password']
@@ -59,10 +71,11 @@ class LoginView(View):
                 login(request, user)
                 if not remember_me:
                     request.session.set_expiry(0)
+                    request.session.modified = True
 
                 return HttpResponseRedirect('/')
 
-        return render(request, 'user/login.html', context)
+        return super().post(request)
 
 
 class UserUpdateView(UpdateView):

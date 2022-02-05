@@ -31,6 +31,7 @@ class SignUpForm(forms.ModelForm):
         confirm_password = self.cleaned_data['confirm_password']
         if password != confirm_password:
             raise forms.ValidationError('Пароли не совпадают')
+        del self.cleaned_data['confirm_password'] # Because it's not necessary already
 
         return self.cleaned_data
 
