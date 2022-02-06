@@ -113,6 +113,10 @@ class CinemaHallGallery(models.Model):
 
     is_active = models.BooleanField('Активен', default=False)
 
+
+# endregion Cinemas
+
+# region Sessions
 # class MovieSession(models.Model):
 #     cinema = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
 #     required_size = (1000, 190)
@@ -120,7 +124,7 @@ class CinemaHallGallery(models.Model):
 #     is_active = models.BooleanField('Активен', default=False)
 
 
-# endregion Cinemas
+# endregion Sessions
 
 # region News
 class NewsCard(models.Model):
