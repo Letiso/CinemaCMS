@@ -72,6 +72,29 @@ class MovieFrame(models.Model):
 
 # endregion Movies
 
+# region Cinemas
+class CinemaCard(models.Model):
+    name = models.CharField('Название фильма', max_length=256)
+    description = models.TextField('Описание')
+    amenities = models.TextField('Условия')
+    required_size = (1000, 190)
+    logo = models.ImageField('Логотип')
+    main_image = models.ImageField('Главная картинка')
+
+    is_active = models.BooleanField('Активен', default=False)
+    date_created = models.DateTimeField(default=timezone.now)
+    seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='cinema', null=True)
+
+
+# class MovieSession(models.Model):
+#     cinema = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
+#     required_size = (1000, 190)
+#     image = models.ImageField('Кадр из фильма')
+#     is_active = models.BooleanField('Активен', default=False)
+
+
+# endregion Cinemas
+
 # region News
 class NewsCard(models.Model):
     title = models.CharField('Название новости', max_length=256)

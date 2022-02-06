@@ -276,7 +276,11 @@ class MovieCardView(CardView):
 class CinemasView(CustomAbstractView):
     template_name = 'admin/cinemas.html'
 
+    def get_context(self, request) -> dict:
+        self.context = super().get_context()
+        # self.context['cinemas'] =
 
+        return self.context
 # endregion Cinemas
 
 # region News
