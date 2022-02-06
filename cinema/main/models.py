@@ -74,7 +74,7 @@ class MovieFrame(models.Model):
 
 # region Cinemas
 class CinemaCard(models.Model):
-    name = models.CharField('Название фильма', max_length=256)
+    name = models.CharField('Название кинотеатра', max_length=256)
     description = models.TextField('Описание')
     amenities = models.TextField('Условия')
     required_size = (1000, 190)

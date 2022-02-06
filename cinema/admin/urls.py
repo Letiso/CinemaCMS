@@ -10,6 +10,12 @@ urlpatterns = [
     path('movie_card/<str:pk>', views.MovieCardView.as_view(), name="movie_card"),
 
     path('cinemas', views.CinemasView.as_view(), name="cinemas_conf"),
+    path('cinema_card/<str:pk>', views.CinemaCardView.as_view(), name="cinema_card"),
+    path('cinema_card/<str:pk>/delete', views.CinemaCardDeleteView.as_view(), name="delete_cinema_card"),
+
+    path('cinema_halls', views.CinemaHallView.as_view(), name="halls"),
+    path('cinema_hall_card/<str:pk>', views.CinemaHallCardView.as_view(), name="hall_card"),
+    path('cinema_hall_card/<str:pk>/delete', views.CinemaHallCardDeleteView.as_view(), name="delete_cinema_hall_card"),
 
     path('news', views.NewsView.as_view(), name="news_conf"),
     path('news_card/<str:pk>', views.NewsCardView.as_view(), name="news_card"),

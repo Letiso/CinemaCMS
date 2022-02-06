@@ -1,0 +1,99 @@
+﻿{% extends 'admin/admin_layout.html' %}
+{% load static %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block cinemas_conf %}active{% endblock %}
+
+{% block current_page %}Залы{% endblock %}
+
+{% block path %}
+<li class="breadcrumb-item active">Залы</li>
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header d-flex mt-2">
+            <h4 class="col-11 text-center">
+                Список залов
+            </h4>
+        </div>
+      <div id="data_table_decorator" class="card-body">
+        <table id="hallsList" class="table table-bordered table-striped px-5">
+          <thead>
+             <tr>
+                <th>Номер</th>
+                <th>Дата создания</th>
+                <th>Статус</th>
+                <th>Редактировать</th>
+             </tr>
+          </thead>
+          <tbody>
+            {% for cinema_hall in halls %}
+              <tr>
+                  <td>{{ cinema_hall.number }}</td>
+                  <td>{{ cinema_hall.date_created }}</td>
+                  <td>
+                      {% if cinema_hall.is_active %}
+                        <span>Вкл.</span>
+                      {% else %}
+                        <span>Выкл.</span>
+                      {% endif %}
+                  </td>
+                  <td class="col-1">
+                      <div class="row buttons">
+                          <a href="{% url 'cinema_hall_card' news.pk %}"
+                             class="fas fa-pen text-primary mx-auto"></a>
+                          <!-- Button trigger modal -->
+                          <a class="fas fa-minus-circle text-danger ml-2 mr-auto"
+                             data-toggle="modal" data-target="#deleteCinemaModal-{{ forloop.counter }}"></a>
+                          <!-- Modal -->
+                        <div class="modal fade" id="deleteCinemaModal-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header bg-dark">
+                                <h5 class="modal-title" id="exampleModalLongTitle-{{ forloop.counter }}">
+                                    Подтверждение удаления
+                                </h5>
+                              </div>
+                              <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
+                                <span style="font-size: 20px;">
+                                    Вы уверены, что хотите удалить этот зал?
+                                </span>
+                                <span class="text-primary" style="font-size: 35px;">
+                                    {{ cinema_card.name }}
+                                </span>
+                              </div>
+                              <div class="modal-footer bg-dark">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Назад
+                                </button>
+                                  <a href="{% url 'delete_news' news.pk %}" class="btn btn-danger">
+                                      Удалить новость
+                                  </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'admin/js/get_data_table.js' %}"></script>
+
+    <script>
+        const dataTableId = "hallsList";
+        getDataTable(dataTableId);
+    </script>
+{% endblock %}
+

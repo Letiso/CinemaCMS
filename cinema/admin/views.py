@@ -274,13 +274,67 @@ class MovieCardView(CardView):
 
 # region Cinemas
 class CinemasView(CustomAbstractView):
-    template_name = 'admin/cinemas.html'
+    template_name = 'admin/cinemas/cinemas.html'
 
-    def get_context(self, request) -> dict:
+    def get_context(self, *args):
         self.context = super().get_context()
-        # self.context['cinemas'] =
+        self.context['cinemas'] = CinemaCard.objects.all()
 
         return self.context
+
+
+class CinemaCardView(CardView):
+    template_name = 'admin/cinemas/cinema_card.html'
+    success_url = 'cinemas_conf'
+
+    card_prefix = 'cinema'
+    card_model = CinemaCard
+    card_form = CinemaCardForm
+
+    gallery_prefix = 'cinema_image'
+    gallery_model = CinemaGallery
+    gallery_formset = CinemaGalleryFormset
+
+
+class CinemaCardDeleteView(View):
+    @staticmethod
+    def get(request, pk) -> HttpResponseRedirect:
+        news_to_delete = get_object_or_404(CinemaCard, pk=pk)
+        news_to_delete.delete()
+        return redirect('cinemas')
+
+
+class CinemaHallView(CustomAbstractView):
+    template_name = 'admin/cinemas/halls.html'
+
+    def get_context(self, *args):
+        self.context = super().get_context()
+        self.context['halls'] = CinemaHallCard.objects.all()
+
+        return self.context
+
+
+class CinemaHallCardView(CardView):
+    template_name = 'admin/cinemas/cinema_card.html'
+    success_url = 'halls'
+
+    card_prefix = 'hall'
+    card_model = CinemaHallCard
+    card_form = CinemaHallCardForm
+
+    gallery_prefix = 'hall_image'
+    gallery_model = CinemaHallGallery
+    gallery_formset = CinemaHallGalleryFormset
+
+
+class CinemaHallCardDeleteView(View):
+    @staticmethod
+    def get(request, pk) -> HttpResponseRedirect:
+        news_to_delete = get_object_or_404(CinemaHallCard, pk=pk)
+        news_to_delete.delete()
+        return redirect('halls')
+
+
 # endregion Cinemas
 
 # region News
