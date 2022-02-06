@@ -124,6 +124,50 @@ MovieFrameFormset = modelformset_factory(MovieFrameForm.Meta.model, form=MovieFr
 
 # endregion Movies
 
+# region Cinemas
+class CinemaCardForm(forms.ModelForm):
+    class Meta:
+        model = CinemaCard
+        exclude = ('date_created', 'seo')
+        widgets = {
+            'is_active': forms.CheckboxInput(attrs={
+                'class': 'custom-control-input',
+            }),
+        }
+
+
+class CinemaGalleryForm(ImageValidationMixin, forms.ModelForm):
+    class Meta:
+        model = CinemaGallery
+        exclude = ('card',)
+
+
+CinemaGalleryFormset = modelformset_factory(CinemaGallery, form=MovieFrameForm,
+                                         extra=0, can_delete=True)
+
+class CinemaHallCardForm(forms.ModelForm):
+    class Meta:
+        model = CinemaHallCard
+        exclude = ('cinema', 'date_created', 'seo')
+        widgets = {
+            'is_active': forms.CheckboxInput(attrs={
+                'class': 'custom-control-input',
+            }),
+        }
+
+
+class CinemaHallGalleryForm(ImageValidationMixin, forms.ModelForm):
+    class Meta:
+        model = CinemaHallGallery
+        exclude = ('card',)
+
+
+CinemaHallGalleryFormset = modelformset_factory(CinemaHallGallery, form=MovieFrameForm,
+                                         extra=0, can_delete=True)
+
+
+# endregion Cinemas
+
 # region News
 class NewsCardForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
