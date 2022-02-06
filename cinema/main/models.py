@@ -79,12 +79,39 @@ class CinemaCard(models.Model):
     amenities = models.TextField('Условия')
     required_size = (1000, 190)
     logo = models.ImageField('Логотип')
-    main_image = models.ImageField('Главная картинка')
+    banner = models.ImageField('Главная картинка')
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='cinema', null=True)
 
+
+class CinemaGallery(models.Model):
+    card = models.ForeignKey(CinemaCard, on_delete=models.CASCADE, related_name='gallery')
+    required_size = (1000, 190)
+    image = models.ImageField('Фото кинотеатра')
+
+    is_active = models.BooleanField('Активен', default=False)
+
+
+class CinemaHallCard(models.Model):
+    cinema = models.ForeignKey(CinemaCard, on_delete=models.CASCADE, related_name='halls')
+    number = models.CharField('Номер зала', max_length=256)
+    required_size = (1000, 190)
+    scheme = models.ImageField('Схема зала')
+    banner = models.ImageField('Баннер')
+
+    is_active = models.BooleanField('Активен', default=False)
+    date_created = models.DateTimeField(default=timezone.now)
+    seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='hall', null=True)
+
+
+class CinemaHallGallery(models.Model):
+    card = models.ForeignKey(CinemaHallCard, on_delete=models.CASCADE, related_name='gallery')
+    required_size = (1000, 190)
+    image = models.ImageField('Фото зала')
+
+    is_active = models.BooleanField('Активен', default=False)
 
 # class MovieSession(models.Model):
 #     cinema = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
