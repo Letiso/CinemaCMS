@@ -117,15 +117,18 @@ class CinemaHallGallery(models.Model):
 
 # endregion Cinemas
 
-# region Sessions
-# class MovieSession(models.Model):
-#     cinema = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
-#     required_size = (1000, 190)
-#     image = models.ImageField('Кадр из фильма')
-#     is_active = models.BooleanField('Активен', default=False)
+# region MovieSessions
+class MovieSession(models.Model):
+    movie = models.OneToOneField(MovieCard, on_delete=models.CASCADE, related_name='movie_session')
+    hall = models.OneToOneField(CinemaHallCard, on_delete=models.CASCADE, related_name='movie_session')
+    start_date_time = models.DateTimeField(default=timezone.now)
+
+    required_size = (1000, 190)
+    image = models.ImageField('Кадр из фильма')
+    is_active = models.BooleanField('Активен', default=False)
 
 
-# endregion Sessions
+# endregion MovieSessions
 
 # region News
 class NewsCard(models.Model):

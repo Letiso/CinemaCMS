@@ -382,6 +382,12 @@ class CinemaHallCardDeleteView(View):
 
 # endregion Cinemas
 
+# region MovieSessions
+
+
+
+# endregion MovieSessions
+
 # region News
 class NewsView(CustomAbstractView):
     template_name = 'admin/news/index.html'

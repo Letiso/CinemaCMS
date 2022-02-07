@@ -144,24 +144,19 @@
                   <i class="nav-icon fas fa-hotel"></i>
                   <p>
                     Кинотеатры
-                <i class="fas fa-angle-left right"></i>
+                    <span class="right badge badge-light"><i class="fas fa-check text-success"></i></span>
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{% url 'cinemas_conf' %}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Все кинотеатры</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-{#                    <a href="{% url 'movie_session' %}" class="nav-link">#}
-                    <a href="#" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Сеансы</p>
-                    </a>
-                  </li>
-                </ul>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link {% block movie_sessions %}{% endblock %}">
+{#                <a href="{% url 'movie_sessions' %}" class="nav-link {% block movie_sessions %}{% endblock %}">#}
+                  <i class="nav-icon fas fa-play-circle"></i>
+                  <p>
+                    Сеансы
+                    <span class="right badge badge-primary"><i class="fas fa-circle text-light"></i></span>
+                  </p>
+                </a>
               </li>
               <li class="nav-item">
                 <a href="{% url 'news_conf' %}" class="nav-link {% block news_conf %}{% endblock %}">

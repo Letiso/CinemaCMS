@@ -168,6 +168,10 @@ CinemaHallGalleryFormset = modelformset_factory(CinemaHallGallery, form=MovieFra
 
 # endregion Cinemas
 
+# region MovieSessions
+
+# endregion MovieSessions
+
 # region News
 class NewsCardForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
