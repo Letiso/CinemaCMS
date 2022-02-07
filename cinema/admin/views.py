@@ -312,6 +312,7 @@ class CinemaHallView(CustomAbstractView):
 
         halls = CinemaHallCard.objects.filter(cinema=pk) if pk \
             else CinemaHallCard.objects.none()
+        self.context['pk'] = pk
         self.context['halls'] = halls
 
         return self.context
@@ -319,7 +320,6 @@ class CinemaHallView(CustomAbstractView):
 
 class CinemaHallCardView(CardView):
     template_name = 'admin/cinemas/hall_card.html'
-    success_url = 'halls'
 
     card_prefix = 'hall'
     card_model = CinemaHallCard
@@ -329,13 +329,43 @@ class CinemaHallCardView(CardView):
     gallery_model = CinemaHallGallery
     gallery_formset = CinemaHallGalleryFormset
 
+    def get_context(self, request, pk, cinema_pk):
+        self.context = super().get_context(request, pk)
+        self.context['cinema_pk'] = cinema_pk
+
+        self.success_url = f'/admin/cinema/{cinema_pk}/halls'
+
+        return self.context
+
+    def save(self, card, seo, gallery=None) -> bool:
+        is_valid = [form.is_valid() for form in (card, seo, gallery) if form]
+
+        if all(is_valid):
+            cinema_pk = self.context['cinema_pk']
+            cinema_instance = CinemaCard.objects.get(pk=cinema_pk)
+
+            seo.save()
+
+            card = card.save(commit=False)
+            card.cinema = cinema_instance
+            card.seo = seo.instance
+            card.save()
+
+            for image in gallery:
+                if image.is_valid():
+                    image = image.save(commit=False)
+                    image.card = card
+            gallery.save()
+
+            return True
+
 
 class CinemaHallCardDeleteView(View):
     @staticmethod
-    def get(request, pk) -> HttpResponseRedirect:
+    def get(request, pk, cinema_pk) -> HttpResponseRedirect:
         news_to_delete = get_object_or_404(CinemaHallCard, pk=pk)
         news_to_delete.delete()
-        return redirect('halls')
+        return redirect(f'/admin/cinema/{cinema_pk}/halls')
 
 
 # endregion Cinemas
