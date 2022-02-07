@@ -39,18 +39,16 @@
                     </div>
                     <div class="card-body" id="released-movies-list">
                         <div class="col-5 p-0">
-                            {{ form.name|as_crispy_field }}
+                            {{ form.number|as_crispy_field }}
                         </div>
                         {{ form.description|as_crispy_field }}
-                        {{ form.amenities|as_crispy_field }}
-
                         <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
                             <div class="card-header">
                                 <p>Размер: {{ main_image_width }}x{{ main_image_height }}</p>
                             </div>
-                            <img id="{{ form.logo.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.logo %}{{ form.instance.logo.url }}{% endif %}" alt="">
+                            <img id="{{ form.scheme.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.scheme %}{{ form.instance.scheme.url }}{% endif %}" alt="">
                             <div class="card-body">
-                                {{ form.logo|as_crispy_field }}
+                                {{ form.scheme|as_crispy_field }}
                             </div>
                         </div>
 

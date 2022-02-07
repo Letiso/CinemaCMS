@@ -37,6 +37,27 @@
             </div>
         </div>
     </div>
+    <div class="card">
+        <div class="card-header d-flex mt-2">
+            <h4 class="col-11 text-center">
+                Список залов
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-around">
+                {% for cinema_card in cinemas %}
+                    <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-auto mb-5">
+                        <a href="{% url 'halls' cinema_card.pk %}">
+                            <img class="card-img-top" src="{{ cinema_card.logo.url }}" alt="">
+                            <div class="card-body">
+                                <p class="text-center text-dark">{{ cinema_card.name }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 

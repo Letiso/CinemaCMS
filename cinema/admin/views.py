@@ -307,15 +307,18 @@ class CinemaCardDeleteView(View):
 class CinemaHallView(CustomAbstractView):
     template_name = 'admin/cinemas/halls.html'
 
-    def get_context(self, *args):
+    def get_context(self, request, pk):
         self.context = super().get_context()
-        self.context['halls'] = CinemaHallCard.objects.all()
+
+        halls = CinemaHallCard.objects.filter(cinema=pk) if pk \
+            else CinemaHallCard.objects.none()
+        self.context['halls'] = halls
 
         return self.context
 
 
 class CinemaHallCardView(CardView):
-    template_name = 'admin/cinemas/cinema_card.html'
+    template_name = 'admin/cinemas/hall_card.html'
     success_url = 'halls'
 
     card_prefix = 'hall'

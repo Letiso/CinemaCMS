@@ -13,7 +13,7 @@ urlpatterns = [
     path('cinema_card/<str:pk>', views.CinemaCardView.as_view(), name="cinema_card"),
     path('cinema_card/<str:pk>/delete', views.CinemaCardDeleteView.as_view(), name="delete_cinema_card"),
 
-    path('cinema_halls', views.CinemaHallView.as_view(), name="halls"),
+    path('cinema_halls/<str:pk>', views.CinemaHallView.as_view(), name="halls"),
     path('cinema_hall_card/<str:pk>', views.CinemaHallCardView.as_view(), name="hall_card"),
     path('cinema_hall_card/<str:pk>/delete', views.CinemaHallCardDeleteView.as_view(), name="delete_cinema_hall_card"),
 

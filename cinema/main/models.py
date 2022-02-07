@@ -97,6 +97,7 @@ class CinemaGallery(models.Model):
 class CinemaHallCard(models.Model):
     cinema = models.ForeignKey(CinemaCard, on_delete=models.CASCADE, related_name='halls')
     number = models.CharField('Номер зала', max_length=256)
+    description = models.TextField('Описание зала')
     required_size = (1000, 190)
     scheme = models.ImageField('Схема зала')
     banner = models.ImageField('Баннер')
