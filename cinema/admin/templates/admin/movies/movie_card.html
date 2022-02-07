@@ -124,6 +124,15 @@
                     <div class="text-center mt-4">
                         <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
                         <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
+                        
+                        <a href="{% if pk %}
+                                    {% url 'delete_movie_card' pk %}
+                                 {% else %}
+                                    {% url 'movies' %}
+                                {% endif %}" class="btn btn-danger px-4 ml-5" style="font-size: 20px;">
+                            Удалить карточку
+                        </a>
+
                     </div>
                 </div>
             </div>

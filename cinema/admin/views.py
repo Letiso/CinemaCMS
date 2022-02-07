@@ -136,6 +136,16 @@ class CardView(CustomAbstractView):
         return super().post(request, *args, **kwargs)
 
 
+class CardDeleteView(View):
+    model = success_url = None
+
+    def get(self, request, pk) -> HttpResponseRedirect:
+        news_to_delete = get_object_or_404(self.model, pk=pk)
+        news_to_delete.delete()
+
+        return redirect(self.success_url)
+
+
 # endregion Mixins
 
 # region Statistics
@@ -270,6 +280,11 @@ class MovieCardView(CardView):
     gallery_formset = MovieFrameFormset
 
 
+class MovieCardDeleteView(CardDeleteView):
+    model = MovieCard
+    success_url = 'movies'
+
+
 # endregion Movies
 
 # region Cinemas
@@ -296,12 +311,9 @@ class CinemaCardView(CardView):
     gallery_formset = CinemaGalleryFormset
 
 
-class CinemaCardDeleteView(View):
-    @staticmethod
-    def get(request, pk) -> HttpResponseRedirect:
-        news_to_delete = get_object_or_404(CinemaCard, pk=pk)
-        news_to_delete.delete()
-        return redirect('cinemas')
+class CinemaCardDeleteView(CardDeleteView):
+    model = CinemaCard
+    success_url = 'cinemas_conf'
 
 
 class CinemaHallView(CustomAbstractView):
@@ -394,12 +406,9 @@ class NewsCardView(CardView):
     gallery_formset = NewsGalleryFormset
 
 
-class NewsCardDeleteView(View):
-    @staticmethod
-    def get(request, pk) -> HttpResponseRedirect:
-        news_to_delete = get_object_or_404(NewsCard, pk=pk)
-        news_to_delete.delete()
-        return redirect('news_conf')
+class NewsCardDeleteView(CardDeleteView):
+    model = NewsCard
+    success_url = 'news_conf'
 
 
 # endregion News
@@ -427,12 +436,9 @@ class PromotionCardView(CardView):
     gallery_formset = PromotionGalleryFormset
 
 
-class PromotionCardDeleteView(View):
-    @staticmethod
-    def get(request, pk) -> HttpResponseRedirect:
-        promotion_to_delete = get_object_or_404(PromotionCard, pk=pk)
-        promotion_to_delete.delete()
-        return redirect('promotion_conf')
+class PromotionCardDeleteView(CardDeleteView):
+    model = PromotionCard
+    success_url = 'promotion_conf'
 
 
 # endregion Promotion
@@ -494,6 +500,7 @@ class PageListView(CustomAbstractView):
 
         return self.context
 
+
 class MainPageCardView(CardView):
     template_name = 'admin/pages/main_page_card.html'
     success_url = 'pages'
@@ -523,6 +530,11 @@ class PageCardView(CardView):
     gallery_prefix = 'page_image'
     gallery_model = PageGallery
     gallery_formset = PageGalleryFormset
+
+
+class PageCardDeleteView(CardDeleteView):
+    model = PageCard
+    success_url = 'pages'
 
 
 class ContactsPageCardView(CardView):
@@ -564,16 +576,6 @@ class ContactsPageCardView(CardView):
             return True
 
 
-class PageCardDeleteView(View):
-    @staticmethod
-    def get(request, pk) -> HttpResponseRedirect:
-        model = PageCard
-        page_card_to_delete = get_object_or_404(model, pk=pk)
-        page_card_to_delete.delete()
-
-        return redirect('pages')
-
-
 # endregion Pages
 
 # region User
@@ -603,14 +605,9 @@ class UserUpdateView(UpdateView):
         return context
 
 
-class UserDeleteView(View):
-    @staticmethod
-    def get(request, pk) -> HttpResponseRedirect:
-        model = get_user_model()
-        user_to_delete = get_object_or_404(model, pk=pk)
-        user_to_delete.delete()
-
-        return redirect('users')
+class UserDeleteView(CardDeleteView):
+    model = get_user_model()
+    success_url = 'users'
 
 
 # endregion User
