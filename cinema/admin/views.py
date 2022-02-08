@@ -320,7 +320,7 @@ class CinemaCardDeleteView(CardDeleteView):
 
 class CinemaHallCardView(CardView):
     template_name = 'admin/cinemas/hall_card.html'
-    success_url = '/admin/cinemas/'
+    success_url = 'cinemas_conf'
 
     card_prefix = 'hall'
     card_model = CinemaHallCard

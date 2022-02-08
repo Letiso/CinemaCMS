@@ -53,7 +53,7 @@
                     --------------
                 </option>
                 {% for cinema_card in cinemas %}
-                    <option value="{{ forloop.counter }}">
+                    <option value="{{ cinema_card.pk }}">
                         {{ cinema_card.name }}
                     </option>
                 {% endfor %}
@@ -62,7 +62,7 @@
         <table id="hallsList" class="table table-bordered table-striped px-5">
           <thead>
              <tr>
-                <th>Кинотеатр</th>
+                <th style="display:none;"></th>
                 <th>Номер зала</th>
                 <th>Дата создания</th>
                 <th>Статус</th>
@@ -72,7 +72,7 @@
           <tbody>
             {% for hall in halls %}
               <tr>
-                  <td>{{ hall.cinema.name }}</td>
+                  <td style="display:none;">{{ hall.cinema.pk }}</td>
                   <td>{{ hall.number }}</td>
                   <td>{{ hall.date_created }}</td>
                   <td>
@@ -149,9 +149,8 @@
 
         createCardButton.on('click', function () {
             let url = $(this).prop('href').split('#')[1]
-            console.log(url)
 
-            if (!url) {
+            if (url === '') {
                 toastr.error('Сперва выберите кинотеатр');
             }
         })
@@ -167,7 +166,7 @@
                 url = "{% url 'hall_card' cinema_pk=12345 pk='new' %}".replace(/12345/, cinema_pk);
             }
 
-            $(createCardButton).prop('href', url)
+            createCardButton.prop('href', url)
         })
     </script>
 {% endblock %}
