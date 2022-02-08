@@ -320,6 +320,7 @@ class CinemaCardDeleteView(CardDeleteView):
 
 class CinemaHallCardView(CardView):
     template_name = 'admin/cinemas/hall_card.html'
+    success_url = '/admin/cinemas/'
 
     card_prefix = 'hall'
     card_model = CinemaHallCard
@@ -332,8 +333,6 @@ class CinemaHallCardView(CardView):
     def get_context(self, request, pk, cinema_pk):
         self.context = super().get_context(request, pk)
         self.context['cinema_pk'] = cinema_pk
-
-        self.success_url = f'/admin/cinema/{cinema_pk}/halls'
 
         return self.context
 
@@ -361,11 +360,8 @@ class CinemaHallCardView(CardView):
 
 
 class CinemaHallCardDeleteView(View):
-    @staticmethod
-    def get(request, pk, cinema_pk) -> HttpResponseRedirect:
-        news_to_delete = get_object_or_404(CinemaHallCard, pk=pk)
-        news_to_delete.delete()
-        return redirect(f'/admin/cinema/{cinema_pk}/halls')
+    model = NewsCard
+    success_url = 'cinemas_conf'
 
 
 # endregion Cinemas

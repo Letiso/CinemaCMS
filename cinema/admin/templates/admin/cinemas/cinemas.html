@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
 {% endblock %}
 
 {% block cinemas_conf %}active{% endblock %}
@@ -48,6 +49,9 @@
       <div id="data_table_decorator" class="card-body mx-5">
             <label for="cinemaSelect" class="row">Выберите кинотеатр:</label>
             <select class="col-2 custom-select" id="cinemaSelect">
+                <option value="0">
+                    --------------
+                </option>
                 {% for cinema_card in cinemas %}
                     <option value="{{ forloop.counter }}">
                         {{ cinema_card.name }}
@@ -119,10 +123,7 @@
             {% endfor %}
           </tbody>
         </table>
-        </div>
-
-
-        </div>
+      </div>
     </div>
 
 {% endblock %}
@@ -131,19 +132,40 @@
     <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
     <script src="{% static 'admin/js/get_data_table.js' %}"></script>
+    <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+    <script src="{% static 'admin/js/custom_toastr.js' %}"></script>
 
     <script>
         const dataTableId = "hallsList";
-        getDataTable(dataTableId);
+        let dataTable = getDataTable(dataTableId);
+        let LEFT_TABLE_HEADER_PART = document.getElementById(`${dataTableId}_wrapper`).getElementsByClassName('col-sm-12')[0]
+        initCreateCardButton()
 
-        function add_create_button(dataTable) {
-        let left_header = document.getElementById(`${dataTable}_wrapper`).getElementsByClassName('col-sm-12')[0]
+        function initCreateCardButton (url='#') {
+            LEFT_TABLE_HEADER_PART.innerHTML = `<a href="${url}" class="btn btn-primary mt-2 ml-3 px-2 create_button">
+                                                    <span class="fas fa-plus pr-2"> </span>
+                                                    Создать зал
+                                                </a>`
 
-
-        left_header.innerHTML = `<a href="{% url 'hall_card' cinema_pk= pk='new' %}" class="btn btn-primary mt-2 ml-3 px-2"><i class="fas fa-plus pr-2"></i>Создать зал</a>`
+            $("a[class*='create_button']").on('click', function () {
+                console.log(url)
+                if (url === '#') {
+                    toastr.error('Сперва выберите кинотеатр');
+                }
+            })
         }
 
-    add_create_button(dataTableId);
+        $('#cinemaSelect').on('change', function () {
+            let url_mask;
+            const cinema_pk = $(this).prop('value')
+
+            if (cinema_pk !== '0') {
+                url_mask = "{% url 'hall_card' cinema_pk=12345 pk='new' %}".replace(/12345/, cinema_pk);
+            }
+
+            initCreateCardButton(url_mask)
+        })
+
     </script>
 {% endblock %}
 
