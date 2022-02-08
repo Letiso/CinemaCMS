@@ -139,12 +139,12 @@
     <script>
         const dataTableId = "hallsList";
         let dataTable = getDataTable(dataTableId);
+
         let left_table_header_part = document.getElementById(`${dataTableId}_wrapper`).getElementsByClassName('col-sm-12')[0]
             left_table_header_part.innerHTML = `<a href="#" class="btn btn-primary mt-2 ml-3 px-2 create_button">
                                                     <span class="fas fa-plus pr-2"> </span>
                                                     Создать зал
                                                 </a>`
-
         let createCardButton = $("a[class*='create_button']")
 
         createCardButton.on('click', function () {
@@ -159,14 +159,15 @@
     {# init custom dataTable dropdown filter #}
     <script>
         $('#cinemaSelect').on('change', function () {
-            let url;
+            let url = '#';
             const cinema_pk = $(this).prop('value')
 
             if (cinema_pk !== '0') {
                 url = "{% url 'hall_card' cinema_pk=12345 pk='new' %}".replace(/12345/, cinema_pk);
             }
-
             createCardButton.prop('href', url)
+
+            dataTable.column(0).search(cinema_pk).draw()
         })
     </script>
 {% endblock %}
