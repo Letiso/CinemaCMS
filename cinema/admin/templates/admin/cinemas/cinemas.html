@@ -47,18 +47,6 @@
         </div>
 
       <div id="data_table_decorator" class="card-body mx-5">
-            <label for="cinemaSelect" class="row">Выберите кинотеатр:</label>
-            <select class="col-2 custom-select" id="cinemaSelect">
-                <option value="0">
-                    --------------
-                </option>
-                {% for cinema_card in cinemas %}
-                    <option value="{{ cinema_card.pk }}">
-                        {{ cinema_card.name }}
-                    </option>
-                {% endfor %}
-            </select>
-
         <table id="hallsList" class="table table-bordered table-striped px-5">
           <thead>
              <tr>
@@ -141,11 +129,27 @@
         let dataTable = getDataTable(dataTableId);
 
         let left_table_header_part = document.getElementById(`${dataTableId}_wrapper`).getElementsByClassName('col-sm-12')[0]
-            left_table_header_part.innerHTML = `<a href="#" class="btn btn-primary mt-2 ml-3 px-2 create_button">
-                                                    <span class="fas fa-plus pr-2"> </span>
-                                                    Создать зал
-                                                </a>`
-        let createCardButton = $("a[class*='create_button']")
+            left_table_header_part.innerHTML = `
+                    <label>
+                        Выберите кинотеатр:
+                        <select class="form-control" id="cinemaSelect">
+                            <option value="0">
+                                --------------
+                            </option>
+
+                            {% for cinema_card in cinemas %}
+                                <option value="{{ cinema_card.pk }}">
+                                    {{ cinema_card.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </label>
+
+                    <a href="#" class="btn btn-primary mb-1 ml-5 px-2 create_button">
+                        <span class="fas fa-plus pr-2"></span>
+                        Создать зал
+                    </a>`
+            let createCardButton = $("a[class*='create_button']")
 
         createCardButton.on('click', function () {
             let url = $(this).prop('href').split('#')[1]
