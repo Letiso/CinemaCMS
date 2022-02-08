@@ -135,37 +135,40 @@
     <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
     <script src="{% static 'admin/js/custom_toastr.js' %}"></script>
 
+    {# DataTable and createCardButton init #}
     <script>
         const dataTableId = "hallsList";
         let dataTable = getDataTable(dataTableId);
-        let LEFT_TABLE_HEADER_PART = document.getElementById(`${dataTableId}_wrapper`).getElementsByClassName('col-sm-12')[0]
-        initCreateCardButton()
-
-        function initCreateCardButton (url='#') {
-            LEFT_TABLE_HEADER_PART.innerHTML = `<a href="${url}" class="btn btn-primary mt-2 ml-3 px-2 create_button">
+        let left_table_header_part = document.getElementById(`${dataTableId}_wrapper`).getElementsByClassName('col-sm-12')[0]
+            left_table_header_part.innerHTML = `<a href="#" class="btn btn-primary mt-2 ml-3 px-2 create_button">
                                                     <span class="fas fa-plus pr-2"> </span>
                                                     Создать зал
                                                 </a>`
 
-            $("a[class*='create_button']").on('click', function () {
-                console.log(url)
-                if (url === '#') {
-                    toastr.error('Сперва выберите кинотеатр');
-                }
-            })
-        }
+        let createCardButton = $("a[class*='create_button']")
 
+        createCardButton.on('click', function () {
+            let url = $(this).prop('href').split('#')[1]
+            console.log(url)
+
+            if (!url) {
+                toastr.error('Сперва выберите кинотеатр');
+            }
+        })
+    </script>
+
+    {# init custom dataTable dropdown filter #}
+    <script>
         $('#cinemaSelect').on('change', function () {
-            let url_mask;
+            let url;
             const cinema_pk = $(this).prop('value')
 
             if (cinema_pk !== '0') {
-                url_mask = "{% url 'hall_card' cinema_pk=12345 pk='new' %}".replace(/12345/, cinema_pk);
+                url = "{% url 'hall_card' cinema_pk=12345 pk='new' %}".replace(/12345/, cinema_pk);
             }
 
-            initCreateCardButton(url_mask)
+            $(createCardButton).prop('href', url)
         })
-
     </script>
 {% endblock %}
 
