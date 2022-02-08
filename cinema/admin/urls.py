@@ -15,9 +15,9 @@ urlpatterns = [
     path('cinema_card/<str:pk>/delete', views.CinemaCardDeleteView.as_view(), name="delete_cinema_card"),
 
     path('cinema/<str:cinema_pk>/hall_card/<str:pk>/', views.CinemaHallCardView.as_view(), name="hall_card"),
-    path('cinema/<str:cinema_pk>/hall_card/<str:pk>/delete', views.CinemaHallCardDeleteView.as_view(), name="delete_hall_card"),
+    path('cinema/hall_card/<str:pk>/delete', views.CinemaHallCardDeleteView.as_view(), name="delete_hall_card"),
 
-    path('movie_sessions/<str:pk>/halls', views.CinemasView.as_view(), name="movie_sessions"),
+    path('movie_sessions/<str:pk>', views.CinemasView.as_view(), name="movie_sessions"),
 
     path('news', views.NewsView.as_view(), name="news_conf"),
     path('news_card/<str:pk>', views.NewsCardView.as_view(), name="news_card"),

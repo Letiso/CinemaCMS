@@ -140,8 +140,8 @@ class CardDeleteView(View):
     model = success_url = None
 
     def get(self, request, pk) -> HttpResponseRedirect:
-        news_to_delete = get_object_or_404(self.model, pk=pk)
-        news_to_delete.delete()
+        card_to_delete = get_object_or_404(self.model, pk=pk)
+        card_to_delete.delete()
 
         return redirect(self.success_url)
 
@@ -359,8 +359,8 @@ class CinemaHallCardView(CardView):
             return True
 
 
-class CinemaHallCardDeleteView(View):
-    model = NewsCard
+class CinemaHallCardDeleteView(CardDeleteView):
+    model = CinemaHallCard
     success_url = 'cinemas_conf'
 
 
