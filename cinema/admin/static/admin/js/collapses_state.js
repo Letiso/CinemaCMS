@@ -9,7 +9,6 @@ if (COLLAPSES) {
 // or just page url is changed
 if (!COLLAPSES) {
 // if (!COLLAPSES || (COLLAPSES.name !== location.pathname)) {
-    console.log('works')
     COLLAPSES = {
       name: location.pathname,
       toShow: {}
