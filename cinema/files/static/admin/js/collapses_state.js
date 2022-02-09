@@ -7,8 +7,8 @@ if (COLLAPSES) {
 
 // recreate COLLAPSES object if we got an invalid data from LocalStorage
 // or just page url is changed
-if (!COLLAPSES || (COLLAPSES.name !== location.pathname)) {
-
+if (!COLLAPSES) {
+// if (!COLLAPSES || (COLLAPSES.name !== location.pathname)) {
     COLLAPSES = {
       name: location.pathname,
       toShow: {}

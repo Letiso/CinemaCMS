@@ -1,7 +1,5 @@
-
+# Docker shorts
 reload: stop run
-#restart:
-#	docker restart cinemacms-django_asgi-1
 rebuild: down build
 
 run:
@@ -9,12 +7,11 @@ run:
 build:
 	docker-compose up -d --build
 
-#stop:
-#	sudo fuser -k 8000/tcp
 stop:
 	docker-compose stop
 down:
 	docker-compose down
+
 
 # Works only for active containers | You have to run docker first
 migrate:
