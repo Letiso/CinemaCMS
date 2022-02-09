@@ -5,19 +5,19 @@
     <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
 {% endblock %}
 
-{% block cinemas %}active{% endblock %}
+{% block movie_sessions %}active{% endblock %}
 
-{% block current_page %}Кинотеатры{% endblock %}
+{% block current_page %}Сеансы{% endblock %}
 
 {% block path %}
-<li class="breadcrumb-item active">Кинотеатры</li>
+<li class="breadcrumb-item active">Сеансы</li>
 {% endblock %}
 
 {% block content %}
     <div class="card">
         <div class="card-header d-flex mt-2">
             <h4 class="col-11 text-center">
-                Все кинотеатры
+                Все сеансы
             </h4>
             <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseCinemasList" role="button" aria-expanded="false" aria-controls="collapseCinemasList">
                 <i class="fas fa-bars" style="font-size: 22px;"></i>
