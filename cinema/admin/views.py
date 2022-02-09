@@ -238,7 +238,7 @@ class BannersView(CustomAbstractView):
         if all(is_valid):
             for form in forms_to_save:
                 form.save()
-            return HttpResponseRedirect('banners')
+            return redirect('admin:banners')
 
         return super().post(request)
 
@@ -269,7 +269,7 @@ class MoviesView(CustomAbstractView):
 
 class MovieCardView(CardView):
     template_name = 'admin/movies/movie_card.html'
-    success_url = 'movies'
+    success_url = 'admin:movies'
 
     card_prefix = 'movie'
     card_model = MovieCard
@@ -282,14 +282,14 @@ class MovieCardView(CardView):
 
 class MovieCardDeleteView(CardDeleteView):
     model = MovieCard
-    success_url = 'movies'
+    success_url = 'admin:movies'
 
 
 # endregion Movies
 
 # region Cinemas
 class CinemasView(CustomAbstractView):
-    template_name = 'admin/cinemas/cinemas.html'
+    template_name = 'admin/cinemas/index.html'
 
     def get_context(self, *kwargs):
         self.context = super().get_context()
@@ -302,7 +302,7 @@ class CinemasView(CustomAbstractView):
 
 class CinemaCardView(CardView):
     template_name = 'admin/cinemas/cinema_card.html'
-    success_url = 'cinemas_conf'
+    success_url = 'admin:cinemas'
 
     card_prefix = 'cinema'
     card_model = CinemaCard
@@ -315,12 +315,12 @@ class CinemaCardView(CardView):
 
 class CinemaCardDeleteView(CardDeleteView):
     model = CinemaCard
-    success_url = 'cinemas_conf'
+    success_url = 'admin:cinemas'
 
 
 class CinemaHallCardView(CardView):
     template_name = 'admin/cinemas/hall_card.html'
-    success_url = 'cinemas_conf'
+    success_url = 'admin:cinemas'
 
     card_prefix = 'hall'
     card_model = CinemaHallCard
@@ -361,7 +361,7 @@ class CinemaHallCardView(CardView):
 
 class CinemaHallCardDeleteView(CardDeleteView):
     model = CinemaHallCard
-    success_url = 'cinemas_conf'
+    success_url = 'admin:cinemas'
 
 
 # endregion Cinemas
@@ -385,7 +385,7 @@ class NewsView(CustomAbstractView):
 
 class NewsCardView(CardView):
     template_name = 'admin/news/news_card.html'
-    success_url = 'news_conf'
+    success_url = 'admin:news'
 
     card_prefix = 'news'
     card_model = NewsCard
@@ -398,7 +398,7 @@ class NewsCardView(CardView):
 
 class NewsCardDeleteView(CardDeleteView):
     model = NewsCard
-    success_url = 'news_conf'
+    success_url = 'admin:news'
 
 
 # endregion News
@@ -415,7 +415,7 @@ class PromotionListView(CustomAbstractView):
 
 class PromotionCardView(CardView):
     template_name = 'admin/promotion/promotion_card.html'
-    success_url = 'promotion_conf'
+    success_url = 'admin:promotion'
 
     card_prefix = 'promotion'
     card_model = PromotionCard
@@ -428,7 +428,7 @@ class PromotionCardView(CardView):
 
 class PromotionCardDeleteView(CardDeleteView):
     model = PromotionCard
-    success_url = 'promotion_conf'
+    success_url = 'admin:promotion'
 
 
 # endregion Promotion
@@ -493,7 +493,7 @@ class PageListView(CustomAbstractView):
 
 class MainPageCardView(CardView):
     template_name = 'admin/pages/main_page_card.html'
-    success_url = 'pages'
+    success_url = 'admin:pages'
     contains_gallery = False
 
     card_prefix = 'main_page'
@@ -511,7 +511,7 @@ class MainPageCardView(CardView):
 
 class PageCardView(CardView):
     template_name = 'admin/pages/page_card.html'
-    success_url = 'pages'
+    success_url = 'admin:pages'
 
     card_prefix = 'page'
     card_model = PageCard
@@ -524,12 +524,12 @@ class PageCardView(CardView):
 
 class PageCardDeleteView(CardDeleteView):
     model = PageCard
-    success_url = 'pages'
+    success_url = 'admin:pages'
 
 
 class ContactsPageCardView(CardView):
     template_name = 'admin/pages/contacts_page_card.html'
-    success_url = 'pages'
+    success_url = 'admin:pages'
     contains_gallery = False
 
     card_prefix = 'contacts_page'
@@ -582,7 +582,7 @@ class UsersListView(CustomAbstractView):
 class UserUpdateView(UpdateView):
     model = get_user_model()
     template_name = 'admin/users/update_user.html'
-    success_url = '/admin/users'
+    success_url = 'admin:users'
 
     form_class = ExtendedUserUpdateForm
 
@@ -597,7 +597,7 @@ class UserUpdateView(UpdateView):
 
 class UserDeleteView(CardDeleteView):
     model = get_user_model()
-    success_url = 'users'
+    success_url = 'admin:users'
 
 
 # endregion User
@@ -648,7 +648,7 @@ class MailingView(CustomAbstractView):
         current_form = self.get_mailing_form(request)
         mailing_was_started = self.start_mailing(current_form)
         if mailing_was_started:
-            return redirect('mailing')
+            return redirect('admin:mailing')
 
         return super().post(request)
 

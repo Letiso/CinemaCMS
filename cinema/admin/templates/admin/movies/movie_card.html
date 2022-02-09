@@ -20,7 +20,7 @@
 {% block current_page %}Карточка фильма{% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item"><a href="{% url 'movies' %}">Фильмы</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'admin:movies' %}">Фильмы</a></li>
     <li class="breadcrumb-item active">Карточка фильма</li>
     <li class="breadcrumb-item active">{{ pk }}</li>
 {% endblock %}
@@ -126,9 +126,9 @@
                         <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
                         
                         <a href="{% if pk %}
-                                    {% url 'delete_movie_card' pk %}
+                                    {% url 'admin:delete_movie_card' pk %}
                                  {% else %}
-                                    {% url 'movies' %}
+                                    {% url 'admin:movies' %}
                                 {% endif %}" class="btn btn-danger px-4 ml-5" style="font-size: 20px;">
                             Удалить карточку
                         </a>

@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+app_name = 'admin'
+
 urlpatterns = [
     path('', views.StatisticsView.as_view(), name="statistics"),
 
@@ -10,7 +12,7 @@ urlpatterns = [
     path('movie_card/<str:pk>', views.MovieCardView.as_view(), name="movie_card"),
     path('movie_card/<str:pk>/delete', views.MovieCardDeleteView.as_view(), name="delete_movie_card"),
 
-    path('cinemas', views.CinemasView.as_view(), name="cinemas_conf"),
+    path('cinemas', views.CinemasView.as_view(), name="cinemas"),
     path('cinema_card/<str:pk>', views.CinemaCardView.as_view(), name="cinema_card"),
     path('cinema_card/<str:pk>/delete', views.CinemaCardDeleteView.as_view(), name="delete_cinema_card"),
 
@@ -19,11 +21,11 @@ urlpatterns = [
 
     path('movie_sessions/<str:pk>', views.CinemasView.as_view(), name="movie_sessions"),
 
-    path('news', views.NewsView.as_view(), name="news_conf"),
+    path('news', views.NewsView.as_view(), name="news"),
     path('news_card/<str:pk>', views.NewsCardView.as_view(), name="news_card"),
     path('news_card/<int:pk>/delete', views.NewsCardDeleteView.as_view(), name="delete_news"),
 
-    path('promotion', views.PromotionListView.as_view(), name="promotion_conf"),
+    path('promotion', views.PromotionListView.as_view(), name="promotion"),
     path('promotion_card/<str:pk>', views.PromotionCardView.as_view(), name="promotion_card"),
     path('promotion_card/<int:pk>/delete', views.PromotionCardDeleteView.as_view(), name="delete_promotion"),
 

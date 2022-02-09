@@ -34,7 +34,7 @@
                 <td>{% if main_page.is_active %}<span>Вкл.</span>{% else %}<span>Выкл.</span>{% endif %}</td>
                 <td class="col-1">
                       <div class="row buttons">
-                          <a href="{% url 'main_page_card' %}"
+                          <a href="{% url 'admin:main_page_card' %}"
                              class="fas fa-pen text-primary mx-auto"></a>
                       </div>
                   </td>
@@ -51,7 +51,7 @@
                       {% endif %}</td>
                   <td class="col-1">
                       <div class="row buttons">
-                          <a href="{% url 'page_card' page.pk %}"
+                          <a href="{% url 'admin:page_card' page.pk %}"
                              class="fas fa-pen text-primary mx-auto"></a>
                       </div>
                   </td>
@@ -69,7 +69,7 @@
                       {% endif %}</td>
                   <td class="col-1">
                       <div class="row buttons">
-                          <a href="{% url 'page_card' page.pk %}"
+                          <a href="{% url 'admin:page_card' page.pk %}"
                              class="fas fa-pen text-primary mx-auto"></a>
                           <!-- Button trigger modal -->
                           <a class="fas fa-minus-circle text-danger ml-2 mr-auto"
@@ -95,7 +95,7 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                     Назад
                                 </button>
-                                  <a href="{% url 'delete_page' page.pk %}" class="btn btn-danger">
+                                  <a href="{% url 'admin:delete_page' page.pk %}" class="btn btn-danger">
                                       Удалить новость
                                   </a>
                               </div>
@@ -113,7 +113,7 @@
                 <td>{% if contacts_page.is_active %}<span>Вкл.</span>{% else %}<span>Выкл.</span>{% endif %}</td>
                 <td class="col-1">
                       <div class="row buttons">
-                          <a href="{% url 'contacts_page_card' %}"
+                          <a href="{% url 'admin:contacts_page_card' %}"
                              class="fas fa-pen text-primary mx-auto"></a>
                       </div>
                   </td>
@@ -140,7 +140,7 @@
 
     function add_create_button(dataTable) {
         let left_header = document.getElementById(`${dataTable}_wrapper`).getElementsByClassName('col-sm-12')[0]
-        left_header.innerHTML = `<a href="{% url 'page_card' 'new' %}" class="btn btn-primary mt-2 ml-3 px-2"><i class="fas fa-plus pr-2"></i>Создать страницу</a>`
+        left_header.innerHTML = `<a href="{% url 'admin:page_card' 'new' %}" class="btn btn-primary mt-2 ml-3 px-2"><i class="fas fa-plus pr-2"></i>Создать страницу</a>`
         }
 
     add_create_button("pagesList");

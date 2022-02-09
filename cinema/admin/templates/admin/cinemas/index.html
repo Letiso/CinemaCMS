@@ -27,11 +27,11 @@
             <div class="card-body">
                 <div class="row justify-content-around">
                     <div class="col-md-4 col-lg-2 px-0 mt-5 mx-auto mb-5 text-center">
-                        <a href="{% url 'cinema_card' 'new' %}" class="btn btn-light px-5" style="font-size: 75px;">+</a>
+                        <a href="{% url 'admin:cinema_card' 'new' %}" class="btn btn-light px-5" style="font-size: 75px;">+</a>
                     </div>
                     {% for cinema_card in cinemas %}
                         <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-auto mb-5">
-                            <a href="{% url 'cinema_card' cinema_card.pk %}">
+                            <a href="{% url 'admin:cinema_card' cinema_card.pk %}">
                                 <img class="card-img-top" src="{{ cinema_card.logo.url }}" alt="">
                                 <div class="card-body">
                                     <p class="text-center text-dark">{{ cinema_card.name }}</p>
@@ -80,7 +80,7 @@
                       </td>
                       <td class="col-1">
                           <div class="row buttons">
-                              <a href="{% url 'hall_card' cinema_pk=hall.cinema.pk pk=hall.pk %}"
+                              <a href="{% url 'admin:hall_card' cinema_pk=hall.cinema.pk pk=hall.pk %}"
                                  class="fas fa-pen text-primary mx-auto"></a>
                               <!-- Button trigger modal -->
                               <a class="fas fa-minus-circle text-danger ml-2 mr-auto"
@@ -106,7 +106,7 @@
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                         Назад
                                     </button>
-                                      <a href="{% url 'delete_hall_card' pk=hall.pk %}" class="btn btn-danger">
+                                      <a href="{% url 'admin:delete_hall_card' pk=hall.pk %}" class="btn btn-danger">
                                           Удалить зал
                                       </a>
                                   </div>
@@ -121,13 +121,14 @@
             </table>
             </div>
         </div>
-
+    </div>
 {% endblock %}
 
 {% block scripts %}
     <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
     <script src="{% static 'admin/js/get_data_table.js' %}"></script>
+
     <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
     <script src="{% static 'admin/js/custom_toastr.js' %}"></script>
 
@@ -178,7 +179,7 @@
             const cinema_pk = $(this).prop('value')
 
             if (cinema_pk !== '0') {
-                url = "{% url 'hall_card' cinema_pk=12345 pk='new' %}".replace(/12345/, cinema_pk);
+                url = "{% url 'admin:hall_card' cinema_pk=12345 pk='new' %}".replace(/12345/, cinema_pk);
             }
             createCardButton.prop('href', url)
 
@@ -187,4 +188,3 @@
         })
     </script>
 {% endblock %}
-

@@ -112,7 +112,7 @@
               <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
               <li class="nav-item">
-                <a href="{% url 'statistics' %}" class="nav-link {% block statistics %}{% endblock %}">
+                <a href="{% url 'admin:statistics' %}" class="nav-link {% block statistics %}{% endblock %}">
                   <i class="nav-icon fas fa-chart-area"></i>
                   <p>
                     Статистика
@@ -121,7 +121,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'banners' %}" class="nav-link {% block banners %}{% endblock %}">
+                <a href="{% url 'admin:banners' %}" class="nav-link {% block banners %}{% endblock %}">
                   <i class="nav-icon fas fa-images"></i>
                   <p>
                     Баннеры
@@ -131,7 +131,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="{% url 'movies' %}" class="nav-link {% block movies %}{% endblock %}">
+                <a href="{% url 'admin:movies' %}" class="nav-link {% block movies %}{% endblock %}">
                   <i class="nav-icon fas fa-film"></i>
                   <p>
                     Фильмы
@@ -140,7 +140,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'cinemas_conf' %}" class="nav-link {% block cinemas_conf %}{% endblock %}">
+                <a href="{% url 'admin:cinemas' %}" class="nav-link {% block cinemas_conf %}{% endblock %}">
                   <i class="nav-icon fas fa-hotel"></i>
                   <p>
                     Кинотеатры
@@ -150,7 +150,7 @@
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link {% block movie_sessions %}{% endblock %}">
-{#                <a href="{% url 'movie_sessions' %}" class="nav-link {% block movie_sessions %}{% endblock %}">#}
+{#                <a href="{% url 'admin:movie_sessions' %}" class="nav-link {% block movie_sessions %}{% endblock %}">#}
                   <i class="nav-icon fas fa-play-circle"></i>
                   <p>
                     Сеансы
@@ -159,7 +159,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'news_conf' %}" class="nav-link {% block news_conf %}{% endblock %}">
+                <a href="{% url 'admin:news' %}" class="nav-link {% block news_conf %}{% endblock %}">
                   <i class="nav-icon fas fa-newspaper"></i>
                   <p>
                     Новости
@@ -168,7 +168,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'promotion_conf' %}" class="nav-link {% block promotion_conf %}{% endblock %}">
+                <a href="{% url 'admin:promotion' %}" class="nav-link {% block promotion_conf %}{% endblock %}">
                   <i class="nav-icon fas fa-percentage"></i>
                   <p>
                     Акции
@@ -177,7 +177,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'pages' %}" class="nav-link {% block pages %}{% endblock %}">
+                <a href="{% url 'admin:pages' %}" class="nav-link {% block pages %}{% endblock %}">
                   <i class="nav-icon fas fa-window-restore"></i>
                   <p>
                     Страницы
@@ -186,7 +186,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'users' %}" class="nav-link {% block users %}{% endblock %}">
+                <a href="{% url 'admin:users' %}" class="nav-link {% block users %}{% endblock %}">
                   <i class="nav-icon fas fa-users"></i>
                   <p>
                     Пользователи
@@ -195,7 +195,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'mailing' %}" class="nav-link {% block mailing %}{% endblock %}">
+                <a href="{% url 'admin:mailing' %}" class="nav-link {% block mailing %}{% endblock %}">
                   <i class="nav-icon fas fa-paper-plane"></i>
                   <p>
                     Рассылка
@@ -223,7 +223,7 @@
           <div class="row mb-3 ml-4">
             <h1 class="mr-auto">{% block current_page %} {% endblock %}</h1>
             <ol class="breadcrumb float-sm-right mr-3">
-              <li class="breadcrumb-item"><a href="{% url 'statistics' %}">Панель администратора</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'admin:statistics' %}">Панель администратора</a></li>
               {% block path %}
               {% endblock %}
             </ol>

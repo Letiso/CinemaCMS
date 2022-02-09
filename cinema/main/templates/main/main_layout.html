@@ -184,7 +184,7 @@
                     {% if user.is_staff or user.is_superuser %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item"
-                       href="{% url 'statistics' %}">Панель администратора</a>
+                       href="{% url 'admin:statistics' %}">Панель администратора</a>
                     {% endif %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger"

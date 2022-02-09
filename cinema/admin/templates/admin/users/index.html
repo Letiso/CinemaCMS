@@ -123,7 +123,7 @@
                   </td>
                   <td>
                       <div class="row buttons">
-                          <a href="{% url 'update_user' user.pk %}"
+                          <a href="{% url 'admin:update_user' user.pk %}"
                              class="fas fa-pen text-primary mx-auto"></a>
                           <!-- Button trigger modal -->
                           <a class="fas fa-minus-circle text-danger ml-2 mr-auto"
@@ -149,7 +149,7 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                     Назад
                                 </button>
-                                  <a href="{% url 'delete_user' user.pk %}" class="btn btn-danger">
+                                  <a href="{% url 'admin:delete_user' user.pk %}" class="btn btn-danger">
                                       Удалить учетную запись
                                   </a>
                               </div>

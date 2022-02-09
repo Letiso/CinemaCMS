@@ -40,7 +40,7 @@
                       {% endif %}</td>
                   <td class="col-1">
                       <div class="row buttons">
-                          <a href="{% url 'promotion_card' promotion.pk %}"
+                          <a href="{% url 'admin:promotion_card' promotion.pk %}"
                              class="fas fa-pen text-primary mx-auto"></a>
                           <!-- Button trigger modal -->
                           <a class="fas fa-minus-circle text-danger ml-2 mr-auto"
@@ -66,7 +66,7 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                     Назад
                                 </button>
-                                  <a href="{% url 'delete_promotion' promotion.pk %}" class="btn btn-danger">
+                                  <a href="{% url 'admin:delete_promotion' promotion.pk %}" class="btn btn-danger">
                                       Удалить новость
                                   </a>
                               </div>
@@ -100,7 +100,7 @@
 
     function add_create_button(dataTable) {
         let left_header = document.getElementById(`${dataTable}_wrapper`).getElementsByClassName('col-sm-12')[0]
-        left_header.innerHTML = `<a href="{% url 'promotion_card' 'new' %}" class="btn btn-primary mt-2 ml-3 px-2"><i class="fas fa-plus pr-2"></i>Создать акцию</a>`
+        left_header.innerHTML = `<a href="{% url 'admin:promotion_card' 'new' %}" class="btn btn-primary mt-2 ml-3 px-2"><i class="fas fa-plus pr-2"></i>Создать акцию</a>`
         }
 </script>
 {% endblock %}

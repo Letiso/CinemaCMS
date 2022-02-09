@@ -21,7 +21,9 @@ if (!COLLAPSES) {
 let key, target;
 for (key in COLLAPSES.toShow) {
     target = document.getElementById(COLLAPSES.toShow[key]);
-    target.setAttribute('class', `${target.getAttribute('class')} show`)
+    if (target) {
+        target.setAttribute('class', `${target.getAttribute('class')} show`)
+    }
 }
 
 

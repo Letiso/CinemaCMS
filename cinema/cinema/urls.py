@@ -3,7 +3,6 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 from decorator_include import decorator_include
-
 from django.contrib.admin.views.decorators import staff_member_required
 
 urlpatterns = [

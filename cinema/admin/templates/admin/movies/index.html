@@ -27,7 +27,7 @@
                     <div class="row justify-content-around">
                         {% for movie_card in releases %}
                             <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-auto mb-5">
-                                <a href="{% url 'movie_card' movie_card.pk %}">
+                                <a href="{% url 'admin:movie_card' movie_card.pk %}">
                                     <img class="card-img-top" src="{{ movie_card.main_image.url }}" alt="">
                                     <div class="card-body">
                                         <p class="text-center text-dark">{{ movie_card.title }}</p>
@@ -54,7 +54,7 @@
                     <div class="row justify-content-around">
                         {% for movie_card in announcements %}
                             <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-auto mb-5">
-                                <a href="{% url 'movie_card' movie_card.pk %}">
+                                <a href="{% url 'admin:movie_card' movie_card.pk %}">
                                     <img class="card-img-top" src="{{ movie_card.main_image.url }}" alt="">
                                     <div class="card-body">
                                         <p class="text-center text-dark">{{ movie_card.title }}</p>
@@ -76,11 +76,11 @@
             <div class="card-body">
                 <div class="row justify-content-around">
                     <div class="col-md-4 col-lg-2 px-0 mt-5 mx-auto mb-5 text-center">
-                        <a href="{% url 'movie_card' 'new' %}" class="btn btn-light px-5" style="font-size: 75px;">+</a>
+                        <a href="{% url 'admin:movie_card' 'new' %}" class="btn btn-light px-5" style="font-size: 75px;">+</a>
                     </div>
                     {% for movie_card in inactive_cards %}
                         <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-auto mb-5">
-                            <a href="{% url 'movie_card' movie_card.pk %}">
+                            <a href="{% url 'admin:movie_card' movie_card.pk %}">
                                 <img class="card-img-top" src="{{ movie_card.main_image.url }}" alt="">
                                 <div class="card-body">
                                     <p class="text-center text-dark">{{ movie_card.title }}</p>

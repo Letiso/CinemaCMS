@@ -5,7 +5,7 @@
 {% block current_page %}Обновить данные пользователя: <span class="text-primary">{{ chosen_user.username }}</span>{% endblock %}
 
 {% block path %}
-<li class="breadcrumb-item"><a href="{% url 'users' %}">Пользователи</a></li>
+<li class="breadcrumb-item"><a href="{% url 'admin:users' %}">Пользователи</a></li>
 <li class="breadcrumb-item active">Обновить данные пользователя</li>
 {% endblock %}
 
