@@ -62,7 +62,7 @@ class MovieCard(models.Model):
     title = models.CharField('Название фильма', max_length=256)
     description = models.TextField('Описание')
     release_date = models.DateField('Дата релиза', default=date.today)
-    required_size = (1000, 190)
+    main_image_required_size = (1000, 190)
     main_image = models.ImageField('Главная картинка')
     trailer_link = models.CharField('Ссылка на трейлер', max_length=256)
 
@@ -74,12 +74,20 @@ class MovieCard(models.Model):
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='movie', null=True)
 
+    @classmethod
+    def get_required_sizes(cls):
+        return {'main_image': cls.main_image_required_size}
+
 
 class MovieFrame(models.Model):
     card = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
-    required_size = (1000, 190)
+    image_required_size = (1000, 190)
     image = models.ImageField('Кадр из фильма')
     is_active = models.BooleanField('Активен', default=False)
+
+    @classmethod
+    def get_required_sizes(cls):
+        return {'main_image': cls.image_required_size}
 
 
 # endregion Movies
@@ -89,13 +97,17 @@ class CinemaCard(models.Model):
     name = models.CharField('Название кинотеатра', max_length=256)
     description = models.TextField('Описание')
     amenities = models.TextField('Условия')
-    required_size = (1000, 190)
+    logo_required_size = (1000, 190)
     logo = models.ImageField('Логотип')
     banner = models.ImageField('Главная картинка')
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='cinema', null=True)
+
+    @classmethod
+    def get_required_sizes(cls):
+        return {'main_image': cls.image_required_size}
 
 
 class CinemaGallery(models.Model):

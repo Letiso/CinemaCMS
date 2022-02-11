@@ -2,13 +2,13 @@
 const original_thumbnail_urls = {}
 
 
-// TODO * PAY ATTENTION * you have to define something like that at the template
+// TODO * PAY ATTENTION * you have to define:
+//  (you can copy the code below and paste it at your template)
 //  <script>
-//      const required_sizes = {
-//          '{{ your_form.prefix }}': ['{{ required_size.0 }}', '{{ required_size.1 }}'],
-//      }
+//      const required_sizes = JSON.parse('{{ required_sizes|safe }}')
 //  <script>
-//   because we need to take data from view context for dynamic validation
+
+//   because we need to take data from django's context to js for dynamic validation
 
 
 // Event listener binding for bootstrapped file inputs

@@ -78,6 +78,12 @@
 {% block scripts %}
 <script>
     const required_sizes = JSON.parse('{{ required_sizes|safe }}')
+
+{#        const required_sizes = {#}
+{#        '{{ top_banners.formset.prefix }}': ['{{ top_banners.required_size.0 }}', '{{ top_banners.required_size.1 }}'],#}
+{#        '{{ background_image.form.prefix }}': ['{{ background_image.required_size.0 }}', '{{ background_image.required_size.1 }}'],#}
+{#        '{{ news_banners.formset.prefix }}': ['{{ news_banners.required_size.0 }}', '{{ news_banners.required_size.1 }}'],#}
+{#    }#}
 </script>
 
 
