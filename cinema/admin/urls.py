@@ -19,8 +19,6 @@ urlpatterns = [
     path('cinema/<str:cinema_pk>/hall_card/<str:pk>/', views.CinemaHallCardView.as_view(), name="hall_card"),
     path('cinema/hall_card/<str:pk>/delete', views.CinemaHallCardDeleteView.as_view(), name="delete_hall_card"),
 
-    path('movie_sessions/<str:pk>', views.CinemasView.as_view(), name="movie_sessions"),
-
     path('news', views.NewsView.as_view(), name="news"),
     path('news_card/<str:pk>', views.NewsCardView.as_view(), name="news_card"),
     path('news_card/<int:pk>/delete', views.NewsCardDeleteView.as_view(), name="delete_news"),
