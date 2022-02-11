@@ -12,10 +12,18 @@
 
 {% endblock %}
 
-{% block banners %}active{% endblock %}
-
-{% block current_page %}Баннеры{% endblock %}
-{% block path %}<li class="breadcrumb-item active">Баннеры</li>{% endblock %}
+{% block banners %}
+    active
+{% endblock %}
+x
+{% block current_page %}
+    Баннеры
+{% endblock %}
+{% block path %}
+    <li class="breadcrumb-item active">
+        Баннеры
+    </li>
+{% endblock %}
 
 
 {% block content %}
@@ -76,14 +84,19 @@
 {% endblock %}
 
 {% block scripts %}
+
+//read data from django context and init required sizes labels+validation
 <script>
     const required_sizes = JSON.parse('{{ required_sizes|safe }}')
 
-{#        const required_sizes = {#}
-{#        '{{ top_banners.formset.prefix }}': ['{{ top_banners.required_size.0 }}', '{{ top_banners.required_size.1 }}'],#}
-{#        '{{ background_image.form.prefix }}': ['{{ background_image.required_size.0 }}', '{{ background_image.required_size.1 }}'],#}
-{#        '{{ news_banners.formset.prefix }}': ['{{ news_banners.required_size.0 }}', '{{ news_banners.required_size.1 }}'],#}
-{#    }#}
+    for (const [form_prefix, form_required_sizes] of Object.entries(required_sizes)) {
+        for (const [field_name, required_size] of Object.entries(form_required_sizes)) {
+
+            let required_size_label = $(`.${form_prefix}-${field_name}-required_size`)
+            required_size_label.html(`Размер ${required_size[0]}x${required_size[1]}`)
+        }
+
+    }
 </script>
 
 

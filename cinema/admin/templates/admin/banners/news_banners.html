@@ -2,7 +2,7 @@
 {% load static %}
 
 <div class="row">
-    <h4 class="mr-auto">Размер: {{ news_banners.required_size.0 }}x{{ news_banners.required_size.1 }}</h4>
+    <h4 class="news_banners-image-required_size mr-auto"></h4>
     <div class="custom-control custom-switch">
         {{ news_banners.carousel.is_active }}
         <label for="{{ news_banners.carousel.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
