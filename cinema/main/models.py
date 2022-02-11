@@ -17,21 +17,33 @@ banners_media_path = 'main/index/banners'
 
 
 class TopBanner(models.Model):
-    required_size = (1000, 190)
+    image_required_size = (1000, 190)
     image = models.ImageField('Баннер', upload_to=f'{banners_media_path}/top')
     is_active = models.BooleanField('Активен', default=False)
 
+    @classmethod
+    def get_required_sizes(cls):
+        return {'image': cls.image_required_size}
+
 
 class BackgroundImage(models.Model):
-    required_size = (2000, 3000)
+    image_required_size = (2000, 3000)
     image = models.ImageField('Фоновое изображение', upload_to=f'{banners_media_path}/background')
     is_active = models.BooleanField(default=False)
 
+    @classmethod
+    def get_required_sizes(cls):
+        return {'image': cls.image_required_size}
+
 
 class NewsBanner(models.Model):
-    required_size = (1000, 190)
+    image_required_size = (1000, 190)
     image = models.ImageField('Баннер', upload_to=f'{banners_media_path}/news')
     is_active = models.BooleanField('Активен', default=False)
+
+    @classmethod
+    def get_required_sizes(cls):
+        return {'image': cls.image_required_size}
 
 
 class BannersCarousel(models.Model):

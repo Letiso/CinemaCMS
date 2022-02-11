@@ -23,7 +23,7 @@ class CustomAbstractView(View):
 
     @staticmethod
     def get_context(*args, **kwargs) -> dict:
-        return {}
+        return {'required_sizes': {}}
 
     def get(self, request, *args, **kwargs) -> HttpResponse:
         self.context = self.get_context(request, *args, **kwargs)
@@ -163,31 +163,29 @@ class BannersView(CustomAbstractView):
     def get_top_banners_context(self) -> dict:
         prefix = 'top_banners'
 
-        required_size = TopBanner.required_size
-
         request_data = self.request.POST or None, self.request.FILES or None
         formset = TopBannerFormSet(*request_data, prefix=prefix)
 
         carousel_instance = BannersCarousel.objects.get_or_create(pk=1)[0]
         carousel = BannersCarouselForm(*request_data, instance=carousel_instance, prefix=prefix)
 
-        return {'required_size': required_size, 'formset': formset, 'carousel': carousel}
+        self.context['required_sizes'][prefix] = TopBanner.get_required_sizes()
+
+        return {'formset': formset, 'carousel': carousel}
 
     def get_background_image_context(self) -> dict:
         prefix = 'background_image'
-
-        required_size =  BackgroundImage.required_size
 
         request_data = self.request.POST or None, self.request.FILES or None
         form_instance = BackgroundImage.objects.get_or_create(pk=1)[0]
         form = BackgroundImageForm(*request_data, instance=form_instance, prefix=prefix)
 
-        return {'required_size': required_size, 'form': form}
+        self.context['required_sizes'][prefix] = BackgroundImage.get_required_sizes()
+
+        return {'form': form}
 
     def get_news_banners_context(self) -> dict:
         prefix = 'news_banners'
-
-        required_size = NewsBanner.required_size
 
         request_data = self.request.POST or None, self.request.FILES or None
         formset = NewsBannerFormSet(*request_data, prefix=prefix)
@@ -195,7 +193,9 @@ class BannersView(CustomAbstractView):
         carousel_instance = BannersCarousel.objects.get_or_create(pk=2)[0]
         carousel = BannersCarouselForm(*request_data, instance=carousel_instance, prefix=prefix)
 
-        return {'required_size': required_size, 'formset': formset, 'carousel': carousel}
+        self.context['required_sizes'][prefix] = NewsBanner.get_required_sizes()
+
+        return {'formset': formset, 'carousel': carousel}
 
     def get_context(self, request) -> dict:
         self.request = request
@@ -204,6 +204,8 @@ class BannersView(CustomAbstractView):
         self.context['top_banners'] = self.get_top_banners_context()
         self.context['background_image'] = self.get_background_image_context()
         self.context['news_banners'] = self.get_news_banners_context()
+
+        self.context['required_sizes'] = json.dumps(self.context['required_sizes'])
 
         return self.context
 

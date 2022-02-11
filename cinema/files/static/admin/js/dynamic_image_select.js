@@ -25,6 +25,7 @@ function validate_then_set_thumbnail(event) {
 
     reader.onload = function() {
         const required_size = required_sizes[`${imageInput.name.split('-')[0]}`];
+        console.log(required_size)
 
         image_validation(reader.result, required_size, (is_valid) => {
             const thumbnail = document.getElementById(`${imageInput.id}-thumbnail`);
@@ -58,6 +59,7 @@ function image_validation(src, required_size, callback) {
             callback(false);
         }
     }
+    // image.onload event type
     image.src = src;
 }
 
