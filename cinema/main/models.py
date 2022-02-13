@@ -62,8 +62,10 @@ class MovieCard(models.Model):
     title = models.CharField('Название фильма', max_length=256)
     description = models.TextField('Описание')
     release_date = models.DateField('Дата релиза', default=date.today)
+
     main_image_required_size = (1000, 190)
     main_image = models.ImageField('Главная картинка')
+
     trailer_link = models.CharField('Ссылка на трейлер', max_length=256)
 
     two_d = models.BooleanField('2D', default=False)
@@ -81,13 +83,15 @@ class MovieCard(models.Model):
 
 class MovieFrame(models.Model):
     card = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
+
     image_required_size = (1000, 190)
     image = models.ImageField('Кадр из фильма')
+
     is_active = models.BooleanField('Активен', default=False)
 
     @classmethod
     def get_required_sizes(cls):
-        return {'main_image': cls.image_required_size}
+        return {'image': cls.image_required_size}
 
 
 # endregion Movies
@@ -97,8 +101,11 @@ class CinemaCard(models.Model):
     name = models.CharField('Название кинотеатра', max_length=256)
     description = models.TextField('Описание')
     amenities = models.TextField('Условия')
+
     logo_required_size = (1000, 190)
     logo = models.ImageField('Логотип')
+
+    banner_required_size = (1000, 190)
     banner = models.ImageField('Главная картинка')
 
     is_active = models.BooleanField('Активен', default=False)
@@ -107,7 +114,7 @@ class CinemaCard(models.Model):
 
     @classmethod
     def get_required_sizes(cls):
-        return {'main_image': cls.image_required_size}
+        return {'logo': cls.logo_required_size, 'banner': cls.banner_required_size}
 
 
 class CinemaGallery(models.Model):

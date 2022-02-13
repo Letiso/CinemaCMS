@@ -1,5 +1,7 @@
 // init original_thumbnail_urls var for thumbnails img.src backup
 const original_thumbnail_urls = {}
+
+
 // REQUIRED_SIZES structure is a simple:
 
 //  REQUIRED_SIZES = {
@@ -20,6 +22,7 @@ const original_thumbnail_urls = {}
 //      const REQUIRED_SIZES = JSON.parse('{{ required_sizes|safe }}')
 //  initRequiredSizeLabels()
 //  <script>
+
 //   because we need to take data from django's context to js for dynamic validation
 
 
@@ -33,7 +36,7 @@ function initRequiredSizeLabels() {
             // also, you have to set id for every required_size_label looking like:
             // <tag id="form_prefix-field_name-required_size">
             let required_size_label = $(
-                `*[id|="${form_prefix}"][id*="${field_name}"][id$="-required_size"]`
+                `*[id*="${form_prefix}"][id*="${field_name}"][id$="-required_size"]`
             )
             required_size_label.html(`Размер ${required_size[0]}x${required_size[1]}`)
         }

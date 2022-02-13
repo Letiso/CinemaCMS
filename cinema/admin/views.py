@@ -47,25 +47,26 @@ class CardView(CustomAbstractView):
     seo_instance = None
 
     def get_card_context(self, pk):
-        required_size = self.card_model.required_size
         if pk:
             self.card_instance = get_object_or_404(self.card_model, pk=pk)
 
         request_data = self.request.POST or None, self.request.FILES or None
         form = self.card_form(*request_data, instance=self.card_instance, prefix=self.card_prefix)
 
-        return {'required_size': required_size, 'form': form}
+        self.context['required_sizes'][self.card_prefix] = self.card_model.get_required_sizes()
+
+        return {'form': form}
 
     def get_gallery_context(self, pk):
-        required_size = self.gallery_model.required_size
-
         self.gallery_queryset = self.gallery_model.objects.filter(card_id=pk) \
                      if pk else self.gallery_model.objects.none()
 
         request_data = self.request.POST or None, self.request.FILES or None
         formset = self.gallery_formset(*request_data, queryset=self.gallery_queryset, prefix=self.gallery_prefix)
 
-        return {'required_size': required_size, 'formset': formset}
+        self.context['required_sizes'][self.card_prefix] = self.gallery_model.get_required_sizes()
+
+        return {'formset': formset}
 
     def get_seo_context(self, pk):
         if pk:
@@ -93,6 +94,8 @@ class CardView(CustomAbstractView):
             self.context['gallery'] = self.get_gallery_context(pk)
         self.context['seo'] = self.get_seo_context(pk)
         self.context['currentUrl'] = request.get_full_path()
+
+        self.context['required_sizes'] = json.dumps(self.context['required_sizes'])
 
         return self.context
 
