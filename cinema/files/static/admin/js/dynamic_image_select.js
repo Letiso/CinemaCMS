@@ -2,13 +2,13 @@
 const original_thumbnail_urls = {}
 
 
-// TODO * PAY ATTENTION * you have to define something like that at the template
+// TODO * PAY ATTENTION * you have to define:
+//  (you can copy the code below and paste it at your template)
 //  <script>
-//      const required_sizes = {
-//          '{{ your_form.prefix }}': ['{{ required_size.0 }}', '{{ required_size.1 }}'],
-//      }
+//      const required_sizes = JSON.parse('{{ required_sizes|safe }}')
 //  <script>
-//   because we need to take data from view context for dynamic validation
+
+//   because we need to take data from django's context to js for dynamic validation
 
 
 // Event listener binding for bootstrapped file inputs
@@ -24,21 +24,24 @@ function validate_then_set_thumbnail(event) {
     const reader = new FileReader();
 
     reader.onload = function() {
-        const required_size = required_sizes[`${imageInput.name.split('-')[0]}`];
-        console.log(required_size)
+        const fileInputData = imageInput.name.split('-');
+        const form_prefix = fileInputData[0];
+        const field_name = fileInputData[fileInputData.length - 1];
+
+        const required_size = required_sizes[form_prefix][field_name];
 
         image_validation(reader.result, required_size, (is_valid) => {
             const thumbnail = document.getElementById(`${imageInput.id}-thumbnail`);
 
             if (is_valid) {
-                original_thumb_url_backup(imageInput.name, thumbnail)
+                original_thumb_url_backup(imageInput.name, thumbnail);
                 thumbnail.src = reader.result;
-                toggle_error(true, imageInput, required_size)
+                toggle_error(true, imageInput, required_size);
 
                 toastr.success('Данные валидны');
             } else {
-                original_thumb_url_backup(imageInput.name, thumbnail, true)
-                toggle_error(false, imageInput, required_size)
+                original_thumb_url_backup(imageInput.name, thumbnail, true);
+                toggle_error(false, imageInput, required_size);
 
                 toastr.error('Данные невалидны');
             }
@@ -53,7 +56,9 @@ function image_validation(src, required_size, callback) {
     const image = new Image();
 
     image.onload = function() {
-        if (JSON.stringify(['' + image.naturalWidth, '' + image.naturalHeight]) === JSON.stringify(required_size)) {
+        console.log([image.naturalWidth, image.naturalHeight])
+        console.log(required_size)
+        if (JSON.stringify([image.naturalWidth, image.naturalHeight]) === JSON.stringify(required_size)) {
             callback(true);
         } else {
             callback(false);
