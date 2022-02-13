@@ -163,38 +163,37 @@ class CinemaHallGallery(models.Model):
 
 # endregion Cinemas
 
-# region MovieSessions
-class MovieSession(models.Model):
-    movie = models.OneToOneField(MovieCard, on_delete=models.CASCADE, related_name='movie_session')
-    hall = models.OneToOneField(CinemaHallCard, on_delete=models.CASCADE, related_name='movie_session')
-    start_date_time = models.DateTimeField(default=timezone.now)
-
-    required_size = (1000, 190)
-    image = models.ImageField('Кадр из фильма')
-    is_active = models.BooleanField('Активен', default=False)
-
-
-# endregion MovieSessions
-
 # region News
 class NewsCard(models.Model):
     title = models.CharField('Название новости', max_length=256)
     publication_date = models.DateField('Дата публикации', default=date.today)
     description = models.TextField('Описание')
-    required_size = (1000, 190)
+
+    main_image_required_size = (1000, 190)
     main_image = models.ImageField('Главная картинка')
+
     video_link = models.CharField('Ссылка на видео', max_length=256)
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='news', null=True)
 
+    @classmethod
+    def get_required_sizes(cls):
+        return {'main_image': cls.main_image_required_size}
+
 
 class NewsGallery(models.Model):
     card = models.ForeignKey(NewsCard, on_delete=models.CASCADE, related_name='gallery')
-    required_size = (1000, 190)
+
+    image_required_size = (1000, 190)
     image = models.ImageField('Картинка к новости')
+
     is_active = models.BooleanField('Активен', default=False)
+
+    @classmethod
+    def get_required_sizes(cls):
+        return {'image': cls.image_required_size}
 
 
 # endregion News

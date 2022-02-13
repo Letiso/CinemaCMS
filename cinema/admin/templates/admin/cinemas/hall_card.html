@@ -26,112 +26,101 @@
 {% endblock %}
 
 {% block content %}
-    {% with main_image_width=card.required_size.0 main_image_height=card.required_size.1  movie_frame_width=gallery.required_size.0 movie_frame_height=gallery.required_size.1 %}
-        <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
-            <div class="col-11 card pb-5 mx-auto releases">
-                {% csrf_token %}
-                {% with card.form as form %}
-                    <div class="card-header p-0 pb-3">
-                        <div class="custom-control custom-switch ml-5 mt-2">
-                            {{ form.is_active }}
-                            <label for="{{ form.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
-                        </div>
-                    </div>
-                    <div class="card-body" id="released-movies-list">
-                        <div class="col-5 p-0">
-                            {{ form.number|as_crispy_field }}
-                        </div>
-                        {{ form.description|as_crispy_field }}
-                        <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
-                            <div class="card-header">
-                                <p id="{{ form.scheme.id_for_label }}-required_size"></p>
-                            </div>
-                            <img id="{{ form.scheme.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.scheme %}{{ form.instance.scheme.url }}{% endif %}" alt="">
-                            <div class="card-body">
-                                {{ form.scheme|as_crispy_field }}
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
-                            <div class="card-header">
-                                <p id="{{ form.banner.id_for_label }}-required_size"></p>
-                            </div>
-                            <img id="{{ form.banner.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.banner %}{{ form.instance.banner.url }}{% endif %}" alt="">
-                            <div class="card-body">
-                                {{ form.banner|as_crispy_field }}
-                            </div>
-                        </div>
-
-
-                        <label>Галерея фото кинотеатра</label>
-                            <h5 id="hall_image-image-required_size" class="mr-auto"></h5>
-                        <div class="container-fluid">
-                            {% with gallery.formset as formset %}
-                                {{ formset.management_form }}
-                                <div class="row justify-content-between justify-content-around" id="{{ formset.prefix }}-list">
-                                    {% for form in formset %}
-                                        {% for hidden in form.hidden_fields %}
-                                            {{ hidden }}
-                                        {% endfor %}
-                                    <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-1 {{ formset.prefix }}">
-                                        <div class="card-header text-right">
-                                            {{ form.DELETE|as_crispy_field }}
-                                        </div>
-                                        {% if form.instance.image %}
-                                            <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{{ form.instance.image.url }}" alt="">
-                                        {% endif %}
-                                        <div class="card-body">
-                                            {{ form.image|as_crispy_field }}
-                                            {{ form.is_active|as_crispy_field }}
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                    <div id="{{ formset.prefix }}-empty-form" class="col-md-4 col-lg-2 card px-0 mt-5 mx-1 hidden">
-                                        {% with formset.empty_form as empty_form %}
-                                            <div class="card-header text-right">
-                                                {{ empty_form.DELETE|as_crispy_field }}
-                                            </div>
-                                            <img id="{{ empty_form.image.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
-                                            <div class="card-body">
-                                                {{ empty_form.image|as_crispy_field }}
-                                                {{ empty_form.is_active|as_crispy_field }}
-                                            </div>
-                                        {% endwith %}
-                                    </div>
-                                </div>
-                                <div class="text-center mt-5">
-                                    <input type="button" onclick="add_empty_form(event, '{{ formset.prefix }}')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
-                                </div>
-                            {% endwith %}
-                        </div>
-
-                        <label>SEO блок:</label>
-                        <div class="container">
-                            {% for field in seo.form %}
-                                {{ field|as_crispy_field }}
-                            {% endfor %}
-                        </div>
-                    {% endwith %}
-                    <div class="text-center mt-4">
-                        <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
-                        <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
+    <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
+        <div class="col-11 card pb-5 mx-auto releases">
+            {% csrf_token %}
+            {% with card.form as form %}
+                <div class="card-header p-0 pb-3">
+                    <div class="custom-control custom-switch ml-5 mt-2">
+                        {{ form.is_active }}
+                        <label for="{{ form.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
                     </div>
                 </div>
+                <div class="card-body" id="released-movies-list">
+                    <div class="col-5 p-0">
+                        {{ form.number|as_crispy_field }}
+                    </div>
+                    {{ form.description|as_crispy_field }}
+                    <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
+                        <div class="card-header">
+                            <p id="{{ form.scheme.id_for_label }}-required_size"></p>
+                        </div>
+                        <img id="{{ form.scheme.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.scheme %}{{ form.instance.scheme.url }}{% endif %}" alt="">
+                        <div class="card-body">
+                            {{ form.scheme|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
+                        <div class="card-header">
+                            <p id="{{ form.banner.id_for_label }}-required_size"></p>
+                        </div>
+                        <img id="{{ form.banner.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.banner %}{{ form.instance.banner.url }}{% endif %}" alt="">
+                        <div class="card-body">
+                            {{ form.banner|as_crispy_field }}
+                        </div>
+                    </div>
+
+
+                    <label>Галерея фото кинотеатра</label>
+                        <h5 id="hall_image-image-required_size" class="mr-auto"></h5>
+                    <div class="container-fluid">
+                        {% with gallery.formset as formset %}
+                            {{ formset.management_form }}
+                            <div class="row justify-content-between justify-content-around" id="{{ formset.prefix }}-list">
+                                {% for form in formset %}
+                                    {% for hidden in form.hidden_fields %}
+                                        {{ hidden }}
+                                    {% endfor %}
+                                <div class="col-md-4 col-lg-2 card px-0 mt-5 mx-1 {{ formset.prefix }}">
+                                    <div class="card-header text-right">
+                                        {{ form.DELETE|as_crispy_field }}
+                                    </div>
+                                    {% if form.instance.image %}
+                                        <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{{ form.instance.image.url }}" alt="">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        {{ form.image|as_crispy_field }}
+                                        {{ form.is_active|as_crispy_field }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <div id="{{ formset.prefix }}-empty-form" class="col-md-4 col-lg-2 card px-0 mt-5 mx-1 hidden">
+                                    {% with formset.empty_form as empty_form %}
+                                        <div class="card-header text-right">
+                                            {{ empty_form.DELETE|as_crispy_field }}
+                                        </div>
+                                        <img id="{{ empty_form.image.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
+                                        <div class="card-body">
+                                            {{ empty_form.image|as_crispy_field }}
+                                            {{ empty_form.is_active|as_crispy_field }}
+                                        </div>
+                                    {% endwith %}
+                                </div>
+                            </div>
+                            <div class="text-center mt-5">
+                                <input type="button" onclick="add_empty_form(event, '{{ formset.prefix }}')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                            </div>
+                        {% endwith %}
+                    </div>
+
+                    <label>SEO блок:</label>
+                    <div class="container">
+                        {% for field in seo.form %}
+                            {{ field|as_crispy_field }}
+                        {% endfor %}
+                    </div>
+                {% endwith %}
+                <div class="text-center mt-4">
+                    <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
+                    <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
+                </div>
             </div>
-        </form>
-    {% endwith %}
+        </div>
+    </form>
 {% endblock %}
 
 {% block scripts %}
-    {% with main_image_width=card.required_size.0 main_image_height=card.required_size.1  movie_frame_width=gallery.required_size.0 movie_frame_height=gallery.required_size.1 %}
-        <script>
-            const required_sizes = {
-                '{{ card.form.prefix }}': ['{{ main_image_width }}', '{{ main_image_height }}'],
-                '{{ gallery.formset.prefix }}': ['{{ movie_frame_width }}', '{{ movie_frame_height }}'],
-            }
-        </script>
-    {% endwith %}
-
     <script src="{% static 'admin/js/dynamic_formset.js' %}"></script>
     <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
     <script src="{% static 'admin/js/custom_toastr.js' %}"></script>
