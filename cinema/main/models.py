@@ -30,12 +30,9 @@ class SEO(models.Model):
 # endregion SEO
 
 # region Banners
-banners_media_path = 'main/index/banners'
-
-
 class TopBanner(ImageFieldsValidationMixin, models.Model):
     image_required_size = (1000, 190)
-    image = models.ImageField('Баннер', upload_to=f'{banners_media_path}/top')
+    image = models.ImageField('Баннер', upload_to='main/banners/top_banners')
 
     is_active = models.BooleanField('Активен', default=False)
 
@@ -46,7 +43,7 @@ class TopBanner(ImageFieldsValidationMixin, models.Model):
 
 class BackgroundImage(ImageFieldsValidationMixin, models.Model):
     image_required_size = (2000, 3000)
-    image = models.ImageField('Фоновое изображение', upload_to=f'{banners_media_path}/background')
+    image = models.ImageField('Фоновое изображение', upload_to='main/banners/background_image')
 
     is_active = models.BooleanField(default=False)
 
@@ -57,7 +54,7 @@ class BackgroundImage(ImageFieldsValidationMixin, models.Model):
 
 class NewsBanner(ImageFieldsValidationMixin, models.Model):
     image_required_size = (1000, 190)
-    image = models.ImageField('Баннер', upload_to=f'{banners_media_path}/news')
+    image = models.ImageField('Баннер', upload_to='main/banners/news_banners')
 
     is_active = models.BooleanField('Активен', default=False)
 
@@ -84,7 +81,7 @@ class MovieCard(ImageFieldsValidationMixin, models.Model):
     release_date = models.DateField('Дата релиза', default=date.today)
 
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Главная картинка')
+    main_image = models.ImageField('Главная картинка', upload_to='main/movies/main_images')
 
     trailer_link = models.CharField('Ссылка на трейлер', max_length=256)
 
@@ -105,7 +102,7 @@ class MovieFrame(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
-    image = models.ImageField('Кадр из фильма')
+    image = models.ImageField('Кадр из фильма', upload_to='main/movies/gallery')
 
     is_active = models.BooleanField('Активен', default=False)
 
@@ -123,10 +120,10 @@ class CinemaCard(ImageFieldsValidationMixin, models.Model):
     amenities = models.TextField('Условия')
 
     logo_required_size = (1000, 190)
-    logo = models.ImageField('Логотип')
+    logo = models.ImageField('Логотип', upload_to='main/cinemas/logos')
 
     banner_required_size = (1000, 190)
-    banner = models.ImageField('Главная картинка')
+    banner = models.ImageField('Главная картинка', upload_to='main/cinemas/banners')
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)
@@ -139,8 +136,9 @@ class CinemaCard(ImageFieldsValidationMixin, models.Model):
 
 class CinemaGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(CinemaCard, on_delete=models.CASCADE, related_name='gallery')
+
     image_required_size = (1000, 190)
-    image = models.ImageField('Фото кинотеатра')
+    image = models.ImageField('Фото кинотеатра', upload_to='main/cinemas/gallery')
 
     is_active = models.BooleanField('Активен', default=False)
 
@@ -155,10 +153,10 @@ class CinemaHallCard(ImageFieldsValidationMixin, models.Model):
     description = models.TextField('Описание зала')
 
     scheme_required_size = (1000, 190)
-    scheme = models.ImageField('Схема зала')
+    scheme = models.ImageField('Схема зала', upload_to='main/cinemas/halls/schemes')
 
     banner_required_size = (1000, 190)
-    banner = models.ImageField('Баннер')
+    banner = models.ImageField('Баннер', upload_to='main/cinemas/halls/banners')
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)
@@ -171,8 +169,9 @@ class CinemaHallCard(ImageFieldsValidationMixin, models.Model):
 
 class CinemaHallGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(CinemaHallCard, on_delete=models.CASCADE, related_name='gallery')
+
     image_required_size = (1000, 190)
-    image = models.ImageField('Фото зала')
+    image = models.ImageField('Фото зала', upload_to='main/cinemas/halls/gallery')
 
     is_active = models.BooleanField('Активен', default=False)
 
@@ -190,7 +189,7 @@ class NewsCard(ImageFieldsValidationMixin, models.Model):
     description = models.TextField('Описание')
 
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Главная картинка')
+    main_image = models.ImageField('Главная картинка', upload_to='main/news/main_images')
 
     video_link = models.CharField('Ссылка на видео', max_length=256)
 
@@ -207,7 +206,7 @@ class NewsGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(NewsCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
-    image = models.ImageField('Картинка к новости')
+    image = models.ImageField('Картинка к новости', upload_to='main/news/gallery')
 
     is_active = models.BooleanField('Активен', default=False)
 
@@ -225,7 +224,7 @@ class PromotionCard(ImageFieldsValidationMixin, models.Model):
     description = models.TextField('Описание')
 
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Главная картинка')
+    main_image = models.ImageField('Главная картинка', upload_to='main/promotions/main_images')
 
     video_link = models.CharField('Ссылка на видео', max_length=256)
 
@@ -242,7 +241,7 @@ class PromotionGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(PromotionCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
-    image = models.ImageField('Картинка к акции')
+    image = models.ImageField('Картинка к акции', upload_to='main/promotions/gallery')
 
     is_active = models.BooleanField('Активен', default=False)
 
@@ -269,7 +268,7 @@ class PageCard(ImageFieldsValidationMixin, models.Model):
     description = models.TextField('Описание')
 
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Главная картинка')
+    main_image = models.ImageField('Главная картинка', upload_to='main/pages/main_images')
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
@@ -284,7 +283,7 @@ class PageGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(PageCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
-    image = models.ImageField('Картинка к акции')
+    image = models.ImageField('Картинка к акции', upload_to='main/pages]/gallery')
 
     is_active = models.BooleanField('Активен', default=False)
 
@@ -299,7 +298,7 @@ class ContactsPageCard(ImageFieldsValidationMixin, models.Model):
     map_coordinates = models.CharField('Координаты для карты', max_length=256)
 
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Лого')
+    main_image = models.ImageField('Лого', upload_to='main/pages/main_images')
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)

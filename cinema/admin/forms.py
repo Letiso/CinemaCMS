@@ -10,14 +10,17 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
 
-# region Additional
+# region CustomInputs
 class DateInput(forms.DateInput):
+    input_type = 'date'
+
     def __init__(self, *args, **kwargs):
         super(DateInput, self).__init__(*args, format='%Y-%m-%d', **kwargs)
 
-    input_type = 'date'
 
+# endregion CustomInputs
 
+# region Mixins
 class ImageValidationMixin:
     cleaned_data = Meta = None
 
@@ -44,7 +47,7 @@ class ImageValidationMixin:
             return self.cleaned_data
 
 
-# endregion Additional
+# endregion Mixins
 
 # region User
 class ExtendedUserUpdateForm(UserUpdateForm):
