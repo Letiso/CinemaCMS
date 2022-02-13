@@ -95,7 +95,6 @@ class CardView(CustomAbstractView):
             self.context['gallery'] = self.get_gallery_context(pk)
         self.context['seo'] = self.get_seo_context(pk)
         self.context['currentUrl'] = request.get_full_path()
-        print(self.context['required_sizes'])
 
         self.context['required_sizes'] = json.dumps(self.context['required_sizes'])
 

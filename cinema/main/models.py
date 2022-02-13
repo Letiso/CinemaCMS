@@ -2,6 +2,23 @@ from django.db import models
 from datetime import date
 from django.utils import timezone
 
+from abc import abstractmethod
+from typing import Dict, Tuple
+
+
+# region Mixins
+class ImageFieldsValidationMixin:
+    @classmethod
+    @abstractmethod
+    def get_required_sizes(cls) -> dict: pass
+
+    @classmethod
+    def get_image_fields_names(cls):
+        return cls.get_required_sizes().keys()
+
+
+# endregion Mixins
+
 # region SEO
 class SEO(models.Model):
     url = models.CharField('URL', max_length=256)
@@ -16,9 +33,10 @@ class SEO(models.Model):
 banners_media_path = 'main/index/banners'
 
 
-class TopBanner(models.Model):
+class TopBanner(ImageFieldsValidationMixin, models.Model):
     image_required_size = (1000, 190)
     image = models.ImageField('Баннер', upload_to=f'{banners_media_path}/top')
+
     is_active = models.BooleanField('Активен', default=False)
 
     @classmethod
@@ -26,9 +44,10 @@ class TopBanner(models.Model):
         return {'image': cls.image_required_size}
 
 
-class BackgroundImage(models.Model):
+class BackgroundImage(ImageFieldsValidationMixin, models.Model):
     image_required_size = (2000, 3000)
     image = models.ImageField('Фоновое изображение', upload_to=f'{banners_media_path}/background')
+
     is_active = models.BooleanField(default=False)
 
     @classmethod
@@ -36,9 +55,10 @@ class BackgroundImage(models.Model):
         return {'image': cls.image_required_size}
 
 
-class NewsBanner(models.Model):
+class NewsBanner(ImageFieldsValidationMixin, models.Model):
     image_required_size = (1000, 190)
     image = models.ImageField('Баннер', upload_to=f'{banners_media_path}/news')
+
     is_active = models.BooleanField('Активен', default=False)
 
     @classmethod
@@ -58,7 +78,7 @@ class BannersCarousel(models.Model):
 # endregion Banners
 
 # region Movies
-class MovieCard(models.Model):
+class MovieCard(ImageFieldsValidationMixin, models.Model):
     title = models.CharField('Название фильма', max_length=256)
     description = models.TextField('Описание')
     release_date = models.DateField('Дата релиза', default=date.today)
@@ -81,7 +101,7 @@ class MovieCard(models.Model):
         return {'main_image': cls.main_image_required_size}
 
 
-class MovieFrame(models.Model):
+class MovieFrame(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
@@ -97,7 +117,7 @@ class MovieFrame(models.Model):
 # endregion Movies
 
 # region Cinemas
-class CinemaCard(models.Model):
+class CinemaCard(ImageFieldsValidationMixin, models.Model):
     name = models.CharField('Название кинотеатра', max_length=256)
     description = models.TextField('Описание')
     amenities = models.TextField('Условия')
@@ -117,7 +137,7 @@ class CinemaCard(models.Model):
         return {'logo': cls.logo_required_size, 'banner': cls.banner_required_size}
 
 
-class CinemaGallery(models.Model):
+class CinemaGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(CinemaCard, on_delete=models.CASCADE, related_name='gallery')
     image_required_size = (1000, 190)
     image = models.ImageField('Фото кинотеатра')
@@ -129,7 +149,7 @@ class CinemaGallery(models.Model):
         return {'image': cls.image_required_size}
 
 
-class CinemaHallCard(models.Model):
+class CinemaHallCard(ImageFieldsValidationMixin, models.Model):
     cinema = models.ForeignKey(CinemaCard, on_delete=models.CASCADE, related_name='halls')
     number = models.CharField('Номер зала', max_length=256)
     description = models.TextField('Описание зала')
@@ -149,7 +169,7 @@ class CinemaHallCard(models.Model):
         return {'scheme': cls.scheme_required_size, 'banner': cls.banner_required_size}
 
 
-class CinemaHallGallery(models.Model):
+class CinemaHallGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(CinemaHallCard, on_delete=models.CASCADE, related_name='gallery')
     image_required_size = (1000, 190)
     image = models.ImageField('Фото зала')
@@ -164,7 +184,7 @@ class CinemaHallGallery(models.Model):
 # endregion Cinemas
 
 # region News
-class NewsCard(models.Model):
+class NewsCard(ImageFieldsValidationMixin, models.Model):
     title = models.CharField('Название новости', max_length=256)
     publication_date = models.DateField('Дата публикации', default=date.today)
     description = models.TextField('Описание')
@@ -183,7 +203,7 @@ class NewsCard(models.Model):
         return {'main_image': cls.main_image_required_size}
 
 
-class NewsGallery(models.Model):
+class NewsGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(NewsCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
@@ -199,7 +219,7 @@ class NewsGallery(models.Model):
 # endregion News
 
 # region Promotion
-class PromotionCard(models.Model):
+class PromotionCard(ImageFieldsValidationMixin, models.Model):
     title = models.CharField('Название акции', max_length=256)
     publication_date = models.DateField('Дата публикации', default=date.today)
     description = models.TextField('Описание')
@@ -218,7 +238,7 @@ class PromotionCard(models.Model):
         return {'main_image': cls.main_image_required_size}
 
 
-class PromotionGallery(models.Model):
+class PromotionGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(PromotionCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
@@ -244,7 +264,7 @@ class MainPageCard(models.Model):
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='main_page', null=True)
 
 
-class PageCard(models.Model):
+class PageCard(ImageFieldsValidationMixin, models.Model):
     title = models.CharField('Название страницы', max_length=256)
     description = models.TextField('Описание')
 
@@ -260,7 +280,7 @@ class PageCard(models.Model):
         return {'main_image': cls.main_image_required_size}
 
 
-class PageGallery(models.Model):
+class PageGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(PageCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
@@ -273,7 +293,7 @@ class PageGallery(models.Model):
         return {'image': cls.image_required_size}
 
 
-class ContactsPageCard(models.Model):
+class ContactsPageCard(ImageFieldsValidationMixin, models.Model):
     title = models.CharField('Название кинотеатра', max_length=256)
     address = models.TextField('Адрес')
     map_coordinates = models.CharField('Координаты для карты', max_length=256)

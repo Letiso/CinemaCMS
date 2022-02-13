@@ -21,18 +21,27 @@ class DateInput(forms.DateInput):
 class ImageValidationMixin:
     cleaned_data = Meta = None
 
-    def clean_image(self):
-        image, required_size = self.cleaned_data['image'], self.Meta.model.required_size
+    def clean(self):
+        model = self.Meta.model
+        image_fields_names = model.get_image_fields_names()
+        required_sizes = model.get_required_sizes()
 
-        if isinstance(image, InMemoryUploadedFile):
-            image_size = image.image.size
-        else:
-            image_size = (image.width, image.height)
+        for image_field_name in image_fields_names:
+            image = self.cleaned_data[image_field_name]
+            required_size = required_sizes[image_field_name]
 
-        if image_size != required_size:
-            width, height = required_size
-            raise forms.ValidationError(f'Выберите изображение с разрешением {width}x{height}', code='invalid')
-        return image
+            if isinstance(image, InMemoryUploadedFile):
+                image_size = image.image.size
+            else:
+                image_size = (image.width, image.height)
+
+            if image_size != required_size:
+                width, height = required_size
+                err_msg = f'Выберите изображение с разрешением {width}x{height}'
+
+                self.add_error(image_field_name, err_msg)
+
+            return self.cleaned_data
 
 
 # endregion Additional
@@ -100,7 +109,7 @@ class BannersCarouselForm(forms.ModelForm):
 # endregion Banners
 
 # region Movies
-class MovieCardForm(forms.ModelForm):
+class MovieCardForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = MovieCard
         exclude = ('date_created', 'seo')
@@ -167,10 +176,6 @@ CinemaHallGalleryFormset = modelformset_factory(CinemaHallGallery, form=MovieFra
 
 
 # endregion Cinemas
-
-# region MovieSessions
-
-# endregion MovieSessions
 
 # region News
 class NewsCardForm(ImageValidationMixin, forms.ModelForm):
