@@ -17,11 +17,11 @@
 
 {% block cinemas %}active{% endblock %}
 
-{% block current_page %}Карточка кинотеатра{% endblock %}
+{% block current_page %}Карточка зала{% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item"><a href="{% url 'admin:movies' %}">Кинотеатры</a></li>
-    <li class="breadcrumb-item active">Карточка кинотеатра</li>
+    <li class="breadcrumb-item"><a href="{% url 'admin:cinemas' %}">Кинотеатры</a></li>
+    <li class="breadcrumb-item active">Карточка зала</li>
     <li class="breadcrumb-item active">{{ pk }}</li>
 {% endblock %}
 
@@ -44,7 +44,7 @@
                         {{ form.description|as_crispy_field }}
                         <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
                             <div class="card-header">
-                                <p>Размер: {{ main_image_width }}x{{ main_image_height }}</p>
+                                <p id="{{ form.scheme.id_for_label }}-required_size"></p>
                             </div>
                             <img id="{{ form.scheme.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.scheme %}{{ form.instance.scheme.url }}{% endif %}" alt="">
                             <div class="card-body">
@@ -54,7 +54,7 @@
 
                         <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
                             <div class="card-header">
-                                <p>Размер: {{ main_image_width }}x{{ main_image_height }}</p>
+                                <p id="{{ form.banner.id_for_label }}-required_size"></p>
                             </div>
                             <img id="{{ form.banner.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.banner %}{{ form.instance.banner.url }}{% endif %}" alt="">
                             <div class="card-body">
@@ -64,7 +64,7 @@
 
 
                         <label>Галерея фото кинотеатра</label>
-                        <h5 class="ml-5">Размер: {{ movie_frame_width }}x{{ movie_frame_height }}</h5>
+                            <h5 id="hall_image-image-required_size" class="mr-auto"></h5>
                         <div class="container-fluid">
                             {% with gallery.formset as formset %}
                                 {{ formset.management_form }}
@@ -133,8 +133,14 @@
     {% endwith %}
 
     <script src="{% static 'admin/js/dynamic_formset.js' %}"></script>
-    <script src="{% static 'admin/js/dynamic_image_select.js' %}"></script>
-
     <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
     <script src="{% static 'admin/js/custom_toastr.js' %}"></script>
+
+    <script src="{% static 'admin/js/dynamic_image_select.js' %}"></script>
+    <script>
+        //read data from django context, then init required sizes labels.
+        // REQUIRED_SIZES also needed for the front-end image validation at 'static/admin/js/dynamic_image_select.js'
+        const REQUIRED_SIZES = JSON.parse('{{ required_sizes|safe }}')
+        initRequiredSizeLabels()
+    </script>
 {% endblock %}
