@@ -203,20 +203,32 @@ class PromotionCard(models.Model):
     title = models.CharField('Название акции', max_length=256)
     publication_date = models.DateField('Дата публикации', default=date.today)
     description = models.TextField('Описание')
-    required_size = (1000, 190)
+
+    main_image_required_size = (1000, 190)
     main_image = models.ImageField('Главная картинка')
+
     video_link = models.CharField('Ссылка на видео', max_length=256)
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='promotion', null=True)
 
+    @classmethod
+    def get_required_sizes(cls):
+        return {'main_image': cls.main_image_required_size}
+
 
 class PromotionGallery(models.Model):
     card = models.ForeignKey(PromotionCard, on_delete=models.CASCADE, related_name='gallery')
-    required_size = (1000, 190)
+
+    image_required_size = (1000, 190)
     image = models.ImageField('Картинка к акции')
+
     is_active = models.BooleanField('Активен', default=False)
+
+    @classmethod
+    def get_required_sizes(cls):
+        return {'image': cls.image_required_size}
 
 
 # endregion Promotion
