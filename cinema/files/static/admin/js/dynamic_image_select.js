@@ -2,13 +2,46 @@
 const original_thumbnail_urls = {}
 
 
+// REQUIRED_SIZES structure is a simple:
+
+//  REQUIRED_SIZES = {
+//      'form_prefix_1': {
+//         'field_name_1': [width, height],
+//         'field_name_2': [1920, 1080],
+//         ...
+//      },
+//      'form_prefix_2': {
+//          ...
+//      },
+//      ...
+
+
 // TODO * PAY ATTENTION * you have to define:
-//  (you can copy the code below and paste it at your template)
+//  (you just can copy the code below and paste it at your template)
 //  <script>
-//      const required_sizes = JSON.parse('{{ required_sizes|safe }}')
+//      const REQUIRED_SIZES = JSON.parse('{{ required_sizes|safe }}')
+//  initRequiredSizeLabels()
 //  <script>
 
 //   because we need to take data from django's context to js for dynamic validation
+
+
+// actually, required sizes labels init
+function initRequiredSizeLabels() {
+    for (const [form_prefix, form_required_sizes] of Object.entries(REQUIRED_SIZES)) {
+        for (const [field_name, required_size] of Object.entries(form_required_sizes)) {
+            // this way we can get *form_prefix, field_name* strings
+            // and *required_size* array
+
+            // also, you have to set id for every required_size_label looking like:
+            // <tag id="form_prefix-field_name-required_size">
+            let required_size_label = $(
+                `*[id*="${form_prefix}"][id*="${field_name}"][id$="-required_size"]`
+            )
+            required_size_label.html(`Размер ${required_size[0]}x${required_size[1]}`)
+        }
+    }
+}
 
 
 // Event listener binding for bootstrapped file inputs
@@ -19,6 +52,7 @@ for (let i = 0; i < fileInputs.length; i++) {
 }
 // end of Event listener binding
 
+
 function validate_then_set_thumbnail(event) {
     const imageInput = event.currentTarget;
     const reader = new FileReader();
@@ -28,7 +62,7 @@ function validate_then_set_thumbnail(event) {
         const form_prefix = fileInputData[0];
         const field_name = fileInputData[fileInputData.length - 1];
 
-        const required_size = required_sizes[form_prefix][field_name];
+        const required_size = REQUIRED_SIZES[form_prefix][field_name];
 
         image_validation(reader.result, required_size, (is_valid) => {
             const thumbnail = document.getElementById(`${imageInput.id}-thumbnail`);
@@ -36,12 +70,12 @@ function validate_then_set_thumbnail(event) {
             if (is_valid) {
                 original_thumb_url_backup(imageInput.name, thumbnail);
                 thumbnail.src = reader.result;
-                toggle_error(true, imageInput, required_size);
+                toggle_error_message(true, imageInput, required_size);
 
                 toastr.success('Данные валидны');
             } else {
                 original_thumb_url_backup(imageInput.name, thumbnail, true);
-                toggle_error(false, imageInput, required_size);
+                toggle_error_message(false, imageInput, required_size);
 
                 toastr.error('Данные невалидны');
             }
@@ -56,8 +90,6 @@ function image_validation(src, required_size, callback) {
     const image = new Image();
 
     image.onload = function() {
-        console.log([image.naturalWidth, image.naturalHeight])
-        console.log(required_size)
         if (JSON.stringify([image.naturalWidth, image.naturalHeight]) === JSON.stringify(required_size)) {
             callback(true);
         } else {
@@ -69,7 +101,7 @@ function image_validation(src, required_size, callback) {
 }
 
 
-function toggle_error(validation_succeed, imageInput, required_size) {
+function toggle_error_message(validation_succeed, imageInput, required_size) {
     const imageField = imageInput.parentNode;
 
     if (validation_succeed) {

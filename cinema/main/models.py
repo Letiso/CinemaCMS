@@ -119,31 +119,46 @@ class CinemaCard(models.Model):
 
 class CinemaGallery(models.Model):
     card = models.ForeignKey(CinemaCard, on_delete=models.CASCADE, related_name='gallery')
-    required_size = (1000, 190)
+    image_required_size = (1000, 190)
     image = models.ImageField('Фото кинотеатра')
 
     is_active = models.BooleanField('Активен', default=False)
+
+    @classmethod
+    def get_required_sizes(cls):
+        return {'image': cls.image_required_size}
 
 
 class CinemaHallCard(models.Model):
     cinema = models.ForeignKey(CinemaCard, on_delete=models.CASCADE, related_name='halls')
     number = models.CharField('Номер зала', max_length=256)
     description = models.TextField('Описание зала')
-    required_size = (1000, 190)
+
+    scheme_required_size = (1000, 190)
     scheme = models.ImageField('Схема зала')
+
+    banner_required_size = (1000, 190)
     banner = models.ImageField('Баннер')
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='hall', null=True)
 
+    @classmethod
+    def get_required_sizes(cls):
+        return {'scheme': cls.scheme_required_size, 'banner': cls.banner_required_size}
+
 
 class CinemaHallGallery(models.Model):
     card = models.ForeignKey(CinemaHallCard, on_delete=models.CASCADE, related_name='gallery')
-    required_size = (1000, 190)
+    image_required_size = (1000, 190)
     image = models.ImageField('Фото зала')
 
     is_active = models.BooleanField('Активен', default=False)
+
+    @classmethod
+    def get_required_sizes(cls):
+        return {'image': cls.image_required_size}
 
 
 # endregion Cinemas

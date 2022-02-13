@@ -27,6 +27,7 @@ class CustomAbstractView(View):
 
     def get(self, request, *args, **kwargs) -> HttpResponse:
         self.context = self.get_context(request, *args, **kwargs)
+        print(self.context['required_sizes'])
 
         return render(request, self.template_name, self.context)
 
@@ -64,7 +65,7 @@ class CardView(CustomAbstractView):
         request_data = self.request.POST or None, self.request.FILES or None
         formset = self.gallery_formset(*request_data, queryset=self.gallery_queryset, prefix=self.gallery_prefix)
 
-        self.context['required_sizes'][self.card_prefix] = self.gallery_model.get_required_sizes()
+        self.context['required_sizes'][self.gallery_prefix] = self.gallery_model.get_required_sizes()
 
         return {'formset': formset}
 
@@ -94,6 +95,7 @@ class CardView(CustomAbstractView):
             self.context['gallery'] = self.get_gallery_context(pk)
         self.context['seo'] = self.get_seo_context(pk)
         self.context['currentUrl'] = request.get_full_path()
+        print(self.context['required_sizes'])
 
         self.context['required_sizes'] = json.dumps(self.context['required_sizes'])
 
