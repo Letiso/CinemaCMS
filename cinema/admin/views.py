@@ -536,12 +536,12 @@ class ContactsPageCardView(CardView):
     card_prefix = 'contacts_page'
 
     def get_card_context(self, *args):
-        required_size = ContactsPageCard.required_size
-
         request_data = self.request.POST or None, self.request.FILES or None
         formset = ContactsPageCardFormset(*request_data, prefix=self.card_prefix)
 
-        return {'required_size': required_size, 'formset': formset}
+        self.context['required_sizes'][self.card_prefix] = ContactsPageCard.get_required_sizes()
+
+        return {'formset': formset}
 
     def get_context(self, request):
         return super().get_context(request, pk='1')

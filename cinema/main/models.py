@@ -247,32 +247,47 @@ class MainPageCard(models.Model):
 class PageCard(models.Model):
     title = models.CharField('Название страницы', max_length=256)
     description = models.TextField('Описание')
-    required_size = (1000, 190)
+
+    main_image_required_size = (1000, 190)
     main_image = models.ImageField('Главная картинка')
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='page', null=True)
 
+    @classmethod
+    def get_required_sizes(cls):
+        return {'main_image': cls.main_image_required_size}
+
 
 class PageGallery(models.Model):
     card = models.ForeignKey(PageCard, on_delete=models.CASCADE, related_name='gallery')
-    required_size = (1000, 190)
+
+    image_required_size = (1000, 190)
     image = models.ImageField('Картинка к акции')
 
     is_active = models.BooleanField('Активен', default=False)
+
+    @classmethod
+    def get_required_sizes(cls):
+        return {'image': cls.image_required_size}
 
 
 class ContactsPageCard(models.Model):
     title = models.CharField('Название кинотеатра', max_length=256)
     address = models.TextField('Адрес')
     map_coordinates = models.CharField('Координаты для карты', max_length=256)
-    required_size = (1000, 190)
+
+    main_image_required_size = (1000, 190)
     main_image = models.ImageField('Лого')
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='contacts_page', null=True)
+
+    @classmethod
+    def get_required_sizes(cls):
+        return {'main_image': cls.main_image_required_size}
 
 
 # endregion Pages
