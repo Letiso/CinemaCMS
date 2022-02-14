@@ -6,15 +6,15 @@ app_name = 'main'
 urlpatterns = [
     path('', views.MainPageView.as_view(), name="main_page"),
 
-    path('poster', views.poster, name="poster"),
-    path('poster/movie_card', views.movie_card, name="movie_card"),
+    path('poster', views.MoviesPosterView.as_view(), name="poster"),
+    path('poster/movie_card', views.MovieCardView.as_view(), name="movie_card"),
 
-    path('soon', views.soon, name="soon"),
+    path('soon', views.MoviesSoonView.as_view(), name="soon"),
 
-    path('timetable', views.timetable, name="timetable"),
-    path('timetable/ticket_booking', views.ticket_booking, name="ticket_booking"),
+    path('timetable', views.MovieSessionsTimetableView.as_view(), name="timetable"),
+    path('timetable/ticket_booking', views.TicketBookingView.as_view(), name="ticket_booking"),
 
-    path('cinemas', views.cinemas, name="cinemas"),
+    path('cinemas', views.CinemasView.as_view(), name="cinemas"),
     path('cinemas/cinema_card', views.cinema_card, name="cinema_card"),
     path('cinemas/hall_card', views.hall_card, name="hall_card"),
 

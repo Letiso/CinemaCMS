@@ -65,48 +65,45 @@ class MainPageView(CustomAbstractView):
 # endregion MainPage
 
 # region Poster
-def poster(request):
-    context = {
-        'title': 'Фильмы',
-        'releases': MovieCard.objects.filter(is_active=True),
-        'announcements': MovieCard.objects.filter(is_active=False),
-    }
-    return render(request, 'main/poster/poster.html', context)
+class MoviesPosterView(CustomAbstractView):
+    template_name = 'main/poster/poster.html'
+
+    def get_context(self, request):
+        self.context = super().get_context()
+
+        self.context['releases'] = MovieCard.objects.filter(is_active=True)
+        self.context['announcements'] = MovieCard.objects.filter(is_active=False)
+
+        return self.context
+
+
+class MovieCardView(CustomAbstractView):
+    template_name = 'main/poster/movie_card.html'
 
 
 # endregion Poster
 
 # region Soon
-def soon(request):
-    return render(request, 'main/soon.html')
+class MoviesSoonView(CustomAbstractView):
+    template_name = 'main/soon.html'
 
 
 # endregion Soon
 
-# region MovieCard
-def movie_card(request):
-    return render(request, 'main/poster/movie_card.html')
-
-
-# endregion MovieCard
-
 # region Timetable
-def timetable(request):
-    return render(request, 'main/timetable/timetable.html')
+class MovieSessionsTimetableView(CustomAbstractView):
+    template_name = 'main/timetable/timetable.html'
+
+
+class TicketBookingView(CustomAbstractView):
+    template_name = 'main/timetable/ticket_booking.html'
 
 
 # endregion Timetable
 
-# region TicketBooking
-def ticket_booking(request):
-    return render(request, 'main/timetable/ticket_booking.html')
-
-
-# endregion TicketBooking
-
 # region Cinemas
-def cinemas(request):
-    return render(request, 'main/cinemas/cinemas.html')
+class CinemasView(CustomAbstractView):
+    template_name = 'main/cinemas/index.html'
 
 
 def cinema_card(request):
