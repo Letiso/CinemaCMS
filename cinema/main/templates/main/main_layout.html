@@ -106,22 +106,22 @@
           <ul class="navbar-nav mr-auto">
             <li class="nav-item {% block main_main %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'main' %}"><i class="fas fa-home mx-2 text-light" style="font-size:23px;"></i></a></li>
+                 href="{% url 'main:main_page' %}"><i class="fas fa-home mx-2 text-light" style="font-size:23px;"></i></a></li>
             <li class="nav-item {% block main_poster %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'poster' %}">Афиша</a></li>
+                 href="{% url 'main:poster' %}">Афиша</a></li>
             <li class="nav-item {% block main_timetable %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'timetable' %}">Расписание</a></li>
+                 href="{% url 'main:timetable' %}">Расписание</a></li>
             <li class="nav-item {% block main_soon %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'soon' %}">Скоро</a></li>
+                 href="{% url 'main:soon' %}">Скоро</a></li>
             <li class="nav-item {% block main_cinemas %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'cinemas' %}">Кинотеатры</a></li>
+                 href="{% url 'main:cinemas' %}">Кинотеатры</a></li>
             <li class="nav-item {% block main_promotion %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'promotion' %}">Акции</a></li>
+                 href="{% url 'main:promotion' %}">Акции</a></li>
             <li class="nav-item dropdown {% block main_about_the_cinema %} {% endblock %}">
               <a class="nav-link dropdown-toggle"
                  href="#" id="navbarDropdown"
@@ -132,21 +132,21 @@
               <div class="dropdown-menu"
                    aria-labelledby="navbarDropdown">
                 <a class="dropdown-item"
-                   href="{% url 'about_the_cinema' %}">О кинотеатре</a>
+                   href="{% url 'main:about_the_cinema' %}">О кинотеатре</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item"
-                   href="{% url 'news' %}">Новости</a>
+                   href="{% url 'main:news' %}">Новости</a>
                 <a class="dropdown-item"
-                   href="{% url 'advertising' %}">Реклама</a>
+                   href="{% url 'main:advertising' %}">Реклама</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item"
-                   href="{% url 'cafe_bar' %}">Кафе</a>
+                   href="{% url 'main:cafe_bar' %}">Кафе</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item"
-                   href="{% url 'mobile_applications' %}">Мобильные приложения</a>
+                   href="{% url 'main:mobile_applications' %}">Мобильные приложения</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item"
-                   href="{% url 'contacts' %}">Контакты</a>
+                   href="{% url 'main:contacts' %}">Контакты</a>
               </div>
             </li>
           </ul>
@@ -154,11 +154,11 @@
             {% if not user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link"
-                   href="{% url 'login' %}">Войти</a>
+                   href="{% url 'user:login' %}">Войти</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link"
-                   href="{% url 'signup' %}">Регистрация</a>
+                   href="{% url 'user:signup' %}">Регистрация</a>
               </li>
             {% endif %}
             {% if user.is_authenticated %}
@@ -177,10 +177,13 @@
                   <div class="dropdown-menu dropdown-menu-right"
                        aria-labelledby="langDropdown">
                     <a class="dropdown-item"
-                       href="{% url 'update_account' user.pk %}">Изменить мои данные</a>
+                       href="{% url 'user:update_account' user.pk %}">
+                        Изменить мои данные
+                    </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item"
-                       href="#">Мои билеты</a>
+                    <a class="dropdown-item" href="#">
+                        Мои билеты
+                    </a>
                     {% if user.is_staff or user.is_superuser %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item"
@@ -188,7 +191,7 @@
                     {% endif %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger"
-                       href="{% url 'logout' %}">Выйти</a>
+                       href="{% url 'user:logout' %}">Выйти</a>
                   </div>
                 </li>
             {% endif %}
