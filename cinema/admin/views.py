@@ -27,7 +27,6 @@ class CustomAbstractView(View):
 
     def get(self, request, *args, **kwargs) -> HttpResponse:
         self.context = self.get_context(request, *args, **kwargs)
-        print(self.context['required_sizes'])
 
         return render(request, self.template_name, self.context)
 
