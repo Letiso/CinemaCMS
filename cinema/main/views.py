@@ -106,58 +106,58 @@ class CinemasView(CustomAbstractView):
     template_name = 'main/cinemas/index.html'
 
 
-def cinema_card(request):
-    return render(request, 'main/cinemas/cinema_card.html')
+class CinemaCardView(CustomAbstractView):
+    template_name = 'main/cinemas/cinema_card.html'
 
 
-def hall_card(request):
-    return render(request, 'main/cinemas/hall_card.html')
+class HallCardView(CustomAbstractView):
+    template_name = 'main/cinemas/hall_card.html'
 
 
 # endregion Cinemas
 
 # region Promotion
-def promotion(request):
-    return render(request, 'main/promotion/promotion.html')
+class PromotionView(CustomAbstractView):
+    template_name = 'main/promotion/promotion.html'
 
 
-def promotion_card(request):
-    return render(request, 'main/promotion/promotion_card.html')
+class PromotionCardView(CustomAbstractView):
+    template_name = 'main/promotion/promotion_card.html'
 
 
 # endregion Promotion
 
 # region Pages
-def about_the_cinema(request):
-    return render(request, 'main/about_the_cinema/about_the_cinema.html')
+class AboutTheCinemaPageView(CustomAbstractView):
+    template_name = 'main/about_the_cinema/about_the_cinema.html'
 
 
-def advertising(request):
-    return render(request, 'main/about_the_cinema/advertising.html')
+class AdvertisingPageView(CustomAbstractView):
+    template_name = 'main/about_the_cinema/advertising.html'
 
 
-def cafe_bar(request):
-    return render(request, 'main/about_the_cinema/cafe_bar.html')
+class CafeBarPageView(CustomAbstractView):
+    template_name = 'main/about_the_cinema/cafe_bar.html'
 
 
-def child_room(request):
-    return render(request, 'main/about_the_cinema/child_room.html')
+class ChildRoomPageView(CustomAbstractView):
+    template_name = 'main/about_the_cinema/child_room.html'
 
 
-def contacts(request):
-    return render(request, 'main/about_the_cinema/contacts.html')
+class ContactsPageView(CustomAbstractView):
+    template_name = 'main/about_the_cinema/contacts.html'
 
 
-def mobile_applications(request):
-    return render(request, 'main/about_the_cinema/mobile_applications.html')
+class MobileApplicationsPageView(CustomAbstractView):
+    template_name = 'main/about_the_cinema/mobile_applications.html'
 
 
-def news(request):
-    return render(request, 'main/about_the_cinema/news.html')
+class NewsPageView(CustomAbstractView):
+    template_name = 'main/about_the_cinema/news.html'
 
 
-def vip_hall(request):
-    return render(request, 'main/about_the_cinema/vip_hall.html')
+class VipHallPageView(CustomAbstractView):
+    template_name = 'main/about_the_cinema/vip_hall.html'
 
 
 # endregion Pages

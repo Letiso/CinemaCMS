@@ -15,18 +15,18 @@ urlpatterns = [
     path('timetable/ticket_booking', views.TicketBookingView.as_view(), name="ticket_booking"),
 
     path('cinemas', views.CinemasView.as_view(), name="cinemas"),
-    path('cinemas/cinema_card', views.cinema_card, name="cinema_card"),
-    path('cinemas/hall_card', views.hall_card, name="hall_card"),
+    path('cinemas/cinema_card', views.CinemaCardView.as_view(), name="cinema_card"),
+    path('cinemas/hall_card', views.HallCardView.as_view(), name="hall_card"),
 
-    path('promotion', views.promotion, name="promotion"),
-    path('promotion/promotion_card', views.promotion_card, name="promotion_card"),
+    path('promotion', views.PromotionView.as_view(), name="promotion"),
+    path('promotion/promotion_card', views.PromotionCardView.as_view(), name="promotion_card"),
 
-    path('about_the_cinema', views.about_the_cinema, name="about_the_cinema"),
-    path('about_the_cinema/advertising', views.advertising, name="advertising"),
-    path('about_the_cinema/cafe_bar', views.cafe_bar, name="cafe_bar"),
-    path('about_the_cinema/child_room', views.child_room, name="child_room"),
-    path('about_the_cinema/contacts', views.contacts, name="contacts"),
-    path('about_the_cinema/mobile_applications', views.mobile_applications, name="mobile_applications"),
-    path('about_the_cinema/news', views.news, name="news"),
-    path('about_the_cinema/vip_hall', views.vip_hall, name="vip_hall"),
-    ]
+    path('about_the_cinema', views.AboutTheCinemaPageView.as_view(), name="about_the_cinema"),
+    path('about_the_cinema/news', views.NewsPageView.as_view(), name="news"),
+    path('about_the_cinema/advertising', views.AdvertisingPageView.as_view(), name="advertising"),
+    path('about_the_cinema/vip_hall', views.VipHallPageView.as_view(), name="vip_hall"),
+    path('about_the_cinema/cafe_bar', views.CafeBarPageView.as_view(), name="cafe_bar"),
+    path('about_the_cinema/child_room', views.ChildRoomPageView.as_view(), name="child_room"),
+    path('about_the_cinema/mobile_applications', views.MobileApplicationsPageView.as_view(), name="mobile_applications"),
+    path('about_the_cinema/contacts', views.ContactsPageView.as_view(), name="contacts"),
+]
