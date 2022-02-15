@@ -7,18 +7,26 @@
           name="viewport"
           content="width=device-width, initial-scale=1">
     {% block meta %}
+
     {% endblock %}
-    <title>{% block title %}{% endblock %}</title>
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
     <!-- Bootstrap core CSS -->
     <link href="{% static 'dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{% static 'main/main_layout/css/main_layout.css' %}">
+
     {% block stylesheets %}
 
     {% endblock %}
   </head>
+
   <body>
     {% block top_banner %}
 
@@ -232,6 +240,99 @@
 
       {% endblock %}
     </main>
+
+    <footer class="mx-auto" style="width: 75vw; margin-top: 5vw;">
+        <hr style="border-width: 2px; border-color: black">
+        <div class="row justify-content-center mt-5">
+
+            <div class="col-5 row">
+                <div class="col-12">
+                    <h5>
+                        Мобильные приложения
+                    </h5>
+                </div>
+                <div class="row my-2">
+                    <a href="#" class="col ml-3">
+                        <img src="{% static 'main/main_layout/img/mobile_applications/available_on_android.png' %}" alt="" style="width: 8vw;">
+                    </a>
+                    <a href="#" class="col">
+                        <img src="{% static 'main/main_layout/img/mobile_applications/available_on_ios.png' %}" alt="" style="width: 8vw;">
+                    </a>
+                </div>
+                <div class="col-12 mt-5">
+                    <h5>
+                        Разработка сайтов: AVADA-MEDIA
+                    </h5>
+                </div>
+            </div>
+
+            <div class="col row">
+                <a href="">
+                   <h5 class="col-12">
+                        Афиша
+                    </h5>
+                </a>
+                <a href="#" class="col-12">
+                    Расписание
+                </a>
+                <a href="#" class="col-12">
+                    Скоро в прокате
+                </a>
+                <a href="#" class="col-12">
+                    Кинотеатры
+                </a>
+                <a href="#" class="col-12">
+                    Акции
+                </a>
+            </div>
+
+            <div class="col row">
+                <a href="">
+                   <h5 class="col-12">
+                        О кинотеатре
+                    </h5>
+                </a>
+                <a href="#" class="col-12">
+                    Новости
+                </a>
+                <a href="#" class="col-12">
+                    Реклама
+                </a>
+                <a href="#" class="col-12">
+                    Кафе-бар
+                </a>
+                <a href="#" class="col-12">
+                    Контакты
+                </a>
+            </div>
+
+            <div class="col-3">
+                <div class="nav social-links">
+                    <a href="https://facebook.com/"
+                       title="Facebook">
+                        <img class="link-height" src="{% static 'main/main_layout/img/social_icons/facebook.png' %}" alt="">
+                    </a>
+                    <a href="https://twitter.com/"
+                       title="Twitter">
+                        <img class="link-height" src="{% static 'main/main_layout/img/social_icons/twitter.png' %}" alt="">
+                    </a>
+                    <a href="https://vk.com/"
+                       title="Вконтакте">
+                        <img class="link-height" src="{% static 'main/main_layout/img/social_icons/vkontakte.png' %}" alt="">
+                    </a>
+                    <a href="https://ok.ru/"
+                       title="Одноклассники">
+                        <img class="link-height" src="{% static 'main/main_layout/img//social_icons/odnoklassniki.png' %}" alt="">
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col text-center my-5">
+            <h5>©CinemaCMS 2022, All rights reserved</h5>
+        </div>
+    </footer>
 
     <!-- jQuery -->
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>

@@ -20,19 +20,23 @@
         <div class="row my-5">
             {# main_content #}
                 <div class="col text-center">
-                    <h2 class="mb-5">Наши кинотеатры</h2>
+                    <h2 class="mb-5">
+                        Наши кинотеатры
+                    </h2>
+
                     <div class="row justify-content-center">
                         {% for cinema_card in cinemas %}
-                            <div class="col-4 card p-0 mx-5">
-                                <a href="{% url 'main:cinema_card' cinema_card.pk %}">
+                            <a href="{% url 'main:cinema_card' cinema_card.pk %}" class="col-4 p-0 mx-5">
+                                <div class="card">
                                     <img class="card-img-top" src="{{ cinema_card.banner.url }}" alt="">
                                     <div class="card-body">
                                         <p class="text-center text-dark">{{ cinema_card.name }}</p>
                                     </div>
-                                </a>
-                            </div>
+                                </div>
+                            </a>
                         {% endfor %}
                     </div>
+
                 </div>
             {# main_content end #}
 
