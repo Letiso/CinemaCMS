@@ -1,11 +1,74 @@
 {% extends 'main/main_layout.html' %}
+{% load static %}
 
-{% block title %}Карточка кинотеатра{% endblock %}
+{% block title %}
+    Карточка кинотеатра
+{% endblock %}
 
-{% block main_cinemas %}active{% endblock %}
+{% block main_cinemas %}
+    active
+{% endblock %}
 
 {% block content %}
-<div>
-    <h3>Карточка кинотеатра</h3>
-</div>
+    {# cinemas static banner #}
+        <img src="{% static 'main/cinemas/img/movie-cinema.jpg' %}"
+             alt=""
+             style="width: 100vw; height: 21vw; background: gray;">
+    {# cinemas static banner end #}
+
+    {# left side area #}
+        <div class="col-2 row justify-content-center ml-4">
+            {# context ads #}
+                <div class="col-11 my-5 text-center p-5" style="background: lightgray;">
+                    <a href="#">
+                        <h5>
+                            Контекстная реклама
+                        </h5>
+                    </a>
+                </div>
+            {# context ads end #}
+
+            {# halls list #}
+                <h5>
+                    Количество залов: {{ halls|length }}
+                </h5>
+                <table class="table mx-4">
+                  <tbody>
+                  {% for hall in halls %}
+                      <tr><td><a href="{% url 'main:hall_card' hall.pk %}">
+                          Зал - {{ hall.number }}
+                      </a></td></tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+            {# halls list end #}
+
+        </div>
+    {# left side area end #}
+
+    {# content #}
+        <div class="row my-5">
+            {# main_content #}
+                <div class="col text-center">
+                    <h2 class="mb-5">
+                        Наши кинотеатры
+                    </h2>
+
+                    <div class="row justify-content-center">
+                        {% for cinema_card in cinemas %}
+                            <a href="{% url 'main:cinema_card' cinema_card.pk %}" class="col-4 p-0 mx-5">
+                                <div class="card">
+                                    <img class="card-img-top" src="{{ cinema_card.banner.url }}" alt="">
+                                    <div class="card-body">
+                                        <p class="text-center text-dark">{{ cinema_card.name }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            {# main_content end #}
+        </div>
+    {# content end #}
 {% endblock %}

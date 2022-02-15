@@ -16,7 +16,7 @@ urlpatterns = [
 
     path('cinemas', views.CinemasView.as_view(), name="cinemas"),
     path('cinemas/cinema_card/<int:pk>', views.CinemaCardView.as_view(), name="cinema_card"),
-    path('cinemas/hall_card', views.HallCardView.as_view(), name="hall_card"),
+    path('cinemas/hall_card/<int:pk>', views.HallCardView.as_view(), name="hall_card"),
 
     path('promotion', views.PromotionView.as_view(), name="promotion"),
     path('promotion/promotion_card', views.PromotionCardView.as_view(), name="promotion_card"),
