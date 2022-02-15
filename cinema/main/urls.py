@@ -15,7 +15,7 @@ urlpatterns = [
     path('timetable/ticket_booking', views.TicketBookingView.as_view(), name="ticket_booking"),
 
     path('cinemas', views.CinemasView.as_view(), name="cinemas"),
-    path('cinemas/cinema_card', views.CinemaCardView.as_view(), name="cinema_card"),
+    path('cinemas/cinema_card/<int:pk>', views.CinemaCardView.as_view(), name="cinema_card"),
     path('cinemas/hall_card', views.HallCardView.as_view(), name="hall_card"),
 
     path('promotion', views.PromotionView.as_view(), name="promotion"),

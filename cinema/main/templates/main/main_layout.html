@@ -14,7 +14,7 @@
     <!-- Bootstrap core CSS -->
     <link href="{% static 'dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="{% static 'main/css/main_layout.css' %}">
+    <link rel="stylesheet" href="{% static 'main/main_layout/css/main_layout.css' %}">
     {% block stylesheets %}
 
     {% endblock %}
@@ -27,7 +27,7 @@
     <nav class="nav navbar-default navbar-expand-lg navbar-light bg-dark pt-2">
 
       <div class="navbar col-lg-2">
-        <img src="{% static 'img/logo.png' %}"
+        <img src="{% static 'main/main_layout/img/logo.png' %}"
              class="rounded logo mx-auto"
              alt="Лого">
         <button class="navbar-toggler mr-4"
@@ -57,19 +57,19 @@
               <div class="nav social-links mt-3 mb-2 my-lg-0 ml-lg-3 mr-lg-2">
                 <a href="https://facebook.com/"
                    title="Facebook"><img class="link-height"
-                                         src="{% static 'main/img/social_icons/facebook.png' %}"></a>
+                                         src="{% static 'main/main_layout/img/social_icons/facebook.png' %}"></a>
                 <a href="https://twitter.com/"
                    title="Twitter"><img class="link-height"
-                                        src="{% static 'main/img/social_icons/twitter.png' %}"></a>
+                                        src="{% static 'main/main_layout/img/social_icons/twitter.png' %}"></a>
                 <a href="https://vk.com/"
                    title="Вконтакте"><img class="link-height"
-                                          src="{% static 'main/img/social_icons/vkontakte.png' %}"></a>
+                                          src="{% static 'main/main_layout/img/social_icons/vkontakte.png' %}"></a>
                 <a href="https://ok.ru/"
                    title="Одноклассники"><img class="link-height"
-                                              src="{% static 'main/img/social_icons/odnoklassniki.png' %}"></a>
+                                              src="{% static 'main/main_layout/img//social_icons/odnoklassniki.png' %}"></a>
                 <a href="https://plus.google.com/"
                    title="Google +"><img class="link-height"
-                                         src="{% static 'main/img/social_icons/google_plus.png' %}"></a>
+                                         src="{% static 'main/main_layout/img/social_icons/google_plus.png' %}"></a>
               </div>
             </li>
 
@@ -227,7 +227,7 @@
       </div>
     </nav>
 
-    <main class="container-fluid">
+    <main class="container-fluid p-0">
       {% block content %}
 
       {% endblock %}

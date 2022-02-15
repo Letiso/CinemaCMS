@@ -1,58 +1,43 @@
 {% extends 'main/main_layout.html' %}
+{% load static %}
 
-{% block title %}Кинотеатры{% endblock %}
+{% block title %}
+    Кинотеатры
+{% endblock %}
 
-{% block main_cinemas %}active{% endblock %}
+{% block main_cinemas %}
+    active
+{% endblock %}
 
 {% block content %}
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class=""></li>
-      <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-      <li data-target="#myCarousel" data-slide-to="2" class="active"></li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false"><title> </title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em"> </text></svg>
+    {# cinemas static banner #}
+    <img src="{% static 'main/cinemas/img/movie-cinema.jpg' %}"
+         alt=""
+         style="width: 100vw; height: 21vw; background: gray;">
+    {# cinemas static banner end #}
 
-        <div class="container">
-          <div class="carousel-caption text-left">
-            <h1>Example headline.</h1>
-            <p>Some representative placeholder content for the first slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
-          </div>
+    {# content #}
+    <div class="row my-5">
+        {# main_content #}
+        <div class="col-10 text-center">
+            <h2 class="mb-5">Наши кинотеатры</h2>
+            <div class="row justify-content-between justify-content-around">
+                {% for cinema_card in cinemas %}
+                    <div class="col-4 card p-0">
+                        <a href="{% url 'main:cinema_card' cinema_card.pk %}">
+                            <img class="card-img-top" src="{{ cinema_card.banner.url }}" alt="">
+                            <div class="card-body">
+                                <p class="text-center text-dark">{{ cinema_card.name }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-      </div>
-      <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false"><title> </title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em"> </text></svg>
 
-        <div class="container">
-          <div class="carousel-caption">
-            <h1>Another example headline.</h1>
-            <p>Some representative placeholder content for the second slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item active">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false"><title> </title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em"> </text></svg>
+        <div class="col-2">
 
-        <div class="container">
-          <div class="carousel-caption text-right">
-            <h1>One more for good measure.</h1>
-            <p>Some representative placeholder content for the third slide of this carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
-          </div>
         </div>
-      </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-target="#myCarousel" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-target="#myCarousel" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </button>
-  </div>
+    {# content end #}
 {% endblock %}

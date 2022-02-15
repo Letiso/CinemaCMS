@@ -105,6 +105,12 @@ class TicketBookingView(CustomAbstractView):
 class CinemasView(CustomAbstractView):
     template_name = 'main/cinemas/index.html'
 
+    def get_context(self, request):
+        self.context = super().get_context()
+
+        self.context['cinemas'] = CinemaCard.objects.filter(is_active=True)
+
+        return self.context
 
 class CinemaCardView(CustomAbstractView):
     template_name = 'main/cinemas/cinema_card.html'
