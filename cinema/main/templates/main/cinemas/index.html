@@ -41,8 +41,16 @@
             {# main_content end #}
 
             {# context ads #}
-                <div class="col-2">
-
+                <div class="col-2 row justify-content-center mr-4">
+                    {% for context_ad in context_ads %}
+                        <div class="col-11 my-5 text-center p-5" style="background: lightgray;">
+                            <a href="#">
+                                <h5>
+                                    Контекстная реклама
+                                </h5>
+                            </a>
+                        </div>
+                    {% endfor %}
                 </div>
             {# context ads end #}
         </div>

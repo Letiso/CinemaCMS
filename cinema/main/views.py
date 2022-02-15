@@ -109,6 +109,7 @@ class CinemasView(CustomAbstractView):
         self.context = super().get_context()
 
         self.context['cinemas'] = CinemaCard.objects.filter(is_active=True)
+        self.context['context_ads'] = list(range(3))
 
         return self.context
 
