@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .logo {max-height: 100px}
 .link-height {max-height: 36px;}
 .social-links a {

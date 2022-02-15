@@ -11,33 +11,36 @@
 
 {% block content %}
     {# cinemas static banner #}
-    <img src="{% static 'main/cinemas/img/movie-cinema.jpg' %}"
-         alt=""
-         style="width: 100vw; height: 21vw; background: gray;">
+        <img src="{% static 'main/cinemas/img/movie-cinema.jpg' %}"
+             alt=""
+             style="width: 100vw; height: 21vw; background: gray;">
     {# cinemas static banner end #}
 
     {# content #}
-    <div class="row my-5">
-        {# main_content #}
-        <div class="col-10 text-center">
-            <h2 class="mb-5">Наши кинотеатры</h2>
-            <div class="row justify-content-between justify-content-around">
-                {% for cinema_card in cinemas %}
-                    <div class="col-4 card p-0">
-                        <a href="{% url 'main:cinema_card' cinema_card.pk %}">
-                            <img class="card-img-top" src="{{ cinema_card.banner.url }}" alt="">
-                            <div class="card-body">
-                                <p class="text-center text-dark">{{ cinema_card.name }}</p>
+        <div class="row my-5">
+            {# main_content #}
+                <div class="col text-center">
+                    <h2 class="mb-5">Наши кинотеатры</h2>
+                    <div class="row justify-content-center">
+                        {% for cinema_card in cinemas %}
+                            <div class="col-4 card p-0 mx-5">
+                                <a href="{% url 'main:cinema_card' cinema_card.pk %}">
+                                    <img class="card-img-top" src="{{ cinema_card.banner.url }}" alt="">
+                                    <div class="card-body">
+                                        <p class="text-center text-dark">{{ cinema_card.name }}</p>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                        {% endfor %}
                     </div>
-                {% endfor %}
-            </div>
-        </div>
+                </div>
+            {# main_content end #}
 
-        <div class="col-2">
+            {# context ads #}
+                <div class="col-2">
 
+                </div>
+            {# context ads end #}
         </div>
-    </div>
     {# content end #}
 {% endblock %}
