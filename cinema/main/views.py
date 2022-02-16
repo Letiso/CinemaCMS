@@ -113,17 +113,21 @@ class CinemasView(CustomAbstractView):
 
         return self.context
 
+
 class CinemaCardView(CustomAbstractView):
     template_name = 'main/cinemas/cinema_card.html'
 
     def get_context(self, request, pk):
         self.context = super().get_context()
 
-        self.context['cinema'] = get_object_or_404(CinemaCard, pk=pk)
+        cinema = get_object_or_404(CinemaCard, pk=pk)
+        self.context['cinema'] = cinema
 
-        self.context['halls'] = self.context['cinema'].halls.all()
+        self.context['halls'] = cinema.halls.all()
+        self.context['gallery'] = cinema.gallery.all()
 
         return self.context
+
 
 class HallCardView(CustomAbstractView):
     template_name = 'main/cinemas/hall_card.html'
