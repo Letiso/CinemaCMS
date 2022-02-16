@@ -1,40 +1,52 @@
-.logo {max-height: 100px}
-.link-height {max-height: 36px;}
+body {
+    overflow-x: hidden;
+}
+
+/* navbar */
+.logo {
+    max-height: 100px;
+}
+
+.nav-link {
+    color: #52A2EF !important;
+}
+.nav-link:hover {
+    color: #fff !important;
+}
+
+.navbar-nav > .active > a {
+    margin-right: 5px;
+    margin-left: 5px;
+    color: white !important;
+    }
+
+
+/* navbar end */
+
+/* links */
+a {
+    transition: transform .3s;
+    font-size: 19px;
+    text-decoration: none !important;
+    color: black !important;
+    }
+
+a:hover {
+    transform: scale(1.05);
+}
+
+
+/* links end */
+
+/* social net links */
+.link-height {
+    max-height: 36px;
+}
+
 .social-links a {
     padding-left: 4px;
     padding-right: 4px;
     }
 
-nav a {
-    transition: transform .3s;
-    font-size: 19px;
-    }
 
-nav a:hover {transform: scale(1.05);}
-
-.navbar .nav-item .nav-link {color: #52A2EF;}
-.navbar .nav-item .nav-link:hover {color: #fff;}
-
-.navbar-default .navbar-nav > .active > a {
-    margin-right: 5px;
-    margin-left: 5px;
-    background-color: #52A2EF;
-    }
-
-.dropdown:active {
-    color: #000;
-    background-color: #52A2EF;
-    }
-
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {color: #000;}
-
-main .features {
-    text-align: center;
-    width: 75%;
-    }
-main .features h1 {font-size: 35px}
-main .features p {
-    max-width: 400px;
-    margin: 20px auto;
-    }
+/* social net links end */

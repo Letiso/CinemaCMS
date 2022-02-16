@@ -11,64 +11,80 @@
 
 {% block content %}
     {# cinemas static banner #}
-        <img src="{% static 'main/cinemas/img/movie-cinema.jpg' %}"
+        <img src="{{ cinema.banner.url }}"
              alt=""
              style="width: 100vw; height: 21vw; background: gray;">
     {# cinemas static banner end #}
 
-    {# left side area #}
-        <div class="col-2 row justify-content-center ml-4">
-            {# context ads #}
-                <div class="col-11 my-5 text-center p-5" style="background: lightgray;">
-                    <a href="#">
-                        <h5>
-                            Контекстная реклама
-                        </h5>
-                    </a>
-                </div>
-            {# context ads end #}
+    <div class="row">
+        {# left side area #}
+            <div class="col-2 ml-5 mr-3">
+                {# context ads #}
+                    <div class="col my-5 text-center p-5" style="background: lightgray;">
+                        <a href="#">
+                            <h5>
+                                Контекстная реклама
+                            </h5>
+                        </a>
+                    </div>
+                {# context ads end #}
 
-            {# halls list #}
-                <h5>
-                    Количество залов: {{ halls|length }}
-                </h5>
-                <table class="table mx-4">
-                  <tbody>
-                  {% for hall in halls %}
-                      <tr><td><a href="{% url 'main:hall_card' hall.pk %}">
-                          Зал - {{ hall.number }}
-                      </a></td></tr>
-                  {% endfor %}
-                  </tbody>
-                </table>
-            {# halls list end #}
+                {# halls list #}
+                    <h5>
+                        Количество залов: {{ halls|length }}
+                    </h5>
 
-        </div>
-    {# left side area end #}
+                    <table class="table">
+                      <tbody>
+                      {% for hall in halls %}
+                          <tr><td><a href="{% url 'main:hall_card' hall.pk %}">
+                              Зал - {{ hall.number }}
+                          </a></td></tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                {# halls list end #}
 
-    {# content #}
-        <div class="row my-5">
-            {# main_content #}
-                <div class="col text-center">
-                    <h2 class="mb-5">
-                        Наши кинотеатры
-                    </h2>
+            </div>
+        {# left side area end #}
 
-                    <div class="row justify-content-center">
-                        {% for cinema_card in cinemas %}
-                            <a href="{% url 'main:cinema_card' cinema_card.pk %}" class="col-4 p-0 mx-5">
-                                <div class="card">
-                                    <img class="card-img-top" src="{{ cinema_card.banner.url }}" alt="">
-                                    <div class="card-body">
-                                        <p class="text-center text-dark">{{ cinema_card.name }}</p>
-                                    </div>
-                                </div>
-                            </a>
-                        {% endfor %}
+        {# content #}
+            <div class="col mr-5">
+                <div class="col d-inline-flex my-5">
+                    <h3 class="mt-2 mx-4">
+                        Кинотеатр "{{ cinema.name }}"
+                    </h3>
+
+                    <div>
+                        <img src="{% static 'main/main_layout/img/logo.png' %}" alt="" style="height: 70px;">
                     </div>
 
+                    <div class="mx-auto">
+                        <a href="#"
+                           class="btn btn-success px-5 py-2" style="font-size: 20px">
+                            Расписание сеансов
+                        </a>
+
+                        <div class="mt-4">
+                            <span class="badge-pill badge-warning p-2">3D</span>
+                            <span class="badge-pill badge-secondary p-2">D-BOX</span>
+                            <span class="badge-pill badge-danger p-2">DOLBY ATMOS</span>
+                            <span class="badge-pill badge-info p-2">VIP</span>
+                        </div>
+                    </div>
                 </div>
-            {# main_content end #}
-        </div>
-    {# content end #}
+
+                <div class="col">
+                    <p class="text-break">{{ cinema.description }}</p>
+                </div>
+
+                <div class="col text-center mt-5">
+                    <h3>Условия</h3>
+                </div>
+            </div>
+
+
+        {# content end #}
+    </div>
+
 {% endblock %}
