@@ -30,11 +30,11 @@
                 {# context ads end #}
 
                 {# halls list #}
-                    <h5>
+                    <h5 class="text-center mt-5 mb-3">
                         Количество залов: {{ halls|length }}
                     </h5>
 
-                    <table class="table">
+                    <table class="table text-center">
                       <tbody>
                       {% for hall in halls %}
                           <tr><td><a href="{% url 'main:hall_card' hall.pk %}">
@@ -45,6 +45,25 @@
                     </table>
                 {# halls list end #}
 
+                {# movie sessions #}
+                    <h5 class="mt-5 mb-3 text-center">
+                        Смотрите сегодня:
+                    </h5>
+
+                    <table class="table text-center">
+                      <tbody>
+                      {% for hall in halls %}
+                          <tr><td><a href="#">
+                              Сеанс {{ forloop.counter }}
+                          </a></td></tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                    <a href="#"
+                       class="btn btn-success px-3 py-2" style="font-size: 20px">
+                        Расписание всех сеансов
+                    </a>
+                {# movie sessions end #}
             </div>
         {# left side area end #}
 
@@ -123,8 +142,6 @@
                     </div>
                 {# gallery end #}
             </div>
-
-
         {# content end #}
     </div>
 
