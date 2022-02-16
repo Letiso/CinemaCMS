@@ -125,12 +125,23 @@ class CinemaCardView(CustomAbstractView):
 
         self.context['halls'] = cinema.halls.all()
         self.context['gallery'] = cinema.gallery.all()
+        self.context['movie_sessions'] = list(range(6))
 
         return self.context
 
 
 class HallCardView(CustomAbstractView):
     template_name = 'main/cinemas/hall_card.html'
+
+    def get_context(self, request, pk):
+        self.context = super().get_context()
+
+        hall = get_object_or_404(CinemaHallCard, pk=pk)
+        self.context['hall'] = hall
+        self.context['gallery'] = hall.gallery.all()
+        self.context['movie_sessions'] = list(range(6))
+
+        return self.context
 
 
 # endregion Cinemas
