@@ -255,12 +255,18 @@ class PromotionGallery(ImageFieldsValidationMixin, models.Model):
 # region Pages
 class MainPageCard(models.Model):
     title = models.CharField('Название страницы', max_length=256)
-    phone = models.CharField('Телефон', max_length=256)
+    first_phone_number = models.CharField('Первый номер телефона', max_length=13, default='')
+    second_phone_number = models.CharField('Второй номер телефона', max_length=13, default='')
     seo_text = models.TextField('SEO текст')
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='main_page', null=True)
+
+    def get_phone_numbers(self):
+        navbar_phone_numbers = self.first_phone_number, self.second_phone_number
+
+        return navbar_phone_numbers
 
 
 class PageCard(ImageFieldsValidationMixin, models.Model):

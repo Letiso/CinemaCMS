@@ -94,17 +94,14 @@
 
                   <div class="dropdown-menu dropdown-menu-right"
                        aria-labelledby="langDropdown">
-                    <div class="dropdown-header">Vodafone</div>
-                    <a class="dropdown-item"
-                       href="#">+380-<span style="color: red">95</span>-777-77-77</a>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-header">Lifecell</div>
-                    <a class="dropdown-item"
-                       href="#">+380-<span style="color: orange">63</span>-777-77-77</a>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-header">Киевстар</div>
-                    <a class="dropdown-item"
-                       href="#">+380-<span style="color: blue">67</span>-777-77-77</a>
+                      {% for phone_number in navbar_phone_numbers %}
+                          {% if forloop.counter != 1 %}
+                              <div class="dropdown-divider"></div>
+                          {% endif %}
+                          <div class="dropdown-header">Номер {{ forloop.counter }}</div>
+                            <a class="dropdown-item"
+                               href="#">{{ phone_number }}</a>
+                      {% endfor %}
                   </div>
                 </li></ul></li>
           </ul>
@@ -112,52 +109,98 @@
 
         <div class="col-12 navbar">
           <ul class="navbar-nav mr-auto">
+
             <li class="nav-item {% block main_main %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'main:main_page' %}"><i class="fas fa-home mx-2 text-light" style="font-size:23px;"></i></a></li>
+                 href="{% url 'main:main_page' %}">
+                  <i class="fas fa-home mx-2 text-light" style="font-size:23px;"></i>
+              </a>
+            </li>
+
             <li class="nav-item {% block main_poster %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'main:poster' %}">Афиша</a></li>
+                 href="{% url 'main:poster' %}">
+                  Афиша
+              </a>
+            </li>
+
             <li class="nav-item {% block main_timetable %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'main:timetable' %}">Расписание</a></li>
+                 href="{% url 'main:timetable' %}">
+                  Расписание
+              </a>
+            </li>
+
             <li class="nav-item {% block main_soon %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'main:soon' %}">Скоро</a></li>
+                 href="{% url 'main:soon' %}">
+                  Скоро
+              </a>
+            </li>
+
             <li class="nav-item {% block main_cinemas %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'main:cinemas' %}">Кинотеатры</a></li>
+                 href="{% url 'main:cinemas' %}">
+                  Кинотеатры
+              </a>
+            </li>
+
             <li class="nav-item {% block main_promotion %} {% endblock %}">
               <a class="nav-link"
-                 href="{% url 'main:promotion' %}">Акции</a></li>
-            <li class="nav-item dropdown {% block main_about_the_cinema %} {% endblock %}">
-              <a class="nav-link dropdown-toggle"
-                 href="#" id="navbarDropdown"
-                 role="button"
-                 data-toggle="dropdown"
-                 aria-haspopup="true"
-                 aria-expanded="false">О кинотеатре</a>
-              <div class="dropdown-menu"
+                 href="{% url 'main:promotion' %}">
+                  Акции
+              </a>
+            </li>
+
+            <li>
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                  <a href="{% url 'main:about_the_cinema' %}" class="nav-link">
+                      О кинотеатре
+                  </a>
+
+                  <div class="btn-group" role="group">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </a>
+                  <div class="dropdown-menu"
                    aria-labelledby="navbarDropdown">
-                <a class="dropdown-item"
-                   href="{% url 'main:about_the_cinema' %}">О кинотеатре</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item"
-                   href="{% url 'main:news' %}">Новости</a>
-                <a class="dropdown-item"
-                   href="{% url 'main:advertising' %}">Реклама</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item"
-                   href="{% url 'main:cafe_bar' %}">Кафе</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item"
-                   href="{% url 'main:mobile_applications' %}">Мобильные приложения</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item"
-                   href="{% url 'main:contacts' %}">Контакты</a>
-              </div>
+
+                    <a class="dropdown-item"
+                       href="{% url 'main:news' %}">
+                        Новости
+                    </a>
+                    <a class="dropdown-item"
+                       href="{% url 'main:advertising' %}">
+                        Реклама
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item"
+                       href="{% url 'main:cafe_bar' %}">
+                        Кафе
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item"
+                       href="{% url 'main:mobile_applications' %}">
+                        Мобильные приложения
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item"
+                       href="{% url 'main:contacts' %}">
+                        Контакты
+                    </a>
+                  </div>
+
+                  </div>
+
+                </div>
             </li>
           </ul>
+
           <ul class="navbar-nav ml-auto">
             {% if not user.is_authenticated %}
               <li class="nav-item">

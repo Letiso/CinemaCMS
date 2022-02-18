@@ -7,12 +7,16 @@ from .models import *
 
 # region Mixins
 class CustomAbstractView(View):
-    template_name:str = None
-    context:dict = None
+    template_name: str = None
+    context: dict = None
 
     @staticmethod
     def get_context(*args, **kwargs) -> dict:
-        return {}
+        main_page = MainPageCard.objects.filter(pk=1).first()
+
+        navbar_phone_numbers = main_page.get_phone_numbers()
+
+        return {'navbar_phone_numbers': navbar_phone_numbers}
 
     def get(self, request, *args, **kwargs) -> HttpResponse:
         self.context = self.get_context(request, *args, **kwargs)
