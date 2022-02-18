@@ -26,6 +26,7 @@ class ImageValidationMixin:
 
     def clean(self):
         model = self.Meta.model
+
         image_fields_names = model.get_image_fields_names()
         required_sizes = model.get_required_sizes()
 
@@ -44,7 +45,7 @@ class ImageValidationMixin:
 
                 self.add_error(image_field_name, err_msg)
 
-            return self.cleaned_data
+        return self.cleaned_data
 
 
 # endregion Mixins
