@@ -29,6 +29,7 @@ urlpatterns = [
 
     path('pages', views.PageListView.as_view(), name="pages"),
     path('pages/main_page_card', views.MainPageCardView.as_view(), name="main_page_card"),
+    path('pages/about_the_cinema_page_card', views.AboutTheCinemaPageCardView.as_view(), name="about_the_cinema_page_card"),
     path('pages/page_card/<str:pk>', views.PageCardView.as_view(), name="page_card"),
     path('pages/page_card/<int:pk>/delete', views.PageCardDeleteView.as_view(), name="delete_page"),
     path('pages/contacts_page_card', views.ContactsPageCardView.as_view(), name="contacts_page_card"),

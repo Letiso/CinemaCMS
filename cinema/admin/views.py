@@ -36,7 +36,7 @@ class CustomAbstractView(View):
 
 class CardView(CustomAbstractView):
     success_url = request = None
-    contains_gallery:bool = True
+    contains_gallery: bool = True
 
     card_prefix = card_model = card_form = None
     card_instance = None
@@ -445,9 +445,17 @@ class PageListView(CustomAbstractView):
         return main_page_card
 
     @staticmethod
+    def get_about_the_cinema_page_context():
+        about_the_cinema_page_card = AboutTheCinemaPageCard.objects.filter(pk=1).first()
+        if not about_the_cinema_page_card:
+            about_the_cinema_page_card = AboutTheCinemaPageCard.objects.create(pk=1, title='О кинотеатре')
+
+        return about_the_cinema_page_card
+
+    @staticmethod
     def get_primary_pages_context():
         titles = (
-            'О кинотеатре', 'Кафе - Бар', 'VIP - зал', 'Реклама', 'Детская комната'
+            'Кафе - Бар', 'VIP - зал', 'Детская комната', 'Реклама'
         )
 
         pk_range = 1, len(titles) + 1
@@ -483,6 +491,7 @@ class PageListView(CustomAbstractView):
         self.context = super().get_context()
 
         self.context['main_page'] = self.get_main_page_context()
+        self.context['about_the_cinema_page'] = self.get_about_the_cinema_page_context()
         self.context['primary_page_list'] = self.get_primary_pages_context()
         self.context['custom_page_list'] = self.get_custom_pages_context()
         self.context['contacts_page'] = self.get_contacts_page_context()
@@ -506,6 +515,21 @@ class MainPageCardView(CardView):
 
     def get_context(self, request):
         return super().get_context(request, pk='1')
+
+
+class AboutTheCinemaPageCardView(CardView):
+    template_name = 'admin/pages/about_the_cinema_page_card.html'
+    success_url = 'admin:pages'
+    contains_gallery = False
+
+    card_prefix = 'about_the_cinema_page'
+    card_model = AboutTheCinemaPageCard
+    card_form = AboutTheCinemaPageCardForm
+
+    def get_context(self, request):
+        self.context = super().get_context(request, pk='1')
+
+        return self.context
 
 
 class PageCardView(CardView):

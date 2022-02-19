@@ -269,6 +269,38 @@ class MainPageCard(models.Model):
         return navbar_phone_numbers
 
 
+class AboutTheCinemaPageCard(ImageFieldsValidationMixin, models.Model):
+    title = models.CharField('Название страницы', max_length=256)
+    description = models.TextField('Описание')
+
+    main_image_required_size = (1000, 190)
+    main_image = models.ImageField('Главная картинка', upload_to='main/pages/about_the_cinema/')
+
+    description_image_required_size = (1000, 190)
+    description_image = models.ImageField('Картинка описания', upload_to='main/pages/about_the_cinema/')
+
+    equipment = models.TextField('Оборудование')
+
+    equipment_image_1_required_size = (1000, 190)
+    equipment_image_1 = models.ImageField('Картинка оборудования 1', upload_to='main/pages/about_the_cinema/equipment')
+
+    equipment_image_2_required_size = (1000, 190)
+    equipment_image_2 = models.ImageField('Картинка оборудования 2', upload_to='main/pages/about_the_cinema/equipment')
+
+    is_active = models.BooleanField(default=False)
+    date_created = models.DateTimeField(default=timezone.now)
+    seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='about_the_cinema_page', null=True)
+
+    @classmethod
+    def get_required_sizes(cls):
+        return {
+            'main_image': cls.main_image_required_size,
+            'description_image': cls.description_image_required_size,
+            'equipment_image_1': cls.equipment_image_1_required_size,
+            'equipment_image_2': cls.equipment_image_2_required_size,
+        }
+
+
 class PageCard(ImageFieldsValidationMixin, models.Model):
     title = models.CharField('Название страницы', max_length=256)
     description = models.TextField('Описание')
@@ -289,7 +321,7 @@ class PageGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(PageCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
-    image = models.ImageField('Картинка к акции', upload_to='main/pages]/gallery')
+    image = models.ImageField('Картинка к странице', upload_to='main/pages/gallery')
 
     is_active = models.BooleanField('Активен', default=False)
 

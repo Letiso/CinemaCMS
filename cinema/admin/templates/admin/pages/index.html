@@ -33,11 +33,36 @@
                 <td>{{ main_page.date_created }}</td>
                 <td>{% if main_page.is_active %}<span>Вкл.</span>{% else %}<span>Выкл.</span>{% endif %}</td>
                 <td class="col-1">
-                      <div class="row buttons">
-                          <a href="{% url 'admin:main_page_card' %}"
-                             class="fas fa-pen text-primary mx-auto"></a>
-                      </div>
-                  </td>
+                   <div class="row buttons">
+                      <a href="{% url 'admin:main_page_card' %}"
+                         class="fas fa-pen text-primary mx-auto"></a>
+                   </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ about_the_cinema_page.title }}
+                </td>
+                <td>
+                    {{ about_the_cinema_page.date_created }}
+                </td>
+                <td>
+                    {% if about_the_cinema_page.is_active %}
+                        <span>
+                            Вкл.
+                        </span>
+                    {% else %}
+                        <span>
+                            Выкл.
+                        </span>
+                    {% endif %}
+                </td>
+                <td class="col-1">
+                   <div class="row buttons">
+                      <a href="{% url 'admin:about_the_cinema_page_card' %}"
+                         class="fas fa-pen text-primary mx-auto"></a>
+                   </div>
+                </td>
             </tr>
             {% for page in primary_page_list %}
               <tr>

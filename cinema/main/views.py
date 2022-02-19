@@ -187,8 +187,9 @@ class AboutTheCinemaPageView(CustomAbstractView):
     def get_context(self, request, pk=1):
         self.context = super().get_context()
 
-        page_card = get_object_or_404(PageCard, pk=pk)
+        page_card = get_object_or_404(AboutTheCinemaPageCard, pk=pk)
         self.context['page_card'] = page_card
+        self.context['context_ads'] = list(range(3))
 
         return self.context
 
