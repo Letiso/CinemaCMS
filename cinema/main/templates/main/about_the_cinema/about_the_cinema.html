@@ -1,13 +1,55 @@
 {% extends 'main/main_layout.html' %}
+{% load static %}
 
-{% block title %}О кинотеатре{% endblock %}
+{% block title %}
+    О кинотеатре
+{% endblock %}
 
-{% block main_about_the_cinema %}active{% endblock %}
+{% block main_about_the_cinema %}
+    active
+{% endblock %}
 
 {% block content %}
-<div class="container features">
-    <h1>О кинотеатре</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, consectetur consequatur eveniet impedit, ipsum magnam maiores nemo, optio reiciendis repellat repellendus soluta unde? Consequatur delectus ducimus molestias repellendus sapiente.</p>
-    <button class="btn btn-info">Принять</button>
-</div>
+    {# promotions static banner #}
+        <img src="{% static 'main/promotions/img/promotion.jpg' %}"
+             alt=""
+             style="width: 100vw; height: 21vw; background: gray;">
+    {# promotions static banner end #}
+
+    <div class="row">
+        {# main content #}
+            <div class="col ml-5">
+                {# promotion description #}
+                    <div class="col my-5 mx-4">
+                        <h3 class="text-center mb-3">
+                            О кинотеатре
+                        </h3>
+
+                        <div class="col">
+                            <p class="text-break">
+                                {{ page_card.description }}
+                            </p>
+                        </div>
+                    </div>
+                {# promotion description end #}
+
+            </div>
+        {# main_content end #}
+
+        {# right side area #}
+            <div class="col-2 ml-5 mr-3">
+                {# context ads #}
+                    {% for context_ad in context_ads %}
+                        <div class="col-11 my-5 text-center p-5" style="background: lightgray;">
+                            <a href="#">
+                                <h5>
+                                    Контекстная реклама
+                                </h5>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {# context ads end #}
+            </div>
+        {# right side area end #}
+    </div>
 {% endblock %}

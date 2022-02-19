@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import View
 from django.http import HttpResponse
 
+from itertools import chain
+
 from .models import *
 
 
@@ -12,9 +14,8 @@ class CustomAbstractView(View):
 
     @staticmethod
     def get_context(*args, **kwargs) -> dict:
-        main_page = MainPageCard.objects.filter(pk=1).first()
-
-        navbar_phone_numbers = main_page.get_phone_numbers()
+        main_page_card = MainPageCard.objects.filter(pk=1).first()
+        navbar_phone_numbers = main_page_card.get_phone_numbers()
 
         return {'navbar_phone_numbers': navbar_phone_numbers}
 
@@ -29,7 +30,7 @@ class CustomAbstractView(View):
 
 # endregion Mixins
 
-#region MainPage
+# region MainPage
 class MainPageView(CustomAbstractView):
     template_name = 'main/index.html'
 
@@ -182,6 +183,14 @@ class PromotionCardView(CustomAbstractView):
 # region Pages
 class AboutTheCinemaPageView(CustomAbstractView):
     template_name = 'main/about_the_cinema/about_the_cinema.html'
+
+    def get_context(self, request, pk=1):
+        self.context = super().get_context()
+
+        page_card = get_object_or_404(PageCard, pk=pk)
+        self.context['page_card'] = page_card
+
+        return self.context
 
 
 class AdvertisingPageView(CustomAbstractView):
