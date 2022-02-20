@@ -2,8 +2,6 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import View, ListView
 from django.http import HttpResponse
 
-from itertools import chain
-
 from .models import *
 
 
@@ -17,7 +15,7 @@ class CustomAbstractView(View):
         main_page_card = MainPageCard.objects.filter(pk=1).first()
         navbar_phone_numbers = main_page_card.get_phone_numbers()
 
-        return {'navbar_phone_numbers': navbar_phone_numbers}
+        return {'main_page_card': main_page_card, 'navbar_phone_numbers': navbar_phone_numbers}
 
     def get(self, request, *args, **kwargs) -> HttpResponse:
         self.context = self.get_context(request, *args, **kwargs)
@@ -115,7 +113,9 @@ class CinemasListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # context['cinemas'] = CinemaCard.objects.filter(is_active=True)
+        main_page_card = MainPageCard.objects.filter(pk=1).first()
+        context['navbar_phone_numbers'] = main_page_card.get_phone_numbers()
+
         context['context_ads'] = list(range(3))  # just for empty ads render
 
         return context
@@ -161,6 +161,9 @@ class PromotionListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        main_page_card = MainPageCard.objects.filter(pk=1).first()
+        context['navbar_phone_numbers'] = main_page_card.get_phone_numbers()
 
         context['context_ads'] = list(range(3))  # just for empty ads render
 
@@ -258,7 +261,9 @@ class NewsListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # context['cinemas'] = CinemaCard.objects.filter(is_active=True)
+        main_page_card = MainPageCard.objects.filter(pk=1).first()
+        context['navbar_phone_numbers'] = main_page_card.get_phone_numbers()
+
         context['context_ads'] = list(range(3))  # just for empty ads render
 
         return context
