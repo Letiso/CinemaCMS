@@ -1,13 +1,106 @@
 {% extends 'main/main_layout.html' %}
+{% load static %}
 
-{% block title %}Новости{% endblock %}
+{% block title %}
+    Кинотеатры
+{% endblock %}
 
-{% block main_about_the_cinema %}active{% endblock %}
+{% block main_cinemas %}
+    active
+{% endblock %}
 
 {% block content %}
-<div class="container features">
-    <h1>Новости</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, consectetur consequatur eveniet impedit, ipsum magnam maiores nemo, optio reiciendis repellat repellendus soluta unde? Consequatur delectus ducimus molestias repellendus sapiente.</p>
-    <button class="btn btn-warning">Принять</button>
-</div>
+    {# cinemas static banner #}
+        <img src="{% static 'main/cinemas/img/movie-cinema.jpg' %}"
+             alt=""
+             style="width: 100vw; height: 21vw; background: gray;">
+    {# cinemas static banner end #}
+
+    {# content #}
+        <div class="row my-5">
+            {# main_content #}
+                <div class="col text-center">
+                    <h2 class="mb-5">
+                        Наши кинотеатры
+                    </h2>
+
+                    <div class="row justify-content-center">
+
+                        {% for cinema_card in page_obj %}
+                            <a href="{% url 'main:cinema_card' cinema_card.pk %}" class="col-4 p-0 m-5">
+                                <div class="card">
+                                    <img class="card-img-top" src="{{ cinema_card.banner.url }}" alt="">
+                                    <div class="card-body">
+                                        <p class="text-center text-dark">{{ cinema_card.name }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination justify-content-center">
+
+                        {% if page_obj.has_previous %}
+                          <li class="page-item">
+                              <a class="page-link" href="?page=1">&laquo;</a>
+                          </li>
+                          <li class="page-item">
+                              <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                          </li>
+
+                        {% else %}
+                            <li class="page-item disabled">
+                              <a class="page-link" href="?page=0">Назад</a>
+                          </li>
+
+                        {% endif %}
+
+
+                        {% for page_number in page_obj.paginator.page_range %}
+                            <li class="page-item {% if page_number == page_obj.number %}active{% endif %}">
+                                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                            </li>
+
+                        {% endfor %}
+
+
+                        {% if page_obj.has_next %}
+                          <li class="page-item">
+                              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед</a>
+                          </li>
+                          <li>
+                              <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                          </li>
+
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="?page=0">Вперед</a>
+                            </li>
+
+                        {% endif %}
+                      </ul>
+                    </nav>
+
+                </div>
+            {# main_content end #}
+
+            {# right side area #}
+                <div class="col-2 ml-5 mr-3">
+                    {# context ads #}
+                        {% for context_ad in context_ads %}
+                            <div class="col-11 my-5 text-center p-5" style="background: lightgray;">
+                                <a href="#">
+                                    <h5>
+                                        Контекстная реклама
+                                    </h5>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {# context ads end #}
+                </div>
+            {# right side area end #}
+
+        </div>
+    {# content end #}
 {% endblock %}

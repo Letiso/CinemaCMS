@@ -2,6 +2,7 @@ body {
     overflow-x: hidden;
 }
 
+
 /* navbar */
 .logo {
     max-height: 100px;
@@ -20,23 +21,22 @@ body {
     color: white !important;
     }
 
-
 /* navbar end */
+
 
 /* links */
 a {
     transition: transform .3s;
     font-size: 19px;
     text-decoration: none !important;
-    color: black !important;
     }
 
 a:hover {
     transform: scale(1.05);
 }
 
-
 /* links end */
+
 
 /* social net links */
 .link-height {
@@ -48,5 +48,20 @@ a:hover {
     padding-right: 4px;
     }
 
-
 /* social net links end */
+
+
+/* footer */
+footer a {
+    color: black !important;
+}
+
+/* footer end */
+
+
+/*context ads */
+#context_ads a {
+    color: black !important;
+}
+
+/*context ads */
