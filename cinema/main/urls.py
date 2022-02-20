@@ -24,7 +24,7 @@ urlpatterns = [
     path('about_the_cinema', views.AboutTheCinemaPageView.as_view(), name="about_the_cinema"),
 
     path('about_the_cinema/news', views.NewsListView.as_view(), name="news"),
-    path('about_the_cinema/news/<int:pk>', views.PromotionCardView.as_view(), name="news_card"),
+    path('about_the_cinema/news/<int:pk>', views.NewsCardView.as_view(), name="news_card"),
 
     path('about_the_cinema/advertising', views.AdvertisingPageView.as_view(), name="advertising"),
     path('about_the_cinema/vip_hall', views.VipHallPageView.as_view(), name="vip_hall"),

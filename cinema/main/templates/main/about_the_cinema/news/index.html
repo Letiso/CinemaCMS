@@ -26,13 +26,22 @@
 
                     <div class="row justify-content-center">
                         {% for news_card in page_obj %}
-                            <a href="{% url 'main:news_card' news_card.pk %}" class="col-4 p-0 m-5">
+                            <a href="{% url 'main:news_card' news_card.pk %}" class="col-4 m-5 p-0">
                                 <div class="card">
                                     <img class="card-img-top" src="{{ news_card.main_image.url }}" alt="">
                                     <div class="card-body">
                                         <p class="text-center text-dark">{{ news_card.title }}</p>
                                     </div>
                                 </div>
+
+                                <div class="my-3 text-center">
+                                    <span class="badge-pill badge-dark py-2 px-3 mx-1">{{ news_card.date_created }}</span>
+
+                                    <span class="badge-pill badge-primary py-2 px-3 mx-1">Dreamtown</span>
+                                    <span class="badge-pill badge-warning py-2 px-3 mx-1">Gulliver</span>
+                                </div>
+
+                                <p class="text-dark text-break">{{ news_card.description }}</p>
                             </a>
                         {% endfor %}
                     </div>
@@ -89,7 +98,7 @@
                 <div id="context_ads" class="col-2 ml-5 mr-3">
                     {# context ads #}
                         {% for context_ad in context_ads %}
-                            <div class="col-11 my-5 text-center p-5" style="background: lightgray;">
+                            <div class="col-11 my-5 text-center p-5 black-text" style="background: lightgray;">
                                 <a href="#">
                                     <h5>
                                         Контекстная реклама

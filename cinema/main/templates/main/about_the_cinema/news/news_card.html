@@ -5,7 +5,7 @@
     Карточка акции
 {% endblock %}
 
-{% block main_promotion %}
+{% block main_about_the_cinema %}
     active
 {% endblock %}
 
@@ -22,11 +22,11 @@
                 {# promotion description #}
                     <div class="col my-5 mx-4">
                         <h3 class="mb-3">
-                            Акция "{{ promotion.title }}"
+                            Новость "{{ news.title }}"
                         </h3>
 
                         <div class="mb-5">
-                            <span class="badge-pill badge-dark py-2 px-3 mx-1">{{ promotion.date_created }}</span>
+                            <span class="badge-pill badge-dark py-2 px-3 mx-1">{{ news.date_created }}</span>
 
                             <span class="badge-pill badge-primary py-2 px-3 mx-1">Dreamtown</span>
                             <span class="badge-pill badge-warning py-2 px-3 mx-1">Gulliver</span>
@@ -34,11 +34,11 @@
 
                         <div class="row justify-content-start">
                             <div class="col-3">
-                                <img src="{{ promotion.main_image.url }}" alt="" style="width: 15vw">
+                                <img src="{{ news.main_image.url }}" alt="" style="width: 15vw">
                             </div>
 
                             <div class="col">
-                                <p class="text-break">{{ promotion.description }}</p>
+                                <p class="text-break">{{ news.description }}</p>
                             </div>
                         </div>
 
@@ -86,7 +86,7 @@
             <div class="col-2 ml-5 mr-3">
                 {# context ads #}
                     {% for context_ad in context_ads %}
-                        <div class="col-11 my-5 text-center p-5" style="background: lightgray;">
+                        <div class="col-11 my-5 text-center p-5 black-text" style="background: lightgray;">
                             <a href="#">
                                 <h5>
                                     Контекстная реклама

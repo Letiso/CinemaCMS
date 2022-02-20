@@ -60,7 +60,7 @@ footer a {
 
 
 /*context ads */
-#context_ads a {
+.black-text a {
     color: black !important;
 }
 

@@ -231,6 +231,20 @@ class NewsListView(ListView):
         return context
 
 
+class NewsCardView(CustomAbstractView):
+    template_name = 'main/about_the_cinema/news/news_card.html'
+
+    def get_context(self, request, pk):
+        self.context = super().get_context()
+
+        news = get_object_or_404(NewsCard, pk=pk)
+        self.context['news'] = news
+        self.context['gallery'] = news.gallery.all()
+        self.context['context_ads'] = list(range(3))  # just for empty ads render
+
+        return self.context
+
+
 class VipHallPageView(CustomAbstractView):
     template_name = 'main/about_the_cinema/vip_hall.html'
 
