@@ -252,6 +252,13 @@ class ContactsPageView(CustomAbstractView):
 class MobileApplicationsPageView(CustomAbstractView):
     template_name = 'main/about_the_cinema/mobile_applications.html'
 
+    def get_context(self, request, pk=1):
+        self.context = super().get_context()
+
+        self.context['context_ads'] = list(range(3))  # just for empty ads render
+
+        return self.context
+
 
 class NewsListView(ListView):
     template_name = 'main/about_the_cinema/news/index.html'
