@@ -57,6 +57,38 @@
                         </div>
                     </div>
 
+                    <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
+                        <div class="card-header">
+                            <p id="{{ form.image_1.id_for_label }}-required_size"></p>
+                        </div>
+                        <img id="{{ form.image_1.id_for_label }}-thumbnail" class="card-img-top"
+                             src="{% if form.instance.image_1 %}{{ form.instance.image_1.url }}{% endif %}" alt="">
+                        <div class="card-body">
+                            {{ form.image_1|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
+                        <div class="card-header">
+                            <p id="{{ form.image_2.id_for_label }}-required_size"></p>
+                        </div>
+                        <img id="{{ form.image_2.id_for_label }}-thumbnail" class="card-img-top"
+                             src="{% if form.instance.image_2 %}{{ form.instance.image_2.url }}{% endif %}" alt="">
+                        <div class="card-body">
+                            {{ form.image_2|as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
+                        <div class="card-header">
+                            <p id="{{ form.image_3.id_for_label }}-required_size"></p>
+                        </div>
+                        <img id="{{ form.image_3.id_for_label }}-thumbnail" class="card-img-top"
+                             src="{% if form.instance.image_3 %}{{ form.instance.image_3.url }}{% endif %}" alt="">
+                        <div class="card-body">
+                            {{ form.image_3|as_crispy_field }}
+                        </div>
+                    </div>
 
                     <label>Галерея изображений акции</label>
                     <h5 id="page-main_image-required_size" class="mr-auto"></h5>

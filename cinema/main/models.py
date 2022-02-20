@@ -308,13 +308,27 @@ class PageCard(ImageFieldsValidationMixin, models.Model):
     main_image_required_size = (1000, 190)
     main_image = models.ImageField('Главная картинка', upload_to='main/pages/main_images')
 
+    image_1_required_size = (1000, 190)
+    image_1 = models.ImageField('Доп. картинка', upload_to='main/pages/additional_images', default='')
+
+    image_2_required_size = (1000, 190)
+    image_2 = models.ImageField('Доп. картинка', upload_to='main/pages/additional_images', default='')
+
+    image_3_required_size = (1000, 190)
+    image_3 = models.ImageField('Доп. картинка', upload_to='main/pages/additional_images', default='')
+
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='page', null=True)
 
     @classmethod
     def get_required_sizes(cls):
-        return {'main_image': cls.main_image_required_size}
+        return {
+            'main_image': cls.main_image_required_size,
+            'image_1': cls.image_1_required_size,
+            'image_2': cls.image_2_required_size,
+            'image_3': cls.image_3_required_size,
+        }
 
 
 class PageGallery(ImageFieldsValidationMixin, models.Model):

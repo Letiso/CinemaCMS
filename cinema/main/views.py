@@ -200,6 +200,17 @@ class AboutTheCinemaPageView(CustomAbstractView):
 class AdvertisingPageView(CustomAbstractView):
     template_name = 'main/about_the_cinema/advertising.html'
 
+    def get_context(self, request, pk='4') -> dict:
+        self.context = super().get_context()
+
+        page = get_object_or_404(PageCard, pk=pk)
+        self.context['page'] = page
+        self.context['gallery'] = page.gallery.all()
+
+        self.context['context_ads'] = list(range(3))  # just for empty ads render
+
+        return self.context
+
 
 class CafeBarPageView(CustomAbstractView):
     template_name = 'main/about_the_cinema/cafe_bar.html'
