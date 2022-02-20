@@ -18,11 +18,14 @@ urlpatterns = [
     path('cinemas/cinema_card/<int:pk>', views.CinemaCardView.as_view(), name="cinema_card"),
     path('cinemas/hall_card/<int:pk>', views.HallCardView.as_view(), name="hall_card"),
 
-    path('promotion', views.PromotionView.as_view(), name="promotion"),
+    path('promotion', views.PromotionListView.as_view(), name="promotion"),
     path('promotion/promotion_card/<int:pk>', views.PromotionCardView.as_view(), name="promotion_card"),
 
     path('about_the_cinema', views.AboutTheCinemaPageView.as_view(), name="about_the_cinema"),
-    path('about_the_cinema/news', views.NewsPageView.as_view(), name="news"),
+
+    path('about_the_cinema/news', views.NewsListView.as_view(), name="news"),
+    path('about_the_cinema/news/<int:pk>', views.PromotionCardView.as_view(), name="news_card"),
+
     path('about_the_cinema/advertising', views.AdvertisingPageView.as_view(), name="advertising"),
     path('about_the_cinema/vip_hall', views.VipHallPageView.as_view(), name="vip_hall"),
     path('about_the_cinema/cafe_bar', views.CafeBarPageView.as_view(), name="cafe_bar"),

@@ -15,7 +15,7 @@ body {
     color: #fff !important;
 }
 
-.navbar-nav > .active > a {
+.nav-item.active a.nav-link {
     margin-right: 5px;
     margin-left: 5px;
     color: white !important;

@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block title %}
-    Кинотеатры
+    Новости
 {% endblock %}
 
-{% block main_cinemas %}
+{% block main_about_the_cinema %}
     active
 {% endblock %}
 
@@ -19,26 +19,25 @@
     {# content #}
         <div class="row my-5">
             {# main_content #}
-                <div class="col text-center">
-                    <h2 class="mb-5">
-                        Наши кинотеатры
+                <div class="col">
+                    <h2 class="mb-5 ml-5">
+                        Новости
                     </h2>
 
                     <div class="row justify-content-center">
-
-                        {% for cinema_card in page_obj %}
-                            <a href="{% url 'main:cinema_card' cinema_card.pk %}" class="col-4 p-0 m-5">
+                        {% for news_card in page_obj %}
+                            <a href="{% url 'main:news_card' news_card.pk %}" class="col-4 p-0 m-5">
                                 <div class="card">
-                                    <img class="card-img-top" src="{{ cinema_card.banner.url }}" alt="">
+                                    <img class="card-img-top" src="{{ news_card.main_image.url }}" alt="">
                                     <div class="card-body">
-                                        <p class="text-center text-dark">{{ cinema_card.name }}</p>
+                                        <p class="text-center text-dark">{{ news_card.title }}</p>
                                     </div>
                                 </div>
                             </a>
                         {% endfor %}
                     </div>
 
-                    <nav aria-label="Page navigation example">
+                    <nav aria-label="Page navigation">
                       <ul class="pagination justify-content-center">
 
                         {% if page_obj.has_previous %}
@@ -85,8 +84,9 @@
                 </div>
             {# main_content end #}
 
+
             {# right side area #}
-                <div class="col-2 ml-5 mr-3">
+                <div id="context_ads" class="col-2 ml-5 mr-3">
                     {# context ads #}
                         {% for context_ad in context_ads %}
                             <div class="col-11 my-5 text-center p-5" style="background: lightgray;">

@@ -154,16 +154,17 @@ class HallCardView(CustomAbstractView):
 # endregion Cinemas
 
 # region Promotion
-class PromotionView(CustomAbstractView):
+class PromotionListView(ListView):
     template_name = 'main/promotion/index.html'
+    paginate_by = 10
+    model = PromotionCard
 
-    def get_context(self, request):
-        self.context = super().get_context()
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-        self.context['promotions'] = PromotionCard.objects.filter(is_active=True)
-        self.context['context_ads'] = list(range(3))  # just for empty ads render
+        context['context_ads'] = list(range(3))  # just for empty ads render
 
-        return self.context
+        return context
 
 
 class PromotionCardView(CustomAbstractView):
@@ -216,8 +217,18 @@ class MobileApplicationsPageView(CustomAbstractView):
     template_name = 'main/about_the_cinema/mobile_applications.html'
 
 
-class NewsPageView(CustomAbstractView):
-    template_name = 'main/about_the_cinema/news.html'
+class NewsListView(ListView):
+    template_name = 'main/about_the_cinema/news/index.html'
+    paginate_by = 10
+    model = NewsCard
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # context['cinemas'] = CinemaCard.objects.filter(is_active=True)
+        context['context_ads'] = list(range(3))  # just for empty ads render
+
+        return context
 
 
 class VipHallPageView(CustomAbstractView):
