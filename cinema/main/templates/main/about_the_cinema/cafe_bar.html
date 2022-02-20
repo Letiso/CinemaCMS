@@ -1,13 +1,120 @@
 {% extends 'main/main_layout.html' %}
+{% load static %}
 
-{% block title %}Кафе-бар{% endblock %}
+{% block title %}
+    Кафе-бар
+{% endblock %}
 
-{% block main_about_the_cinema %}active{% endblock %}
+{% block main_about_the_cinema %}
+    active
+{% endblock %}
 
 {% block content %}
-<div class="container features">
-    <h1>Кафе-бар</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, consectetur consequatur eveniet impedit, ipsum magnam maiores nemo, optio reiciendis repellat repellendus soluta unde? Consequatur delectus ducimus molestias repellendus sapiente.</p>
-    <button class="btn btn-default">Принять</button>
-</div>
+    {# hall banner #}
+        <img src="{% static 'main/cinemas/img/movie-cinema.jpg' %}"
+             alt=""
+             style="width: 100vw; height: 21vw; background: gray;">
+    {# hall banner end #}
+
+    <div class="row">
+        {# content #}
+            <div class="col ml-5">
+                {# page description #}
+                    <div class="col mt-5">
+                        <h3 class="text-center mb-3">
+                            Кафе-бар
+                        </h3>
+
+                        <div class="">
+                            <p class="text-break">{{ page.description }}</p>
+                        </div>
+
+                        {# additional images #}
+                        <div class="row mt-5 mx-5 justify-content-between">
+                            <img class="col-4" src="{{ page.image_1.url }}" alt="">
+                            <img class="col-4" src="{{ page.image_2.url }}" alt="">
+                            <img class="col-4" src="{{ page.image_3.url }}" alt="">
+                        </div>
+
+                        {# additional images end #}
+
+                    </div>
+                {# hall description end #}
+
+
+                {# gallery #}
+                    <div class="col text-center m-5">
+                        <h3>Меню</h3>
+                    </div>
+                    <table class=" col-8 table table-bordered mx-auto">
+                      <thead>
+                        <tr>
+                          <th scope="col">Head 1</th>
+                          <th scope="col">Head 2</th>
+                          <th scope="col" colspan="2">Head 3</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr>
+                          <td>Cell 1</td>
+                          <td>Cell 2</td>
+                          <td>Cell 3</td>
+                          <td class="text-center">
+                              <label>
+                                  <input type="checkbox">
+                              </label>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Cell 4</td>
+                          <td>Cell 5</td>
+                          <td>Cell 6</td>
+                          <td class="text-center">
+                              <label>
+                                  <input type="checkbox">
+                              </label>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Cell 7</td>
+                          <td>Cell 8</td>
+                          <td>Cell 9</td>
+                          <td class="text-center">
+                              <label>
+                                  <input type="radio">
+                              </label>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Cell 10</td>
+                          <td>Cell 11</td>
+                          <td>Cell 12</td>
+                          <td class="text-center">
+                              <label>
+                                  <input type="radio">
+                              </label>
+                          </td>                         </tr>
+                      </tbody>
+                    </table>
+                {# gallery end #}
+            </div>
+        {# content end #}
+        {# right side area #}
+            <div class="col-2 ml-5 mr-3">
+                {# context ads #}
+                    {% for context_ad in context_ads %}
+                        <div class="col-11 my-5 text-center p-5 black-text" style="background: lightgray;">
+                            <a href="#">
+                                <h5>
+                                    Контекстная реклама
+                                </h5>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {# context ads end #}
+            </div>
+        {# right side area end #}
+    </div>
+
 {% endblock %}

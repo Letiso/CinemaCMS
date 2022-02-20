@@ -215,9 +215,31 @@ class AdvertisingPageView(CustomAbstractView):
 class CafeBarPageView(CustomAbstractView):
     template_name = 'main/about_the_cinema/cafe_bar.html'
 
+    def get_context(self, request, pk='1') -> dict:
+        self.context = super().get_context()
+
+        page = get_object_or_404(PageCard, pk=pk)
+        self.context['page'] = page
+        self.context['gallery'] = page.gallery.all()
+
+        self.context['context_ads'] = list(range(3))  # just for empty ads render
+
+        return self.context
+
 
 class ChildRoomPageView(CustomAbstractView):
     template_name = 'main/about_the_cinema/child_room.html'
+
+    def get_context(self, request, pk='3') -> dict:
+        self.context = super().get_context()
+
+        page = get_object_or_404(PageCard, pk=pk)
+        self.context['page'] = page
+        self.context['gallery'] = page.gallery.all()
+
+        self.context['context_ads'] = list(range(3))  # just for empty ads render
+
+        return self.context
 
 
 class ContactsPageView(CustomAbstractView):
@@ -258,6 +280,17 @@ class NewsCardView(CustomAbstractView):
 
 class VipHallPageView(CustomAbstractView):
     template_name = 'main/about_the_cinema/vip_hall.html'
+
+    def get_context(self, request, pk='2') -> dict:
+        self.context = super().get_context()
+
+        page = get_object_or_404(PageCard, pk=pk)
+        self.context['page'] = page
+        self.context['gallery'] = page.gallery.all()
+
+        self.context['context_ads'] = list(range(3))  # just for empty ads render
+
+        return self.context
 
 
 # endregion Pages
