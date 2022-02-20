@@ -14,7 +14,7 @@ urlpatterns = [
     path('timetable', views.MovieSessionsTimetableView.as_view(), name="timetable"),
     path('timetable/ticket_booking', views.TicketBookingView.as_view(), name="ticket_booking"),
 
-    path('cinemas', views.CinemasView.as_view(), name="cinemas"),
+    path('cinemas', views.CinemasListView.as_view(), name="cinemas"),
     path('cinemas/cinema_card/<int:pk>', views.CinemaCardView.as_view(), name="cinema_card"),
     path('cinemas/hall_card/<int:pk>', views.HallCardView.as_view(), name="hall_card"),
 

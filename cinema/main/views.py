@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import View
+from django.views.generic import View, ListView
 from django.http import HttpResponse
 
 from itertools import chain
@@ -107,16 +107,18 @@ class TicketBookingView(CustomAbstractView):
 # endregion Timetable
 
 # region Cinemas
-class CinemasView(CustomAbstractView):
+class CinemasListView(ListView):
     template_name = 'main/cinemas/index.html'
+    paginate_by = 10
+    model = CinemaCard
 
-    def get_context(self, request):
-        self.context = super().get_context()
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-        self.context['cinemas'] = CinemaCard.objects.filter(is_active=True)
-        self.context['context_ads'] = list(range(3))  # just for empty ads render
+        # context['cinemas'] = CinemaCard.objects.filter(is_active=True)
+        context['context_ads'] = list(range(3))  # just for empty ads render
 
-        return self.context
+        return context
 
 
 class CinemaCardView(CustomAbstractView):
