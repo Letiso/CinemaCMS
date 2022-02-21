@@ -377,3 +377,16 @@ class EmailMailingHTMLMessage(models.Model):
 
 
 # endregion Mailing
+
+# region MovieSessions
+class MovieSession(models.Model):
+    movie = models.ForeignKey(MovieCard, on_delete=models.DO_NOTHING, related_name='movie_session')
+    hall = models.ForeignKey(CinemaHallCard, on_delete=models.DO_NOTHING, related_name='movie_session')
+
+    start_date_time = models.DateTimeField(default=timezone.now)
+    movie_type = models.CharField(max_length=10)
+
+    ticket_price = models.CharField(max_length=20, default='1')
+
+
+# endregion MovieSessions
