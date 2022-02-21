@@ -97,6 +97,11 @@ class MovieCard(ImageFieldsValidationMixin, models.Model):
     def get_required_sizes(cls):
         return {'main_image': cls.main_image_required_size}
 
+    def get_movie_types_tuple(self) -> tuple:
+        available_movie_types = [movie_type for movie_type in (self.two_d, self.three_d, self.imax)
+                                 if movie_type]
+        return tuple(available_movie_types)
+
 
 class MovieFrame(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
@@ -383,7 +388,7 @@ class MovieSession(models.Model):
     movie = models.ForeignKey(MovieCard, on_delete=models.DO_NOTHING, related_name='movie_session')
     hall = models.ForeignKey(CinemaHallCard, on_delete=models.DO_NOTHING, related_name='movie_session')
 
-    start_date_time = models.DateTimeField(default=timezone.now)
+    start_datetime = models.DateTimeField(default=timezone.now)
     movie_type = models.CharField(max_length=10)
 
     ticket_price = models.CharField(max_length=20, default='1')

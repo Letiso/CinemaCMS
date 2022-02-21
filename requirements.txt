@@ -14,3 +14,5 @@ django-decorator-include==3.0
 websocket-client==0.59.0
 psycopg2==2.9.3
 Pillow==9.0.0
+
+faker==13.0.0
