@@ -54,6 +54,17 @@
                                     </div>
                                     {{ form.address|as_crispy_field }}
                                     {{ form.map_coordinates|as_crispy_field }}
+
+                                    <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
+                                        <div class="card-header">
+                                            <p id="{{ form.logo.id_for_label }}-required_size"></p>
+                                        </div>
+                                        <img id="{{ form.logo.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.logo %}{{ form.instance.logo.url }}{% endif %}" alt="">
+                                        <div class="card-body">
+                                            {{ form.logo|as_crispy_field }}
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
                                         <div class="card-header">
                                             <p id="{{ form.main_image.id_for_label }}-required_size"></p>
@@ -63,6 +74,7 @@
                                             {{ form.main_image|as_crispy_field }}
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             {% endfor %}

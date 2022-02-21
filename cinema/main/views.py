@@ -248,6 +248,16 @@ class ChildRoomPageView(CustomAbstractView):
 class ContactsPageView(CustomAbstractView):
     template_name = 'main/about_the_cinema/contacts.html'
 
+    def get_context(self, request, pk=1) -> dict:
+        self.context = super().get_context()
+
+        contacts = ContactsPageCard.objects.filter(is_active=True)
+        self.context['contacts'] = contacts
+
+        self.context['context_ads'] = list(range(3))  # just for empty ads render
+
+        return self.context
+
 
 class MobileApplicationsPageView(CustomAbstractView):
     template_name = 'main/about_the_cinema/mobile_applications.html'

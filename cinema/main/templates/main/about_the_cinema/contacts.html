@@ -1,13 +1,71 @@
 {% extends 'main/main_layout.html' %}
+{% load static %}
 
-{% block title %}Контакты{% endblock %}
+{% block title %}
+    Контакты
+{% endblock %}
 
-{% block main_about_the_cinema %}active{% endblock %}
+{% block main_about_the_cinema %}
+    active
+{% endblock %}
 
 {% block content %}
-<div class="container features">
-    <h1>Контакты</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, consectetur consequatur eveniet impedit, ipsum magnam maiores nemo, optio reiciendis repellat repellendus soluta unde? Consequatur delectus ducimus molestias repellendus sapiente.</p>
-    <button class="btn btn-default">Принять</button>
-</div>
+    {# hall banner #}
+        <img src="{% static 'main/cinemas/img/movie-cinema.jpg' %}"
+             alt=""
+             style="width: 100vw; height: 21vw; background: gray;">
+    {# hall banner end #}
+
+    <div class="row">
+        {# content #}
+            <div class="col ml-5">
+                {# page description #}
+                    <div class="col mt-5">
+                        <h3 class="text-center mb-3">
+                            Контакты
+                        </h3>
+
+                        <div class="container-fluid">
+                            {% for cinema in contacts %}
+                                <div class="container-fluid my-5">
+
+                                    <div class="row mb-4">
+                                        <h4 class="col-2">{{ cinema.title }}</h4>
+                                        <img class="col-2" src="{{ cinema.logo.url }}" alt="">
+                                        <span class="col text-break ml-auto">{{ cinema.address }}</span>
+                                    </div>
+
+                                    <div class="row">
+                                        <img class="col-4" src="{{ cinema.main_image.url }}" alt="">
+
+                                        <iframe class="ml-5" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2747.27669538142!2d30.73333911559186!3d46.4828332791262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd1b7a1984c736deb!2zNDbCsDI4JzU4LjIiTiAzMMKwNDQnMDcuOSJF!5e0!3m2!1sru!2sua!4v1645401681051!5m2!1sru!2sua" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                {# page description end #}
+
+            </div>
+        {# content end #}
+
+
+        {# right side area #}
+            <div class="col-2 ml-5 mr-3">
+                {# context ads #}
+                    {% for context_ad in context_ads %}
+                        <div class="col-11 my-5 text-center p-5 black-text" style="background: lightgray;">
+                            <a href="#">
+                                <h5>
+                                    Контекстная реклама
+                                </h5>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {# context ads end #}
+            </div>
+        {# right side area end #}
+    </div>
+
 {% endblock %}

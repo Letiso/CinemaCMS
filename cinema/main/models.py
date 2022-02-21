@@ -349,8 +349,11 @@ class ContactsPageCard(ImageFieldsValidationMixin, models.Model):
     address = models.TextField('Адрес')
     map_coordinates = models.CharField('Координаты для карты', max_length=256)
 
+    logo_required_size = (1000, 190)
+    logo = models.ImageField('Лого', upload_to='main/pages/main_images', default='')
+
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Лого', upload_to='main/pages/main_images')
+    main_image = models.ImageField('Фото кинотеатра', upload_to='main/pages/main_images')
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)
@@ -358,7 +361,10 @@ class ContactsPageCard(ImageFieldsValidationMixin, models.Model):
 
     @classmethod
     def get_required_sizes(cls):
-        return {'main_image': cls.main_image_required_size}
+        return {
+            'logo': cls.logo_required_size,
+            'main_image': cls.main_image_required_size,
+        }
 
 
 # endregion Pages
