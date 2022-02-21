@@ -35,8 +35,8 @@ class Command(BaseCommand):
         hall_card = get_random_element(hall_cards)
         start = timezone.now()
 
-        start_datetime = FAKE.date_time_between(start_date=start, end_date='+14d')
-        start_datetime = timezone.make_aware(start_datetime)
+        start_datetime_naive = FAKE.date_time_between(start_date=start, end_date='+14d')
+        start_datetime = timezone.make_aware(start_datetime_naive)
 
         ticket_price = randint(45, 150)
 
