@@ -106,7 +106,7 @@ class MoviesSoonView(MoviesPosterView):
         queryset = super(ListView, self).get_queryset()
 
         return queryset.filter(
-            release_date__lt=timezone.now()
+            release_date__gt=timezone.now()
         ).order_by('-release_date').select_related()
 
 # endregion Soon
