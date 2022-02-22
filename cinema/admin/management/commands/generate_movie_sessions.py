@@ -5,7 +5,6 @@ from main.models import MovieSession, MovieCard, CinemaCard
 
 from random import randint
 from faker import Faker
-import datetime
 
 FAKE = Faker()
 
@@ -24,14 +23,14 @@ class Command(BaseCommand):
 
     @staticmethod
     def get_random_data() -> dict:
-        movie_cards = MovieCard.objects.all()
+        movie_cards = MovieCard.objects.filter(is_active=True)
         movie_card = get_random_element(movie_cards)
 
         movie_types = movie_card.get_movie_types_tuple()
         movie_type = get_random_element(movie_types)
 
         cinema = CinemaCard.objects.first()
-        hall_cards = cinema.halls.all()
+        hall_cards = cinema.halls.filter(is_active=True)
         hall_card = get_random_element(hall_cards)
 
         start = timezone.now()
@@ -53,7 +52,7 @@ class Command(BaseCommand):
 
         end_index = options['new_movie_sessions_count']
 
-        for session in range(end_index):
+        for mv_session in range(end_index):
             random_data = self.get_random_data()
 
             movie_sessions_to_create.append(

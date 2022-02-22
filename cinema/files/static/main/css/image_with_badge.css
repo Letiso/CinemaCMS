@@ -4,9 +4,16 @@
     margin-bottom: 5px;
 }
 
-.badge-on-image {
+.badge-on-image-top {
     position: absolute;
     bottom: 75%; /* position where you want it */
-    left: 75%;
+    left: 85%;
+    padding: 5px 8px;
+}
+
+.badge-on-image-bottom {
+    position: absolute;
+    top: 35%; /* position where you want it */
+    left: 85%;
     padding: 5px 8px;
 }

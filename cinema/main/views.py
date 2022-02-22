@@ -76,7 +76,9 @@ class MoviesPosterView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        return queryset.filter(start_datetime__gt=timezone.now()).order_by('-start_datetime')
+        return queryset.filter(
+            start_datetime__gt=timezone.now()
+        ).order_by('-start_datetime').select_related()
     
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

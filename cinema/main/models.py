@@ -85,11 +85,11 @@ class MovieCard(ImageFieldsValidationMixin, models.Model):
 
     trailer_link = models.CharField('Ссылка на трейлер', max_length=256)
 
-    age_rating = models.CharField('Возрастной рейтинг', max_length=2, default='')
+    age_rating = models.CharField('Возрастной рейтинг', max_length=2, blank=True)
 
-    two_d = models.BooleanField(verbose_name='2D', default=False)
-    three_d = models.BooleanField(verbose_name='3D', default=False)
-    imax = models.BooleanField(verbose_name='IMAX', default=False)
+    two_d = models.BooleanField('2D', default=False)
+    three_d = models.BooleanField('3D', default=False)
+    imax = models.BooleanField('IMAX', default=False)
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)

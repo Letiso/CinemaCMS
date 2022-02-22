@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.MainPageView.as_view(), name="main_page"),
 
     path('poster', views.MoviesPosterView.as_view(), name="poster"),
-    path('poster/movie_card', views.MovieCardView.as_view(), name="movie_card"),
+    path('poster/movie_card/<int:pk>', views.MovieCardView.as_view(), name="movie_card"),
 
     path('soon', views.MoviesSoonView.as_view(), name="soon"),
 
