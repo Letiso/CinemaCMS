@@ -42,20 +42,22 @@
                                     <img class="rounded img-fluid" src="{{ movie_card.main_image.url }}" alt="">
 
                                     <div class="badge-on-image">
-                                        {% with movie_card.age_rating as age_rating %}
-                                        {% if age_rating %}
-                                            <span class="badge badge-pill badge-info">
-                                                {{ age_rating }}+
-                                            </span>
-                                        {% endif %}
-
                                         {% for movie_type in movie_card.movie_types_tuple %}
-                                            <span class="badge badge-pill badge-primary">
+                                            <span class="badge badge-pill badge-{% if forloop.counter == 1 %}primary{% elif forloop.counter == 2 %}success{% elif forloop.counter == 3 %}warning{% else %}secondary{% endif %}">
                                                 {{ movie_type }}
                                             </span>
+
                                         {% endfor %}
 
-                                    {% endwith %}
+                                {% with movie_card.age_rating as age_rating %}
+                                    {% if age_rating %}
+                                        <span class="badge badge-pill badge-info">
+                                            {{ age_rating }}+
+                                        </span>
+
+                                    {% endif %}
+
+                                {% endwith %}
                                     </div>
                                 </div>
 
@@ -65,7 +67,7 @@
 
 {#                                <a href="#">#}
 {#                                    <span class="badge badge-pill badge-warning px-4 py-2 text-white" style="font-size: 18px;">#}
-{#                                        <i class="fas fa-ticket-alt mr-2"></i>#}
+{#                                         <i class="fas fa-ticket-alt mr-2"></i>#}
 {#                                        Купить#}
 {#                                    </span>#}
 {#                                </a>#}

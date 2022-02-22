@@ -42,19 +42,20 @@
                                 <div class="image_with_badge">
                                     <img class="rounded img-fluid" src="{{ movie_session.movie.main_image.url }}" alt="">
                                     <div class="badge-on-image">
-                                        {% with movie_session.movie.age_rating as age_rating %}
-                                        {% if age_rating %}
-                                            <span class="badge badge-pill badge-info">
-                                                {{ age_rating }}+
-                                            </span>
-
-                                        {% endif %}
 
                                         <span class="badge badge-pill badge-primary">
                                             {{ movie_session.movie_type }}
                                         </span>
 
-                                    {% endwith %}
+                                        {% with movie_session.movie.age_rating as age_rating %}
+                                            {% if age_rating %}
+                                                <span class="badge badge-pill badge-info">
+                                                    {{ age_rating }}+
+                                                </span>
+
+                                            {% endif %}
+
+                                        {% endwith %}
                                     </div>
                                 </div>
 
