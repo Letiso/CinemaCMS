@@ -33,8 +33,8 @@ class Command(BaseCommand):
         cinema = CinemaCard.objects.first()
         hall_cards = cinema.halls.all()
         hall_card = get_random_element(hall_cards)
-        start = timezone.now()
 
+        start = timezone.now()
         start_datetime_naive = FAKE.date_time_between(start_date=start, end_date='+14d')
         start_datetime = timezone.make_aware(start_datetime_naive)
 
