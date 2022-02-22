@@ -1,5 +1,6 @@
 # Docker shorts
 reload: stop run
+restart: down run
 rebuild: down build
 
 run:

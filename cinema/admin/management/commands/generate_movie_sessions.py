@@ -10,8 +10,8 @@ import datetime
 FAKE = Faker()
 
 
-def get_random_element(elements_queryset) -> tuple:
-    elements_tuple = tuple(elements_queryset)
+def get_random_element(iterable_object) -> tuple:
+    elements_tuple = tuple(iterable_object)
     random_index = randint(1, len(elements_tuple))
 
     return elements_tuple[random_index - 1]

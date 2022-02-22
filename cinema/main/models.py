@@ -85,9 +85,11 @@ class MovieCard(ImageFieldsValidationMixin, models.Model):
 
     trailer_link = models.CharField('Ссылка на трейлер', max_length=256)
 
-    two_d = models.BooleanField('2D', default=False)
-    three_d = models.BooleanField('3D', default=False)
-    imax = models.BooleanField('IMAX', default=False)
+    age_rating = models.CharField('Возрастной рейтинг', max_length=2, default='')
+
+    two_d = models.BooleanField(verbose_name='2D', default=False)
+    three_d = models.BooleanField(verbose_name='3D', default=False)
+    imax = models.BooleanField(verbose_name='IMAX', default=False)
 
     is_active = models.BooleanField('Активен', default=False)
     date_created = models.DateTimeField(default=timezone.now)
@@ -98,9 +100,11 @@ class MovieCard(ImageFieldsValidationMixin, models.Model):
         return {'main_image': cls.main_image_required_size}
 
     def get_movie_types_tuple(self) -> tuple:
-        available_movie_types = [movie_type for movie_type in (self.two_d, self.three_d, self.imax)
-                                 if movie_type]
-        return tuple(available_movie_types)
+        field_names = ('two_d', 'three_d', 'imax')
+        field_objects = [self._meta.get_field(field_name) for field_name in field_names]
+        available_fields = [field.verbose_name for field in field_objects if field]
+
+        return tuple(available_fields)
 
 
 class MovieFrame(ImageFieldsValidationMixin, models.Model):

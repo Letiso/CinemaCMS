@@ -68,16 +68,25 @@ class MainPageView(CustomAbstractView):
 # endregion MainPage
 
 # region Poster
-class MoviesPosterView(CustomAbstractView):
-    template_name = 'main/poster/poster.html'
+class MoviesPosterView(ListView):
+    template_name = 'main/poster/index.html'
+    paginate_by = 18
+    model = MovieSession
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
 
-    def get_context(self, request):
-        self.context = super().get_context()
+        return queryset.filter(start_datetime__gt=timezone.now()).order_by('-start_datetime')
+    
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-        self.context['releases'] = MovieCard.objects.filter(is_active=True)
-        self.context['announcements'] = MovieCard.objects.filter(is_active=False)
+        main_page_card = MainPageCard.objects.filter(pk=1).first()
+        context['navbar_phone_numbers'] = main_page_card.get_phone_numbers()
 
-        return self.context
+        context['context_ads'] = list(range(3))  # just for empty ads render
+
+        return context
 
 
 class MovieCardView(CustomAbstractView):
