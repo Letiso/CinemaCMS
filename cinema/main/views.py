@@ -98,11 +98,19 @@ class MovieCardView(CustomAbstractView):
 # endregion Poster
 
 # region Soon
-class MoviesSoonView(CustomAbstractView):
-    template_name = 'main/soon.html'
+class MoviesSoonView(MoviesPosterView):
+    template_name = 'main/poster/soon.html'
+    model = MovieCard
 
+    def get_queryset(self):
+        queryset = super(ListView, self).get_queryset()
+
+        return queryset.filter(
+            release_date__lt=timezone.now()
+        ).order_by('-release_date').select_related()
 
 # endregion Soon
+
 
 # region Timetable
 class MovieSessionsTimetableView(CustomAbstractView):

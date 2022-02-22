@@ -2,15 +2,14 @@
 {% load static %}
 
 {% block title %}
-    Афиша
+    Скоро
 {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'main/css/image_with_badge.css' %}">
-
 {% endblock %}
 
-{% block main_poster %}
+{% block main_soon %}
     active
 {% endblock %}
 
@@ -35,31 +34,33 @@
             <div class="col mr-5">
                 {# movie_sessions #}
                     <div class="row my-5 mx-4">
-                        {% for movie_session in page_obj %}
+                        {% for movie_card in page_obj %}
                             <div class="col-2 text-center my-5">
-                                <h5>Сейчас в кино</h5>
+                                <h5>С {{ movie_card.release_date }}</h5>
 
                                 <div class="image_with_badge">
-                                    <img class="rounded img-fluid" src="{{ movie_session.movie.main_image.url }}" alt="">
+                                    <img class="rounded img-fluid" src="{{ movie_card.main_image.url }}" alt="">
+
                                     <div class="badge-on-image">
-                                        {% with movie_session.movie.age_rating as age_rating %}
+                                        {% with movie_card.age_rating as age_rating %}
                                         {% if age_rating %}
                                             <span class="badge badge-pill badge-info">
                                                 {{ age_rating }}+
                                             </span>
-
                                         {% endif %}
 
-                                        <span class="badge badge-pill badge-primary">
-                                            {{ movie_session.movie_type }}
-                                        </span>
+                                        {% for movie_type in movie_card.movie_types_tuple %}
+                                            <span class="badge badge-pill badge-primary">
+                                                {{ movie_type }}
+                                            </span>
+                                        {% endfor %}
 
                                     {% endwith %}
                                     </div>
                                 </div>
 
-                                <a href="{% url 'main:movie_card' movie_session.movie.pk %}">
-                                    <h4>{{ movie_session.movie.title }}</h4>
+                                <a href="{% url 'main:movie_card' movie_card.pk %}">
+                                    <h4>{{ movie_card.title }}</h4>
                                 </a>
 
                                 <a href="#">
