@@ -94,10 +94,21 @@ class MoviesPosterView(ListView):
 class MovieCardView(CustomAbstractView):
     template_name = 'main/poster/movie_card.html'
 
+    def get_context(self, request, pk) -> dict:
+        self.context = super().get_context()
 
-# endregion Poster
+        card = MovieCard.objects.get(pk=pk)
+        self.context['card'] = card
 
-# region Soon
+        trailer_link_parse = card.trailer_link.split('=')
+        trailer_link_id = trailer_link_parse[1] if len(trailer_link_parse) > 1 else None
+
+        self.context['trailer_link_id'] = trailer_link_id
+        self.context['gallery'] = card.gallery.filter(is_active=True)
+
+        return self.context
+
+
 class MoviesSoonView(MoviesPosterView):
     template_name = 'main/poster/soon.html'
     model = MovieCard
@@ -109,8 +120,8 @@ class MoviesSoonView(MoviesPosterView):
             release_date__gt=timezone.now()
         ).order_by('-release_date').select_related()
 
-# endregion Soon
 
+# endregion Poster
 
 # region Timetable
 class MovieSessionsTimetableView(CustomAbstractView):

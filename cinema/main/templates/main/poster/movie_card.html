@@ -5,7 +5,149 @@
 {% block main_poster %}active{% endblock %}
 
 {% block content %}
-<div>
-    <h3>Карточка фильма</h3>
-</div>
+    <div class="container-fluid p-0">
+        {# content #}
+            <div class="text-center mb-5 p-0">
+                <iframe width="1920" height="700"
+                        src="https://www.youtube.com/embed/{{ trailer_link_id }}?autoplay=1&mute=1&playlist={{ trailer_link_id }}&loop=1">
+                </iframe>
+            </div>
+
+            <div class="text-center">
+                Расписание сеансов
+            </div>
+
+            <div class="row my-5">
+                <div class="col ml-5">
+                    <div class="col-12 text-center">
+                        <img class="mb-5"
+                             src="{{ card.main_image.url }}" alt="" style="width: 25vw;">
+                    </div>
+
+                    <div class="col">
+                        <table class="table table-bordered table-striped table-hover w-auto mx-auto">
+                          <tbody>
+
+                            <tr>
+                              <th scope="row">Год</th>
+                              <td>{{ card.release_date|date:"Y" }}</td>
+                            </tr>
+
+                            <tr>
+                              <th scope="row">Страна</th>
+                              <td>Страна</td>
+                            </tr>
+
+                            <tr>
+                              <th scope="row">Композитор</th>
+                              <td>Композитор</td>
+                            </tr>
+
+                            <tr>
+                              <th scope="row">Продюсер</th>
+                              <td>Продюсер</td>
+                            </tr>
+
+                            <tr>
+                              <th scope="row">Режиссер</th>
+                              <td>Режиссер</td>
+                            </tr>
+
+                            <tr>
+                              <th scope="row">Сценарист</th>
+                              <td>Сценарист</td>
+                            </tr>
+
+                            <tr>
+                              <th scope="row">Жанр</th>
+                              <td>Жанр</td>
+                            </tr>
+
+                            <tr>
+                              <th scope="row">Бюджет</th>
+                              <td>Бюджет</td>
+                            </tr>
+
+                            <tr>
+                              <th scope="row">Возрастной рейтинг</th>
+                              <td>{{ card.age_rating }}</td>
+                            </tr>
+
+                            <tr>
+                              <th scope="row">Время</th>
+                              <td>117 мин / 1:57</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-8 mr-5 mb-5">
+                    <div class="text-center mr-5">
+                        <a class="btn btn-success"
+                           href="#" style="font-size: 25px;">
+                            Купить билет
+                        </a>
+                        <h3 class="my-5">
+                            {{ card.title }}
+                        </h3>
+                    </div>
+
+                    <span class="text-break">
+                        {{ card.description }}
+                    </span>
+
+                    <div class="text-center mr-5">
+                        <h3 class="my-5">
+                            Кадры и постеры
+                        </h3>
+
+                        {# gallery #}
+                            <div id="carouselGallery" class="carousel slide" data-ride="carousel">
+                              <ol class="carousel-indicators">
+                                  {% for photo in gallery %}
+                                    <li data-target="#carouselGallery"
+                                        data-slide-to="{{ forloop.counter|add:"-1" }}"
+                                        class="{% if forloop.counter == 1 %}active{% endif %}">
+                                    </li>
+                                  {% endfor %}
+                              </ol>
+
+                              <div class="carousel-inner">
+                                  {% for photo in gallery %}
+                                      <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+                                          <img src="{{ photo.image.url }}" class="d-block w-100" alt="">
+                                      </div>
+                                  {% endfor %}
+                              </div>
+
+                              <button class="carousel-control-prev" type="button" data-target="#carouselGallery" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Предыдущая</span>
+                              </button>
+
+                              <button class="carousel-control-next" type="button" data-target="#carouselGallery" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Следующая</span>
+                              </button>
+                            </div>
+                        {# gallery end #}
+
+                    </div>
+                </div>
+            </div>
+        {# content end #}
+
+        {# context ads #}
+            <div class="col-12 mt-5 text-center p-5 black-text" style="background: lightgray;">
+                <a href="#">
+                    <h5>
+                        Контекстная реклама
+                    </h5>
+                </a>
+            </div>
+        {# context ads end #}
+
+    </div>
+
 {% endblock %}
