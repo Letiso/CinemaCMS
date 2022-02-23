@@ -49,18 +49,18 @@ class MainPageView(CustomAbstractView):
     @staticmethod
     def get_news_banners_context():
         banners = NewsBanner.objects.filter(is_active=True)
-        active_slide = NewsBanner.objects.first()
-        carousel = BackgroundImage.objects.filter(pk=2).first()
+        carousel = BannersCarousel.objects.filter(pk=2).first()
 
-        return {'banners': banners, 'active_slide': active_slide, 'carousel': carousel}
+        return {'banners': banners, 'carousel': carousel}
 
     def get_context(self, request):
         self.context = super().get_context()
 
         self.context['top_banners'] = self.get_top_banners_context()
         self.context['background_image'] = self.get_background_image_context()
-
         self.context['news_banners'] = self.get_news_banners_context()
+
+        self.context['seo_text'] = self.context['main_page_card'].seo
 
         return self.context
 

@@ -19,7 +19,7 @@
         <div id="topBannersCarousel" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             {% for banner in top_banners.banners %}
-              <div class="carousel-item {% if top_banners.active_slide == banner %}active{% endif %}" data-interval="{{ top_banners.carousel.data_interval }}">
+              <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" data-interval="{{ top_banners.carousel.data_interval }}">
                 <img class="d-block w-100 img-fluid" src="{{ banner.image.url }}" alt="">
               </div>
             {% endfor %}
@@ -37,13 +37,57 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="card mx-auto mt-5" style="width: 550px;">
-            <div class="card-body">
-                <h1>Скоро</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, consectetur consequatur eveniet impedit, ipsum magnam maiores nemo, optio reiciendis repellat repellendus soluta unde? Consequatur delectus ducimus molestias repellendus sapiente.</p>
-                <button class="btn btn-warning">Принять</button>
+    <div class="container-fluid p-0">
+        {# content #}
+
+        {# content end #}
+
+        {# news_banners #}
+            {% if news_banners.carousel.is_active %}
+                <div class="col-10 text-center mx-auto mt-5">
+                    <h4 class="mb-4">Новости и Акции</h4>
+
+                    <div id="newsBannersCarousel" class=" carousel slide" data-ride="carousel">
+                      <div class="carousel-inner">
+                        {% for banner in news_banners.banners %}
+                          <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" data-interval="{{ news_banners.carousel.data_interval }}">
+                            <img class="d-block w-100 img-fluid" src="{{ banner.image.url }}" alt="">
+                          </div>
+
+                        {% endfor %}
+
+                      </div>
+                       <button class="carousel-control-prev" type="button" data-target="#newsBannersCarousel" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Предыдущий</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-target="#newsBannersCarousel" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Следующий</span>
+                      </button>
+                    </div>
+                </div>
+
+            {% endif %}
+        {# news_banners end #}
+
+        {# context ads #}
+            <div class="col-12 mt-5 text-center p-5 black-text" style="background: lightgray;">
+                <a href="#">
+                    <h5>
+                        Контекстная реклама
+                    </h5>
+                </a>
             </div>
+        {# context ads end #}
+
+        {# SEO text #}
+        <div class="col-7 text-center mx-auto mt-5">
+            <h5>{{ seo_text.title }}</h5>
+            <span class="text-break">{{ seo_text.description }}</span>
         </div>
+
+        {# SEO text end #}
     </div>
+
 {% endblock %}
