@@ -62,6 +62,15 @@ class MainPageView(CustomAbstractView):
 
         self.context['seo_text'] = self.context['main_page_card'].seo
 
+        time_now = timezone.now()
+        self.context['time_now'] = time_now
+
+        watch_now = MovieSession.objects.filter(start_datetime__gte=time_now).order_by('-start_datetime')
+        self.context['watch_now'] = watch_now[:18]
+
+        watch_soon = MovieCard.objects.filter(release_date__gt=time_now).order_by('-release_date')
+        self.context['watch_soon'] = watch_soon[:18]
+
         return self.context
 
 

@@ -105,7 +105,6 @@ class MovieCard(ImageFieldsValidationMixin, models.Model):
         field_objects = [self._meta.get_field(field_name) for field_name in field_names]
         available_fields = [field.verbose_name for field in field_objects
                             if field.value_from_object(self)]
-        # print(available_fields)
 
         return tuple(available_fields)
 
