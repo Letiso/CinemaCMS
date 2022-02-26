@@ -54,7 +54,7 @@
               <ol class="carousel-indicators">
                   {% for movie_session in watch_now %}
                       {% if forloop.counter <= 5 %}
-                        <li data-target="#MovieSessionCarousel" data-slide-to="{{ forloop.counter }}"
+                        <li data-target="#MovieSessionCarousel" data-slide-to="{{ forloop.counter|add:"-1" }}"
                             class="{% if forloop.counter == 1 %}active{% endif %}">
                         </li>
                       {% endif %}
