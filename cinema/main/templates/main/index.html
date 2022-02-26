@@ -1,8 +1,13 @@
 {% extends 'main/main_layout.html' %}
 {% load static %}
 
-{% block title %}Cinema CMS | Главная{% endblock %}
-{% block main_main %}active{% endblock %}
+{% block title %}
+    Cinema CMS | Главная
+{% endblock %}
+
+{% block main_main %}
+    active
+{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'main/css/image_with_badge.css' %}">
@@ -15,6 +20,7 @@
           }
         </style>
     {% endif %}
+
 {% endblock %}
 
 {% block top_banner %}
@@ -37,15 +43,57 @@
           </button>
         </div>
     {% endif %}
+
 {% endblock %}
 
 {% block content %}
+    <div class="col-10 mx-auto mt-5">
+
+        <div id="MovieSessionCarousel" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+              <ol class="carousel-indicators">
+                  {% for movie_session in watch_now %}
+                      {% if forloop.counter <= 5 %}
+                        <li data-target="#MovieSessionCarousel" data-slide-to="{{ forloop.counter }}"
+                            class="{% if forloop.counter == 1 %}active{% endif %}">
+                        </li>
+                      {% endif %}
+                  {% endfor %}
+
+              </ol>
+
+              {% for movie_session in watch_now %}
+                  {% if forloop.counter <= 5 %}
+                      <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" >
+                          <img class="d-block w-100 img-fluid" src="{{ movie_session.movie.main_image.url }}" alt="">
+                          <div class="carousel-caption d-none d-md-block">
+                              <span class="badge badge-pill badge-secondary" style="font-size: 30px">
+                                {{ movie_session.movie.title }}
+                              </span>
+                          </div>
+                      </div>
+                  {% endif %}
+            {% endfor %}
+
+          </div>
+           <button class="carousel-control-prev" type="button" data-target="#MovieSessionCarousel" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Предыдущий</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-target="#MovieSessionCarousel" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Следующий</span>
+          </button>
+        </div>
+
+    </div>
+
     <div class="col-10 p-0 mx-auto">
         {# content #}
             <div class="col mr-5">
                 {# movie_sessions #}
                     <div class="mt-5 text-center">
-                        <h3>Смотрите сегодня, {{ time_now|date:"d M"|lower }}</h3>
+                        <h3>Смотрите сегодня, {{ time_now|date:"d E" }}</h3>
                     </div>
 
                     <div class="row mb-5 mx-4">
