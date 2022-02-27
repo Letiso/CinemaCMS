@@ -19,7 +19,7 @@
                 </div>
                 <div id="sessions_container" class="col-12">
                     {% for movie_session in watch_now reversed %}
-                            {% ifchanged movie_session.start_datetime.date  movie_session.start_datetime.date %}
+                            {% ifchanged movie_session.start_datetime.date %}
                                         </tbody>
                                     </table>
                                 </div>
@@ -54,6 +54,12 @@
                                                 </td>
                                             </tr>
                             {% endifchanged %}
+
+                            {% if forloop.last %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endif %}
                     {% endfor %}
                 </div>
             </div>
