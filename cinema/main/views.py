@@ -136,6 +136,16 @@ class MoviesSoonView(MoviesPosterView):
 class MovieSessionsTimetableView(CustomAbstractView):
     template_name = 'main/timetable/timetable.html'
 
+    def get_context(self, request):
+        self.context = super().get_context()
+
+        time_now = timezone.now()
+
+        watch_now = MovieSession.objects.filter(start_datetime__gte=time_now).order_by('-start_datetime')
+        self.context['watch_now'] = watch_now
+
+        return self.context
+
 
 class TicketBookingView(CustomAbstractView):
     template_name = 'main/timetable/ticket_booking.html'

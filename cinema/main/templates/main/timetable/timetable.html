@@ -5,9 +5,75 @@
 {% block main_timetable %}active{% endblock %}
 
 {% block content %}
-<div class="container features">
-    <h1>Расписание</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, consectetur consequatur eveniet impedit, ipsum magnam maiores nemo, optio reiciendis repellat repellendus soluta unde? Consequatur delectus ducimus molestias repellendus sapiente.</p>
-    <button class="btn btn-default" style="background-color: yellow;">Принять</button>
-</div>
+    <div class="row">
+        {# content #}
+            <div class="col-12">
+                <div id="movie_session_filters">
+                    <div class="col">
+
+                    </div>
+
+                    <div class="col">
+
+                    </div>
+                </div>
+                <div id="sessions_container" class="col-12">
+                    {% for movie_session in watch_now reversed %}
+                            {% ifchanged movie_session.start_datetime.date  movie_session.start_datetime.date %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endifchanged %}
+
+                            {% ifchanged movie_session.start_datetime.date %}
+                                <div class="col-12">
+                                    <h5>{{ movie_session.start_datetime.date|date:"j E, l"|upper }}</h5>
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Время</th>
+                                                <th>Фильм</th>
+                                                <th>Зал</th>
+                                                <th>Цена в грн.</th>
+                                                <th class="text-danger">Бронировать</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                            {% endifchanged %}
+
+                            {% ifchanged movie_session.start_datetime %}
+                                            <tr>
+                                                <td>{{ movie_session.start_datetime|date:"h:m" }}</td>
+                                                <td>{{ movie_session.movie.title }}</td>
+                                                <td>{{ movie_session.hall.number }}</td>
+                                                <td>{{ movie_session.ticket_price }}</td>
+                                                <td>
+                                                    <a href="#">
+
+                                                    </a>
+                                                </td>
+                                            </tr>
+                            {% endifchanged %}
+                    {% endfor %}
+                </div>
+            </div>
+        {# content end #}
+
+        {# right side area #}
+            <div class="col-2 ml-5 mr-3">
+                {# context ads #}
+                    <div class="col my-5 text-center p-5 black-text" style="background: lightgray;">
+                        <a href="#">
+                            <h5>
+                                Контекстная реклама
+                            </h5>
+                        </a>
+                    </div>
+                {# context ads end #}
+
+            </div>
+        {# right side area end #}
+
+    </div>
+
 {% endblock %}
