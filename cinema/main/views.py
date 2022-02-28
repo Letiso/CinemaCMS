@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import View, ListView
 from django.http import HttpResponse
@@ -140,9 +142,19 @@ class MovieSessionsTimetableView(CustomAbstractView):
         self.context = super().get_context()
 
         time_now = timezone.now()
+        coming_week_time = time_now + datetime.timedelta(days=7)
 
-        watch_now = MovieSession.objects.filter(start_datetime__gte=time_now).order_by('-start_datetime')
-        self.context['watch_now'] = watch_now
+        movie_sessions = MovieSession.objects.filter(
+            start_datetime__gte=time_now,
+            start_datetime__lte=coming_week_time,
+        ).order_by('start_datetime')
+
+        session_days = [movie_session.start_datetime.date() for movie_session in movie_sessions]
+        session_days_unique = list(set(session_days))
+        session_days_unique.sort()
+
+        self.context['session_days'] = session_days_unique
+        self.context['movie_sessions'] = movie_sessions
 
         return self.context
 
