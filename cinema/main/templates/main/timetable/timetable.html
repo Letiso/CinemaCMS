@@ -28,7 +28,7 @@
 
                     <div>
                         <label class="mx-2">
-                            <select class="custom-select">
+                            <select id="cinema_filter" class="custom-select">
                                 <option value="0">Кинотеатр: все</option>
                                 {% for cinema in cinemas %}
                                     <option value="{{ cinema.pk }}">{{ cinema.name }}</option>
@@ -37,7 +37,7 @@
                         </label>
 
                         <label class="mx-2">
-                            <select class="custom-select">
+                            <select  id="date_filter" class="custom-select">
                                 <option value="0">Дата: все</option>
                                 {% for day in session_days %}
                                     <option value="{{ forloop.counter }}">{{ day|date:"j E, D" }}</option>
@@ -46,7 +46,7 @@
                         </label>
 
                         <label class="mx-2">
-                            <select class="custom-select">
+                            <select  id="movie_filter" class="custom-select">
                                 <option value="0">Фильм: все</option>
                                 {% for movie_card in movies %}
                                     <option value="{{ movie_card.pk }}">{{ movie_card.title }}</option>
@@ -55,7 +55,7 @@
                         </label>
 
                         <label class="mx-2">
-                            <select class="custom-select">
+                            <select id="hall_filter" class="custom-select">
                                 <option value="0">Зал: все</option>
                                 {% for hall_card in halls %}
                                     <option value="{{ hall_card.pk }}">{{ hall_card.number }}</option>
@@ -69,7 +69,7 @@
                     {% for day in session_days %}
                         <div id="day-{{ forloop.counter }}-sessions_list" class="col-9 mx-auto my-5">
                             <h5>{{ day|date:"j E, l"|upper }}</h5>
-                            <table id="sessions_table" class="table table-striped table-bordered" style="width:100%">
+                            <table id="sessions_table-{{ forloop.counter }}" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th style="display:none;">Тип кино</th>
@@ -133,4 +133,26 @@
 
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+    <script>
+        let movieTypeCheckboxFilter = $("input[id*='movie_type']");
+
+        {#let cinemaSelectFilter = $("#cinema_filter option:selected")#}
+        let cinemaSelectFilter = $("#cinema_filter option")
+        let dateSelectFilter = $("#date_filter option")
+        let movieSelectFilter = $("#movie_filter option")
+        let hallSelectFilter = $("#hall_filter option")
+
+        let datesList = $("div[id*='sessions_list']")
+
+        let tablesList = $("table[id*='sessions_table']")
+        let dataTablesList = tablesList.DataTable()
+
+
+    </script>
 {% endblock %}
