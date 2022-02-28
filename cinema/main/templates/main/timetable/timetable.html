@@ -9,8 +9,8 @@
     <div class="row">
         {# content #}
             <div class="col">
-                <div id="movie_session_filters">
-                    <div class="col">
+                <div id="movie_session_filters" class="row justify-content-center mt-5">
+                    <div>
                         <label>
                             Показывать только:
                         </label>
@@ -24,11 +24,44 @@
                               </label>
                             </div>
                         {% endfor %}
-
                     </div>
 
-                    <div class="col">
+                    <div>
+                        <label class="mx-2">
+                            <select class="custom-select">
+                                <option value="0">Кинотеатр: все</option>
+                                {% for cinema in cinemas %}
+                                    <option value="{{ cinema.pk }}">{{ cinema.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
 
+                        <label class="mx-2">
+                            <select class="custom-select">
+                                <option value="0">Дата: все</option>
+                                {% for day in session_days %}
+                                    <option value="{{ forloop.counter }}">{{ day|date:"j E, D" }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+
+                        <label class="mx-2">
+                            <select class="custom-select">
+                                <option value="0">Фильм: все</option>
+                                {% for movie_card in movies %}
+                                    <option value="{{ movie_card.pk }}">{{ movie_card.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+
+                        <label class="mx-2">
+                            <select class="custom-select">
+                                <option value="0">Зал: все</option>
+                                {% for hall_card in halls %}
+                                    <option value="{{ hall_card.pk }}">{{ hall_card.number }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
                     </div>
                 </div>
 
