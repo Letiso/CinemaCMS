@@ -26,6 +26,12 @@
                             <table id="sessions_table" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th style="display:none;">Тип кино</th>
+                                        <th style="display:none;">Кинотеатр</th>
+                                        <th style="display:none;">Дата</th>
+                                        <th style="display:none;">Фильм</th>
+                                        <th style="display:none;">Зал</th>
+
                                         <th>Время</th>
                                         <th>Фильм</th>
                                         <th>Зал</th>
@@ -37,6 +43,12 @@
                                     {% for movie_session in movie_sessions %}
                                         {% if movie_session.start_datetime.date == day %}
                                             <tr>
+                                                <td style="display:none;">{{ movie_session.movie_type }}</td>
+                                                <td style="display:none;">{{ movie_session.hall.cinema.pk }}</td>
+                                                <td style="display:none;">{{ movie_session.start_datetime.date }}</td>
+                                                <td style="display:none;">{{ movie_session.movie.pk }}</td>
+                                                <td style="display:none;">{{ movie_session.hall.pk }}</td>
+
                                                 <td>{{ movie_session.start_datetime.time|date:"H:i" }}</td>
                                                 <td>{{ movie_session.movie.title }}</td>
                                                 <td>{{ movie_session.hall.number }}</td>

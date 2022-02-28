@@ -138,23 +138,24 @@ class MoviesSoonView(MoviesPosterView):
 class MovieSessionsTimetableView(CustomAbstractView):
     template_name = 'main/timetable/timetable.html'
 
-    def get_context(self, request):
-        self.context = super().get_context()
-
+    @staticmethod
+    def get_movie_sessions_context() -> tuple:
         time_now = timezone.now()
         coming_week_time = time_now + datetime.timedelta(days=7)
 
-        movie_sessions = MovieSession.objects.filter(
-            start_datetime__gte=time_now,
-            start_datetime__lte=coming_week_time,
-        ).order_by('start_datetime')
+        movie_sessions = MovieSession.objects.filter(start_datetime__gte=time_now,
+                                                     start_datetime__lte=coming_week_time).order_by('start_datetime')
 
         session_days = [movie_session.start_datetime.date() for movie_session in movie_sessions]
         session_days_unique = list(set(session_days))
         session_days_unique.sort()
 
-        self.context['session_days'] = session_days_unique
-        self.context['movie_sessions'] = movie_sessions
+        return movie_sessions, session_days_unique
+
+    def get_context(self, request):
+        self.context = super().get_context()
+
+        self.context['movie_sessions'], self.context['session_days'] = self.get_movie_sessions_context()
 
         return self.context
 
