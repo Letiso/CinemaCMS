@@ -11,7 +11,23 @@
             <div class="col">
                 <div id="movie_session_filters">
                     <div class="col">
-
+                        <label class="">
+                            Показывать только:
+                            {% for movie_type in movie_types %}
+                                <div class="form-check form-check-inline ml-2">
+                                  <input class="form-check-input movie_type" type="checkbox" id="{{ forloop.counter }}-movie_type">
+                                  <label class="form-check-label" for="{{ forloop.counter }}-movie_type">
+                                    <span class="badge badge-pill badge-warning">
+                                        {{ movie_type }}
+                                    </span>
+                                  </label>
+                                </div>
+{#                                <input class="movie_type" type="checkbox" value="{{ movie_type }}">#}
+                            {% endfor %}
+                        </label>
+{#                        {% for movie_type in movie_types %}#}
+{#                            <input class="movie_type" type="checkbox" value="{{ movie_type }}">#}
+{#                        {% endfor %}#}
                     </div>
 
                     <div class="col">

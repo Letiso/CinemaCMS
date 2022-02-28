@@ -129,7 +129,7 @@ class MoviesSoonView(MoviesPosterView):
 
         return queryset.filter(
             release_date__gt=timezone.now()
-        ).order_by('-release_date').select_related()
+        ).order_by('release_date').select_related()
 
 
 # endregion Poster
@@ -156,6 +156,7 @@ class MovieSessionsTimetableView(CustomAbstractView):
         self.context = super().get_context()
 
         self.context['movie_sessions'], self.context['session_days'] = self.get_movie_sessions_context()
+        self.context['movie_types'] = MovieCard.get_every_movie_type_tuple()
 
         return self.context
 

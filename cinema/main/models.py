@@ -99,6 +99,14 @@ class MovieCard(ImageFieldsValidationMixin, models.Model):
     def get_required_sizes(cls):
         return {'main_image': cls.main_image_required_size}
 
+    @classmethod
+    def get_every_movie_type_tuple(cls) -> tuple:
+        field_names = ('two_d', 'three_d', 'imax')
+        field_objects = [cls._meta.get_field(field_name) for field_name in field_names]
+        available_fields = [field.verbose_name for field in field_objects]
+
+        return tuple(available_fields)
+
     @property
     def movie_types_tuple(self) -> tuple:
         field_names = ('two_d', 'three_d', 'imax')
