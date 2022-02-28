@@ -99,19 +99,22 @@ class MovieCard(ImageFieldsValidationMixin, models.Model):
     def get_required_sizes(cls):
         return {'main_image': cls.main_image_required_size}
 
+    @staticmethod
+    def get_field_objects(obj):
+        field_names = ('two_d', 'three_d', 'imax')
+        field_objects = [obj._meta.get_field(field_name) for field_name in field_names]
+
+        return tuple(field_objects)
+
     @classmethod
     def get_every_movie_type_tuple(cls) -> tuple:
-        field_names = ('two_d', 'three_d', 'imax')
-        field_objects = [cls._meta.get_field(field_name) for field_name in field_names]
-        available_fields = [field.verbose_name for field in field_objects]
+        field_names = [field.verbose_name for field in cls.get_field_objects(cls)]
 
-        return tuple(available_fields)
+        return tuple(field_names)
 
     @property
-    def movie_types_tuple(self) -> tuple:
-        field_names = ('two_d', 'three_d', 'imax')
-        field_objects = [self._meta.get_field(field_name) for field_name in field_names]
-        available_fields = [field.verbose_name for field in field_objects
+    def available_movie_types_tuple(self) -> tuple:
+        available_fields = [field.verbose_name for field in self.get_field_objects(self)
                             if field.value_from_object(self)]
 
         return tuple(available_fields)

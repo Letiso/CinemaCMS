@@ -151,7 +151,7 @@
                                     <img class="rounded img-fluid" src="{{ movie_card.main_image.url }}" alt="">
 
                                     <div class="badge-on-image">
-                                        {% for movie_type in movie_card.movie_types_tuple %}
+                                        {% for movie_type in movie_card.available_movie_types_tuple %}
                                             <span class="badge badge-pill badge-{% if forloop.counter == 1 %}primary{% elif forloop.counter == 2 %}success{% elif forloop.counter == 3 %}warning{% else %}secondary{% endif %}">
                                                 {{ movie_type }}
                                             </span>

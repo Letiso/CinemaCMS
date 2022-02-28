@@ -26,7 +26,7 @@ class Command(BaseCommand):
         movie_cards = MovieCard.objects.filter(is_active=True)
         movie_card = get_random_element(movie_cards)
 
-        movie_types = movie_card.movie_types_tuple
+        movie_types = movie_card.available_movie_types_tuple
         movie_type = get_random_element(movie_types)
 
         cinema = CinemaCard.objects.first()
