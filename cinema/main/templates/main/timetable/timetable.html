@@ -19,14 +19,6 @@
                     </div>
                 </div>
 
-
-                {% for movie_session in movie_sessions %}
-                   {{ movie_session.start_datetime.day }}
-                   {{ movie_session.start_datetime.time }}
-                {% endfor %}
-
-
-
                 <div id="sessions_container" class="col-12">
                     {% for day in session_days %}
                         <div class="col-9 mx-auto my-5">
@@ -45,7 +37,7 @@
                                     {% for movie_session in movie_sessions %}
                                         {% if movie_session.start_datetime.date == day %}
                                             <tr>
-                                                <td>{{ movie_session.start_datetime|date:"D H:i" }}</td>
+                                                <td>{{ movie_session.start_datetime.time|date:"H:i" }}</td>
                                                 <td>{{ movie_session.movie.title }}</td>
                                                 <td>{{ movie_session.hall.number }}</td>
                                                 <td>{{ movie_session.ticket_price }}</td>
