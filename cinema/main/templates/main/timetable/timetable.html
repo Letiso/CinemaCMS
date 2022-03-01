@@ -72,7 +72,7 @@
                             <table id="sessions_table-{{ forloop.counter }}" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th style="display:none;">Тип кино</th>
+                                        <th style="">Тип кино</th>
                                         <th style="display:none;">Кинотеатр</th>
                                         <th style="display:none;">Дата</th>
                                         <th style="display:none;">Фильм</th>
@@ -89,7 +89,7 @@
                                     {% for movie_session in movie_sessions %}
                                         {% if movie_session.start_datetime.date == day %}
                                             <tr>
-                                                <td style="display:none;">{{ movie_session.movie_type }}</td>
+                                                <td style="">{{ movie_session.movie_type }}</td>
                                                 <td style="display:none;">{{ movie_session.hall.cinema.pk }}</td>
                                                 <td style="display:none;">{{ movie_session.start_datetime.date }}</td>
                                                 <td style="display:none;">{{ movie_session.movie.pk }}</td>
@@ -142,7 +142,6 @@
     <script>
         let movieTypeCheckboxFilter = $("input[id*='movie_type']");
 
-        {#let cinemaSelectFilter = $("#cinema_filter option:selected")#}
         let cinemaSelectFilter = $("#cinema_filter option")
         let dateSelectFilter = $("#date_filter option")
         let movieSelectFilter = $("#movie_filter option")
@@ -152,10 +151,36 @@
 
         let tablesList = $("table[id*='sessions_table']")
         let dataTablesList = tablesList.DataTable({
-            "dom": 'rt'
-
+            "dom": 'rt',
+            "search": {
+                "regex": true,
+            }
         });
 
+        $(movieTypeCheckboxFilter).on('change', function () {
+            let checkedCheckboxes = []
+            let label_text_raw, label_text, search_options;
+
+            for (let checkbox of movieTypeCheckboxFilter ) {
+
+                if (checkbox.checked) {
+                    label_text_raw = $(`label[for="${checkbox.id}"]`).text()
+                    label_text = $.trim(label_text_raw) // remove spaces around the text
+                    checkedCheckboxes.push(label_text)
+
+                    console.log(label_text)
+                }
+
+            if (!checkedCheckboxes.length) {
+                search_options = ""
+            } else {
+                search_options = '(' + checkedCheckboxes.join('|') + ')'
+                console.log(search_options)
+            }
+
+            dataTablesList.tables().column(0).search(search_options, true, false).draw();
+            }
+        });
 
     </script>
 {% endblock %}
