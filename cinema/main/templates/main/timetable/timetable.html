@@ -40,7 +40,7 @@
                             <select  id="date_filter" class="custom-select">
                                 <option value="0">Дата: все</option>
                                 {% for day in session_days %}
-                                    <option value="{{ forloop.counter }}">{{ day|date:"j E, D" }}</option>
+                                    <option value="{{ day|date:"d-m-Y" }}">{{ day|date:"j E, D" }}</option>
                                 {% endfor %}
                             </select>
                         </label>
@@ -91,7 +91,7 @@
                                             <tr>
                                                 <td style="display: none">{{ movie_session.movie_type }}</td>
                                                 <td style="display:none;">{{ movie_session.hall.cinema.pk }}</td>
-                                                <td style="display:none;">{{ movie_session.start_datetime.date }}</td>
+                                                <td style="display:none;">{{ movie_session.start_datetime.date|date:"d-m-Y" }}</td>
                                                 <td style="display:none;">{{ movie_session.movie.pk }}</td>
                                                 <td style="display:none;">{{ movie_session.hall.pk }}</td>
 
@@ -139,6 +139,21 @@
     <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 
+    {# initDataTable #}
+    <script >
+        function initDataTable () {
+            let tablesList = $("table[id*='sessions_table']")
+
+            return tablesList.DataTable({
+                "dom": 'rt',
+                "search": {
+                    "regex": true,
+                }
+            })
+        }
+
+    </script>
+
     {# initMovieTypeCheckboxFilter #}
     <script>
         function initMovieTypeCheckboxFilter () {
@@ -162,7 +177,7 @@
                     search_options = `(${checkedCheckboxes.join('|')})`
                 }
 
-                dataTablesList.columns(0).search(search_options, true, false).draw();
+                DATA_TABLES.columns(0).search(search_options, true, false).draw();
 
                 }
             });
@@ -189,41 +204,56 @@
                             }
                         }
 
-                        dataTablesList.columns(1).search(cinema_option_value).draw();
-
                     });
-                }
-                else {
+                } else {
                     hallSelectOptions.each(function () { // show all elements
                         this.style.display = 'initial'
 
-                        dataTablesList.columns(1).search("").draw();
-
+                        cinema_option_value = ""
                     });
                 }
+
+                DATA_TABLES.columns(1).search(cinema_option_value).draw();
 
                 hallSelectFilter.prop('value', '0')
             });
         }
+    </script>
+
+    {# initSimpleSelectFilters #}
+    <script>
+        function initSimpleSelectFilters () {
+            const simpleSelectFilters = {
+                '2': $("#date_filter"),
+                '3': $("#movie_filter"),
+                '4': $("#hall_filter")
+            }
+
+            for (const [index, selectFilter] of Object.entries(simpleSelectFilters)) {
+                selectFilter.on('change', function () {
+                    let option_value = this.value
+
+                    if (option_value === "0") {
+                        option_value = ""
+                    }
+
+                    DATA_TABLES.columns(index).search(option_value).draw();
+
+                });
+            }
+        }
+
 
     </script>
 
     <script>
-        let dateSelectFilter = $("#date_filter option")
-        let movieSelectFilter = $("#movie_filter option")
-
-        let datesList = $("div[id*='sessions_list']")
-
-        let tablesList = $("table[id*='sessions_table']")
-        let dataTablesList = tablesList.DataTable({
-            "dom": 'rt',
-            "search": {
-                "regex": true,
-            }
-        });
+        let DATA_TABLES = initDataTable()
 
         initMovieTypeCheckboxFilter()
         initCinemaSelectFilter()
+        initSimpleSelectFilters()
+
+        let datesList = $("div[id*='sessions_list']")
 
     </script>
 {% endblock %}
