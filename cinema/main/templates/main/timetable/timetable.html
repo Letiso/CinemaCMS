@@ -139,6 +139,7 @@
     <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 
+
     {# initDataTable #}
     <script >
         function initDataTable () {
@@ -186,11 +187,11 @@
 
     {# initCinemaSelectFilter #}
     <script >
-        let cinemaSelectFilter = $("#cinema_filter")
-        let hallSelectFilter = $("#hall_filter")
-        let hallSelectOptions = $("#hall_filter option")
-
         function initCinemaSelectFilter () {
+            let cinemaSelectFilter = $("#cinema_filter")
+            let hallSelectFilter = $("#hall_filter")
+            let hallSelectOptions = $("#hall_filter option")
+
             cinemaSelectFilter.on('change', function () {
                 let cinema_option_value = this.value
 
@@ -242,10 +243,16 @@
                 });
             }
         }
-
-
     </script>
 
+    {# initDayCardsShowToggle #}
+    <script>
+        function initDayCardsShowToggle () {
+            let datesList = $("div[id*='sessions_list']")
+        }
+    </script>
+
+    {# initFilters #}
     <script>
         let DATA_TABLES = initDataTable()
 
@@ -253,7 +260,8 @@
         initCinemaSelectFilter()
         initSimpleSelectFilters()
 
-        let datesList = $("div[id*='sessions_list']")
+        initDayCardsShowToggle()
+
 
     </script>
 {% endblock %}
