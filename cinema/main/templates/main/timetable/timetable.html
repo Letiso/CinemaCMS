@@ -171,10 +171,10 @@
                     console.log(label_text)
                 }
 
-            if (!checkedCheckboxes.length) {
+            if (!checkedCheckboxes.length) { // reset the filter if no checkboxes is active
                 search_options = ""
             } else {
-                search_options = '(' + checkedCheckboxes.join('|') + ')'
+                search_options = `(${checkedCheckboxes.join('|')})`
                 console.log(search_options)
             }
 
