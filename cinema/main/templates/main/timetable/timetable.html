@@ -58,7 +58,7 @@
                             <select id="hall_filter" class="custom-select">
                                 <option value="0">Зал: все</option>
                                 {% for hall_card in halls %}
-                                    <option value="{{ hall_card.pk }}">{{ hall_card.number }}</option>
+                                    <option id="{{ hall_card.cinema.pk }}" value="{{ hall_card.pk }}">{{ hall_card.number }}</option>
                                 {% endfor %}
                             </select>
                         </label>
@@ -139,8 +139,9 @@
     <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 
+    {# initMovieTypeCheckboxFilter #}
     <script>
-        function  initMovieTypeCheckboxFilter () {
+        function initMovieTypeCheckboxFilter () {
             let movieTypeCheckboxFilter = $("input[id*='movie_type']");
 
             $(movieTypeCheckboxFilter).on('change', function () {
@@ -168,11 +169,35 @@
         }
     </script>
 
+    {# initCinemaSelectFilter #}
+    <script >
+        let cinemaSelectFilter = $("#cinema_filter")
+        let hallSelectFilter = $("#hall_filter option")
+
+        function initCinemaSelectFilter () {
+            cinemaSelectFilter.on('change', function () {
+                let cinema_pk = this.value
+
+                hallSelectFilter.each(function () {
+                    if (cinema_pk === this.id )  {
+                        this.style.display = 'initial'
+                    } else {
+                        this.style.display = 'none'
+                    }
+
+                    console.log(cinema_pk, this.id, cinema_pk === this.id)
+
+                });
+
+                dataTablesList.columns(1).search(cinema_pk).draw();
+            });
+        }
+
+    </script>
+
     <script>
-        let cinemaSelectFilter = $("#cinema_filter option")
         let dateSelectFilter = $("#date_filter option")
         let movieSelectFilter = $("#movie_filter option")
-        let hallSelectFilter = $("#hall_filter option")
 
         let datesList = $("div[id*='sessions_list']")
 
@@ -185,6 +210,7 @@
         });
 
         initMovieTypeCheckboxFilter()
+        initCinemaSelectFilter()
 
     </script>
 {% endblock %}
