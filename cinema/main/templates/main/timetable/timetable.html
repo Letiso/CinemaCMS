@@ -72,7 +72,7 @@
                             <table id="sessions_table-{{ forloop.counter }}" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th style="">Тип кино</th>
+                                        <th style="display: none">Тип кино</th>
                                         <th style="display:none;">Кинотеатр</th>
                                         <th style="display:none;">Дата</th>
                                         <th style="display:none;">Фильм</th>
@@ -89,7 +89,7 @@
                                     {% for movie_session in movie_sessions %}
                                         {% if movie_session.start_datetime.date == day %}
                                             <tr>
-                                                <td style="">{{ movie_session.movie_type }}</td>
+                                                <td style="display: none">{{ movie_session.movie_type }}</td>
                                                 <td style="display:none;">{{ movie_session.hall.cinema.pk }}</td>
                                                 <td style="display:none;">{{ movie_session.start_datetime.date }}</td>
                                                 <td style="display:none;">{{ movie_session.movie.pk }}</td>
@@ -176,20 +176,30 @@
 
         function initCinemaSelectFilter () {
             cinemaSelectFilter.on('change', function () {
-                let cinema_pk = this.value
+                let cinema_option_value = this.value
 
-                hallSelectFilter.each(function () {
-                    if (cinema_pk === this.id )  {
+                if (cinema_option_value !== '0') {               // if it's not "all elements" option
+                    hallSelectFilter.each(function () {
+                        if (cinema_option_value === this.id)  {
+                                this.style.display = 'initial'
+                        } else {
+                            if (this.value !== '0') {           // if it's not "all elements" option
+                                this.style.display = 'none'
+                            }
+                        }
+
+                        dataTablesList.columns(1).search(cinema_option_value).draw();
+
+                    });
+                }
+                else {
+                    hallSelectFilter.each(function () { // show all elements
                         this.style.display = 'initial'
-                    } else {
-                        this.style.display = 'none'
-                    }
 
-                    console.log(cinema_pk, this.id, cinema_pk === this.id)
+                        dataTablesList.columns(1).search("").draw();
 
-                });
-
-                dataTablesList.columns(1).search(cinema_pk).draw();
+                    });
+                }
             });
         }
 
