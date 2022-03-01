@@ -172,14 +172,15 @@
     {# initCinemaSelectFilter #}
     <script >
         let cinemaSelectFilter = $("#cinema_filter")
-        let hallSelectFilter = $("#hall_filter option")
+        let hallSelectFilter = $("#hall_filter")
+        let hallSelectOptions = $("#hall_filter option")
 
         function initCinemaSelectFilter () {
             cinemaSelectFilter.on('change', function () {
                 let cinema_option_value = this.value
 
                 if (cinema_option_value !== '0') {               // if it's not "all elements" option
-                    hallSelectFilter.each(function () {
+                    hallSelectOptions.each(function () {
                         if (cinema_option_value === this.id)  {
                                 this.style.display = 'initial'
                         } else {
@@ -193,13 +194,15 @@
                     });
                 }
                 else {
-                    hallSelectFilter.each(function () { // show all elements
+                    hallSelectOptions.each(function () { // show all elements
                         this.style.display = 'initial'
 
                         dataTablesList.columns(1).search("").draw();
 
                     });
                 }
+
+                hallSelectFilter.prop('value', '0')
             });
         }
 
