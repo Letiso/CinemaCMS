@@ -151,7 +151,10 @@
         let datesList = $("div[id*='sessions_list']")
 
         let tablesList = $("table[id*='sessions_table']")
-        let dataTablesList = tablesList.DataTable()
+        let dataTablesList = tablesList.DataTable({
+            "dom": 'rt'
+
+        });
 
 
     </script>
