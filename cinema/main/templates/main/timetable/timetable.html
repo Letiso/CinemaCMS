@@ -69,7 +69,7 @@
                     {% for day in session_days %}
                         <div id="day-{{ forloop.counter }}-sessions_list" class="col-9 mx-auto my-5">
                             <h5>{{ day|date:"j E, l"|upper }}</h5>
-                            <table id="sessions_table-{{ forloop.counter }}" class="table table-striped table-bordered DataTable" style="width:100%">
+                            <table id="sessions_table-{{ forloop.counter }}" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th style="">Тип кино</th>
@@ -140,8 +140,35 @@
     <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 
     <script>
-        let movieTypeCheckboxFilter = $("input[id*='movie_type']");
+        function  initMovieTypeCheckboxFilter () {
+            let movieTypeCheckboxFilter = $("input[id*='movie_type']");
 
+            $(movieTypeCheckboxFilter).on('change', function () {
+                let checkedCheckboxes = []
+                let label_text_raw, label_text, search_options;
+
+                for (let checkbox of movieTypeCheckboxFilter ) {
+
+                    if (checkbox.checked) {
+                        label_text_raw = $(`label[for="${checkbox.id}"]`).text()
+                        label_text = $.trim(label_text_raw) // remove spaces around the text
+                        checkedCheckboxes.push(label_text)
+                    }
+
+                if (!checkedCheckboxes.length) { // reset the filter if no checkboxes is active
+                    search_options = ""
+                } else {
+                    search_options = `(${checkedCheckboxes.join('|')})`
+                }
+
+                dataTablesList.columns(0).search(search_options, true, false).draw();
+
+                }
+            });
+        }
+    </script>
+
+    <script>
         let cinemaSelectFilter = $("#cinema_filter option")
         let dateSelectFilter = $("#date_filter option")
         let movieSelectFilter = $("#movie_filter option")
@@ -149,7 +176,6 @@
 
         let datesList = $("div[id*='sessions_list']")
 
-        {#let tablesList = $(".DataTable")#}
         let tablesList = $("table[id*='sessions_table']")
         let dataTablesList = tablesList.DataTable({
             "dom": 'rt',
@@ -158,32 +184,7 @@
             }
         });
 
-        $(movieTypeCheckboxFilter).on('change', function () {
-            let checkedCheckboxes = []
-            let label_text_raw, label_text, search_options;
-
-            for (let checkbox of movieTypeCheckboxFilter ) {
-
-                if (checkbox.checked) {
-                    label_text_raw = $(`label[for="${checkbox.id}"]`).text()
-                    label_text = $.trim(label_text_raw) // remove spaces around the text
-                    checkedCheckboxes.push(label_text)
-
-                    console.log(label_text)
-                }
-
-            if (!checkedCheckboxes.length) { // reset the filter if no checkboxes is active
-                search_options = ""
-            } else {
-                search_options = `(${checkedCheckboxes.join('|')})`
-                console.log(search_options)
-            }
-
-            dataTablesList.tables().column(0).search(search_options, true, false).draw();
-            {#dataTablesList.search(search_options, true, false).draw();#}
-
-            }
-        });
+        initMovieTypeCheckboxFilter()
 
     </script>
 {% endblock %}
