@@ -262,6 +262,19 @@
                 $(`#sessions_list-${index}`).prop('style', `display: ${display_value};`)
 
 
+                // show or hide error message when no movie_sessions is visible
+                const errorMessage = `<h2 id="emptyError" class="text-center text-danger my-5" style="display: none;">Сеансы, соответствующие выбранным фильтрам, не найдены<\h2>`
+                $('#sessions_container').append(errorMessage)
+
+                const session_lists_count = $('div[id*="sessions_list"]:visible').length;
+                const emptyError = $('#emptyError')
+
+                if (session_lists_count) {
+                    emptyError.hide()
+                } else {
+                    emptyError.show()
+                }
+
             })
         }
     </script>
