@@ -5,7 +5,32 @@
 {% block main_timetable %}active{% endblock %}
 
 {% block content %}
-<div>
-    <h3>Бронирование билета</h3>
-</div>
+    {# hall banner #}
+        <img src="{{ hall.banner.url }}"
+             alt=""
+             style="width: 100vw; height: 21vw; background: gray;">
+    {# hall banner end #}
+
+    <div class="row">
+        {# left side area #}
+            <div class="col-2 ml-5 mr-3">
+                {# context ads #}
+                    <div class="col my-5 text-center p-5 black-text" style="background: lightgray;">
+                        <a href="#">
+                            <h5>
+                                Контекстная реклама
+                            </h5>
+                        </a>
+                    </div>
+                {# context ads end #}
+            </div>
+        {# left side area end #}
+
+        {# content #}
+            <div class="col mr-5">
+
+            </div>
+        {# content end #}
+    </div>
+
 {% endblock %}

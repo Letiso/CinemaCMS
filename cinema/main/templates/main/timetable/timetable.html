@@ -69,7 +69,7 @@
                     {% for day in session_days %}
                         <div id="sessions_list-{{ forloop.counter }}" class="col-9 mx-auto my-5">
                             <h5>{{ day|date:"j E, l"|upper }}</h5>
-                            <table id="sessions_table-{{ forloop.counter }}" class="table table-striped table-bordered" style="width:100%">
+                            <table id="sessions_table-{{ forloop.counter }}" class="table table-striped table-bordered text-center" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th style="display: none">Тип кино</th>
@@ -95,13 +95,14 @@
                                                 <td style="display:none;">{{ movie_session.movie.pk }}</td>
                                                 <td style="display:none;">{{ movie_session.hall.pk }}</td>
 
-                                                <td>{{ movie_session.start_datetime.time|date:"H:i" }}</td>
-                                                <td>{{ movie_session.movie.title }}</td>
-                                                <td>{{ movie_session.hall.number }}</td>
-                                                <td>{{ movie_session.ticket_price }}</td>
-                                                <td>
-                                                    <a href="#">
+                                                <td class="align-middle">{{ movie_session.start_datetime.time|date:"H:i" }}</td>
+                                                <td class="align-middle">{{ movie_session.movie.title }}</td>
+                                                <td class="align-middle">{{ movie_session.hall.number }}</td>
+                                                <td class="align-middle">{{ movie_session.ticket_price }}</td>
 
+                                                <td class="align-middle">
+                                                    <a href="{% url 'main:ticket_booking' movie_session.pk %}">
+                                                        <h1 class="fas fa-ticket-alt"></h1>
                                                     </a>
                                                 </td>
                                             </tr>
