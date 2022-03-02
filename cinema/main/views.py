@@ -152,9 +152,8 @@ class MovieSessionsTimetableView(CustomAbstractView):
 
         return movie_sessions, session_days_unique
 
-    def get_context(self, request):
-        self.context = super().get_context()
-
+    def get_context(self, request, movie_id='0'):
+        self.context = super().get_context(request, movie_id)
         self.context['movie_sessions'], self.context['session_days'] = self.get_movie_sessions_context()
         self.context['movie_types'] = MovieCard.get_every_movie_type_tuple()
 
@@ -162,6 +161,8 @@ class MovieSessionsTimetableView(CustomAbstractView):
 
         self.context['movies'] = MovieCard.objects.filter(release_date__lte=timezone.now()).order_by('-date_created')
         self.context['halls'] = CinemaHallCard.objects.order_by('cinema')
+
+        self.context['movie_id'] = movie_id
 
         return self.context
 

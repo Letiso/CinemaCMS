@@ -101,7 +101,7 @@
                                                 <td class="align-middle">{{ movie_session.ticket_price }}</td>
 
                                                 <td class="align-middle">
-                                                    <a href="{% url 'main:ticket_booking' movie_session.pk %}">
+                                                    <a href="{% url 'main:ticket_booking' movie_session.pk %}" class="text-secondary">
                                                         <h1 class="fas fa-ticket-alt"></h1>
                                                     </a>
                                                 </td>
@@ -280,6 +280,16 @@
         }
     </script>
 
+    {# initFiltersUrlParams #}
+    <script>
+        function initFiltersUsingUrlParams () {
+            const movie_id = '{{ movie_id }}'
+            const movieSelectFilter =  $('#movie_filter')
+
+           movieSelectFilter.prop('value', movie_id).change()
+        }
+    </script>
+
     {# initFilters #}
     <script>
         let tablesList = $("table[id*='sessions_table']")
@@ -292,6 +302,6 @@
 
         initDayCardsShowToggle(tablesList)
 
-
+        initFiltersUsingUrlParams()
     </script>
 {% endblock %}
