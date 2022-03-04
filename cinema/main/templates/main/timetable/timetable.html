@@ -283,8 +283,7 @@
     {# initFiltersUsingUrlParams #}
     <script>
         function initFiltersUsingUrlParams () {
-            const movie_type = '{{ movie_type }}'
-            const movieTypeCheckboxFilter = $(`#${movie_type}:checkbox`)
+            const movieTypeCheckboxFilter = $('#{{ movie_type }}:checkbox')
             movieTypeCheckboxFilter.prop('checked', true)
 
             let simpleSelectFiltersObject = {
@@ -293,8 +292,8 @@
                 '{{ hall_id }}': $('#hall_filter')
             }
 
-            for (const [parameter, query] of Object.entries(simpleSelectFiltersObject)) {
-                query.prop('value', parameter).change()
+            for (const [value, selectFilter] of Object.entries(simpleSelectFiltersObject)) {
+                selectFilter.prop('value', value).change()
             }
         }
     </script>
