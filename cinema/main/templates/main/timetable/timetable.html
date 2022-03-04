@@ -285,8 +285,19 @@
         function initFiltersUsingUrlParams () {
             const movie_id = '{{ movie_id }}'
             const movieSelectFilter =  $('#movie_filter')
+            movieSelectFilter.prop('value', movie_id).change()
 
-           movieSelectFilter.prop('value', movie_id).change()
+            const movie_type_index = '{{ movie_type }}'
+            const movieTypeCheckboxFilter =  $(`#movie_type-${movie_type_index}:checkbox`)
+            movieTypeCheckboxFilter.prop('checked', true)
+
+            const start_date = '{{ start_date }}'
+            const movieSessionSelectFilter =  $('#date_filter')
+            movieSessionSelectFilter.prop('value', start_date).change()
+
+            const hall = '{{ hall }}'
+            const hallSelectFilter =  $('#hall_filter')
+            hallSelectFilter.prop('value', hall).change()
         }
     </script>
 

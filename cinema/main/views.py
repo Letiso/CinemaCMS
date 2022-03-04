@@ -113,8 +113,15 @@ class MovieCardView(CustomAbstractView):
 
         trailer_link_parse = card.trailer_link.split('=')
         trailer_link_id = trailer_link_parse[1] if len(trailer_link_parse) > 1 else None
-
         self.context['trailer_link_id'] = trailer_link_id
+
+        self.context['cinemas'] = CinemaCard.objects.filter(is_active=True).order_by('date_created')
+        self.context['movie_types'] = MovieCard.get_every_movie_type_tuple()
+
+        movie_sessions, session_days = MovieSession.get_movie_sessions_context(movie=pk)
+        movie_sessions = movie_sessions
+        self.context['movie_sessions'], self.context['session_days'] = movie_sessions, session_days
+
         self.context['gallery'] = card.gallery.filter(is_active=True)
 
         return self.context
@@ -138,31 +145,21 @@ class MoviesSoonView(MoviesPosterView):
 class MovieSessionsTimetableView(CustomAbstractView):
     template_name = 'main/timetable/timetable.html'
 
-    @staticmethod
-    def get_movie_sessions_context() -> tuple:
-        time_now = timezone.now()
-        coming_week_time = time_now + datetime.timedelta(days=7)
-
-        movie_sessions = MovieSession.objects.filter(start_datetime__gte=time_now,
-                                                     start_datetime__lte=coming_week_time).order_by('start_datetime')
-
-        session_days = [movie_session.start_datetime.date() for movie_session in movie_sessions]
-        session_days_unique = list(set(session_days))
-        session_days_unique.sort()
-
-        return movie_sessions, session_days_unique
-
-    def get_context(self, request, movie_id='0'):
+    def get_context(self, request, movie_id='0', movie_type='0', start_date='0', hall_id='0'):
         self.context = super().get_context(request, movie_id)
-        self.context['movie_sessions'], self.context['session_days'] = self.get_movie_sessions_context()
+
+        self.context['movie_sessions'], self.context['session_days'] = MovieSession.get_movie_sessions_context()
         self.context['movie_types'] = MovieCard.get_every_movie_type_tuple()
 
         self.context['cinemas'] = CinemaCard.objects.order_by('date_created')
 
         self.context['movies'] = MovieCard.objects.filter(release_date__lte=timezone.now()).order_by('-date_created')
-        self.context['halls'] = CinemaHallCard.objects.order_by('cinema')
+        self.context['halls'] = CinemaHallCard.objects.order_by('cinema').select_related()
 
         self.context['movie_id'] = movie_id
+        self.context['movie_type'] = movie_type
+        self.context['start_date'] = start_date
+        self.context['hall_id'] = hall_id
 
         return self.context
 

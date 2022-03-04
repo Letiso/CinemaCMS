@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date
+import datetime
 from django.utils import timezone
 
 from abc import abstractmethod
@@ -78,7 +78,7 @@ class BannersCarousel(models.Model):
 class MovieCard(ImageFieldsValidationMixin, models.Model):
     title = models.CharField('Название фильма', max_length=256)
     description = models.TextField('Описание')
-    release_date = models.DateField('Дата релиза', default=date.today)
+    release_date = models.DateField('Дата релиза', default=timezone.now)
 
     main_image_required_size = (1000, 190)
     main_image = models.ImageField('Главная картинка', upload_to='main/movies/main_images')
@@ -207,7 +207,7 @@ class CinemaHallGallery(ImageFieldsValidationMixin, models.Model):
 # region News
 class NewsCard(ImageFieldsValidationMixin, models.Model):
     title = models.CharField('Название новости', max_length=256)
-    publication_date = models.DateField('Дата публикации', default=date.today)
+    publication_date = models.DateField('Дата публикации', default=timezone.now)
     description = models.TextField('Описание')
 
     main_image_required_size = (1000, 190)
@@ -242,7 +242,7 @@ class NewsGallery(ImageFieldsValidationMixin, models.Model):
 # region Promotion
 class PromotionCard(ImageFieldsValidationMixin, models.Model):
     title = models.CharField('Название акции', max_length=256)
-    publication_date = models.DateField('Дата публикации', default=date.today)
+    publication_date = models.DateField('Дата публикации', default=timezone.now)
     description = models.TextField('Описание')
 
     main_image_required_size = (1000, 190)
@@ -409,6 +409,21 @@ class MovieSession(models.Model):
     movie_type = models.CharField(max_length=10)
 
     ticket_price = models.CharField(max_length=20, default='1')
+
+    @classmethod
+    def get_movie_sessions_context(cls, **extra_filters) -> tuple:
+        time_now = timezone.now()
+        coming_time = time_now + datetime.timedelta(days=7)
+
+        movie_sessions = cls.objects.filter(start_datetime__gte=time_now,
+                                            start_datetime__lte=coming_time,
+                                            **extra_filters).order_by('start_datetime').select_related()
+
+        session_days = [movie_session.start_datetime.date() for movie_session in movie_sessions]
+        session_days_unique = list(set(session_days))
+        session_days_unique.sort()
+
+        return movie_sessions, session_days_unique
 
 
 # endregion MovieSessions

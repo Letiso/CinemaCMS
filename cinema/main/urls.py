@@ -12,7 +12,11 @@ urlpatterns = [
     path('soon', views.MoviesSoonView.as_view(), name="soon"),
 
     path('timetable', views.MovieSessionsTimetableView.as_view(), name="timetable"),
-    path('timetable/movie_id=<int:movie_id>/', views.MovieSessionsTimetableView.as_view(), name="timetable"),
+    *[
+        path(f'timetable/movie_id=<int:movie_id>{optional_parameter}',
+             views.MovieSessionsTimetableView.as_view(), name="timetable") for optional_parameter in (
+            '', '/movie_type=<int:movie_type>', '/start_date=<str:start_date>', '/hall_id=<int:hall_id>')
+      ],
     path('timetable/ticket_booking/<int:pk>', views.TicketBookingView.as_view(), name="ticket_booking"),
 
     path('cinemas', views.CinemasListView.as_view(), name="cinemas"),
@@ -31,6 +35,7 @@ urlpatterns = [
     path('about_the_cinema/vip_hall', views.VipHallPageView.as_view(), name="vip_hall"),
     path('about_the_cinema/cafe_bar', views.CafeBarPageView.as_view(), name="cafe_bar"),
     path('about_the_cinema/child_room', views.ChildRoomPageView.as_view(), name="child_room"),
-    path('about_the_cinema/mobile_applications', views.MobileApplicationsPageView.as_view(), name="mobile_applications"),
+    path('about_the_cinema/mobile_applications', views.MobileApplicationsPageView.as_view(),
+         name="mobile_applications"),
     path('about_the_cinema/contacts', views.ContactsPageView.as_view(), name="contacts"),
 ]

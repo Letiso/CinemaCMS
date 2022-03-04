@@ -13,8 +13,82 @@
                 </iframe>
             </div>
 
-            <div class="text-center">
-                Расписание сеансов
+            <div class="d-inline-flex mx-auto">
+                <h2 class="ml-5">
+                    Расписание сеансов кинотеатра:
+                </h2>
+                <label class="mx-5">
+                    <select  id="movie_filter" class="custom-select">
+                        <option value="0">Кинотеатр: все</option>
+                        {% for cinema in cinemas %}
+                            <option value="{{ cinema.pk }}">{{ cinema.name }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+
+                <a class="btn btn-light mx-5"
+                   href="{% url 'main:timetable' movie_id=card.pk %}" style="font-size: 25px;">
+                    Все
+                </a>
+
+                {% for movie_type in movie_types %}
+                    <a class="btn btn-light mx-3"
+                       href="{% url 'main:timetable' movie_id=card.pk movie_type=forloop.counter %}" style="font-size: 25px;">
+                        {{ movie_type }}
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="row col-10 mx-auto my-5 justify-content-start">
+                {% for day in session_days %}
+                    <a class="col-1 btn btn-light my-3 mx-2"
+                       href="{% url 'main:timetable' movie_id=card.pk start_date=day|date:"d-m-Y" %}" style="font-size: 25px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        {{ day|date:"j D" }}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {{ day|date:"E"|capfirst }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </a>
+                {% endfor %}
+
+            </div>
+
+            <div class="row col-10 mx-auto my-5 justify-content-start">
+                {% for day in session_days %}
+                    <a class="col-1 btn btn-light my-3 mx-2"
+                       href="{% url 'main:timetable' movie_id=card.pk start_date=day|date:"d-m-Y" %}" style="font-size: 25px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        {{ day|date:"j D" }}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {{ day|date:"E"|capfirst }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </a>
+                {% endfor %}
+
             </div>
 
             <div class="row my-5">
