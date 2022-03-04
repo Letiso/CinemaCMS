@@ -228,7 +228,7 @@
                 '4': $("#hall_filter")
             }
 
-            for (const [index, selectFilter] of Object.entries(simpleSelectFilters)) {
+            for (const [column_index, selectFilter] of Object.entries(simpleSelectFilters)) {
                 selectFilter.on('change', function () {
                     let option_value = this.value
 
@@ -236,7 +236,7 @@
                         option_value = ""
                     }
 
-                    DATA_TABLES.columns(index).search(option_value).draw();
+                    DATA_TABLES.columns(column_index).search(option_value).draw();
 
                 });
             }
