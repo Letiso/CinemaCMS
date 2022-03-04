@@ -245,7 +245,7 @@
 
     {# initDayCardsShowToggle #}
     <script>
-        function initDayCardsShowToggle () {
+        function initDayCardsToggleShow () {
             let display_value;
 
             DATA_TABLES.on('draw', function () {
@@ -280,24 +280,22 @@
         }
     </script>
 
-    {# initFiltersUrlParams #}
+    {# initFiltersUsingUrlParams #}
     <script>
         function initFiltersUsingUrlParams () {
-            const movie_id = '{{ movie_id }}'
-            const movieSelectFilter =  $('#movie_filter')
-            movieSelectFilter.prop('value', movie_id).change()
-
             const movie_type = '{{ movie_type }}'
-            const movieTypeCheckboxFilter =  $(`#${movie_type}:checkbox`)
+            const movieTypeCheckboxFilter = $(`#${movie_type}:checkbox`)
             movieTypeCheckboxFilter.prop('checked', true)
 
-            const start_date = '{{ start_date }}'
-            const movieSessionSelectFilter =  $('#date_filter')
-            movieSessionSelectFilter.prop('value', start_date).change()
+            let simpleSelectFiltersObject = {
+                '{{ movie_id }}': $('#movie_filter'),
+                '{{ start_date }}': $('#date_filter'),
+                '{{ hall_id }}': $('#hall_filter')
+            }
 
-            const hall = '{{ hall_id }}'
-            const hallSelectFilter =  $('#hall_filter')
-            hallSelectFilter.prop('value', hall).change()
+            for (const [parameter, query] of Object.entries(simpleSelectFiltersObject)) {
+                query.prop('value', parameter).change()
+            }
         }
     </script>
 
@@ -311,7 +309,7 @@
         initCinemaSelectFilter()
         initSimpleSelectFilters()
 
-        initDayCardsShowToggle(tablesList)
+        initDayCardsToggleShow(tablesList)
 
         initFiltersUsingUrlParams()
     </script>
