@@ -7,11 +7,11 @@
 {% block content %}
     <div class="container-fluid p-0">
         {# content #}
-            <div class="text-center mb-5 p-0">
-                <iframe width="1920" height="700"
-                        src="https://www.youtube.com/embed/{{ trailer_link_id }}?autoplay=1&mute=1&playlist={{ trailer_link_id }}&loop=1">
-                </iframe>
-            </div>
+{#            <div class="text-center mb-5 p-0">#}
+{#                <iframe width="1920" height="700"#}
+{#                        src="https://www.youtube.com/embed/{{ trailer_link_id }}?autoplay=1&mute=1&playlist={{ trailer_link_id }}&loop=1">#}
+{#                </iframe>#}
+{#            </div>#}
 
             <div class="d-inline-flex mx-auto">
                 <h2 class="ml-5">
@@ -33,7 +33,7 @@
 
                 {% for movie_type in movie_types %}
                     <a class="btn btn-light mx-3"
-                       href="{% url 'main:timetable' movie_id=card.pk movie_type=forloop.counter %}" style="font-size: 25px;">
+                       href="{% url 'main:timetable' movie_id=card.pk movie_type=movie_type %}" style="font-size: 25px;">
                         {{ movie_type }}
                     </a>
 
@@ -41,11 +41,11 @@
 
             </div>
 
-            <div class="row col-10 mx-auto my-5 justify-content-start">
+            <div class="row my-5 ml-5 justify-content-start">
                 {% for day in session_days %}
-                    <a class="col-1 btn btn-light my-3 mx-2"
+                    <a class="col-1 my-3 mx-4 text-center"
                        href="{% url 'main:timetable' movie_id=card.pk start_date=day|date:"d-m-Y" %}" style="font-size: 25px;">
-                        <table>
+                        <table class="table-bordered text-dark">
                             <thead>
                                 <tr>
                                     <th>
@@ -55,7 +55,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>
+                                    <td class="px-4">
                                         {{ day|date:"E"|capfirst }}
                                     </td>
                                 </tr>
@@ -66,22 +66,26 @@
 
             </div>
 
-            <div class="row col-10 mx-auto my-5 justify-content-start">
-                {% for day in session_days %}
-                    <a class="col-1 btn btn-light my-3 mx-2"
-                       href="{% url 'main:timetable' movie_id=card.pk start_date=day|date:"d-m-Y" %}" style="font-size: 25px;">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        {{ day|date:"j D" }}
-                                    </th>
-                                </tr>
-                            </thead>
+            <div class="row ml-5 my-5 justify-content-start">
+                {% for movie_session in movie_sessions %}
+                    <a class="col-2 my-3 text-center"
+                       href="{% url 'main:timetable' movie_id=card.pk movie_type=movie_session.movie_type hall_id=movie_session.hall.pk %}" style="font-size: 25px;">
+                        <table class="table-bordered text-dark" style="width: 100%">
                             <tbody>
                                 <tr>
-                                    <td>
-                                        {{ day|date:"E"|capfirst }}
+                                    <td class="px-2">
+                                        {{ movie_session.start_datetime.time|date:"H:i" }}
+                                    </td>
+                                    <td class="px-2">
+                                        {{ movie_session.movie_type }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2">
+                                        Зал {{ movie_session.hall.number }}
+                                    </td>
+                                    <td class="px-2">
+                                        {{ movie_session.ticket_price }}/56/120
                                     </td>
                                 </tr>
                             </tbody>

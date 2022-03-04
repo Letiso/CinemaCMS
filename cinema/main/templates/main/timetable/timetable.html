@@ -16,8 +16,8 @@
                         </label>
                         {% for movie_type in movie_types %}
                             <div class="form-check form-check-inline ml-2">
-                              <input class="form-check-input movie_type" type="checkbox" id="movie_type-{{ forloop.counter }}">
-                              <label class="form-check-label" for="movie_type-{{ forloop.counter }}">
+                              <input class="form-check-input movie_type" type="checkbox" id="{{ movie_type }}">
+                              <label class="form-check-label" for="{{ movie_type }}">
                                 <span class="badge badge-pill badge-{% if forloop.first %}info{% elif forloop.counter == 2 %}primary{% else %}warning{% endif %}">
                                     {{ movie_type }}
                                 </span>
@@ -287,15 +287,15 @@
             const movieSelectFilter =  $('#movie_filter')
             movieSelectFilter.prop('value', movie_id).change()
 
-            const movie_type_index = '{{ movie_type }}'
-            const movieTypeCheckboxFilter =  $(`#movie_type-${movie_type_index}:checkbox`)
+            const movie_type = '{{ movie_type }}'
+            const movieTypeCheckboxFilter =  $(`#${movie_type}:checkbox`)
             movieTypeCheckboxFilter.prop('checked', true)
 
             const start_date = '{{ start_date }}'
             const movieSessionSelectFilter =  $('#date_filter')
             movieSessionSelectFilter.prop('value', start_date).change()
 
-            const hall = '{{ hall }}'
+            const hall = '{{ hall_id }}'
             const hallSelectFilter =  $('#hall_filter')
             hallSelectFilter.prop('value', hall).change()
         }

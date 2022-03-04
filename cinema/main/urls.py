@@ -15,7 +15,8 @@ urlpatterns = [
     *[
         path(f'timetable/movie_id=<int:movie_id>{optional_parameter}',
              views.MovieSessionsTimetableView.as_view(), name="timetable") for optional_parameter in (
-            '', '/movie_type=<int:movie_type>', '/start_date=<str:start_date>', '/hall_id=<int:hall_id>')
+            '', '/movie_type=<str:movie_type>', '/start_date=<str:start_date>',
+            '/movie_type=<str:movie_type>/hall_id=<int:hall_id>')
       ],
     path('timetable/ticket_booking/<int:pk>', views.TicketBookingView.as_view(), name="ticket_booking"),
 
