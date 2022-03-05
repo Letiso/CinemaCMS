@@ -18,7 +18,7 @@
                     Расписание сеансов кинотеатра:
                 </h2>
                 <label class="mx-5">
-                    <select  id="movie_filter" class="custom-select">
+                    <select  id="cinema_filter" class="custom-select">
                         <option value="0">Кинотеатр: все</option>
                         {% for cinema in cinemas %}
                             <option value="{{ cinema.pk }}">{{ cinema.name }}</option>
@@ -66,9 +66,9 @@
 
             </div>
 
-            <div class="row mx-5 my-2 justify-content-start">
+            <div id="hall_filter_links" class="row mx-5 my-2 justify-content-start">
                 {% for movie_session in movie_sessions %}
-                    <a class="col-2 my-3 text-center"
+                    <a id="cinema_id-{{ movie_session.hall.cinema.pk }}" class="col-2 my-3 text-center"
                        href="{% url 'main:timetable' movie_id=card.pk movie_type=movie_session.movie_type hall_id=movie_session.hall.pk %}" style="font-size: 25px;">
                         <table class="table-bordered text-dark" style="width: 100%">
                             <tbody>
@@ -92,7 +92,6 @@
                         </table>
                     </a>
                 {% endfor %}
-
             </div>
 
             <div class="row my-5">
@@ -228,4 +227,39 @@
 
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+
+    <script>
+        // show or hide error message when no movie_sessions is visible
+        const errorMessage = `<h2 id="emptyError" class="text-center text-danger my-5" style="display: none;">Сеансы, соответствующие выбранному кинотеатру, не найдены<\h2>`
+        $('#hall_filter_links').append(errorMessage)
+        const emptyError = $('#emptyError')
+
+        const cinemaSelectFilter = $('#cinema_filter')
+        const filterLinks = $(`a[id*="cinema_id"]`)
+
+
+        cinemaSelectFilter.on('change', function () {
+            const cinema_id = this.value
+            filterLinks.each(function () {
+                const filter_link_id = this.id.split('-')[1]
+                if ((filter_link_id === cinema_id) || (cinema_id === '0')) {
+                    $(this).show()
+                } else {
+                    $(this).hide()
+                }
+            });
+
+            const visibleTablesCount = $('a[id*="cinema_id"]:visible').length
+            if (!visibleTablesCount) {
+                emptyError.show()
+            } else {
+                emptyError.hide()
+            }
+
+        });
+
+    </script>
 {% endblock %}
