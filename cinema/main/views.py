@@ -148,19 +148,17 @@ class MovieSessionsTimetableView(CustomAbstractView):
     def get_context(self, request, movie_id='0', movie_type='0', start_date='0', hall_id='0'):
         self.context = super().get_context(request, movie_id)
 
-        self.context['movie_sessions'], self.context['session_days'] = MovieSession.get_movie_sessions_context()
-        self.context['movie_types'] = MovieCard.get_every_movie_type_tuple()
-
-        self.context['cinemas'] = CinemaCard.objects.filter(is_active=True).order_by('date_created')
-
-        self.context['movies'] = MovieCard.objects.filter(is_active=True,
-                                                          release_date__lte=timezone.now()).order_by('-date_created')
-        self.context['halls'] = CinemaHallCard.objects.filter(is_active=True).order_by('cinema').select_related()
-
         self.context['movie_id'] = movie_id
         self.context['movie_type'] = movie_type
         self.context['start_date'] = start_date
         self.context['hall_id'] = hall_id
+
+        self.context['movie_sessions'], self.context['session_days'] = MovieSession.get_movie_sessions_context()
+        self.context['movie_types'] = MovieCard.get_every_movie_type_tuple()
+        self.context['cinemas'] = CinemaCard.objects.filter(is_active=True).order_by('date_created')
+        self.context['movies'] = MovieCard.objects.filter(is_active=True,
+                                                          release_date__lte=timezone.now()).order_by('-date_created')
+        self.context['halls'] = CinemaHallCard.objects.filter(is_active=True).order_by('cinema').select_related()
 
         return self.context
 
