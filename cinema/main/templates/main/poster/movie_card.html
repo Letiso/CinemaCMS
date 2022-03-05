@@ -66,7 +66,7 @@
 
             </div>
 
-            <div class="row ml-5 my-2 justify-content-start">
+            <div class="row mx-5 my-2 justify-content-start">
                 {% for movie_session in movie_sessions %}
                     <a class="col-2 my-3 text-center"
                        href="{% url 'main:timetable' movie_id=card.pk movie_type=movie_session.movie_type hall_id=movie_session.hall.pk %}" style="font-size: 25px;">
@@ -81,7 +81,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="px-2">
+                                    <td class="px-1">
                                         Зал {{ movie_session.hall.number }}
                                     </td>
                                     <td class="px-2">

@@ -420,8 +420,7 @@ class MovieSession(models.Model):
                                             **extra_filters).order_by('start_datetime').select_related()
 
         session_days = [movie_session.start_datetime.date() for movie_session in movie_sessions]
-        session_days_unique = list(set(session_days))
-        session_days_unique.sort()
+        session_days_unique = sorted(list(set(session_days)))[:7]
 
         return movie_sessions, session_days_unique
 

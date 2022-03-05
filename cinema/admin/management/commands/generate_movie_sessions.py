@@ -23,7 +23,7 @@ class Command(BaseCommand):
 
     @staticmethod
     def get_random_data() -> dict:
-        movie_cards = MovieCard.objects.filter(is_active=True)
+        movie_cards = MovieCard.objects.filter(is_active=True, release_date__lte=timezone.now())
         movie_card = get_random_element(movie_cards)
 
         movie_types = movie_card.available_movie_types_tuple

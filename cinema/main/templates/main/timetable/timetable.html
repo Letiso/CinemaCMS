@@ -148,7 +148,8 @@
                     "dom": 'rt',
                     "search": {
                         "regex": true,
-                    }
+                    },
+                    "ordering": false
                 });
         }
     </script>
@@ -156,7 +157,7 @@
     {# initMovieTypeCheckboxFilter #}
     <script>
         function initMovieTypeCheckboxFilter () {
-            let movieTypeCheckboxFilter = $("input[id*='movie_type']");
+            let movieTypeCheckboxFilter = $(".movie_type");
 
             $(movieTypeCheckboxFilter).on('change', function () {
                 let checkedCheckboxes = []
@@ -286,13 +287,13 @@
             const movieTypeCheckboxFilter = $('#{{ movie_type }}:checkbox')
             movieTypeCheckboxFilter.prop('checked', true)
 
-            let simpleSelectFiltersObject = {
+            const simpleSelectFilters = {
                 '{{ movie_id }}': $('#movie_filter'),
                 '{{ start_date }}': $('#date_filter'),
                 '{{ hall_id }}': $('#hall_filter')
             }
 
-            for (const [value, selectFilter] of Object.entries(simpleSelectFiltersObject)) {
+            for (const [value, selectFilter] of Object.entries(simpleSelectFilters)) {
                 selectFilter.prop('value', value).change()
             }
         }
