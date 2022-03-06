@@ -1,8 +1,32 @@
 {% extends 'main/main_layout.html' %}
+{% load static %}
 
 {% block title %}Бронирование билета{% endblock %}
 
 {% block main_timetable %}active{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        #movie_name {
+            background: #bc3c29;
+            font-size: 22px;
+        }
+
+        #movie_name:before {
+            content: '';
+            background: #f8c642;
+
+            display: block;
+            position: absolute;
+            z-index: -1;
+            transform: rotate(17deg);
+
+            margin-top: 17px;
+            height: 20px;
+            width: 50px;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
     {# hall banner #}
@@ -14,6 +38,9 @@
     <div class="row">
         {# left side area #}
             <div class="col-2 ml-5 mr-3">
+                <div>
+                    <img src="{{ movie_session.movie.main_image.url }}" class="w-100 mt-3" alt="">
+                </div>
                 {# context ads #}
                     <div class="col my-5 text-center p-5 black-text" style="background: lightgray;">
                         <a href="#">
@@ -28,9 +55,38 @@
 
         {# content #}
             <div class="col mr-5">
+                {# info #}
+                <div class="">
+                    <div class="col">
+                        <p id="movie_name" class="badge text-white mt-4 py-2 pl-3 pr-4 pt-2">{{ movie_session.movie.title|upper }}</p>
+                    </div>
+                </div>
 
+                {# hall scheme #}
+                <div class="">
+
+                </div>
+
+                {# buy links #}
+                <div class="container-fluid my-5">
+                    <h5>
+                        Стоимость услуги бронирования - 3 грн. за каждое место
+                    </h5>
+
+                    <h5>
+                        ЗАБРОНИРОВАННЫЕ БИЛЕТЫ НУЖНО ВЫКУПИТЬ В КАССЕ КИНОТЕАТРА НЕ ПОЗДНЕЕ ЧЕМ ЗА ПОЛЧАСА ДО НАЧАЛА СЕАНСА
+                    </h5>
+                    <div class="row justify-content-center mt-3">
+                        <a href="#" class="btn btn-light mx-2" style="border: 2px solid black; width: 220px;">
+                            Забронировать
+                        </a>
+
+                        <a href="#" class="btn btn-success mx-2" style="border: 2px solid black; width: 220px;">
+                            Купить
+                        </a>
+                    </div>
+                </div>
             </div>
         {# content end #}
     </div>
-
 {% endblock %}

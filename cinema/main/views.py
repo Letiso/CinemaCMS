@@ -166,6 +166,13 @@ class MovieSessionsTimetableView(CustomAbstractView):
 class TicketBookingView(CustomAbstractView):
     template_name = 'main/timetable/ticket_booking.html'
 
+    def get_context(self, request, pk):
+        self.context = super().get_context()
+
+        self.context['movie_session'] = MovieSession.objects.get(pk=pk)
+
+        return self.context
+
 
 # endregion Timetable
 
