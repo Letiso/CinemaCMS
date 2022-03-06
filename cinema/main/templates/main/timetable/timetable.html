@@ -285,7 +285,7 @@
     <script>
         function initFiltersUsingUrlParams () {
             const movieTypeCheckboxFilter = $('#{{ movie_type }}:checkbox')
-            movieTypeCheckboxFilter.prop('checked', true)
+            movieTypeCheckboxFilter.prop('checked', true).change()
 
             const simpleSelectFilters = {
                 '{{ movie_id }}': $('#movie_filter'),
