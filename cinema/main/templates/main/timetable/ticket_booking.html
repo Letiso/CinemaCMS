@@ -57,8 +57,44 @@
             <div class="col mr-5">
                 {# info #}
                 <div class="">
-                    <div class="col">
-                        <p id="movie_name" class="badge text-white mt-4 py-2 pl-3 pr-4 pt-2">{{ movie_session.movie.title|upper }}</p>
+                    <p id="movie_name" class="badge text-white mt-4 py-2 pl-3 pr-4 pt-2">{{ movie_session.movie.title|upper }}</p>
+                    <h6 class="text-gray mt-3">{{ movie_session.start_datetime|date:"j E, H:i"|upper }}, ЗАЛ №{{ movie_session.hall.number }}</h6>
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="mt-3">ЦЕНА В ГРН.:
+                                <span style="background: orange; color: white; font-weight: bold; padding: 8px; margin-left: 15px;">
+                                    {{ movie_session.ticket_price }}
+                                </span>
+                            </h5>
+                        </div>
+                        <div class="col-9 row justify-content-center">
+                            <h5 class="mt-3 mr-5">
+                                ЗАБРОНИРОВАНО:
+                                <span style="background: gray;
+                                             color: white;
+                                             font-weight: bold;
+                                             padding: 20px 8px 8px 25px;
+                                             margin-left: 15px;">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </h5>
+
+                            <h5 class="mt-3 mr-3">
+                                ВАШ ЗАКАЗ:
+                            </h5>
+                            <div class="d-inline-flex pt-3 px-4" style="border: 2px solid orange">
+                                <p>БИЛЕТОВ:
+                                    <span id="chosen_tickets_count" class="text-danger mr-5" style="font-weight: bold">
+                                        0
+                                    </span>
+                                </p>
+                                <p>СУММА:
+                                    <span id="chosen_tickets_total_price" class="text-danger" style="font-weight: bold">
+                                        0 грн.
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
