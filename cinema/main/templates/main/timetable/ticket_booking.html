@@ -36,22 +36,42 @@
         color: white;
 
     }
+    .ticket-able {
+        background: orange;
+    }
+    .ticket-booked {
+        background: gray;
+    }
     .ticket-sold {
         background: greenyellow;
     }
 
-    .ticket-able {
-        background: darkorange;
-    }
-
-    .ticket-booked {
-        background: gray;
-    }
-
-    .ticket {
+    .ticket_number {
         position: absolute;
         margin-left: 30px;
         margin-top: 28px;
+    }
+
+    input[type="checkbox"][id^="ticket-"] {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    input[type="checkbox"][id^="ticket-"]:hover + label > div {
+        background: darkgrey;
+
+        transition: transform .4s;
+        transform: scale(1.10);
+    }
+
+    input[type="checkbox"][id^="ticket-"]:checked + label > div {
+        background: orangered;
+    }
+
+    input[type="checkbox"][id^="ticket-"]:checked:hover + label > div {
+        background: darkred;
+        transform: scale(1.05);
     }
     </style>
 {% endblock %}
@@ -101,7 +121,7 @@
                             </h5>
 
                             <div class="ticket-card ticket-booked mr-5">
-                                <span class="ticket">
+                                <span class="ticket_number">
                                     <i class="fas fa-user"></i>
                                 </span>
                             </div>
@@ -146,15 +166,29 @@
                         <div id="tickets" class="col-10 d-inline-flex justify-content-center">
                             {% for ticket in tickets %}
                                 {% if ticket.row == row_number %}
-                                    <div class="ml-3 ticket-card ticket-{% if ticket.is_sold %}sold{% elif ticket.is_booked %}booked{% else %}able{% endif %}container ticket-card ticket-{% if ticket.is_sold %}sold{% elif ticket.is_booked %}booked{% else %}able{% endif %}container ticket-card ticket-{% if ticket.is_sold %}sold{% elif ticket.is_booked %}booked{% else %}able{% endif %}">
-                                        <span class="ticket">
-                                            {% if ticket.is_sold or ticket.is_booked%}
+
+                                    {% if ticket.is_sold or ticket.is_booked %}
+                                        <div class="ticket-card ticket-{% if ticket.is_sold %}sold{% else %}booked{% endif %} mr-5">
+                                            <span class="ticket_number">
                                                 <i class="fas fa-user"></i>
-                                            {% else %}
-                                                <span>{{ ticket.place_number }}</span>
-                                            {% endif %}
-                                        </span>
-                                    </div>
+                                            </span>
+                                        </div>
+
+                                    {% else %}
+                                        <input id="ticket-{{ forloop.counter }}" type="checkbox">
+
+                                        <label for="ticket-{{ forloop.counter }}">
+                                            <div class="ml-3 ticket-card ticket-able">
+                                                <span class="ticket_number">
+                                                    {% if ticket.is_sold or ticket.is_booked %}
+                                                        <i class="fas fa-user"></i>
+                                                    {% else %}
+                                                        <span>{{ ticket.place_number }}</span>
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </label>
+                                    {% endif %}
 
                                 {% endif %}
                             {% endfor %}
