@@ -211,13 +211,13 @@
                         ЗАБРОНИРОВАННЫЕ БИЛЕТЫ НУЖНО ВЫКУПИТЬ В КАССЕ КИНОТЕАТРА НЕ ПОЗДНЕЕ ЧЕМ ЗА ПОЛЧАСА ДО НАЧАЛА СЕАНСА
                     </h5>
                     <div class="row justify-content-center mt-3">
-                        <a href="{% url 'main:ticket_pay' user_pk=user.pk mode='booking' tickets='none' %}"
+                        <a href="{% url 'main:ticket_pay' user_pk=user.pk mode='booking' tickets='[]' %}"
                            class="btn btn-light mx-2 pay_link"
                            style="border: 2px solid black; width: 220px;">
                             Забронировать
                         </a>
 
-                        <a href="{% url 'main:ticket_pay' user_pk=user.pk mode='pay' tickets='none' %}"
+                        <a href="{% url 'main:ticket_pay' user_pk=user.pk mode='pay' tickets='[]' %}"
                            class="btn btn-success mx-2 pay_link"
                            style="border: 2px solid black; width: 220px;">
                             Купить
@@ -261,7 +261,7 @@
         const pay_links = $('.pay_link')
 
         pay_links.on('click', function () {
-            this.href = this.href.replace('none', JSON_TICKETS_ID)
+            this.href = this.href.replace('[]', JSON_TICKETS_ID)
         })
 
     </script>
