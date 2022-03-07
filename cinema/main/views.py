@@ -181,21 +181,12 @@ class TicketBookingView(CustomAbstractView):
 
         return self.context
 
+
 class TicketBookingPayView(CustomAbstractView):
-    template_name = 'main/timetable/ticket_booking.html'
+    template_name = 'main/timetable/pay.html'
 
-    def get_context(self, request, pk):
+    def get_context(self, request, mode, tickets, user_pk):
         self.context = super().get_context()
-
-        self.context['movie_session'] = MovieSession.objects.get(pk=pk)
-
-        tickets = Ticket.objects.filter(movie_session_id=pk)
-        self.context['tickets'] = tickets
-
-        places_rows = sorted(list(set(
-            [ticket.row for ticket in tickets]
-        )))     # get only unique row values
-        self.context['places_rows'] = places_rows
 
         return self.context
 

@@ -211,11 +211,17 @@
                         ЗАБРОНИРОВАННЫЕ БИЛЕТЫ НУЖНО ВЫКУПИТЬ В КАССЕ КИНОТЕАТРА НЕ ПОЗДНЕЕ ЧЕМ ЗА ПОЛЧАСА ДО НАЧАЛА СЕАНСА
                     </h5>
                     <div class="row justify-content-center mt-3">
-                        <a href="#" class="btn btn-light mx-2" style="border: 2px solid black; width: 220px;">
+                        <a href="{% url 'main:ticket_pay' user_pk=user.pk mode='booking' tickets='none' %}"
+                           id="booking_link"
+                           class="btn btn-light mx-2"
+                           style="border: 2px solid black; width: 220px;">
                             Забронировать
                         </a>
 
-                        <a href="#" class="btn btn-success mx-2" style="border: 2px solid black; width: 220px;">
+                        <a href="{% url 'main:ticket_pay' user_pk=user.pk mode='pay' tickets='none' %}"
+                           id="pay_link"
+                           class="btn btn-success mx-2"
+                           style="border: 2px solid black; width: 220px;">
                             Купить
                         </a>
                     </div>
@@ -232,7 +238,9 @@
             let selectedTicketsId = []
 
             $('.ticket_checkbox:checked').each(function () {
-                selectedTicketsId.push(this.id)
+                const clear_id = this.id.split('-')[1]
+
+                selectedTicketsId.push(clear_id)
             });
 
             const ticketsCount = selectedTicketsId.length
@@ -241,6 +249,17 @@
 
             $('#chosen_tickets_count').text(ticketsCount)
             $('#chosen_tickets_total_price').text(ticketsTotalPrice)
+
+            // pass data to url // TODO using of replace isn't good idea
+            const json_kwargs = JSON.stringify(selectedTicketsId)
+
+            const booking = $('#booking_link')
+            const booking_link = booking.prop('href').replace('none', json_kwargs)
+            booking.prop('href', booking_link)
+
+            const pay = $('#pay_link')
+            const pay_link = booking.prop('href').replace('none', json_kwargs)
+            pay.prop('href', pay_link)
 
             {#selectedTicketsId#}
         });
