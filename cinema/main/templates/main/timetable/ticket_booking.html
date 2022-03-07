@@ -58,10 +58,12 @@
         opacity: 0;
     }
 
+    input[type="checkbox"][id^="ticket-"] + label > div {
+        transition: .3s;
+    }
+
     input[type="checkbox"][id^="ticket-"]:hover + label > div {
         background: darkgrey;
-
-        transition: transform .4s;
         transform: scale(1.10);
     }
 
@@ -71,8 +73,8 @@
 
     input[type="checkbox"][id^="ticket-"]:checked:hover + label > div {
         background: darkred;
-        transform: scale(1.05);
     }
+
     </style>
 {% endblock %}
 
@@ -160,7 +162,7 @@
 
                 {% for row_number in places_rows %}
                     <div class="row mt-3">
-                        <div id="rows" class="col-2 mt-1">
+                        <div id="rows" class="col mt-1 ml-5">
                             <h3>Ряд {{ row_number }}</h3>
                         </div>
                         <div id="tickets" class="col-10 d-inline-flex justify-content-center">
@@ -217,4 +219,11 @@
             </div>
         {# content end #}
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+
+
+    </script>
 {% endblock %}
