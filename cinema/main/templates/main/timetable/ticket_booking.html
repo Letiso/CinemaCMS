@@ -26,6 +26,34 @@
             width: 50px;
         }
     </style>
+
+    <style>
+    .ticket-card {
+        font-weight: bold;
+        margin-left: 10px;
+        width: 55px;
+        height: 55px;
+        color: white;
+
+    }
+    .ticket-sold {
+        background: greenyellow;
+    }
+
+    .ticket-able {
+        background: darkorange;
+    }
+
+    .ticket-booked {
+        background: gray;
+    }
+
+    .ticket {
+        position: absolute;
+        margin-left: 30px;
+        margin-top: 28px;
+    }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -68,16 +96,15 @@
                             </h5>
                         </div>
                         <div class="col-9 row justify-content-center">
-                            <h5 class="mt-3 mr-5">
+                            <h5 class="mt-3">
                                 ЗАБРОНИРОВАНО:
-                                <span style="background: gray;
-                                             color: white;
-                                             font-weight: bold;
-                                             padding: 20px 8px 8px 25px;
-                                             margin-left: 15px;">
+                            </h5>
+
+                            <div class="ticket-card ticket-booked mr-5">
+                                <span class="ticket">
                                     <i class="fas fa-user"></i>
                                 </span>
-                            </h5>
+                            </div>
 
                             <h5 class="mt-3 mr-3">
                                 ВАШ ЗАКАЗ:
@@ -102,7 +129,7 @@
                 </div>
 
                 {# hall scheme #}
-                <div class="row mt-5">
+                <div class="row my-5">
                     <div class="col-10 ml-auto text-center">
                         <hr style="border-width: 2px; border-color: black">
                         <h3>
@@ -112,24 +139,25 @@
                 </div>
 
                 {% for row_number in places_rows %}
-                    <div class="row mt-5">
-                        <div id="rows" class="col-2">
+                    <div class="row mt-3">
+                        <div id="rows" class="col-2 mt-1">
                             <h3>Ряд {{ row_number }}</h3>
                         </div>
-                        <div id="tickets" class="col-10 ml-auto text-center">
-                            <h3>
-                                {% for ticket in tickets %}
-                                    {% if ticket.row == row_number %}
-                                        <span style="background: darkorange;
-                                                     color: white;
-                                                     font-weight: bold;
-                                                     padding: 20px 8px 8px 25px;
-                                                     margin-left: 15px;">
-                                            <i class="fas fa-user"></i>
+                        <div id="tickets" class="col-10 d-inline-flex justify-content-center">
+                            {% for ticket in tickets %}
+                                {% if ticket.row == row_number %}
+                                    <div class="ml-3 ticket-card ticket-{% if ticket.is_sold %}sold{% elif ticket.is_booked %}booked{% else %}able{% endif %}container ticket-card ticket-{% if ticket.is_sold %}sold{% elif ticket.is_booked %}booked{% else %}able{% endif %}container ticket-card ticket-{% if ticket.is_sold %}sold{% elif ticket.is_booked %}booked{% else %}able{% endif %}">
+                                        <span class="ticket">
+                                            {% if ticket.is_sold or ticket.is_booked%}
+                                                <i class="fas fa-user"></i>
+                                            {% else %}
+                                                <span>{{ ticket.place_number }}</span>
+                                            {% endif %}
                                         </span>
-                                    {% endif %}
-                                {% endfor %}
-                            </h3>
+                                    </div>
+
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 {% endfor %}
