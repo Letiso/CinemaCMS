@@ -212,15 +212,13 @@
                     </h5>
                     <div class="row justify-content-center mt-3">
                         <a href="{% url 'main:ticket_pay' user_pk=user.pk mode='booking' tickets='none' %}"
-                           id="booking_link"
-                           class="btn btn-light mx-2"
+                           class="btn btn-light mx-2 pay_link"
                            style="border: 2px solid black; width: 220px;">
                             Забронировать
                         </a>
 
                         <a href="{% url 'main:ticket_pay' user_pk=user.pk mode='pay' tickets='none' %}"
-                           id="pay_link"
-                           class="btn btn-success mx-2"
+                           class="btn btn-success mx-2 pay_link"
                            style="border: 2px solid black; width: 220px;">
                             Купить
                         </a>
@@ -233,7 +231,9 @@
 
 {% block scripts %}
     <script>
+        let JSON_TICKETS_ID;
         let allTickets = $('.ticket_checkbox')
+
         allTickets.on('change', () => {
             let selectedTicketsId = []
 
@@ -250,21 +250,19 @@
             $('#chosen_tickets_count').text(ticketsCount)
             $('#chosen_tickets_total_price').text(ticketsTotalPrice)
 
-            // pass data to url // TODO using of replace isn't good idea
-            const json_kwargs = JSON.stringify(selectedTicketsId)
-
-            const booking = $('#booking_link')
-            const booking_link = booking.prop('href').replace('none', json_kwargs)
-            booking.prop('href', booking_link)
-
-            const pay = $('#pay_link')
-            const pay_link = booking.prop('href').replace('none', json_kwargs)
-            pay.prop('href', pay_link)
-
-            {#selectedTicketsId#}
+            // prepare to pass data to url
+            JSON_TICKETS_ID = JSON.stringify(selectedTicketsId)
         });
 
+    </script>
 
+    {# pass data to url #}
+    <script>
+        const pay_links = $('.pay_link')
+
+        pay_links.on('click', function () {
+            this.href = this.href.replace('none', JSON_TICKETS_ID)
+        })
 
     </script>
 {% endblock %}
