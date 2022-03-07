@@ -211,13 +211,13 @@
                         ЗАБРОНИРОВАННЫЕ БИЛЕТЫ НУЖНО ВЫКУПИТЬ В КАССЕ КИНОТЕАТРА НЕ ПОЗДНЕЕ ЧЕМ ЗА ПОЛЧАСА ДО НАЧАЛА СЕАНСА
                     </h5>
                     <div class="row justify-content-center mt-3">
-                        <a href="{% url 'main:ticket_pay' user_pk=user.pk mode='booking' tickets='[]' %}"
+                        <a href="{% url 'main:ticket_pay' tickets='[]' mode='booking' user_pk=user.pk %}"
                            class="btn btn-light mx-2 pay_link"
                            style="border: 2px solid black; width: 220px;">
                             Забронировать
                         </a>
 
-                        <a href="{% url 'main:ticket_pay' user_pk=user.pk mode='pay' tickets='[]' %}"
+                        <a href="{% url 'main:ticket_pay' tickets='[]' mode='pay' user_pk=user.pk %}"
                            class="btn btn-success mx-2 pay_link"
                            style="border: 2px solid black; width: 220px;">
                             Купить
