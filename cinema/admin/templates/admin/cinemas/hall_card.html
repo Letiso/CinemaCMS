@@ -41,15 +41,13 @@
                         {{ form.number|as_crispy_field }}
                     </div>
                     {{ form.description|as_crispy_field }}
-                    <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
-                        <div class="card-header">
-                            <p id="{{ form.scheme.id_for_label }}-required_size"></p>
-                        </div>
-                        <img id="{{ form.scheme.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.scheme %}{{ form.instance.scheme.url }}{% endif %}" alt="">
-                        <div class="card-body">
-                            {{ form.scheme|as_crispy_field }}
-                        </div>
+
+                    <label>Схема зала:</label>
+                    <div class="col-2 ml-3">
+                        {{ form.rows_count|as_crispy_field }}
+                        {{ form.places_count|as_crispy_field }}
                     </div>
+
 
                     <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
                         <div class="card-header">

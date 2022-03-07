@@ -171,6 +171,14 @@ class TicketBookingView(CustomAbstractView):
 
         self.context['movie_session'] = MovieSession.objects.get(pk=pk)
 
+        tickets = Ticket.objects.filter(movie_session_id=pk)
+        self.context['tickets'] = tickets
+
+        places_rows = sorted(list(set(
+            [ticket.row for ticket in tickets]
+        )))     # get only unique row values
+        self.context['places_rows'] = places_rows
+
         return self.context
 
 

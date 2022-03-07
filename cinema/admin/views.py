@@ -13,7 +13,6 @@ from main.models import *
 from datetime import date
 
 from cinema.tasks import send_mail
-# from user.tests import create_default_users
 
 
 # region Mixins

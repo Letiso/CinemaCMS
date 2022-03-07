@@ -1,6 +1,7 @@
 from django.db import models
-import datetime
 from django.utils import timezone
+from django.contrib.auth import get_user_model
+import datetime
 
 from abc import abstractmethod
 from typing import Dict, Tuple
@@ -174,8 +175,8 @@ class CinemaHallCard(ImageFieldsValidationMixin, models.Model):
     number = models.CharField('Номер зала', max_length=256)
     description = models.TextField('Описание зала')
 
-    scheme_required_size = (1000, 190)
-    scheme = models.ImageField('Схема зала', upload_to='main/cinemas/halls/schemes')
+    rows_count = models.CharField('Количество рядов', max_length=3, default=0)
+    places_count = models.CharField('Количество мест в ряду', max_length=3, default=0)
 
     banner_required_size = (1000, 190)
     banner = models.ImageField('Баннер', upload_to='main/cinemas/halls/banners')
@@ -186,7 +187,7 @@ class CinemaHallCard(ImageFieldsValidationMixin, models.Model):
 
     @classmethod
     def get_required_sizes(cls):
-        return {'scheme': cls.scheme_required_size, 'banner': cls.banner_required_size}
+        return {'banner': cls.banner_required_size}
 
 
 class CinemaHallGallery(ImageFieldsValidationMixin, models.Model):
@@ -401,6 +402,15 @@ class EmailMailingHTMLMessage(models.Model):
 # endregion Mailing
 
 # region MovieSessions
+
+class TicketsMakerManager(models.Manager):
+    def bulk_create(self, objs, **kwargs) -> None:
+        super().bulk_create(objs, **kwargs)
+
+        for movie_session in objs:
+            movie_session.create_tickets()
+
+
 class MovieSession(models.Model):
     movie = models.ForeignKey(MovieCard, on_delete=models.DO_NOTHING, related_name='movie_session')
     hall = models.ForeignKey(CinemaHallCard, on_delete=models.DO_NOTHING, related_name='movie_session')
@@ -409,6 +419,8 @@ class MovieSession(models.Model):
     movie_type = models.CharField(max_length=10)
 
     ticket_price = models.CharField(max_length=20, default='1')
+
+    objects = TicketsMakerManager()
 
     @classmethod
     def get_movie_sessions_context(cls, **extra_filters) -> tuple:
@@ -424,5 +436,36 @@ class MovieSession(models.Model):
 
         return movie_sessions, session_days_unique
 
+    def create_tickets(self) -> None:
+        rows_count = int(self.hall.rows_count)
+        rows_range = range(1, rows_count)
+
+        places_count = int(self.hall.places_count)
+        places_range = range(1, places_count)
+
+        tickets_to_create = []
+        tickets_to_create_data = []
+
+        for row in rows_range:
+            for place in places_range:
+                tickets_to_create_data.append({'row': row, 'place_number': place})
+
+        for ticket_data in tickets_to_create_data:
+            tickets_to_create.append(Ticket(movie_session=self, **ticket_data))
+
+        Ticket.objects.bulk_create(tickets_to_create)
+
+
+class Ticket(models.Model):
+    movie_session = models.ForeignKey(MovieSession, related_name='tickets', on_delete=models.DO_NOTHING)
+
+    row = models.CharField(max_length=3)
+    place_number = models.CharField(max_length=3)
+
+    is_sold = models.BooleanField('Продано', default=False)
+    is_booked = models.BooleanField('Забронировано', default=False)
+
+    UserModel = get_user_model()
+    user = models.ForeignKey(UserModel, related_name='tickets', on_delete=models.DO_NOTHING, blank=True, null=True)
 
 # endregion MovieSessions
