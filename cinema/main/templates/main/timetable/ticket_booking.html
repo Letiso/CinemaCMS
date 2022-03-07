@@ -112,7 +112,7 @@
                     <div class="row">
                         <div class="col">
                             <h5 class="mt-3">ЦЕНА В ГРН.:
-                                <span style="background: orange; color: white; font-weight: bold; padding: 8px; margin-left: 15px;">
+                                <span id="ticket_price" style="background: orange; color: white; font-weight: bold; padding: 8px; margin-left: 15px;">
                                     {{ movie_session.ticket_price }}
                                 </span>
                             </h5>
@@ -177,9 +177,9 @@
                                         </div>
 
                                     {% else %}
-                                        <input id="ticket-{{ forloop.counter }}" type="checkbox">
+                                        <input id="ticket-{{ ticket.pk }}" class="ticket_checkbox" type="checkbox">
 
-                                        <label for="ticket-{{ forloop.counter }}">
+                                        <label for="ticket-{{ ticket.pk }}">
                                             <div class="ml-3 ticket-card ticket-able">
                                                 <span class="ticket_number">
                                                     {% if ticket.is_sold or ticket.is_booked %}
@@ -223,6 +223,23 @@
 
 {% block scripts %}
     <script>
+        let allTickets = $('.ticket_checkbox')
+        allTickets.on('change', () => {
+            let selectedTicketsId = []
+
+            $('.ticket_checkbox:checked').each(function () {
+                selectedTicketsId.push(this.id)
+            });
+
+            const ticketsCount = selectedTicketsId.length
+            const ticketPrice = parseInt($('#ticket_price').text())
+            const ticketsTotalPrice = ticketsCount * ticketPrice
+
+            $('#chosen_tickets_count').text(ticketsCount)
+            $('#chosen_tickets_total_price').text(ticketsTotalPrice)
+
+        });
+
 
 
     </script>

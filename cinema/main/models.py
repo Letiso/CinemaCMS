@@ -437,10 +437,10 @@ class MovieSession(models.Model):
 
     def create_tickets(self) -> None:
         rows_count = int(self.hall.rows_count)
-        rows_range = range(1, rows_count)
+        rows_range = range(1, rows_count + 1)
 
         places_count = int(self.hall.places_count)
-        places_range = range(1, places_count)
+        places_range = range(1, places_count + 1)
 
         tickets_to_create = []
         tickets_to_create_data = []
