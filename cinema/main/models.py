@@ -402,8 +402,7 @@ class EmailMailingHTMLMessage(models.Model):
 # endregion Mailing
 
 # region MovieSessions
-
-class TicketsMakerManager(models.Manager):
+class ExtendedManager(models.Manager):
     def bulk_create(self, objs, **kwargs) -> None:
         super().bulk_create(objs, **kwargs)
 
@@ -420,7 +419,7 @@ class MovieSession(models.Model):
 
     ticket_price = models.CharField(max_length=20, default='1')
 
-    objects = TicketsMakerManager()
+    objects = ExtendedManager()
 
     @classmethod
     def get_movie_sessions_context(cls, **extra_filters) -> tuple:
