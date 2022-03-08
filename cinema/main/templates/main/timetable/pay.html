@@ -5,13 +5,49 @@
 
 {% block main_timetable %}active{% endblock %}
 
-{% block stylesheets %}
-
-{% endblock %}
-
 {% block content %}
+<div class="row" style="margin-top: 200px; margin-bottom: 100px;">
+    <div class="col-md-6 mx-auto text-center">
+        <h3 class="text-center">{% if mode == 'booking' %}Бронирование{% else %}Покупка{% endif %} билета</h3>
+        <hr class="mb-5">
 
-{% endblock %}
+        <h5 class="mt-3 mr-3">
+            ВАШ ЗАКАЗ:
+        </h5>
 
-{% block scripts %}
+        <div class="d-inline-flex pt-3 px-4 mr-5 text-center" style="border: 3px solid orange">
+            <p>БИЛЕТОВ:
+                <span id="chosen_tickets_count" class="text-danger mr-5" style="font-weight: bold">
+                    {{ tickets_count }}
+                </span>
+            </p>
+            <p>СУММА:
+                <span id="chosen_tickets_total_price" class="text-danger" style="font-weight: bold">
+
+                    {{ tickets_total_price }}
+                </span>
+                <span class="text-danger" style="font-weight: bold">
+                    грн.
+                </span>
+            </p>
+        </div>
+
+        <label class="ml-5" style="font-weight: bold; width: 300px;">
+            Введите номер карты:
+            <input type="text" class="form-control">
+        </label>
+
+        <hr class="my-5">
+
+        <div class="mt-3 text-center">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="submit" name="confirm"
+                       class="btn btn-success ml-5" style="font-size: 22px;" value="Оплатить">
+                <input type="submit" name="cancel"
+                       class="btn btn-danger ml-5" style="font-size: 22px;" value="Отменить оплату">
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

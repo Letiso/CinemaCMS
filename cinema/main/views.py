@@ -1,6 +1,7 @@
 import datetime
+import json
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, ListView
 from django.http import HttpResponse
 
@@ -185,10 +186,29 @@ class TicketBookingView(CustomAbstractView):
 class TicketBookingPayView(CustomAbstractView):
     template_name = 'main/timetable/pay.html'
 
-    def get_context(self, request, mode, tickets, user_pk):
+    def get_context(self, request, mode, tickets, user, movie_session):
         self.context = super().get_context()
 
+        movie_session = MovieSession.objects.get(pk=movie_session)
+        self.context['movie_session'] = movie_session
+        self.context['mode'] = mode
+
+        tickets_id_list = json.loads(tickets)
+        tickets_count = len(tickets_id_list)
+        self.context['tickets_count'] = tickets_count
+        self.context['tickets_total_price'] = tickets_count * int(movie_session.ticket_price if mode == 'pay' else 3)
+
         return self.context
+
+    def post(self, request, mode, tickets, user, movie_session):
+        self.get_context(request, mode, tickets, user, movie_session)
+
+        if 'confirm' in request.POST:
+            pass
+        elif 'cancel' in request.POST:
+            pass
+
+        return redirect('main:ticket_booking', movie_session)
 
 # endregion Timetable
 
