@@ -58,7 +58,6 @@ services:
       - .env
     command: >
       sh -c "make celery"
-#      sh -c "celery -A cinema worker -l info"
     depends_on:
       - django_asgi
     networks:

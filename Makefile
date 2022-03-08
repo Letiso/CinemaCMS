@@ -28,6 +28,11 @@ superuser:
 
 test_users:
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py generate_test_users $(count)
-
 test_sessions:
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py generate_movie_sessions $(count)
+
+
+purge:
+	docker exec -it cinemacms-django_asgi-1 celery -A cinema purge
+celery:
+	docker exec -it cinemacms-django_asgi-1 celery -A cinema inspect scheduled

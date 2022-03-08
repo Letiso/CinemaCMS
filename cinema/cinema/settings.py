@@ -139,7 +139,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-
 TIME_ZONE = 'Europe/Kiev'
 USE_I18N = True
 USE_L10N = False

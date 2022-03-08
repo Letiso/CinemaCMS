@@ -6,6 +6,8 @@ import datetime
 from abc import abstractmethod
 from typing import Dict, Tuple
 
+from cinema.tasks import cancel_ticket_booking
+
 
 # region Mixins
 class ImageFieldsValidationMixin:
@@ -408,6 +410,8 @@ class ExtendedManager(models.Manager):
 
         for movie_session in objs:
             movie_session.create_tickets()
+            cancel_ticket_booking.apply_async(args=[], kwargs={},
+                                              eta=movie_session.start_datetime - datetime.timedelta(minutes=30))
 
 
 class MovieSession(models.Model):

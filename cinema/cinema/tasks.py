@@ -12,6 +12,7 @@ from cinema.celery import app
 CHANNEL_LAYER = get_channel_layer()
 
 
+# region Mailing
 def send_email(message, user):
     email = EmailMultiAlternatives('Рассылка от CinemaCMS', message, settings.EMAIL_HOST_USER, [user.email])
     email.attach_alternative(message, 'text/html')
@@ -40,3 +41,14 @@ def send_mail(prefix, message, receivers_filter):
             async_to_sync(CHANNEL_LAYER.group_send)(
                 f'{prefix}-mailing', {'type': 'send_progress', 'text': str(progress)}
             )
+
+
+# endregion Mailing
+
+# region MovieSession
+@app.task
+def cancel_ticket_booking():
+    pass
+
+
+# endregion MovieSession
