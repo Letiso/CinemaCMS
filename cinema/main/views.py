@@ -186,10 +186,10 @@ class TicketBookingView(CustomAbstractView):
 class TicketBookingPayView(CustomAbstractView):
     template_name = 'main/timetable/pay.html'
 
-    def get_context(self, request, mode, tickets, user, movie_session):
+    def get_context(self, request, mode, tickets, user_pk, movie_session_pk):
         self.context = super().get_context()
 
-        movie_session = MovieSession.objects.get(pk=movie_session)
+        movie_session = MovieSession.objects.get(pk=movie_session_pk)
         self.context['movie_session'] = movie_session
         self.context['mode'] = mode
 
@@ -210,17 +210,17 @@ class TicketBookingPayView(CustomAbstractView):
             ticket.is_booked = True
         ticket.save()
 
-    def post(self, request, mode, tickets, user, movie_session):
-        self.get_context(request, mode, tickets, user, movie_session)
+    def post(self, request, mode, tickets, user_pk, movie_session_pk):
+        self.get_context(request, mode, tickets, user_pk, movie_session_pk)
 
         if 'confirm' in request.POST:
             tickets_to_buy_id_list = json.loads(tickets)
             tickets = Ticket.objects.filter(id__in=tickets_to_buy_id_list)
 
             for ticket in tickets:
-                self.save_ticket(ticket, mode, user)
+                self.save_ticket(ticket, mode, user_pk)
 
-        return redirect('main:ticket_booking', movie_session)
+        return redirect('main:ticket_booking', movie_session_pk)
 
 
 # endregion Timetable
