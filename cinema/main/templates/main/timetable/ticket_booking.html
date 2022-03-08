@@ -54,7 +54,7 @@
     </style>
 
     <style>
-        input[type="checkbox"][id^="ticket-"] {
+        input[type="checkbox"][id^="ticket-"],  input[type="button"][id^="ticket-"] {
             position: absolute;
             visibility: hidden;
             opacity: 0;
@@ -170,29 +170,19 @@
                             <div id="tickets" class="col-10 d-inline-flex justify-content-center">
                                 {% for ticket in tickets %}
                                     {% if ticket.row == row_number %}
+                                        <input id="ticket-{{ ticket.pk }}" class="ticket_checkbox" type="{% if ticket.is_sold or ticket.is_booked %}button{% else %}checkbox{% endif %}">
 
-                                        {% if ticket.is_sold or ticket.is_booked %}
-                                            <div class="ticket-card ticket-{% if ticket.is_sold %}sold{% else %}booked{% endif %} mr-5">
+                                        <label for="ticket-{{ ticket.pk }}">
+                                            <div class="ml-3 ticket-card ticket-{% if ticket.is_sold %}sold{% elif ticket.is_booked %}booked{% else %}able{% endif %}">
                                                 <span class="ticket_number">
-                                                    <i class="fas fa-user"></i>
+                                                    {% if ticket.is_sold or ticket.is_booked %}
+                                                        <i class="fas fa-user"></i>
+                                                    {% else %}
+                                                        <span>{{ ticket.place_number }}</span>
+                                                    {% endif %}
                                                 </span>
                                             </div>
-
-                                        {% else %}
-                                            <input id="ticket-{{ ticket.pk }}" class="ticket_checkbox" type="checkbox">
-
-                                            <label for="ticket-{{ ticket.pk }}">
-                                                <div class="ml-3 ticket-card ticket-able">
-                                                    <span class="ticket_number">
-                                                        {% if ticket.is_sold or ticket.is_booked %}
-                                                            <i class="fas fa-user"></i>
-                                                        {% else %}
-                                                            <span>{{ ticket.place_number }}</span>
-                                                        {% endif %}
-                                                    </span>
-                                                </div>
-                                            </label>
-                                        {% endif %}
+                                        </label>
 
                                     {% endif %}
                                 {% endfor %}
@@ -269,8 +259,6 @@
                 value = "[]"
             }
             this.href = this.href.replace('tickets_array', value)
-
-            {#console.log(this.href)#}
         })
 
     </script>

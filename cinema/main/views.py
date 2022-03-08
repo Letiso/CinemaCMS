@@ -172,7 +172,7 @@ class TicketBookingView(CustomAbstractView):
 
         self.context['movie_session'] = MovieSession.objects.get(pk=pk)
 
-        tickets = Ticket.objects.filter(movie_session_id=pk)
+        tickets = Ticket.objects.filter(movie_session_id=pk).order_by('place_number')
         self.context['tickets'] = tickets
 
         places_rows = sorted(list(set(
@@ -200,15 +200,28 @@ class TicketBookingPayView(CustomAbstractView):
 
         return self.context
 
+    @staticmethod
+    def save_ticket(ticket, mode, user_pk):
+        ticket.user_id = get_user_model().objects.get(pk=user_pk)
+
+        if mode == 'pay':
+            ticket.is_sold = True
+        else:
+            ticket.is_booked = True
+        ticket.save()
+
     def post(self, request, mode, tickets, user, movie_session):
         self.get_context(request, mode, tickets, user, movie_session)
 
         if 'confirm' in request.POST:
-            pass
-        elif 'cancel' in request.POST:
-            pass
+            tickets_to_buy_id_list = json.loads(tickets)
+            tickets = Ticket.objects.filter(id__in=tickets_to_buy_id_list)
+
+            for ticket in tickets:
+                self.save_ticket(ticket, mode, user)
 
         return redirect('main:ticket_booking', movie_session)
+
 
 # endregion Timetable
 

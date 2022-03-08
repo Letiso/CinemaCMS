@@ -458,8 +458,8 @@ class MovieSession(models.Model):
 class Ticket(models.Model):
     movie_session = models.ForeignKey(MovieSession, related_name='tickets', on_delete=models.DO_NOTHING)
 
-    row = models.CharField(max_length=3)
-    place_number = models.CharField(max_length=3)
+    row = models.IntegerField()
+    place_number = models.IntegerField()
 
     is_sold = models.BooleanField('Продано', default=False)
     is_booked = models.BooleanField('Забронировано', default=False)

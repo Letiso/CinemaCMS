@@ -32,8 +32,8 @@
             </p>
         </div>
 
-        <label class="ml-5" style="font-weight: bold; width: 300px;">
-            Введите номер карты:
+        <label class="ml-5 mt-2" style="font-weight: bold; width: 300px;">
+            ВВЕДИТЕ НОМЕР КАРТЫ:
             <input type="text" class="form-control">
         </label>
 
@@ -42,10 +42,10 @@
         <div class="mt-3 text-center">
             <form method="POST">
                 {% csrf_token %}
-                <input type="submit" name="confirm"
-                       class="btn btn-success ml-5" style="font-size: 22px;" value="Оплатить">
                 <input type="submit" name="cancel"
                        class="btn btn-danger ml-5" style="font-size: 22px;" value="Отменить оплату">
+                <input type="submit" name="confirm"
+                       class="btn btn-success ml-5" style="font-size: 22px;" value="Оплатить">
             </form>
         </div>
     </div>
