@@ -34,5 +34,5 @@ test_sessions:
 
 purge:
 	docker exec -it cinemacms-django_asgi-1 celery -A cinema purge
-celery:
+tasks:
 	docker exec -it cinemacms-django_asgi-1 celery -A cinema inspect scheduled

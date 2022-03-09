@@ -471,4 +471,5 @@ class Ticket(models.Model):
     UserModel = get_user_model()
     user = models.ForeignKey(UserModel, related_name='tickets', on_delete=models.DO_NOTHING, blank=True, null=True)
 
+
 # endregion MovieSessions

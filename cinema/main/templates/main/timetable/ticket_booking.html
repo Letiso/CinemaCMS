@@ -28,7 +28,7 @@
     </style>
 
     <style>
-        input[type="checkbox"][id^="ticket-"],  input[type="button"][id^="ticket-"] {
+        .ticket_checkbox {
             position: absolute;
             visibility: hidden;
             opacity: 0;
@@ -57,10 +57,10 @@
             background: darkgrey;
             transform: scale(1.10);
         }
-        .ticket-able:checked {
+        .ticket_checkbox:checked + label > .ticket-able {
             background: orangered;
         }
-        .ticket-able:checked:hover {
+        .ticket_checkbox:checked + label > .ticket-able:hover {
             background: darkred;
         }
 
@@ -268,7 +268,7 @@
     <script>
         const pay_links = $('.pay_link')
 
-        pay_links.on('click', function (event) {
+        pay_links.on('click', function () {
             let value;
 
             if (JSON_TICKETS_ID != null) {
