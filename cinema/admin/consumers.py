@@ -30,7 +30,15 @@ class EmailConsumer(MailingConsumer):
 # endregion Mailing
 
 # region MovieSession
+class TicketBookingCancelConsumer(Consumer):
+    group = 'disable-tickets'
+
+
 class TicketBookingConsumer(Consumer):
-    pass
+    group = 'enable-tickets'
+
+    async def send_tickets_to_enable(self, event):
+        tickets_id_array = event['text']
+        await self.send(tickets_id_array)
 
 # endregion MovieSession

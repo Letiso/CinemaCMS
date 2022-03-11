@@ -220,7 +220,7 @@
                     </h5>
                     <div class="row justify-content-center mt-3">
                         <a href="{% url 'main:ticket_pay' tickets='tickets_array' mode='booking' user_pk=user.pk movie_session_pk=movie_session.pk %}"
-                           class="btn btn-light mx-2 pay_link"
+                           class="btn btn-light mx-2 pay_link {% if cancel_booking_time == now %}disabled{% endif %}"
                            style="border: 2px solid black; width: 220px;">
                             Забронировать
                         </a>
@@ -239,8 +239,10 @@
 
 {% block scripts %}
     <script>
-        let JSON_TICKETS_ID;
+        let JSON_TICKETS_ID = '[]';
+
         let allTickets = $('.ticket_checkbox')
+        const pay_links = $('.pay_link')
 
         allTickets.on('change', () => {
             let selectedTicketsId = []
@@ -260,24 +262,35 @@
 
             // prepare to pass data to url
             JSON_TICKETS_ID = JSON.stringify(selectedTicketsId)
+
+            pay_links.each(function () {
+                let class_name;
+
+                console.log(selectedTicketsId.length)
+                console.log(selectedTicketsId.length > 0)
+                console.log(this.className)
+                console.log(this.className.includes(' disabled '))
+
+                if (
+                    (selectedTicketsId.length > 0) && (this.className.includes(' disabled '))
+                ) {
+                    class_name = this.className.replace(RegExp(' disabled ', 'g'), '');
+                } else {
+                    class_name = this.className + ' disabled '
+                }
+
+                this.className = class_name
+            });
         });
 
-    </script>
 
-    {# pass data to url #}
-    <script>
-        const pay_links = $('.pay_link')
-
-        pay_links.on('click', function () {
-            let value;
-
-            if (JSON_TICKETS_ID != null) {
-                value = JSON_TICKETS_ID
-            } else {
-                value = "[]"
-            }
-            this.href = this.href.replace('tickets_array', value)
+        pay_links.each(function () {
+            this.className = this.className + ' disabled '
         })
 
+        pay_links.on('click', function () {
+            this.href = this.href.replace('tickets_array', JSON_TICKETS_ID)
+        });
     </script>
+
 {% endblock %}

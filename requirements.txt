@@ -16,3 +16,4 @@ psycopg2==2.9.3
 Pillow==9.0.0
 
 faker==13.0.0
+asgiref~=3.5.0

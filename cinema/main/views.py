@@ -5,6 +5,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, ListView
 from django.http import HttpResponse
 
+from cinema.tasks import update_ticket_booking_show
+
 from .models import *
 
 
@@ -170,7 +172,9 @@ class TicketBookingView(CustomAbstractView):
     def get_context(self, request, pk):
         self.context = super().get_context()
 
-        self.context['movie_session'] = MovieSession.objects.get(pk=pk)
+        movie_session = MovieSession.objects.get(pk=pk)
+        self.context['movie_session'] = movie_session
+        self.context['cancel_booking_time'] = movie_session.start_datetime - datetime.timedelta(minutes=30)
 
         tickets = Ticket.objects.filter(movie_session_id=pk).order_by('place_number')
         self.context['tickets'] = tickets
@@ -219,6 +223,9 @@ class TicketBookingPayView(CustomAbstractView):
 
             for ticket in tickets:
                 self.save_ticket(ticket, mode, user_pk)
+
+            tickets_id_list = [ticket.id for ticket in tickets]
+            update_ticket_booking_show.delay(tickets_id_list)
 
         return redirect('main:ticket_booking', movie_session_pk)
 

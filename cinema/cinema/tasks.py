@@ -1,3 +1,4 @@
+import json
 from math import floor
 from time import sleep
 
@@ -49,6 +50,14 @@ def send_mail(prefix, message, receivers_filter):
 @app.task
 def cancel_ticket_booking():
     pass
+
+
+@app.task
+def update_ticket_booking_show(tickets):
+    async_to_sync(CHANNEL_LAYER.group_send)(
+        'enable-tickets', {'type': 'send_tickets_to_enable', 'text': json.dumps(tickets)}
+    )
+
 
 
 # endregion MovieSession
