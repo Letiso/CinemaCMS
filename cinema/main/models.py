@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 import datetime
 
@@ -35,7 +36,7 @@ class SEO(models.Model):
 # region Banners
 class TopBanner(ImageFieldsValidationMixin, models.Model):
     image_required_size = (1000, 190)
-    image = models.ImageField('Баннер', upload_to='main/banners/top_banners')
+    image = models.ImageField(_('Banner'), upload_to='main/banners/top_banners')
 
     is_active = models.BooleanField('Активен', default=False)
 
