@@ -30,10 +30,12 @@ test_sessions:
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py generate_movie_sessions $(count)
 
 
-translate:
+init_messages:
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemessages -l ru
-#	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemessages -l ua
-#	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemessages -l en
+	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemessages -l uk
+	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemessages -l en
+update:
+	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemessages -a
 
 compile:
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py compilemessages

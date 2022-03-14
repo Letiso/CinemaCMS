@@ -16,57 +16,58 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 #: main/models.py:39
 msgid "Banner"
-msgstr "Баннер"
+msgstr ""
 
 #: user/models.py:14
 msgid "Male"
-msgstr "Мужской"
+msgstr ""
 
 #: user/models.py:15
 msgid "Female"
-msgstr "Женский"
+msgstr ""
 
 #: user/models.py:29
 msgid "An user with that username already exists."
-msgstr "Пользователь за данным именем уже существует"
+msgstr ""
 
 #: user/models.py:32
 msgid "Email address"
-msgstr "Адрес электронной почты"
+msgstr ""
 
 #: user/models.py:33
 msgid "Phone number"
-msgstr "Номер телефона"
+msgstr ""
 
 #: user/models.py:35
 msgid "First name"
-msgstr "Имя"
+msgstr ""
 
 #: user/models.py:36
 msgid "Last name"
-msgstr "Фамилия"
+msgstr ""
 
 #: user/models.py:38
 msgid "Gender"
-msgstr "Пол"
+msgstr ""
 
 #: user/models.py:39
 msgid "Language"
-msgstr "Язык"
+msgstr ""
 
 #: user/models.py:40
 msgid "Birth date"
-msgstr "Дата рождения"
+msgstr ""
 
 #: user/models.py:41
 msgid "Address"
-msgstr "Адрес"
+msgstr ""
 
 #: user/models.py:44
 msgid "staff status"
@@ -92,8 +93,8 @@ msgstr ""
 
 #: user/models.py:59
 msgid "User"
-msgstr "Пользователь"
+msgstr ""
 
 #: user/models.py:60
 msgid "Users"
-msgstr "Пользователи"
+msgstr ""

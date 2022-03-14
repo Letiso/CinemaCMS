@@ -1,6 +1,7 @@
 import os
 from os import path as os_path
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -142,9 +143,9 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'ru-RU'
 
 LANGUAGES = (
-    ('ru', 'Russian'),
-    ('ua', 'Ukrainian'),
-    ('en', 'English'),
+    ('ru', 'Русский'),
+    ('uk', 'Українська'),
+    ('en', 'English')
 )
 
 TIME_ZONE = 'Europe/Kiev'
