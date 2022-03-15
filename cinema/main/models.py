@@ -143,17 +143,17 @@ class MovieFrame(ImageFieldsValidationMixin, models.Model):
 
 # region Cinemas
 class CinemaCard(ImageFieldsValidationMixin, models.Model):
-    name = models.CharField('Название кинотеатра', max_length=256)
-    description = models.TextField('Описание')
-    amenities = models.TextField('Условия')
+    name = models.CharField(_('Cinema name'), max_length=256)
+    description = models.TextField(_('Description'))
+    amenities = models.TextField(_('Amenities'))
 
     logo_required_size = (1000, 190)
-    logo = models.ImageField('Логотип', upload_to='main/cinemas/logos')
+    logo = models.ImageField(_('Logo'), upload_to='main/cinemas/logos')
 
     banner_required_size = (1000, 190)
-    banner = models.ImageField('Главная картинка', upload_to='main/cinemas/banners')
+    banner = models.ImageField(_('Main image'), upload_to='main/cinemas/banners')
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField(_('Is active'), default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='cinema', null=True)
 
@@ -166,9 +166,9 @@ class CinemaGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(CinemaCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
-    image = models.ImageField('Фото кинотеатра', upload_to='main/cinemas/gallery')
+    image = models.ImageField(_('Cinema photo'), upload_to='main/cinemas/gallery')
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField(_('Is active'), default=False)
 
     @classmethod
     def get_required_sizes(cls):
@@ -177,16 +177,16 @@ class CinemaGallery(ImageFieldsValidationMixin, models.Model):
 
 class CinemaHallCard(ImageFieldsValidationMixin, models.Model):
     cinema = models.ForeignKey(CinemaCard, on_delete=models.CASCADE, related_name='halls')
-    number = models.CharField('Номер зала', max_length=256)
-    description = models.TextField('Описание зала')
+    number = models.CharField(_('Hall number'), max_length=256)
+    description = models.TextField(_('Hall description'))
 
-    rows_count = models.CharField('Количество рядов', max_length=3, default=0)
-    places_count = models.CharField('Количество мест в ряду', max_length=3, default=0)
+    rows_count = models.CharField(_('Rows count'), max_length=3, default=0)
+    places_count = models.CharField(_('Places count at row'), max_length=3, default=0)
 
     banner_required_size = (1000, 190)
-    banner = models.ImageField('Баннер', upload_to='main/cinemas/halls/banners')
+    banner = models.ImageField(_('Banner'), upload_to='main/cinemas/halls/banners')
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField(_('Is active'), default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='hall', null=True)
 
@@ -199,9 +199,9 @@ class CinemaHallGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(CinemaHallCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
-    image = models.ImageField('Фото зала', upload_to='main/cinemas/halls/gallery')
+    image = models.ImageField(_('Hall photo'), upload_to='main/cinemas/halls/gallery')
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField(_('Is active'), default=False)
 
     @classmethod
     def get_required_sizes(cls):

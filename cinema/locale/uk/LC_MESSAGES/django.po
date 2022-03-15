@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-15 18:08+0200\n"
+"POT-Creation-Date: 2022-03-15 18:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,15 +33,16 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: main/models.py:32 main/models.py:86
+#: main/models.py:32 main/models.py:86 main/models.py:147
 msgid "Description"
 msgstr ""
 
-#: main/models.py:40 main/models.py:62
+#: main/models.py:40 main/models.py:62 main/models.py:187
 msgid "Banner"
 msgstr ""
 
-#: main/models.py:42 main/models.py:64 main/models.py:100
+#: main/models.py:42 main/models.py:64 main/models.py:100 main/models.py:156
+#: main/models.py:171 main/models.py:189 main/models.py:204
 msgid "Is active"
 msgstr ""
 
@@ -75,6 +76,46 @@ msgstr ""
 
 #: main/models.py:133
 msgid "Movie frame"
+msgstr ""
+
+#: main/models.py:146
+msgid "Cinema name"
+msgstr ""
+
+#: main/models.py:148
+msgid "Amenities"
+msgstr ""
+
+#: main/models.py:151
+msgid "Logo"
+msgstr ""
+
+#: main/models.py:154
+msgid "Main image"
+msgstr ""
+
+#: main/models.py:169
+msgid "Cinema photo"
+msgstr ""
+
+#: main/models.py:180
+msgid "Hall number"
+msgstr ""
+
+#: main/models.py:181
+msgid "Hall description"
+msgstr ""
+
+#: main/models.py:183
+msgid "Rows count"
+msgstr ""
+
+#: main/models.py:184
+msgid "Places count at row"
+msgstr ""
+
+#: main/models.py:202
+msgid "Hall photo"
 msgstr ""
 
 #: main/templates/main/main_layout.html:232
