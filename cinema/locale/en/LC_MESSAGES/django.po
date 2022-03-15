@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-15 18:22+0200\n"
+"POT-Creation-Date: 2022-03-15 19:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: main/models.py:32 main/models.py:86 main/models.py:147
+#: main/models.py:32 main/models.py:86 main/models.py:147 main/models.py:217
 msgid "Description"
 msgstr ""
 
@@ -39,7 +39,7 @@ msgid "Banner"
 msgstr ""
 
 #: main/models.py:42 main/models.py:64 main/models.py:100 main/models.py:156
-#: main/models.py:171 main/models.py:189 main/models.py:204
+#: main/models.py:171 main/models.py:189 main/models.py:204 main/models.py:239
 msgid "Is active"
 msgstr ""
 
@@ -87,7 +87,7 @@ msgstr ""
 msgid "Logo"
 msgstr ""
 
-#: main/models.py:154
+#: main/models.py:154 main/models.py:220
 msgid "Main image"
 msgstr ""
 
@@ -113,6 +113,22 @@ msgstr ""
 
 #: main/models.py:202
 msgid "Hall photo"
+msgstr ""
+
+#: main/models.py:215
+msgid "News title"
+msgstr ""
+
+#: main/models.py:216
+msgid "Publication date"
+msgstr ""
+
+#: main/models.py:222
+msgid "Video link"
+msgstr ""
+
+#: main/models.py:237
+msgid "News image"
 msgstr ""
 
 #: main/templates/main/main_layout.html:232

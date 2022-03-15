@@ -212,14 +212,14 @@ class CinemaHallGallery(ImageFieldsValidationMixin, models.Model):
 
 # region News
 class NewsCard(ImageFieldsValidationMixin, models.Model):
-    title = models.CharField('Название новости', max_length=256)
-    publication_date = models.DateField('Дата публикации', default=timezone.now)
-    description = models.TextField('Описание')
+    title = models.CharField(_('News title'), max_length=256)
+    publication_date = models.DateField(_('Publication date'), default=timezone.now)
+    description = models.TextField(_('Description'))
 
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Главная картинка', upload_to='main/news/main_images')
+    main_image = models.ImageField(_('Main image'), upload_to='main/news/main_images')
 
-    video_link = models.CharField('Ссылка на видео', max_length=256)
+    video_link = models.CharField(_('Video link'), max_length=256)
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
@@ -234,9 +234,9 @@ class NewsGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(NewsCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
-    image = models.ImageField('Картинка к новости', upload_to='main/news/gallery')
+    image = models.ImageField(_('News image'), upload_to='main/news/gallery')
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField(_('Is active'), default=False)
 
     @classmethod
     def get_required_sizes(cls):
