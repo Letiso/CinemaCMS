@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-15 20:07+0200\n"
+"POT-Creation-Date: 2022-03-15 20:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,6 +188,18 @@ msgstr ""
 
 #: main/models.py:378
 msgid "Map coordinates"
+msgstr ""
+
+#: main/models.py:404
+msgid "Download HTML-mail"
+msgstr ""
+
+#: main/models.py:471
+msgid "Sold"
+msgstr ""
+
+#: main/models.py:472
+msgid "Booked"
 msgstr ""
 
 #: main/templates/main/main_layout.html:232

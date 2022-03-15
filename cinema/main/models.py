@@ -401,7 +401,7 @@ class ContactsPageCard(ImageFieldsValidationMixin, models.Model):
 class EmailMailingHTMLMessage(models.Model):
     """History of 5 last used html-messages for e-mail mailing"""
     name = models.CharField(max_length=256, default='')
-    message = models.FileField('Загрузить HTML-письмо', upload_to='admin/mailing/last-html-messages', blank=True)
+    message = models.FileField(_('Download HTML-mail'), upload_to='admin/mailing/last-html-messages', blank=True)
 
 
 # endregion Mailing
@@ -468,8 +468,8 @@ class Ticket(models.Model):
     row = models.IntegerField()
     place_number = models.IntegerField()
 
-    is_sold = models.BooleanField('Продано', default=False)
-    is_booked = models.BooleanField('Забронировано', default=False)
+    is_sold = models.BooleanField(_('Sold'), default=False)
+    is_booked = models.BooleanField(_('Booked'), default=False)
 
     UserModel = get_user_model()
     user = models.ForeignKey(UserModel, related_name='tickets', on_delete=models.DO_NOTHING, blank=True, null=True)
