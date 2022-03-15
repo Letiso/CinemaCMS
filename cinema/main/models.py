@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import get_language
 from django.contrib.auth import get_user_model
 import datetime
 
@@ -26,9 +27,9 @@ class ImageFieldsValidationMixin:
 # region SEO
 class SEO(models.Model):
     url = models.CharField('URL', max_length=256)
-    title = models.CharField('Заголовок', max_length=256)
-    keywords = models.CharField('Ключевые слова', max_length=256)
-    description = models.TextField('Описание', )
+    title = models.CharField(_('Title'), max_length=256)
+    keywords = models.CharField(_('Keywords'), max_length=256)
+    description = models.TextField(_('Description'), )
 
 
 # endregion SEO
@@ -38,7 +39,7 @@ class TopBanner(ImageFieldsValidationMixin, models.Model):
     image_required_size = (1000, 190)
     image = models.ImageField(_('Banner'), upload_to='main/banners/top_banners')
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField(_('Is active'), default=False)
 
     @classmethod
     def get_required_sizes(cls):
@@ -47,7 +48,7 @@ class TopBanner(ImageFieldsValidationMixin, models.Model):
 
 class BackgroundImage(ImageFieldsValidationMixin, models.Model):
     image_required_size = (2000, 3000)
-    image = models.ImageField('Фоновое изображение', upload_to='main/banners/background_image')
+    image = models.ImageField(_('Background image'), upload_to='main/banners/background_image')
 
     is_active = models.BooleanField(default=False)
 
@@ -58,9 +59,9 @@ class BackgroundImage(ImageFieldsValidationMixin, models.Model):
 
 class NewsBanner(ImageFieldsValidationMixin, models.Model):
     image_required_size = (1000, 190)
-    image = models.ImageField('Баннер', upload_to='main/banners/news_banners')
+    image = models.ImageField(_('Banner'), upload_to='main/banners/news_banners')
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField(_('Is active'), default=False)
 
     @classmethod
     def get_required_sizes(cls):
@@ -68,11 +69,12 @@ class NewsBanner(ImageFieldsValidationMixin, models.Model):
 
 
 class BannersCarousel(models.Model):
-    TIME = tuple(
-        (f'{second}000', f'{second} с') for second in range(1, 10)
+
+    TIME = (
+        (f'{second}000', str(second)) for second in range(1, 10)
     )
 
-    data_interval = models.CharField('Скорость вращения', max_length=4, choices=TIME, default='5000')
+    data_interval = models.CharField(_('Rotation speed'), max_length=4, choices=TIME, default='5000')
     is_active = models.BooleanField(default=False)
 
 

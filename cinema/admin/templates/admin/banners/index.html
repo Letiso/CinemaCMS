@@ -1,4 +1,5 @@
 ﻿{% extends 'admin/admin_layout.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block stylesheets %}
@@ -94,5 +95,14 @@ x
         // REQUIRED_SIZES also needed for the front-end image validation at 'static/admin/js/dynamic_image_select.js'
         const REQUIRED_SIZES = JSON.parse('{{ required_sizes|safe }}')
         initRequiredSizeLabels()
+    </script>
+
+    {# Translate option 'seconds' #}
+    <script>
+        let dataIntervalOptions = $('select[name*="banners-data_interval"] option')
+        dataIntervalOptions.each(function () {
+            let option = $(this)
+            option.text(option.text() + " {% trans ' s' %}")
+        })
     </script>
 {% endblock %}

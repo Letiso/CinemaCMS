@@ -254,40 +254,37 @@
                   </div>
                 </li>
             {% endif %}
-{#              {% with 'main/img/flags/png/ru.png' as flag_static %}<img src="{% static flag_static %}" alt="">{% endwith %}#}
-
 
               <li class="nav-item">
-              <ul class="navbar-nav">
-                  {% get_current_language as LANGUAGE_CODE %}
-                  {% get_available_languages as LANGUAGES %}
-                  {% get_language_info_list for LANGUAGES as languages %}
+                  <ul class="navbar-nav">
+                      {% get_current_language as LANGUAGE_CODE %}
+                      {% get_available_languages as LANGUAGES %}
+                      {% get_language_info_list for LANGUAGES as languages %}
 
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle"
-                         href="#"
-                         id="langDropdown"
-                         role="button"
-                         data-toggle="dropdown"
-                         aria-haspopup="true"
-                         aria-expanded="false"><img src="/static/main/img/flags/png/{{LANGUAGE_CODE}}.png" class="mr-2" alt="">{% trans 'Language' %}<span class="caret"></span></a>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle"
+                             href="#"
+                             id="langDropdown"
+                             role="button"
+                             data-toggle="dropdown"
+                             aria-haspopup="true"
+                             aria-expanded="false"><img src="/static/main/img/flags/png/{{LANGUAGE_CODE}}.png" class="mr-2" alt="">{% trans 'Language' %}<span class="caret"></span></a>
 
-                      <div class="dropdown-menu dropdown-menu-right"
-                           aria-labelledby="langDropdown"
-                           role="menu" id="language-list">
-                        {% for language in languages %}
-                              <a href="{% url 'set_language' %}" data-language-code="{{ language.code }}" class="dropdown-item">
-                                {% if language.code == LANGUAGE_CODE %}&#10003;{% else %}&nbsp;&nbsp;{% endif %}
-                                <img src="/static/main/img/flags/png/{{ language.code }}.png">
-                                {{ language.name_local }}
-                              </a>
-                            {% if not forloop.last %}<div class="dropdown-divider"></div>{% endif %}
-                        {% endfor %}
-                      </div>
-                  </li>
-              </ul>
-            </li>
-
+                          <div class="dropdown-menu dropdown-menu-right"
+                               aria-labelledby="langDropdown"
+                               role="menu" id="language-list">
+                            {% for language in languages %}
+                                  <a href="{% url 'set_language' %}" data-language-code="{{ language.code }}" class="dropdown-item">
+                                    {% if language.code == LANGUAGE_CODE %}&#10003;{% else %}&nbsp;&nbsp;{% endif %}
+                                    <img src="/static/main/img/flags/png/{{ language.code }}.png">
+                                    {{ language.name_local }}
+                                  </a>
+                                {% if not forloop.last %}<div class="dropdown-divider"></div>{% endif %}
+                            {% endfor %}
+                          </div>
+                      </li>
+                  </ul>
+              </li>
           </ul>
         </div>
 
@@ -426,6 +423,7 @@
             window.location.reload(true);
         }
     </script>
+
     {% block scripts %}
 
     {% endblock %}

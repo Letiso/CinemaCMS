@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-15 12:29+0200\n"
+"POT-Creation-Date: 2022-03-15 16:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,15 +20,43 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: main/models.py:39
+#: admin/templates/admin/banners/news_banners.html:69
+msgid " s"
+msgstr " с"
+
+#: main/models.py:30
+msgid "Title"
+msgstr "Заголовок"
+
+#: main/models.py:31
+msgid "Keywords"
+msgstr "Ключевые слова"
+
+#: main/models.py:32
+msgid "Description"
+msgstr "Описание"
+
+#: main/models.py:40 main/models.py:62
 msgid "Banner"
 msgstr "Баннер"
 
+#: main/models.py:42 main/models.py:64
+msgid "Is active"
+msgstr "Активен"
+
+#: main/models.py:51
+msgid "Background image"
+msgstr "Фоновое изображение"
+
+#: main/models.py:77
+msgid "Rotation speed"
+msgstr "Скорость вращения"
+
 #: main/templates/main/main_layout.html:232
 msgid "Hello, "
-msgstr "Здравствуйте, "
+msgstr "Приветствую, "
 
-#: main/templates/main/main_layout.html:273 user/models.py:39
+#: main/templates/main/main_layout.html:271 user/models.py:39
 msgid "Language"
 msgstr "Язык"
 
