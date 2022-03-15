@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-15 16:28+0200\n"
+"POT-Creation-Date: 2022-03-15 18:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,8 +21,8 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: admin/templates/admin/banners/news_banners.html:69
-msgid "s"
+#: admin/templates/admin/banners/index.html:105
+msgid " s"
 msgstr ""
 
 #: main/models.py:30
@@ -33,7 +33,7 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: main/models.py:32
+#: main/models.py:32 main/models.py:86
 msgid "Description"
 msgstr ""
 
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Banner"
 msgstr ""
 
-#: main/models.py:42 main/models.py:64
+#: main/models.py:42 main/models.py:64 main/models.py:100
 msgid "Is active"
 msgstr ""
 
@@ -51,6 +51,30 @@ msgstr ""
 
 #: main/models.py:77
 msgid "Rotation speed"
+msgstr ""
+
+#: main/models.py:85
+msgid "Movie title"
+msgstr ""
+
+#: main/models.py:87
+msgid "Release date"
+msgstr ""
+
+#: main/models.py:90
+msgid "Poster"
+msgstr ""
+
+#: main/models.py:92
+msgid "Trailer link"
+msgstr ""
+
+#: main/models.py:94
+msgid "Age rating"
+msgstr ""
+
+#: main/models.py:133
+msgid "Movie frame"
 msgstr ""
 
 #: main/templates/main/main_layout.html:232

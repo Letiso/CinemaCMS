@@ -82,22 +82,22 @@ class BannersCarousel(models.Model):
 
 # region Movies
 class MovieCard(ImageFieldsValidationMixin, models.Model):
-    title = models.CharField('Название фильма', max_length=256)
-    description = models.TextField('Описание')
-    release_date = models.DateField('Дата релиза', default=timezone.now)
+    title = models.CharField(_('Movie title'), max_length=256)
+    description = models.TextField(_('Description'))
+    release_date = models.DateField(_('Release date'), default=timezone.now)
 
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Главная картинка', upload_to='main/movies/main_images')
+    main_image = models.ImageField(_('Poster'), upload_to='main/movies/main_images')
 
-    trailer_link = models.CharField('Ссылка на трейлер', max_length=256)
+    trailer_link = models.CharField(_('Trailer link'), max_length=256)
 
-    age_rating = models.CharField('Возрастной рейтинг', max_length=2, blank=True)
+    age_rating = models.CharField(_('Age rating'), max_length=2, blank=True)
 
     two_d = models.BooleanField('2D', default=False)
     three_d = models.BooleanField('3D', default=False)
     imax = models.BooleanField('IMAX', default=False)
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField(_('Is active'), default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='movie', null=True)
 
@@ -130,9 +130,9 @@ class MovieFrame(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(MovieCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
-    image = models.ImageField('Кадр из фильма', upload_to='main/movies/gallery')
+    image = models.ImageField(_('Movie frame'), upload_to='main/movies/gallery')
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField('Is active', default=False)
 
     @classmethod
     def get_required_sizes(cls):
