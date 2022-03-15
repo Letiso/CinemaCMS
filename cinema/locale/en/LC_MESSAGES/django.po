@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-15 19:46+0200\n"
+"POT-Creation-Date: 2022-03-15 20:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,6 +31,7 @@ msgid "Keywords"
 msgstr ""
 
 #: main/models.py:32 main/models.py:86 main/models.py:147 main/models.py:217
+#: main/models.py:252 main/models.py:302 main/models.py:334
 msgid "Description"
 msgstr ""
 
@@ -40,6 +41,7 @@ msgstr ""
 
 #: main/models.py:42 main/models.py:64 main/models.py:100 main/models.py:156
 #: main/models.py:171 main/models.py:189 main/models.py:204 main/models.py:239
+#: main/models.py:274 main/models.py:368 main/models.py:386
 msgid "Is active"
 msgstr ""
 
@@ -75,7 +77,7 @@ msgstr ""
 msgid "Movie frame"
 msgstr ""
 
-#: main/models.py:146
+#: main/models.py:146 main/models.py:376
 msgid "Cinema name"
 msgstr ""
 
@@ -83,15 +85,16 @@ msgstr ""
 msgid "Amenities"
 msgstr ""
 
-#: main/models.py:151
+#: main/models.py:151 main/models.py:381
 msgid "Logo"
 msgstr ""
 
-#: main/models.py:154 main/models.py:220
+#: main/models.py:154 main/models.py:220 main/models.py:255 main/models.py:305
+#: main/models.py:337
 msgid "Main image"
 msgstr ""
 
-#: main/models.py:169
+#: main/models.py:169 main/models.py:384
 msgid "Cinema photo"
 msgstr ""
 
@@ -119,16 +122,72 @@ msgstr ""
 msgid "News title"
 msgstr ""
 
-#: main/models.py:216
+#: main/models.py:216 main/models.py:251
 msgid "Publication date"
 msgstr ""
 
-#: main/models.py:222
+#: main/models.py:222 main/models.py:257
 msgid "Video link"
 msgstr ""
 
 #: main/models.py:237
 msgid "News image"
+msgstr ""
+
+#: main/models.py:250
+msgid "Promotion name"
+msgstr ""
+
+#: main/models.py:272
+msgid "Promotion image"
+msgstr ""
+
+#: main/models.py:285 main/models.py:301 main/models.py:333
+msgid "Page title"
+msgstr ""
+
+#: main/models.py:286
+msgid "First phone number"
+msgstr ""
+
+#: main/models.py:287
+msgid "Second phone number"
+msgstr ""
+
+#: main/models.py:288
+msgid "SEO text"
+msgstr ""
+
+#: main/models.py:308
+msgid "Description image"
+msgstr ""
+
+#: main/models.py:310
+msgid "Equipment"
+msgstr ""
+
+#: main/models.py:313
+msgid "Equipment image 1"
+msgstr ""
+
+#: main/models.py:316
+msgid "Equipment image 2"
+msgstr ""
+
+#: main/models.py:340 main/models.py:343 main/models.py:346
+msgid "Additional image"
+msgstr ""
+
+#: main/models.py:366
+msgid "Page image"
+msgstr ""
+
+#: main/models.py:377 user/models.py:41
+msgid "Address"
+msgstr ""
+
+#: main/models.py:378
+msgid "Map coordinates"
 msgstr ""
 
 #: main/templates/main/main_layout.html:232
@@ -197,10 +256,6 @@ msgstr ""
 
 #: user/models.py:40
 msgid "Birth date"
-msgstr ""
-
-#: user/models.py:41
-msgid "Address"
 msgstr ""
 
 #: user/models.py:44

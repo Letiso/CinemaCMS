@@ -247,14 +247,14 @@ class NewsGallery(ImageFieldsValidationMixin, models.Model):
 
 # region Promotion
 class PromotionCard(ImageFieldsValidationMixin, models.Model):
-    title = models.CharField('Название акции', max_length=256)
-    publication_date = models.DateField('Дата публикации', default=timezone.now)
-    description = models.TextField('Описание')
+    title = models.CharField(_('Promotion name'), max_length=256)
+    publication_date = models.DateField(_('Publication date'), default=timezone.now)
+    description = models.TextField(_('Description'))
 
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Главная картинка', upload_to='main/promotions/main_images')
+    main_image = models.ImageField(_('Main image'), upload_to='main/promotions/main_images')
 
-    video_link = models.CharField('Ссылка на видео', max_length=256)
+    video_link = models.CharField(_('Video link'), max_length=256)
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
@@ -269,9 +269,9 @@ class PromotionGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(PromotionCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
-    image = models.ImageField('Картинка к акции', upload_to='main/promotions/gallery')
+    image = models.ImageField(_('Promotion image'), upload_to='main/promotions/gallery')
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField(_('Is active'), default=False)
 
     @classmethod
     def get_required_sizes(cls):
@@ -282,10 +282,10 @@ class PromotionGallery(ImageFieldsValidationMixin, models.Model):
 
 # region Pages
 class MainPageCard(models.Model):
-    title = models.CharField('Название страницы', max_length=256)
-    first_phone_number = models.CharField('Первый номер телефона', max_length=13, default='')
-    second_phone_number = models.CharField('Второй номер телефона', max_length=13, default='')
-    seo_text = models.TextField('SEO текст')
+    title = models.CharField(_('Page title'), max_length=256)
+    first_phone_number = models.CharField(_('First phone number'), max_length=13, default='')
+    second_phone_number = models.CharField(_('Second phone number'), max_length=13, default='')
+    seo_text = models.TextField(_('SEO text'))
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
@@ -298,22 +298,22 @@ class MainPageCard(models.Model):
 
 
 class AboutTheCinemaPageCard(ImageFieldsValidationMixin, models.Model):
-    title = models.CharField('Название страницы', max_length=256)
-    description = models.TextField('Описание')
+    title = models.CharField(_('Page title'), max_length=256)
+    description = models.TextField(_('Description'))
 
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Главная картинка', upload_to='main/pages/about_the_cinema/')
+    main_image = models.ImageField(_('Main image'), upload_to='main/pages/about_the_cinema/')
 
     description_image_required_size = (1000, 190)
-    description_image = models.ImageField('Картинка описания', upload_to='main/pages/about_the_cinema/')
+    description_image = models.ImageField(_('Description image'), upload_to='main/pages/about_the_cinema/')
 
-    equipment = models.TextField('Оборудование')
+    equipment = models.TextField(_('Equipment'))
 
     equipment_image_1_required_size = (1000, 190)
-    equipment_image_1 = models.ImageField('Картинка оборудования 1', upload_to='main/pages/about_the_cinema/equipment')
+    equipment_image_1 = models.ImageField(_('Equipment image 1'), upload_to='main/pages/about_the_cinema/equipment')
 
     equipment_image_2_required_size = (1000, 190)
-    equipment_image_2 = models.ImageField('Картинка оборудования 2', upload_to='main/pages/about_the_cinema/equipment')
+    equipment_image_2 = models.ImageField(_('Equipment image 2'), upload_to='main/pages/about_the_cinema/equipment')
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
@@ -330,20 +330,20 @@ class AboutTheCinemaPageCard(ImageFieldsValidationMixin, models.Model):
 
 
 class PageCard(ImageFieldsValidationMixin, models.Model):
-    title = models.CharField('Название страницы', max_length=256)
-    description = models.TextField('Описание')
+    title = models.CharField(_('Page title'), max_length=256)
+    description = models.TextField(_('Description'))
 
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Главная картинка', upload_to='main/pages/main_images')
+    main_image = models.ImageField(_('Main image'), upload_to='main/pages/main_images')
 
     image_1_required_size = (1000, 190)
-    image_1 = models.ImageField('Доп. картинка', upload_to='main/pages/additional_images', default='')
+    image_1 = models.ImageField(_('Additional image'), upload_to='main/pages/additional_images', default='')
 
     image_2_required_size = (1000, 190)
-    image_2 = models.ImageField('Доп. картинка', upload_to='main/pages/additional_images', default='')
+    image_2 = models.ImageField(_('Additional image'), upload_to='main/pages/additional_images', default='')
 
     image_3_required_size = (1000, 190)
-    image_3 = models.ImageField('Доп. картинка', upload_to='main/pages/additional_images', default='')
+    image_3 = models.ImageField(_('Additional image'), upload_to='main/pages/additional_images', default='')
 
     is_active = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now)
@@ -363,9 +363,9 @@ class PageGallery(ImageFieldsValidationMixin, models.Model):
     card = models.ForeignKey(PageCard, on_delete=models.CASCADE, related_name='gallery')
 
     image_required_size = (1000, 190)
-    image = models.ImageField('Картинка к странице', upload_to='main/pages/gallery')
+    image = models.ImageField(_('Page image'), upload_to='main/pages/gallery')
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField(_('Is active'), default=False)
 
     @classmethod
     def get_required_sizes(cls):
@@ -373,17 +373,17 @@ class PageGallery(ImageFieldsValidationMixin, models.Model):
 
 
 class ContactsPageCard(ImageFieldsValidationMixin, models.Model):
-    title = models.CharField('Название кинотеатра', max_length=256)
-    address = models.TextField('Адрес')
-    map_coordinates = models.CharField('Координаты для карты', max_length=256)
+    title = models.CharField(_('Cinema name'), max_length=256)
+    address = models.TextField(_('Address'))
+    map_coordinates = models.CharField(_('Map coordinates'), max_length=256)
 
     logo_required_size = (1000, 190)
-    logo = models.ImageField('Лого', upload_to='main/pages/main_images', default='')
+    logo = models.ImageField(_('Logo'), upload_to='main/pages/main_images', default='')
 
     main_image_required_size = (1000, 190)
-    main_image = models.ImageField('Фото кинотеатра', upload_to='main/pages/main_images')
+    main_image = models.ImageField(_('Cinema photo'), upload_to='main/pages/main_images')
 
-    is_active = models.BooleanField('Активен', default=False)
+    is_active = models.BooleanField(_('Is active'), default=False)
     date_created = models.DateTimeField(default=timezone.now)
     seo = models.OneToOneField(SEO, on_delete=models.CASCADE, related_name='contacts_page', null=True)
 
