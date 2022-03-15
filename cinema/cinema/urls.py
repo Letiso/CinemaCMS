@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('main.urls')),
     path('admin/', decorator_include(staff_member_required(login_url='/user/login'), include('admin.urls'))),
     path('user/', include('user.urls')),
+    path(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
 

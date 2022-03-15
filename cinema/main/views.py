@@ -4,7 +4,7 @@ import json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, ListView
 from django.http import HttpResponse
-
+from django.conf import settings
 from cinema.tasks import update_ticket_booking_show
 
 from .models import *
@@ -19,8 +19,9 @@ class CustomAbstractView(View):
     def get_context(*args, **kwargs) -> dict:
         main_page_card = MainPageCard.objects.filter(pk=1).first()
         navbar_phone_numbers = main_page_card.get_phone_numbers()
+        languages = settings.LANGUAGES
 
-        return {'main_page_card': main_page_card, 'navbar_phone_numbers': navbar_phone_numbers}
+        return {'main_page_card': main_page_card, 'navbar_phone_numbers': navbar_phone_numbers, 'languages': languages}
 
     def get(self, request, *args, **kwargs) -> HttpResponse:
         self.context = self.get_context(request, *args, **kwargs)
@@ -70,10 +71,10 @@ class MainPageView(CustomAbstractView):
         time_now = timezone.now()
         self.context['time_now'] = time_now
 
-        watch_now = MovieSession.objects.filter(start_datetime__gte=time_now).order_by('-start_datetime')
+        watch_now = MovieSession.objects.filter(start_datetime__gte=time_now).order_by('-start_datetime').select_related()
         self.context['watch_now'] = watch_now[:18]
 
-        watch_soon = MovieCard.objects.filter(release_date__gt=time_now).order_by('-release_date')
+        watch_soon = MovieCard.objects.filter(release_date__gt=time_now).order_by('-release_date').select_related()
         self.context['watch_soon'] = watch_soon[:18]
 
         return self.context

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-14 15:35+0200\n"
+"POT-Creation-Date: 2022-03-15 12:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,6 +24,34 @@ msgstr ""
 msgid "Banner"
 msgstr "Баннер"
 
+#: main/templates/main/main_layout.html:232
+msgid "Hello, "
+msgstr "Здравствуйте, "
+
+#: main/templates/main/main_layout.html:273 user/models.py:39
+msgid "Language"
+msgstr "Язык"
+
+#: user/forms.py:9
+msgid "Password"
+msgstr "Пароль"
+
+#: user/forms.py:14
+msgid "Repeat password"
+msgstr "Повторите пароль"
+
+#: user/forms.py:21
+msgid "Chosen username is already linked to another account"
+msgstr "Выбранное имя пользователя уже связано с другой учетной записью"
+
+#: user/forms.py:27
+msgid "Chosen email is already linked to another account"
+msgstr "Выбранный адрес электронной почты уже связан с другой учетной записью"
+
+#: user/forms.py:34
+msgid "Passwords not match"
+msgstr "Пароли не совпадают"
+
 #: user/models.py:14
 msgid "Male"
 msgstr "Мужской"
@@ -32,9 +60,13 @@ msgstr "Мужской"
 msgid "Female"
 msgstr "Женский"
 
+#: user/models.py:24
+msgid "Login"
+msgstr "Логин"
+
 #: user/models.py:29
 msgid "An user with that username already exists."
-msgstr "Пользователь за данным именем уже существует"
+msgstr "Пользователь c данным именем уже существует"
 
 #: user/models.py:32
 msgid "Email address"
@@ -55,10 +87,6 @@ msgstr "Фамилия"
 #: user/models.py:38
 msgid "Gender"
 msgstr "Пол"
-
-#: user/models.py:39
-msgid "Language"
-msgstr "Язык"
 
 #: user/models.py:40
 msgid "Birth date"
@@ -88,7 +116,7 @@ msgstr ""
 
 #: user/models.py:56
 msgid "Date joined"
-msgstr ""
+msgstr "Дата создания"
 
 #: user/models.py:59
 msgid "User"

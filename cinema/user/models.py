@@ -21,7 +21,7 @@ class CustomUser(AbstractBaseUser):
     objects = UserManager()
 
     username = models.CharField(
-        'Логин',
+        _('Login'),
         max_length=50,
         unique=True,
         validators=[username_validator],

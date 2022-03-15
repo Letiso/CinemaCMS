@@ -1,37 +1,39 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
-from .models import CustomUser  # , CustomUserProfile
+from .models import CustomUser
 
 
 class SignUpForm(forms.ModelForm):
     password = forms.CharField(
-        label='Пароль',
+        label=_('Password'),
         widget=forms.PasswordInput
     )
 
     confirm_password = forms.CharField(
-        label='Повторите пароль',
+        label=_('Repeat password'),
         widget=forms.PasswordInput
     )
 
     def clean_username(self):
         username = self.cleaned_data['username']
         if CustomUser.objects.filter(username=username).exists():
-            raise forms.ValidationError('Выбраный логин уже занят')
+            raise forms.ValidationError(_('Chosen username is already linked to another account'))
         return username
 
     def clean_email(self):
         email = self.cleaned_data['email']
         if CustomUser.objects.filter(email=email).exists():
-            raise forms.ValidationError('Данная почта уже привязана к другой учетной записи')
+            raise forms.ValidationError(_('Chosen email is already linked to another account'))
         return email
 
     def clean(self):
         password = self.cleaned_data['password']
         confirm_password = self.cleaned_data['confirm_password']
         if password != confirm_password:
-            raise forms.ValidationError('Пароли не совпадают')
-        del self.cleaned_data['confirm_password'] # Because it's not necessary already
+            raise forms.ValidationError(_('Passwords not match'))
+
+        del self.cleaned_data['confirm_password']   # Because it's not necessary already
 
         return self.cleaned_data
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-14 15:35+0200\n"
+"POT-Creation-Date: 2022-03-15 12:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,12 +25,44 @@ msgstr ""
 msgid "Banner"
 msgstr ""
 
+#: main/templates/main/main_layout.html:232
+msgid "Hello, "
+msgstr "Вітаю, "
+
+#: main/templates/main/main_layout.html:273 user/models.py:39
+msgid "Language"
+msgstr "Мова"
+
+#: user/forms.py:9
+msgid "Password"
+msgstr ""
+
+#: user/forms.py:14
+msgid "Repeat password"
+msgstr ""
+
+#: user/forms.py:21
+msgid "Chosen username is already linked to another account"
+msgstr ""
+
+#: user/forms.py:27
+msgid "Chosen email is already linked to another account"
+msgstr ""
+
+#: user/forms.py:34
+msgid "Passwords not match"
+msgstr ""
+
 #: user/models.py:14
 msgid "Male"
 msgstr ""
 
 #: user/models.py:15
 msgid "Female"
+msgstr ""
+
+#: user/models.py:24
+msgid "Login"
 msgstr ""
 
 #: user/models.py:29
@@ -55,10 +87,6 @@ msgstr ""
 
 #: user/models.py:38
 msgid "Gender"
-msgstr ""
-
-#: user/models.py:39
-msgid "Language"
 msgstr ""
 
 #: user/models.py:40
