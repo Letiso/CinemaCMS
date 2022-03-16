@@ -5,6 +5,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from user.forms import UserUpdateForm
 from main.models import *
 from django.forms import modelformset_factory
+from django.utils.translation import gettext_lazy as _
 
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -339,31 +340,31 @@ class SendEmailForm(forms.Form):
     html_messages_on_delete = forms.CharField(widget=forms.HiddenInput(attrs={'value': []}), required=False)
 
     def clean_message(self):
-        def delete_html_messages():
-            on_delete_list = json.loads(self.data[f'{self.prefix}-html_messages_on_delete'])
-            for pk in on_delete_list:
-                EmailMailingHTMLMessage.objects.get(pk=int(pk)).delete()
+        # Deletion of messages that was chosen by user
+        on_delete_list = json.loads(self.data[f'{self.prefix}-html_messages_on_delete'])
+        for pk in on_delete_list:
+            EmailMailingHTMLMessage.objects.get(pk=int(pk)).delete()
+        #
 
         use_cached_message = self.data[f'{self.prefix}-checked_html_message']
-
         if use_cached_message:
             message = EmailMailingHTMLMessage.objects.get(pk=int(use_cached_message)).message
-            delete_html_messages()
+
         else:
             message = self.cleaned_data['message']
             html_messages_cache = EmailMailingHTMLMessage.objects.all()
 
-            if not message and not html_messages_cache.exists():
-                raise forms.ValidationError('Загрузите хотя бы один html-файл', code='invalid')
+            if not message:
+                if not html_messages_cache.exists():
+                    raise forms.ValidationError('Загрузите хотя бы один html-файл', code='invalid')
+                raise forms.ValidationError('Загрузите html-файл или выберите один из недавних', code='invalid')
             else:
-                if not message:
-                    raise forms.ValidationError('Загрузите html-файл или выберите один из недавних', code='invalid')
-                delete_html_messages()
-
+                # Deletion of every extra cached html-file above files limit
                 files_limit = 5
                 cached_files_count = len(html_messages_cache)
 
                 while cached_files_count >= files_limit:
+                    # We have to prepare a place for a new message, that's why we use >= instead of >
                     EmailMailingHTMLMessage.objects.first().delete()
                     cached_files_count -= 1
 
