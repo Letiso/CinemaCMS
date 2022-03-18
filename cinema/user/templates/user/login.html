@@ -1,6 +1,5 @@
 {% extends 'user/sign-layout.html' %}
-{% load static %}
-{% load crispy_forms_tags %}
+{% load static i18n crispy_forms_tags %}
 
 {% block title %}
     {{ title }}
@@ -17,13 +16,13 @@
             {{ form.password|as_crispy_field }}
             {{ form.remember_me|as_crispy_field }}
             <div class="form-group form-check mt-3 text-center">
-                <input type="submit" class="btn btn-primary px-5" value="Войти">
+                <input type="submit" class="btn btn-primary px-5" value="{% trans 'Signin' %}">
             </div>
         </form>
         <hr>
         <div class="row my-2">
-          <span class="col-12">Еще нет учетной записи?</span>
-          <a href="{% url 'user:signup' %}" class="col-6 ml-auto" style="">Зарегистрироваться</a>
+          <span class="col-12">{% trans "Haven't account yet?" %}</span>
+          <a href="{% url 'user:signup' %}" class="col-6 ml-auto" style="">{% trans 'Registrate' %}</a>
         </div>
       </div>
     </div>

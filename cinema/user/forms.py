@@ -135,7 +135,7 @@ class UserUpdateForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     user_login = forms.CharField(
-        label='Логин',
+        label=_('Login'),
         max_length=50,
         widget=forms.TextInput(
             attrs={
@@ -145,7 +145,7 @@ class LoginForm(forms.Form):
         )
     )
     password = forms.CharField(
-        label='Пароль',
+        label=_('Password'),
         max_length=256,
         widget=forms.PasswordInput(
             attrs={
