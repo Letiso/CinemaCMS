@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 18:07+0200\n"
+"POT-Creation-Date: 2022-03-18 18:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,6 +84,9 @@ msgid "News"
 msgstr ""
 
 #: admin/templates/admin/admin_layout.html:165
+#: admin/templates/admin/promotion/index.html:9
+#: admin/templates/admin/promotion/index.html:12
+#: admin/templates/admin/promotion/promotion_card.html:28
 msgid "Promotions"
 msgstr ""
 
@@ -138,6 +141,7 @@ msgstr ""
 #: admin/templates/admin/cinemas/hall_card.html:105
 #: admin/templates/admin/movies/movie_card.html:121
 #: admin/templates/admin/news/news_card.html:104
+#: admin/templates/admin/promotion/promotion_card.html:107
 msgid "SEO block:"
 msgstr ""
 
@@ -145,6 +149,7 @@ msgstr ""
 #: admin/templates/admin/cinemas/hall_card.html:113
 #: admin/templates/admin/movies/movie_card.html:128
 #: admin/templates/admin/news/news_card.html:112
+#: admin/templates/admin/promotion/promotion_card.html:115
 #: user/templates/user/update.html:16
 msgid "Save"
 msgstr ""
@@ -153,6 +158,7 @@ msgstr ""
 #: admin/templates/admin/cinemas/hall_card.html:114
 #: admin/templates/admin/movies/movie_card.html:129
 #: admin/templates/admin/news/news_card.html:113
+#: admin/templates/admin/promotion/promotion_card.html:116
 msgid "Return initial condition"
 msgstr ""
 
@@ -188,31 +194,37 @@ msgstr ""
 
 #: admin/templates/admin/cinemas/index.html:63
 #: admin/templates/admin/news/index.html:24
+#: admin/templates/admin/promotion/index.html:24
 msgid "Date created"
 msgstr ""
 
 #: admin/templates/admin/cinemas/index.html:64
 #: admin/templates/admin/news/index.html:25
+#: admin/templates/admin/promotion/index.html:25
 msgid "Status"
 msgstr ""
 
 #: admin/templates/admin/cinemas/index.html:65
 #: admin/templates/admin/news/index.html:26
+#: admin/templates/admin/promotion/index.html:26
 msgid "Edit"
 msgstr ""
 
 #: admin/templates/admin/cinemas/index.html:76
 #: admin/templates/admin/news/index.html:37
+#: admin/templates/admin/promotion/index.html:37
 msgid "On"
 msgstr ""
 
 #: admin/templates/admin/cinemas/index.html:78
 #: admin/templates/admin/news/index.html:39
+#: admin/templates/admin/promotion/index.html:39
 msgid "Off"
 msgstr ""
 
 #: admin/templates/admin/cinemas/index.html:94
 #: admin/templates/admin/news/index.html:54
+#: admin/templates/admin/promotion/index.html:54
 msgid "Confirm deletion"
 msgstr ""
 
@@ -222,6 +234,7 @@ msgstr ""
 
 #: admin/templates/admin/cinemas/index.html:107
 #: admin/templates/admin/news/index.html:67
+#: admin/templates/admin/promotion/index.html:67
 msgid "Back"
 msgstr ""
 
@@ -266,7 +279,8 @@ msgstr ""
 msgid "Movie type"
 msgstr ""
 
-#: admin/templates/admin/news/index.html:23 main/models.py:30
+#: admin/templates/admin/news/index.html:23
+#: admin/templates/admin/promotion/index.html:23 main/models.py:30
 msgid "Title"
 msgstr ""
 
@@ -289,6 +303,27 @@ msgstr ""
 
 #: admin/templates/admin/news/news_card.html:63
 msgid "News images gallery"
+msgstr ""
+
+#: admin/templates/admin/promotion/index.html:59
+msgid "Are you sure to delete this promotion?"
+msgstr ""
+
+#: admin/templates/admin/promotion/index.html:70
+msgid "Delete promotion"
+msgstr ""
+
+#: admin/templates/admin/promotion/index.html:103
+msgid "Create promotion"
+msgstr ""
+
+#: admin/templates/admin/promotion/promotion_card.html:24
+#: admin/templates/admin/promotion/promotion_card.html:29
+msgid "Promotion card"
+msgstr ""
+
+#: admin/templates/admin/promotion/promotion_card.html:66
+msgid "Promotion images gallery"
 msgstr ""
 
 #: main/models.py:31

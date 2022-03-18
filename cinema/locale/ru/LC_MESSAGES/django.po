@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 18:07+0200\n"
+"POT-Creation-Date: 2022-03-18 18:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,8 +86,9 @@ msgid "News"
 msgstr "Новости"
 
 #: admin/templates/admin/admin_layout.html:165
-#, fuzzy
-#| msgid "Promotion name"
+#: admin/templates/admin/promotion/index.html:9
+#: admin/templates/admin/promotion/index.html:12
+#: admin/templates/admin/promotion/promotion_card.html:28
 msgid "Promotions"
 msgstr "Акции"
 
@@ -142,6 +143,7 @@ msgstr "Галерея фото кинотеатра"
 #: admin/templates/admin/cinemas/hall_card.html:105
 #: admin/templates/admin/movies/movie_card.html:121
 #: admin/templates/admin/news/news_card.html:104
+#: admin/templates/admin/promotion/promotion_card.html:107
 msgid "SEO block:"
 msgstr "SEO блок:"
 
@@ -149,6 +151,7 @@ msgstr "SEO блок:"
 #: admin/templates/admin/cinemas/hall_card.html:113
 #: admin/templates/admin/movies/movie_card.html:128
 #: admin/templates/admin/news/news_card.html:112
+#: admin/templates/admin/promotion/promotion_card.html:115
 #: user/templates/user/update.html:16
 msgid "Save"
 msgstr "Сохранить"
@@ -157,6 +160,7 @@ msgstr "Сохранить"
 #: admin/templates/admin/cinemas/hall_card.html:114
 #: admin/templates/admin/movies/movie_card.html:129
 #: admin/templates/admin/news/news_card.html:113
+#: admin/templates/admin/promotion/promotion_card.html:116
 msgid "Return initial condition"
 msgstr "Вернуть исходное состояние"
 
@@ -192,31 +196,37 @@ msgstr "Номер зала"
 
 #: admin/templates/admin/cinemas/index.html:63
 #: admin/templates/admin/news/index.html:24
+#: admin/templates/admin/promotion/index.html:24
 msgid "Date created"
 msgstr "Дата создания"
 
 #: admin/templates/admin/cinemas/index.html:64
 #: admin/templates/admin/news/index.html:25
+#: admin/templates/admin/promotion/index.html:25
 msgid "Status"
 msgstr "Статус"
 
 #: admin/templates/admin/cinemas/index.html:65
 #: admin/templates/admin/news/index.html:26
+#: admin/templates/admin/promotion/index.html:26
 msgid "Edit"
 msgstr "Редактировать"
 
 #: admin/templates/admin/cinemas/index.html:76
 #: admin/templates/admin/news/index.html:37
+#: admin/templates/admin/promotion/index.html:37
 msgid "On"
 msgstr "Вкл."
 
 #: admin/templates/admin/cinemas/index.html:78
 #: admin/templates/admin/news/index.html:39
+#: admin/templates/admin/promotion/index.html:39
 msgid "Off"
 msgstr "Выкл."
 
 #: admin/templates/admin/cinemas/index.html:94
 #: admin/templates/admin/news/index.html:54
+#: admin/templates/admin/promotion/index.html:54
 msgid "Confirm deletion"
 msgstr "Подтверждение удаления"
 
@@ -226,6 +236,7 @@ msgstr "Вы уверены, что хотите удалить этот зал?
 
 #: admin/templates/admin/cinemas/index.html:107
 #: admin/templates/admin/news/index.html:67
+#: admin/templates/admin/promotion/index.html:67
 msgid "Back"
 msgstr "Назад"
 
@@ -272,7 +283,8 @@ msgstr "Галерея кадров из фильма"
 msgid "Movie type"
 msgstr "Тип кино"
 
-#: admin/templates/admin/news/index.html:23 main/models.py:30
+#: admin/templates/admin/news/index.html:23
+#: admin/templates/admin/promotion/index.html:23 main/models.py:30
 msgid "Title"
 msgstr "Заголовок"
 
@@ -296,6 +308,27 @@ msgstr "Карточка новости"
 #: admin/templates/admin/news/news_card.html:63
 msgid "News images gallery"
 msgstr "Галерея изображений новости"
+
+#: admin/templates/admin/promotion/index.html:59
+msgid "Are you sure to delete this promotion?"
+msgstr "Вы уверены, что хотите удалить эту акцию?"
+
+#: admin/templates/admin/promotion/index.html:70
+msgid "Delete promotion"
+msgstr "Удалить акцию"
+
+#: admin/templates/admin/promotion/index.html:103
+msgid "Create promotion"
+msgstr "Акции"
+
+#: admin/templates/admin/promotion/promotion_card.html:24
+#: admin/templates/admin/promotion/promotion_card.html:29
+msgid "Promotion card"
+msgstr "Карточка акции"
+
+#: admin/templates/admin/promotion/promotion_card.html:66
+msgid "Promotion images gallery"
+msgstr "Галерея изображений акции"
 
 #: main/models.py:31
 msgid "Keywords"
@@ -602,6 +635,3 @@ msgstr "Регистрация"
 #: user/templates/user/update.html:6 user/templates/user/update.html:11
 msgid "Change user data"
 msgstr "Изменить данные пользователя"
-
-#~ msgid "Every user"
-#~ msgstr "Все пользователи"
