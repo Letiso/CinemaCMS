@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: admin/forms.py:357 user/forms.py:71 user/forms.py:131
+#: admin/forms.py:358 user/forms.py:71 user/forms.py:131
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 16:05+0200\n"
+"POT-Creation-Date: 2022-03-18 16:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,31 +22,31 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: admin/forms.py:45
+#: admin/forms.py:46
 msgid "Select image with next resolution:"
 msgstr ""
 
-#: admin/forms.py:77
+#: admin/forms.py:78
 msgid "Image as background"
 msgstr ""
 
-#: admin/forms.py:77
+#: admin/forms.py:78
 msgid "Color as background"
 msgstr ""
 
-#: admin/forms.py:313 admin/forms.py:329
-msgid "Every user"
+#: admin/forms.py:312 admin/forms.py:328
+msgid "Select mailing type"
 msgstr ""
 
-#: admin/forms.py:313 admin/forms.py:329
-msgid "Select users"
+#: admin/forms.py:318
+msgid "SMS text"
 msgstr ""
 
-#: admin/forms.py:333 main/models.py:404
+#: admin/forms.py:334 main/models.py:404
 msgid "Upload HTML-mail"
 msgstr ""
 
-#: admin/forms.py:358
+#: admin/forms.py:359
 msgid "Upload html-file or select the recent one"
 msgstr ""
 

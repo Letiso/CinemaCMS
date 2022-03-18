@@ -6,6 +6,7 @@ from user.forms import UserUpdateForm
 from main.models import *
 from django.forms import modelformset_factory
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _lazy
 
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -308,13 +309,13 @@ class SEOForm(forms.ModelForm):
 class SendSMSForm(forms.Form):
     prefix = 'SMS'
     mailing_type = forms.TypedChoiceField(
-        label='Выберите тип рассылки',
+        label=_('Select mailing type'),
         coerce=lambda x: x == 'True',
-        choices=((True, _('Every user')), (False, _('Select users'))),
+        choices=((True, _lazy('Every user')), (False, _lazy('Select users'))),
         widget=forms.RadioSelect(),
         initial=True,
     )
-    message = forms.CharField(label='Текст SMS', widget=forms.Textarea(attrs={
+    message = forms.CharField(label=_('SMS text'), widget=forms.Textarea(attrs={
         'class': 'textarea form-control'
     }))
     checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -324,9 +325,9 @@ class SendEmailForm(forms.Form):
     prefix = 'email'
 
     mailing_type = forms.TypedChoiceField(
-        label='Выберите тип рассылки',
+        label=_('Select mailing type'),
         coerce=lambda x: x == 'True',
-        choices=((True, _('Every user')), (False, _('Select users'))),
+        choices=((True, _lazy('Every user')), (False, _lazy('Select users'))),
         widget=forms.RadioSelect,
         initial=True,
     )
