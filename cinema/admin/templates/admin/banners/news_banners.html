@@ -1,5 +1,4 @@
-{% load crispy_forms_tags %}
-{% load static %}
+{% load static i18n crispy_forms_tags %}
 
 <div class="row">
     <h4 id="news_banners-image-required_size" class="mr-auto"></h4>
@@ -51,7 +50,7 @@
             {{ news_banners.carousel.data_interval }}
         </div>
         <div class="text-center mt-4">
-            <input type="submit" name="{{ formset.prefix }}" class="btn btn-success" value="Сохранить изменения" style="font-size: 20px;">
+            <input type="submit" name="{{ formset.prefix }}" class="btn btn-success" value="{% trans 'Save changes' %}" style="font-size: 20px;">
         </div>
     {% endwith %}
 </div>

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 16:16+0200\n"
+"POT-Creation-Date: 2022-03-18 16:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,29 @@ msgstr "Загрузить HTML-письмо"
 #: admin/forms.py:359
 msgid "Upload html-file or select the recent one"
 msgstr "Загрузите html-файл или выберите один из недавних"
+
+#: admin/templates/admin/banners/background_image.html:17
+#: admin/templates/admin/banners/news_banners.html:53
+#: admin/templates/admin/banners/top_banners.html:55
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: admin/templates/admin/banners/index.html:21
+#: admin/templates/admin/banners/index.html:25
+msgid "Banners"
+msgstr "Баннеры"
+
+#: admin/templates/admin/banners/index.html:36
+msgid "Main page top"
+msgstr "На главной верхний"
+
+#: admin/templates/admin/banners/index.html:53
+msgid "Main page background"
+msgstr "На главной фон"
+
+#: admin/templates/admin/banners/index.html:70
+msgid "Main page News | Promotion"
+msgstr "На главной Новости | Акции"
 
 #: admin/templates/admin/banners/index.html:105
 msgid " s"

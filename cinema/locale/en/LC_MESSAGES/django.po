@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 16:16+0200\n"
+"POT-Creation-Date: 2022-03-18 16:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,6 +45,29 @@ msgstr ""
 
 #: admin/forms.py:359
 msgid "Upload html-file or select the recent one"
+msgstr ""
+
+#: admin/templates/admin/banners/background_image.html:17
+#: admin/templates/admin/banners/news_banners.html:53
+#: admin/templates/admin/banners/top_banners.html:55
+msgid "Save changes"
+msgstr ""
+
+#: admin/templates/admin/banners/index.html:21
+#: admin/templates/admin/banners/index.html:25
+msgid "Banners"
+msgstr ""
+
+#: admin/templates/admin/banners/index.html:36
+msgid "Main page top"
+msgstr ""
+
+#: admin/templates/admin/banners/index.html:53
+msgid "Main page background"
+msgstr ""
+
+#: admin/templates/admin/banners/index.html:70
+msgid "Main page News | Promotion"
 msgstr ""
 
 #: admin/templates/admin/banners/index.html:105

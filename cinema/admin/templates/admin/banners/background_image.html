@@ -1,5 +1,4 @@
-{% load crispy_forms_tags %}
-{% load static %}
+{% load static i18n crispy_forms_tags %}
 
 <div class="row">
     <h4 id="background_image-image-required_size" class="mr-auto"></h4>
@@ -15,5 +14,5 @@
     {% endwith %}
 </div>
 <div class="text-center mt-5">
-    <input type="submit" name="background_image" class="btn btn-success" value="Сохранить изменения">
+    <input type="submit" name="background_image" class="btn btn-success" value="{% trans 'Save changes' %}">
 </div>

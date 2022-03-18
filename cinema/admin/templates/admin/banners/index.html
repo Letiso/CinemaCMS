@@ -18,11 +18,11 @@
 {% endblock %}
 x
 {% block current_page %}
-    Баннеры
+    {% trans 'Banners' %}
 {% endblock %}
 {% block path %}
     <li class="breadcrumb-item active">
-        Баннеры
+        {% trans 'Banners' %}
     </li>
 {% endblock %}
 
@@ -33,7 +33,7 @@ x
         <div class="card mx-4">
           <div class="card-header d-flex mt-2">
             <h4 class="col-11 text-center">
-                На главной верх
+                {% trans 'Main page top' %}
             </h4>
             <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseTopBanner" role="button" aria-expanded="false" aria-controls="collapseTopBanner">
             <i class="fas fa-bars" style="font-size: 22px;"></i>
@@ -50,7 +50,7 @@ x
         <div class="card mx-4">
           <div class="card-header d-flex mt-2">
             <h4 class="col-11 text-center">
-                На главной фон
+               {% trans 'Main page background' %}
             </h4>
             <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseBackgroundImage" role="button" aria-expanded="false" aria-controls="collapseBackgroundImage">
             <i class="fas fa-bars" style="font-size: 22px;"></i>
@@ -67,7 +67,7 @@ x
         <div class="card mx-4">
           <div class="card-header d-flex mt-2">
             <h4 class="col-11 text-center">
-                На главной Новости | Акции
+                {% trans 'Main page News | Promotion' %}
             </h4>
             <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseNewsBanner" role="button" aria-expanded="false" aria-controls="collapseNewsBanner">
             <i class="fas fa-bars" style="font-size: 22px;"></i>
