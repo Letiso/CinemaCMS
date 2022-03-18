@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -27,7 +28,7 @@
             <a class="nav-link" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
-            <a href="{% url 'main:main_page' %}" class="nav-link">Главная</a>
+            <a href="{% url 'main:main_page' %}" class="nav-link">{% trans 'Main page' %}</a>
           </li>
         </ul>
 
@@ -115,7 +116,7 @@
                 <a href="{% url 'admin:statistics' %}" class="nav-link {% block statistics %}{% endblock %}">
                   <i class="nav-icon fas fa-chart-area"></i>
                   <p>
-                    Статистика
+                    {% trans 'Statistics' %}
                     <span class="right badge badge-dark">Позже</span>
                   </p>
                 </a>
@@ -124,7 +125,7 @@
                 <a href="{% url 'admin:banners' %}" class="nav-link {% block banners %}{% endblock %}">
                   <i class="nav-icon fas fa-images"></i>
                   <p>
-                    Баннеры
+                    {% trans 'Banners' %}
                     <span class="right badge badge-light"><i class="fas fa-check text-success"></i></span>
                   </p>
                 </a>
@@ -134,7 +135,7 @@
                 <a href="{% url 'admin:movies' %}" class="nav-link {% block movies %}{% endblock %}">
                   <i class="nav-icon fas fa-film"></i>
                   <p>
-                    Фильмы
+                    {% trans 'Movies' %}
                     <span class="right badge badge-light"><i class="fas fa-check text-success"></i></span>
                   </p>
                 </a>
@@ -143,7 +144,7 @@
                 <a href="{% url 'admin:cinemas' %}" class="nav-link {% block cinemas %}{% endblock %}">
                   <i class="nav-icon fas fa-hotel"></i>
                   <p>
-                    Кинотеатры
+                    {% trans 'Cinemas' %}
                     <span class="right badge badge-light"><i class="fas fa-check text-success"></i></span>
                   </p>
                 </a>
@@ -152,7 +153,7 @@
                 <a href="{% url 'admin:news' %}" class="nav-link {% block news %}{% endblock %}">
                   <i class="nav-icon fas fa-newspaper"></i>
                   <p>
-                    Новости
+                    {% trans 'News' %}
                     <span class="right badge badge-light"><i class="fas fa-check text-success"></i></span>
                   </p>
                 </a>
@@ -161,7 +162,7 @@
                 <a href="{% url 'admin:promotion' %}" class="nav-link {% block promotion %}{% endblock %}">
                   <i class="nav-icon fas fa-percentage"></i>
                   <p>
-                    Акции
+                    {% trans 'Promotions' %}
                     <span class="right badge badge-light"><i class="fas fa-check text-success"></i></span>
                   </p>
                 </a>
@@ -170,7 +171,7 @@
                 <a href="{% url 'admin:pages' %}" class="nav-link {% block pages %}{% endblock %}">
                   <i class="nav-icon fas fa-window-restore"></i>
                   <p>
-                    Страницы
+                    {% trans 'Pages' %}
                     <span class="right badge badge-light"><i class="fas fa-check text-success"></i></span>
                   </p>
                 </a>
@@ -179,7 +180,7 @@
                 <a href="{% url 'admin:users' %}" class="nav-link {% block users %}{% endblock %}">
                   <i class="nav-icon fas fa-users"></i>
                   <p>
-                    Пользователи
+                    {% trans 'Users' %}
                     <span class="right badge badge-light"><i class="fas fa-check text-success"></i></span>
                   </p>
                 </a>
@@ -188,7 +189,7 @@
                 <a href="{% url 'admin:mailing' %}" class="nav-link {% block mailing %}{% endblock %}">
                   <i class="nav-icon fas fa-paper-plane"></i>
                   <p>
-                    Рассылка
+                    {% trans 'Mailing' %}
                     <span class="right badge badge-light"><i class="fas fa-check text-success"></i></span>
                   </p>
                 </a>
@@ -213,7 +214,7 @@
           <div class="row mb-3 ml-4">
             <h1 class="mr-auto">{% block current_page %} {% endblock %}</h1>
             <ol class="breadcrumb float-sm-right mr-3">
-              <li class="breadcrumb-item"><a href="{% url 'admin:statistics' %}">Панель администратора</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'admin:statistics' %}">{% trans 'Admin pannel' %}</a></li>
               {% block path %}
               {% endblock %}
             </ol>

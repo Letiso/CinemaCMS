@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 16:34+0200\n"
+"POT-Creation-Date: 2022-03-18 16:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,15 +47,56 @@ msgstr ""
 msgid "Upload html-file or select the recent one"
 msgstr ""
 
+#: admin/templates/admin/admin_layout.html:31
+msgid "Main page"
+msgstr ""
+
+#: admin/templates/admin/admin_layout.html:119
+msgid "Statistics"
+msgstr ""
+
+#: admin/templates/admin/admin_layout.html:128
+#: admin/templates/admin/banners/index.html:21
+#: admin/templates/admin/banners/index.html:25
+msgid "Banners"
+msgstr ""
+
+#: admin/templates/admin/admin_layout.html:138
+msgid "Movies"
+msgstr ""
+
+#: admin/templates/admin/admin_layout.html:147
+msgid "Cinemas"
+msgstr ""
+
+#: admin/templates/admin/admin_layout.html:156
+msgid "News"
+msgstr ""
+
+#: admin/templates/admin/admin_layout.html:165
+msgid "Promotions"
+msgstr ""
+
+#: admin/templates/admin/admin_layout.html:174
+msgid "Pages"
+msgstr ""
+
+#: admin/templates/admin/admin_layout.html:183 user/models.py:60
+msgid "Users"
+msgstr ""
+
+#: admin/templates/admin/admin_layout.html:192
+msgid "Mailing"
+msgstr ""
+
+#: admin/templates/admin/admin_layout.html:217
+msgid "Admin pannel"
+msgstr ""
+
 #: admin/templates/admin/banners/background_image.html:17
 #: admin/templates/admin/banners/news_banners.html:53
 #: admin/templates/admin/banners/top_banners.html:55
 msgid "Save changes"
-msgstr ""
-
-#: admin/templates/admin/banners/index.html:21
-#: admin/templates/admin/banners/index.html:25
-msgid "Banners"
 msgstr ""
 
 #: admin/templates/admin/banners/index.html:36
@@ -366,10 +407,6 @@ msgstr ""
 
 #: user/models.py:56
 msgid "Date joined"
-msgstr ""
-
-#: user/models.py:60
-msgid "Users"
 msgstr ""
 
 #: user/templates/user/login.html:19
