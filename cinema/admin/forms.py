@@ -5,7 +5,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from user.forms import UserUpdateForm
 from main.models import *
 from django.forms import modelformset_factory
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -42,7 +42,7 @@ class ImageValidationMixin:
 
             if image_size != required_size:
                 width, height = required_size
-                err_msg = f'Выберите изображение с разрешением {width}x{height}'
+                err_msg = _('Select image with next resolution:') + f' {width}x{height}'
 
                 self.add_error(image_field_name, err_msg)
 
@@ -74,7 +74,7 @@ class BackgroundImageForm(ImageValidationMixin, forms.ModelForm):
     is_active = forms.TypedChoiceField(
         label='',
         coerce=lambda x: x == 'True',
-        choices=((True, 'Изображение на фоне'), (False, 'Цвет на фоне')),
+        choices=((True, _('Image as background')), (False, _('Color as background'))),
         widget=forms.RadioSelect
     )
 
@@ -177,7 +177,7 @@ class CinemaHallGalleryForm(ImageValidationMixin, forms.ModelForm):
 
 
 CinemaHallGalleryFormset = modelformset_factory(CinemaHallGallery, form=MovieFrameForm,
-                                         extra=0, can_delete=True)
+                                                extra=0, can_delete=True)
 
 
 # endregion Cinemas
@@ -310,9 +310,8 @@ class SendSMSForm(forms.Form):
     mailing_type = forms.TypedChoiceField(
         label='Выберите тип рассылки',
         coerce=lambda x: x == 'True',
-        choices=((True, 'Все пользователи'), (False, 'Выборочно')),
+        choices=((True, _('Every user')), (False, _('Select users'))),
         widget=forms.RadioSelect(),
-        required=True,
         initial=True,
     )
     message = forms.CharField(label='Текст SMS', widget=forms.Textarea(attrs={
@@ -327,12 +326,11 @@ class SendEmailForm(forms.Form):
     mailing_type = forms.TypedChoiceField(
         label='Выберите тип рассылки',
         coerce=lambda x: x == 'True',
-        choices=((True, 'Все пользователи'), (False, 'Выборочно')),
+        choices=((True, _('Every user')), (False, _('Select users'))),
         widget=forms.RadioSelect,
-        required=True,
         initial=True,
     )
-    message = forms.FileField(label='Загрузить HTML-письмо', widget=forms.FileInput(attrs={'accept': '.html'}),
+    message = forms.FileField(label=_('Upload HTML-mail'), widget=forms.FileInput(attrs={'accept': '.html'}),
                               required=False)
 
     checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -356,8 +354,8 @@ class SendEmailForm(forms.Form):
 
             if not message:
                 if not html_messages_cache.exists():
-                    raise forms.ValidationError('Загрузите хотя бы один html-файл', code='invalid')
-                raise forms.ValidationError('Загрузите html-файл или выберите один из недавних', code='invalid')
+                    raise forms.ValidationError(_(''), code='invalid')     # Загрузите хотя бы один html-файл # TODO
+                raise forms.ValidationError(_('Upload html-file or select the recent one'), code='invalid')
             else:
                 # Deletion of every extra cached html-file above files limit
                 files_limit = 5

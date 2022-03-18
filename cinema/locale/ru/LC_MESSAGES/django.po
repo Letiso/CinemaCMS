@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#: admin/forms.py:357 user/forms.py:71 user/forms.py:131
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-15 20:21+0200\n"
+"POT-Creation-Date: 2022-03-18 15:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +20,34 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: admin/forms.py:45
+msgid "Select image with next resolution:"
+msgstr "Выберите изображение со следующим разрешением:"
+
+#: admin/forms.py:77
+msgid "Image as background"
+msgstr "Изображение на фоне"
+
+#: admin/forms.py:77
+msgid "Color as background"
+msgstr "Цвет на фоне"
+
+#: admin/forms.py:313 admin/forms.py:329
+msgid "Every user"
+msgstr "Все пользователи"
+
+#: admin/forms.py:313 admin/forms.py:329
+msgid "Select users"
+msgstr "Выборочно"
+
+#: admin/forms.py:333 main/models.py:404
+msgid "Upload HTML-mail"
+msgstr "Загрузить HTML-письмо"
+
+#: admin/forms.py:358
+msgid "Upload html-file or select the recent one"
+msgstr "Загрузите html-файл или выберите один из недавних"
 
 #: admin/templates/admin/banners/index.html:105
 msgid " s"
@@ -192,10 +221,6 @@ msgstr "Адрес"
 msgid "Map coordinates"
 msgstr "Координаты для карты"
 
-#: main/models.py:404
-msgid "Download HTML-mail"
-msgstr "Загрузить HTML-письмо"
-
 #: main/models.py:471
 msgid "Sold"
 msgstr "Продано"
@@ -212,25 +237,53 @@ msgstr "Приветствую, "
 msgid "Language"
 msgstr "Язык"
 
-#: user/forms.py:9
+#: user/forms.py:9 user/forms.py:78
 msgid "Password"
 msgstr "Пароль"
 
-#: user/forms.py:14
+#: user/forms.py:14 user/forms.py:83
 msgid "Repeat password"
 msgstr "Повторите пароль"
 
-#: user/forms.py:21
+#: user/forms.py:21 user/forms.py:91
 msgid "Chosen username is already linked to another account"
 msgstr "Выбранное имя пользователя уже связано с другой учетной записью"
 
-#: user/forms.py:27
+#: user/forms.py:27 user/forms.py:97
 msgid "Chosen email is already linked to another account"
 msgstr "Выбранный адрес электронной почты уже связан с другой учетной записью"
 
-#: user/forms.py:34
+#: user/forms.py:34 user/forms.py:107
 msgid "Passwords not match"
 msgstr "Пароли не совпадают"
+
+#: user/forms.py:55
+msgid "John"
+msgstr "Иван"
+
+#: user/forms.py:58
+msgid "Brain"
+msgstr "Иванов"
+
+#: user/forms.py:142
+msgid "Username or email"
+msgstr "Имя пользователя или почта"
+
+#: user/forms.py:157
+msgid "Remember me"
+msgstr "Запомнить меня"
+
+#: user/forms.py:168
+msgid "User with the email"
+msgstr "Пользователь с почтой"
+
+#: user/forms.py:173 user/models.py:59
+msgid "User"
+msgstr "Пользователь"
+
+#: user/forms.py:184
+msgid "Invalid password"
+msgstr "Неверный пароль"
 
 #: user/models.py:14
 msgid "Male"
@@ -293,10 +346,6 @@ msgstr ""
 #: user/models.py:56
 msgid "Date joined"
 msgstr "Дата создания"
-
-#: user/models.py:59
-msgid "User"
-msgstr "Пользователь"
 
 #: user/models.py:60
 msgid "Users"

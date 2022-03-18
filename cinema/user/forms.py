@@ -52,10 +52,10 @@ class SignUpForm(forms.ModelForm):
                 'placeholder': '095-123-45-15',
             }),
             'first_name': forms.TextInput(attrs={
-                'placeholder': 'Иван',
+                'placeholder': _('John'),
             }),
             'last_name': forms.TextInput(attrs={
-                'placeholder': 'Иванов',
+                'placeholder': _('Brain'),
             }),
             'gender': forms.Select(attrs={
                 'class': 'custom-select mr-sm-2 my-2',
@@ -68,19 +68,19 @@ class SignUpForm(forms.ModelForm):
                 'class': 'form-control mb-2',
             }),
             'address': forms.TextInput(attrs={
-                'placeholder': 'Приморский район, ул. Екатерининская, 156',
+                'placeholder': _(''),  # Приморский район, ул. Екатерининская, 156  # TODO
             }),
         }
 
 
 class UserUpdateForm(forms.ModelForm):
     password = forms.CharField(
-        label='Пароль',
+        label=_('Password'),
         widget=forms.PasswordInput,
         required=False
     )
     confirm_password = forms.CharField(
-        label='Повторите пароль',
+        label=_('Repeat password'),
         widget=forms.PasswordInput,
         required=False
     )
@@ -88,13 +88,13 @@ class UserUpdateForm(forms.ModelForm):
     def clean_username(self):
         username = self.cleaned_data['username']
         if CustomUser.objects.exclude(pk=self.instance.pk).filter(username=username).exists():
-            raise forms.ValidationError('Выбраный логин уже занят')
+            raise forms.ValidationError(_('Chosen username is already linked to another account'))
         return username
 
     def clean_email(self):
         email = self.cleaned_data['email']
         if CustomUser.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
-            raise forms.ValidationError('Данная почта уже привязана к другой учетной записи')
+            raise forms.ValidationError(_('Chosen email is already linked to another account'))
         return email
 
     def clean(self):
@@ -104,7 +104,7 @@ class UserUpdateForm(forms.ModelForm):
         password_is_valid = password == confirm_password
 
         if password and not password_is_valid:
-            raise forms.ValidationError('Пароли не совпадают')
+            raise forms.ValidationError(_('Passwords not match'))
         else:
             # this step means that password wasn't changed actually
             # and there's no need in password update
@@ -128,7 +128,7 @@ class UserUpdateForm(forms.ModelForm):
                 'class': 'form-control mb-2',
             }),
             'address': forms.TextInput(attrs={
-                'placeholder': 'Приморский район, ул. Екатерининская, 156',
+                'placeholder': _(''),   # Приморский район, ул. Екатерининская, 156  # TODO
             }),
         }
 
@@ -139,7 +139,7 @@ class LoginForm(forms.Form):
         max_length=50,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Имя пользователя или почта',
+                'placeholder': _('Username or email'),
                 'autofocus': True
             }
         )
@@ -154,7 +154,7 @@ class LoginForm(forms.Form):
         )
     )
     remember_me = forms.BooleanField(
-        label='Запомнить меня',
+        label=_('Remember me'),
         required=False,
         widget=forms.CheckboxInput()
     )
@@ -165,12 +165,12 @@ class LoginForm(forms.Form):
 
         if "@" in user_login:
             if not self.user_model.filter(email=user_login).exists():
-                raise forms.ValidationError(f'Пользователь с почтой "{user_login}" не найден')
+                raise forms.ValidationError(_('User with the email') + f' "{user_login}" ' + 'does not exists')
 
             user_login = self.user_model.get(email=user_login).username
         else:
             if not self.user_model.filter(username=user_login).exists():
-                raise forms.ValidationError(f'Пользователь "{user_login}" не найден')
+                raise forms.ValidationError(_('User') + f' "{user_login}" ' + 'does not exists')
 
         return user_login
 
@@ -181,6 +181,6 @@ class LoginForm(forms.Form):
         user = CustomUser.objects.filter(username=user_login).first()
         if user:
             if not user.check_password(password):
-                raise forms.ValidationError('Неверный пароль')
+                raise forms.ValidationError(_('Invalid password'))
 
         return self.cleaned_data

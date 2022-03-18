@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#: admin/forms.py:357 user/forms.py:71 user/forms.py:131
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-15 20:21+0200\n"
+"POT-Creation-Date: 2022-03-18 15:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +18,34 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin/forms.py:45
+msgid "Select image with next resolution:"
+msgstr ""
+
+#: admin/forms.py:77
+msgid "Image as background"
+msgstr ""
+
+#: admin/forms.py:77
+msgid "Color as background"
+msgstr ""
+
+#: admin/forms.py:313 admin/forms.py:329
+msgid "Every user"
+msgstr ""
+
+#: admin/forms.py:313 admin/forms.py:329
+msgid "Select users"
+msgstr ""
+
+#: admin/forms.py:333 main/models.py:404
+msgid "Upload HTML-mail"
+msgstr ""
+
+#: admin/forms.py:358
+msgid "Upload html-file or select the recent one"
+msgstr ""
 
 #: admin/templates/admin/banners/index.html:105
 msgid " s"
@@ -190,10 +219,6 @@ msgstr ""
 msgid "Map coordinates"
 msgstr ""
 
-#: main/models.py:404
-msgid "Download HTML-mail"
-msgstr ""
-
 #: main/models.py:471
 msgid "Sold"
 msgstr ""
@@ -210,24 +235,52 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: user/forms.py:9
+#: user/forms.py:9 user/forms.py:78
 msgid "Password"
 msgstr ""
 
-#: user/forms.py:14
+#: user/forms.py:14 user/forms.py:83
 msgid "Repeat password"
 msgstr ""
 
-#: user/forms.py:21
+#: user/forms.py:21 user/forms.py:91
 msgid "Chosen username is already linked to another account"
 msgstr ""
 
-#: user/forms.py:27
+#: user/forms.py:27 user/forms.py:97
 msgid "Chosen email is already linked to another account"
 msgstr ""
 
-#: user/forms.py:34
+#: user/forms.py:34 user/forms.py:107
 msgid "Passwords not match"
+msgstr ""
+
+#: user/forms.py:55
+msgid "John"
+msgstr ""
+
+#: user/forms.py:58
+msgid "Brain"
+msgstr ""
+
+#: user/forms.py:142
+msgid "Username or email"
+msgstr ""
+
+#: user/forms.py:157
+msgid "Remember me"
+msgstr ""
+
+#: user/forms.py:168
+msgid "User with the email"
+msgstr ""
+
+#: user/forms.py:173 user/models.py:59
+msgid "User"
+msgstr ""
+
+#: user/forms.py:184
+msgid "Invalid password"
 msgstr ""
 
 #: user/models.py:14
@@ -290,10 +343,6 @@ msgstr ""
 
 #: user/models.py:56
 msgid "Date joined"
-msgstr ""
-
-#: user/models.py:59
-msgid "User"
 msgstr ""
 
 #: user/models.py:60

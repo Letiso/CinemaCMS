@@ -401,7 +401,7 @@ class ContactsPageCard(ImageFieldsValidationMixin, models.Model):
 class EmailMailingHTMLMessage(models.Model):
     """History of 5 last used html-messages for e-mail mailing"""
     name = models.CharField(max_length=256, default='')
-    message = models.FileField(_('Download HTML-mail'), upload_to='admin/mailing/last-html-messages', blank=True)
+    message = models.FileField(_('Upload HTML-mail'), upload_to='admin/mailing/last-html-messages', blank=True)
 
 
 # endregion Mailing

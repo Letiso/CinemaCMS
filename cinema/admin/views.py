@@ -236,7 +236,7 @@ class BannersView(CustomAbstractView):
     def post(self, request) -> HttpResponse:
         self.context = self.get_context(request)
 
-        forms_to_save = self.get_forms_to_save() # getting tuple of form/formset objects
+        forms_to_save = self.get_forms_to_save()    # getting tuple of form/formset objects
         is_valid = [form.is_valid() for form in forms_to_save]
 
         if all(is_valid):
