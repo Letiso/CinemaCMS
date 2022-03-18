@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 17:33+0200\n"
+"POT-Creation-Date: 2022-03-18 18:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,6 +79,9 @@ msgid "Cinemas"
 msgstr "Кинотеатры"
 
 #: admin/templates/admin/admin_layout.html:156
+#: admin/templates/admin/news/index.html:9
+#: admin/templates/admin/news/index.html:12
+#: admin/templates/admin/news/news_card.html:25
 msgid "News"
 msgstr "Новости"
 
@@ -138,12 +141,14 @@ msgstr "Галерея фото кинотеатра"
 #: admin/templates/admin/cinemas/cinema_card.html:108
 #: admin/templates/admin/cinemas/hall_card.html:105
 #: admin/templates/admin/movies/movie_card.html:121
+#: admin/templates/admin/news/news_card.html:104
 msgid "SEO block:"
 msgstr "SEO блок:"
 
 #: admin/templates/admin/cinemas/cinema_card.html:116
 #: admin/templates/admin/cinemas/hall_card.html:113
 #: admin/templates/admin/movies/movie_card.html:128
+#: admin/templates/admin/news/news_card.html:112
 #: user/templates/user/update.html:16
 msgid "Save"
 msgstr "Сохранить"
@@ -151,6 +156,7 @@ msgstr "Сохранить"
 #: admin/templates/admin/cinemas/cinema_card.html:117
 #: admin/templates/admin/cinemas/hall_card.html:114
 #: admin/templates/admin/movies/movie_card.html:129
+#: admin/templates/admin/news/news_card.html:113
 msgid "Return initial condition"
 msgstr "Вернуть исходное состояние"
 
@@ -185,26 +191,32 @@ msgid "Hall number"
 msgstr "Номер зала"
 
 #: admin/templates/admin/cinemas/index.html:63
+#: admin/templates/admin/news/index.html:24
 msgid "Date created"
 msgstr "Дата создания"
 
 #: admin/templates/admin/cinemas/index.html:64
+#: admin/templates/admin/news/index.html:25
 msgid "Status"
 msgstr "Статус"
 
 #: admin/templates/admin/cinemas/index.html:65
+#: admin/templates/admin/news/index.html:26
 msgid "Edit"
 msgstr "Редактировать"
 
 #: admin/templates/admin/cinemas/index.html:76
+#: admin/templates/admin/news/index.html:37
 msgid "On"
 msgstr "Вкл."
 
 #: admin/templates/admin/cinemas/index.html:78
+#: admin/templates/admin/news/index.html:39
 msgid "Off"
 msgstr "Выкл."
 
 #: admin/templates/admin/cinemas/index.html:94
+#: admin/templates/admin/news/index.html:54
 msgid "Confirm deletion"
 msgstr "Подтверждение удаления"
 
@@ -213,6 +225,7 @@ msgid "Are you sure to delete this hall?"
 msgstr "Вы уверены, что хотите удалить этот зал?"
 
 #: admin/templates/admin/cinemas/index.html:107
+#: admin/templates/admin/news/index.html:67
 msgid "Back"
 msgstr "Назад"
 
@@ -259,9 +272,30 @@ msgstr "Галерея кадров из фильма"
 msgid "Movie type"
 msgstr "Тип кино"
 
-#: main/models.py:30
+#: admin/templates/admin/news/index.html:23 main/models.py:30
 msgid "Title"
 msgstr "Заголовок"
+
+#: admin/templates/admin/news/index.html:59
+msgid "Are you sure to delete this news?"
+msgstr "Вы уверены, что хотите удалить эту новость?"
+
+#: admin/templates/admin/news/index.html:70
+msgid "Delete news"
+msgstr "Удалить новость"
+
+#: admin/templates/admin/news/index.html:102
+msgid "Create news"
+msgstr "Создать новость"
+
+#: admin/templates/admin/news/news_card.html:21
+#: admin/templates/admin/news/news_card.html:26
+msgid "News card"
+msgstr "Карточка новости"
+
+#: admin/templates/admin/news/news_card.html:63
+msgid "News images gallery"
+msgstr "Галерея изображений новости"
 
 #: main/models.py:31
 msgid "Keywords"

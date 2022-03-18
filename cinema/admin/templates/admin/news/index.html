@@ -1,15 +1,15 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block stylesheets %}
 {% endblock %}
 
 {% block news %}active{% endblock %}
 
-{% block current_page %}Новости{% endblock %}
+{% block current_page %}{% trans 'News' %}{% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item active">Новости</li>
+    <li class="breadcrumb-item active">{% trans 'News' %}</li>
 {% endblock %}
 
 {% block content %}
@@ -20,10 +20,10 @@
           <thead>
              <tr>
                 <th>ID</th>
-                <th>Название</th>
-                <th>Дата создания</th>
-                <th>Статус</th>
-                <th>Редактировать</th>
+                <th>{% trans 'Title' %}</th>
+                <th>{% trans 'Date created' %}</th>
+                <th>{% trans 'Status' %}</th>
+                <th>{% trans 'Edit' %}</th>
              </tr>
           </thead>
           <tbody>
@@ -34,9 +34,9 @@
                   <td>{{ news.date_created }}</td>
                   <td>
                       {% if news.is_active %}
-                        <span>Вкл.</span>
+                        <span>{% trans 'On' %}</span>
                       {% else %}
-                        <span>Выкл.</span>
+                        <span>{% trans 'Off' %}</span>
                       {% endif %}</td>
                   <td class="col-1">
                       <div class="row buttons">
@@ -51,12 +51,12 @@
                             <div class="modal-content">
                               <div class="modal-header bg-dark">
                                 <h5 class="modal-title" id="exampleModalLongTitle-{{ forloop.counter }}">
-                                    Подтверждение удаления
+                                    {% trans 'Confirm deletion' %}
                                 </h5>
                               </div>
                               <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
                                 <span style="font-size: 20px;">
-                                    Вы уверены, что хотите удалить эту новость?
+                                    {% trans 'Are you sure to delete this news?' %}
                                 </span>
                                 <span class="text-primary" style="font-size: 35px;">
                                     {{ news.title }}
@@ -64,10 +64,10 @@
                               </div>
                               <div class="modal-footer bg-dark">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    Назад
+                                    {% trans 'Back' %}
                                 </button>
                                   <a href="{% url 'admin:delete_news' news.pk %}" class="btn btn-danger">
-                                      Удалить новость
+                                      {% trans 'Delete news' %}
                                   </a>
                               </div>
                             </div>
@@ -99,7 +99,7 @@
 
     function add_create_button(dataTable) {
         let left_header = document.getElementById(`${dataTable}_wrapper`).getElementsByClassName('col-sm-12')[0]
-        left_header.innerHTML = `<a href="{% url 'admin:news_card' 'new' %}" class="btn btn-primary mt-2 ml-3 px-2"><i class="fas fa-plus pr-2"></i>Создать новость</a>`
+        left_header.innerHTML = `<a href="{% url 'admin:news_card' 'new' %}" class="btn btn-primary mt-2 ml-3 px-2"><i class="fas fa-plus pr-2"></i>{% trans 'Create news' %}</a>`
         }
 
     add_create_button(dataTableId);
