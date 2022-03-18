@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 16:40+0200\n"
+"POT-Creation-Date: 2022-03-18 16:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,6 +62,9 @@ msgid "Banners"
 msgstr ""
 
 #: admin/templates/admin/admin_layout.html:138
+#: admin/templates/admin/movies/index.html:9
+#: admin/templates/admin/movies/index.html:12
+#: admin/templates/admin/movies/movie_card.html:26
 msgid "Movies"
 msgstr ""
 
@@ -90,7 +93,7 @@ msgid "Mailing"
 msgstr ""
 
 #: admin/templates/admin/admin_layout.html:217
-msgid "Admin pannel"
+msgid "Admin panel"
 msgstr ""
 
 #: admin/templates/admin/banners/background_image.html:17
@@ -113,6 +116,48 @@ msgstr ""
 
 #: admin/templates/admin/banners/index.html:105
 msgid " s"
+msgstr ""
+
+#: admin/templates/admin/movies/index.html:19
+msgid "Released movies"
+msgstr ""
+
+#: admin/templates/admin/movies/index.html:46
+msgid "Announced movies"
+msgstr ""
+
+#: admin/templates/admin/movies/index.html:73
+msgid "Inactive cards"
+msgstr ""
+
+#: admin/templates/admin/movies/movie_card.html:22
+#: admin/templates/admin/movies/movie_card.html:27
+msgid "Movie card"
+msgstr ""
+
+#: admin/templates/admin/movies/movie_card.html:62
+msgid "Movie frames gallery"
+msgstr ""
+
+#: admin/templates/admin/movies/movie_card.html:108
+msgid "Movie type"
+msgstr ""
+
+#: admin/templates/admin/movies/movie_card.html:121
+msgid "SEO block"
+msgstr ""
+
+#: admin/templates/admin/movies/movie_card.html:128
+#: user/templates/user/update.html:16
+msgid "Save"
+msgstr ""
+
+#: admin/templates/admin/movies/movie_card.html:129
+msgid "Return initial condition"
+msgstr ""
+
+#: admin/templates/admin/movies/movie_card.html:136
+msgid "Delete card"
 msgstr ""
 
 #: main/models.py:30
@@ -427,8 +472,4 @@ msgstr ""
 
 #: user/templates/user/update.html:6 user/templates/user/update.html:11
 msgid "Change user data"
-msgstr ""
-
-#: user/templates/user/update.html:16
-msgid "Save"
 msgstr ""

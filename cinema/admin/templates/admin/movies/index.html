@@ -1,22 +1,22 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block stylesheets %}
 {% endblock %}
 
 {% block movies %}active{% endblock %}
 
-{% block current_page %}Фильмы{% endblock %}
+{% block current_page %}{% trans 'Movies' %}{% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item active">Фильмы</li>
+    <li class="breadcrumb-item active">{% trans 'Movies' %}</li>
 {% endblock %}
 
 {% block content %}
         <div class="card">
             <div class="card-header d-flex mt-2">
                 <h4 class="col-11 text-center">
-                    Вышедшие фильмы
+                    {% trans 'Released movies' %}
                 </h4>
                 <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseMoviesReleases" role="button" aria-expanded="false" aria-controls="collapseMoviesReleases">
                     <i class="fas fa-bars" style="font-size: 22px;"></i>
@@ -43,7 +43,7 @@
         <div class="card announcements">
             <div class="card-header d-flex mt-2">
                 <h4 class="col-11 text-center">
-                    Анонсированные фильмы
+                    {% trans 'Announced movies' %}
                 </h4>
                 <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseMoviesAnnouncements" role="button" aria-expanded="false" aria-controls="collapseMoviesAnnouncements">
                     <i class="fas fa-bars" style="font-size: 22px;"></i>
@@ -70,7 +70,7 @@
         <div class="card">
             <div class="card-header d-flex mt-2">
                 <h4 class="col-11 text-center">
-                    Неактивные карточки
+                    {% trans 'Inactive cards' %}
                 </h4>
             </div>
             <div class="card-body">
@@ -91,7 +91,6 @@
                 </div>
             </div>
         </div>
-    </div>
 {% endblock %}
 
 {% block scripts %}

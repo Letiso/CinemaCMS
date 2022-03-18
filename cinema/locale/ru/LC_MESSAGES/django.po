@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 16:40+0200\n"
+"POT-Creation-Date: 2022-03-18 16:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,6 +64,9 @@ msgid "Banners"
 msgstr "Баннеры"
 
 #: admin/templates/admin/admin_layout.html:138
+#: admin/templates/admin/movies/index.html:9
+#: admin/templates/admin/movies/index.html:12
+#: admin/templates/admin/movies/movie_card.html:26
 msgid "Movies"
 msgstr "Фильмы"
 
@@ -118,6 +121,50 @@ msgstr "На главной Новости | Акции"
 #: admin/templates/admin/banners/index.html:105
 msgid " s"
 msgstr " с"
+
+#: admin/templates/admin/movies/index.html:19
+msgid "Released movies"
+msgstr "Вышедшие фильмы"
+
+#: admin/templates/admin/movies/index.html:46
+msgid "Announced movies"
+msgstr "Анонсированные фильмы"
+
+#: admin/templates/admin/movies/index.html:73
+#, fuzzy
+#| msgid "Is active"
+msgid "Inactive cards"
+msgstr "Неактивные карточки"
+
+#: admin/templates/admin/movies/movie_card.html:22
+#: admin/templates/admin/movies/movie_card.html:27
+msgid "Movie card"
+msgstr "Карточка фильма"
+
+#: admin/templates/admin/movies/movie_card.html:62
+msgid "Movie frames gallery"
+msgstr "Галерея кадров из фильма"
+
+#: admin/templates/admin/movies/movie_card.html:108
+msgid "Movie type"
+msgstr "Тип кино"
+
+#: admin/templates/admin/movies/movie_card.html:121
+msgid "SEO block"
+msgstr "SEO блок"
+
+#: admin/templates/admin/movies/movie_card.html:128
+#: user/templates/user/update.html:16
+msgid "Save"
+msgstr "Сохранить"
+
+#: admin/templates/admin/movies/movie_card.html:129
+msgid "Return initial condition"
+msgstr "Вернуть исходное состояние"
+
+#: admin/templates/admin/movies/movie_card.html:136
+msgid "Delete card"
+msgstr "Удалить карточку"
 
 #: main/models.py:30
 msgid "Title"
@@ -432,10 +479,6 @@ msgstr "Регистрация"
 #: user/templates/user/update.html:6 user/templates/user/update.html:11
 msgid "Change user data"
 msgstr "Изменить данные пользователя"
-
-#: user/templates/user/update.html:16
-msgid "Save"
-msgstr "Сохранить"
 
 #~ msgid "Every user"
 #~ msgstr "Все пользователи"
