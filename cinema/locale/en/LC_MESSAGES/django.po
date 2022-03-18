@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 16:54+0200\n"
+"POT-Creation-Date: 2022-03-18 17:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,6 +69,10 @@ msgid "Movies"
 msgstr ""
 
 #: admin/templates/admin/admin_layout.html:147
+#: admin/templates/admin/cinemas/cinema_card.html:22
+#: admin/templates/admin/cinemas/hall_card.html:23
+#: admin/templates/admin/cinemas/index.html:10
+#: admin/templates/admin/cinemas/index.html:13
 msgid "Cinemas"
 msgstr ""
 
@@ -118,6 +122,112 @@ msgstr ""
 msgid " s"
 msgstr ""
 
+#: admin/templates/admin/cinemas/cinema_card.html:19
+#: admin/templates/admin/cinemas/cinema_card.html:23
+msgid "Cinema card"
+msgstr ""
+
+#: admin/templates/admin/cinemas/cinema_card.html:66
+msgid "Cinema photo gallery"
+msgstr ""
+
+#: admin/templates/admin/cinemas/cinema_card.html:108
+#: admin/templates/admin/cinemas/hall_card.html:105
+#: admin/templates/admin/movies/movie_card.html:121
+msgid "SEO block:"
+msgstr ""
+
+#: admin/templates/admin/cinemas/cinema_card.html:116
+#: admin/templates/admin/cinemas/hall_card.html:113
+#: admin/templates/admin/movies/movie_card.html:128
+#: user/templates/user/update.html:16
+msgid "Save"
+msgstr ""
+
+#: admin/templates/admin/cinemas/cinema_card.html:117
+#: admin/templates/admin/cinemas/hall_card.html:114
+#: admin/templates/admin/movies/movie_card.html:129
+msgid "Return initial condition"
+msgstr ""
+
+#: admin/templates/admin/cinemas/cinema_card.html:124
+#: admin/templates/admin/movies/movie_card.html:136
+msgid "Delete card"
+msgstr ""
+
+#: admin/templates/admin/cinemas/hall_card.html:20
+#: admin/templates/admin/cinemas/hall_card.html:24
+msgid "Hall card"
+msgstr ""
+
+#: admin/templates/admin/cinemas/hall_card.html:45
+msgid "Hall scheme"
+msgstr ""
+
+#: admin/templates/admin/cinemas/hall_card.html:63
+msgid "Hall photo gallery"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:20
+msgid "All cinemas"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:50
+msgid "Halls list"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:62 main/models.py:180
+msgid "Hall number"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:63
+msgid "Date created"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:64
+msgid "Status"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:65
+msgid "Edit"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:76
+msgid "On"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:78
+msgid "Off"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:94
+msgid "Confirm deletion"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:99
+msgid "Are you sure to delete this hall?"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:107
+msgid "Back"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:110
+msgid "Delete hall"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:146
+msgid "Select cinema"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:162
+msgid "Create hall"
+msgstr ""
+
+#: admin/templates/admin/cinemas/index.html:170
+msgid "Select cinema first"
+msgstr ""
+
 #: admin/templates/admin/movies/index.html:19
 msgid "Released movies"
 msgstr ""
@@ -141,23 +251,6 @@ msgstr ""
 
 #: admin/templates/admin/movies/movie_card.html:108
 msgid "Movie type"
-msgstr ""
-
-#: admin/templates/admin/movies/movie_card.html:121
-msgid "SEO block"
-msgstr ""
-
-#: admin/templates/admin/movies/movie_card.html:128
-#: user/templates/user/update.html:16
-msgid "Save"
-msgstr ""
-
-#: admin/templates/admin/movies/movie_card.html:129
-msgid "Return initial condition"
-msgstr ""
-
-#: admin/templates/admin/movies/movie_card.html:136
-msgid "Delete card"
 msgstr ""
 
 #: main/models.py:30
@@ -234,10 +327,6 @@ msgstr ""
 
 #: main/models.py:169 main/models.py:384
 msgid "Cinema photo"
-msgstr ""
-
-#: main/models.py:180
-msgid "Hall number"
 msgstr ""
 
 #: main/models.py:181

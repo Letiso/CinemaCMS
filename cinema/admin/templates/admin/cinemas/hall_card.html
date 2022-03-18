@@ -1,6 +1,6 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load crispy_forms_tags %}
-{% load static %}
+{% load static i18n crispy_forms_tags %}
+
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'admin/css/custom_delete_checkbox.css' %}">
@@ -17,11 +17,11 @@
 
 {% block cinemas %}active{% endblock %}
 
-{% block current_page %}Карточка зала{% endblock %}
+{% block current_page %}{% trans 'Hall card' %}{% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item"><a href="{% url 'admin:cinemas' %}">Кинотеатры</a></li>
-    <li class="breadcrumb-item active">Карточка зала</li>
+    <li class="breadcrumb-item"><a href="{% url 'admin:cinemas' %}">{% trans 'Cinemas' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Hall card' %}</li>
     <li class="breadcrumb-item active">{{ pk }}</li>
 {% endblock %}
 
@@ -42,7 +42,7 @@
                     </div>
                     {{ form.description|as_crispy_field }}
 
-                    <label>Схема зала:</label>
+                    <label>{% trans 'Hall scheme' %}:</label>
                     <div class="col-2 ml-3">
                         {{ form.rows_count|as_crispy_field }}
                         {{ form.places_count|as_crispy_field }}
@@ -60,7 +60,7 @@
                     </div>
 
 
-                    <label>Галерея фото кинотеатра</label>
+                    <label>{% trans 'Hall photo gallery' %}</label>
                         <h5 id="hall_image-image-required_size" class="mr-auto"></h5>
                     <div class="container-fluid">
                         {% with gallery.formset as formset %}
@@ -102,7 +102,7 @@
                         {% endwith %}
                     </div>
 
-                    <label>SEO блок:</label>
+                    <label>{% trans 'SEO block:' %}</label>
                     <div class="container">
                         {% for field in seo.form %}
                             {{ field|as_crispy_field }}
@@ -110,8 +110,8 @@
                     </div>
                 {% endwith %}
                 <div class="text-center mt-4">
-                    <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
-                    <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
+                    <input type="submit" class="btn btn-success px-4" value="{% trans 'Save' %}" style="font-size: 20px;">
+                    <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">{% trans 'Return initial condition' %}</a>
                 </div>
             </div>
         </div>

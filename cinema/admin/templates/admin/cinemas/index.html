@@ -1,5 +1,5 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.css' %}">
@@ -7,17 +7,17 @@
 
 {% block cinemas %}active{% endblock %}
 
-{% block current_page %}Кинотеатры{% endblock %}
+{% block current_page %}{% trans 'Cinemas' %}{% endblock %}
 
 {% block path %}
-<li class="breadcrumb-item active">Кинотеатры</li>
+<li class="breadcrumb-item active">{% trans 'Cinemas' %}</li>
 {% endblock %}
 
 {% block content %}
     <div class="card">
         <div class="card-header d-flex mt-2">
             <h4 class="col-11 text-center">
-                Все кинотеатры
+                {% trans 'All cinemas' %}
             </h4>
             <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseCinemasList" role="button" aria-expanded="false" aria-controls="collapseCinemasList">
                 <i class="fas fa-bars" style="font-size: 22px;"></i>
@@ -47,7 +47,7 @@
     <div class="card">
         <div class="card-header d-flex mt-2">
             <h4 class="col-11 text-center">
-                Список залов
+                {% trans 'Halls list' %}
             </h4>
             <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseCinemaHallsList" role="button" aria-expanded="false" aria-controls="collapseCinemaHallsList">
                 <i class="fas fa-bars" style="font-size: 22px;"></i>
@@ -59,10 +59,10 @@
               <thead>
                  <tr>
                     <th style="display:none;"></th>
-                    <th>Номер зала</th>
-                    <th>Дата создания</th>
-                    <th>Статус</th>
-                    <th>Редактировать</th>
+                    <th>{% trans 'Hall number' %}</th>
+                    <th>{% trans 'Date created' %}</th>
+                    <th>{% trans 'Status' %}</th>
+                    <th>{% trans 'Edit' %}</th>
                  </tr>
               </thead>
               <tbody>
@@ -73,9 +73,9 @@
                       <td>{{ hall.date_created }}</td>
                       <td>
                           {% if hall.is_active %}
-                            <span>Вкл.</span>
+                            <span>{% trans 'On' %}</span>
                           {% else %}
-                            <span>Выкл.</span>
+                            <span>{% trans 'Off' %}</span>
                           {% endif %}
                       </td>
                       <td class="col-1">
@@ -91,12 +91,12 @@
                                 <div class="modal-content">
                                   <div class="modal-header bg-dark">
                                     <h5 class="modal-title" id="exampleModalLongTitle-{{ forloop.counter }}">
-                                        Подтверждение удаления
+                                        {% trans 'Confirm deletion' %}
                                     </h5>
                                   </div>
                                   <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
                                     <span style="font-size: 20px;">
-                                        Вы уверены, что хотите удалить этот зал?
+                                        {% trans 'Are you sure to delete this hall?' %}
                                     </span>
                                     <span class="text-primary" style="font-size: 35px;">
                                         {{ hall.number }}
@@ -104,10 +104,10 @@
                                   </div>
                                   <div class="modal-footer bg-dark">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                        Назад
+                                        {% trans 'Back' %}
                                     </button>
                                       <a href="{% url 'admin:delete_hall_card' pk=hall.pk %}" class="btn btn-danger">
-                                          Удалить зал
+                                          {% trans 'Delete hall' %}
                                       </a>
                                   </div>
                                 </div>
@@ -143,7 +143,7 @@
         let left_table_header_part = document.getElementById(`${dataTableId}_wrapper`).getElementsByClassName('col-sm-12')[0]
             left_table_header_part.innerHTML = `
                     <label>
-                        Выберите кинотеатр:
+                        {% trans 'Select cinema' %}:
                         <select class="form-control" id="cinemaSelect">
                             <option value="0">
                                 --------------
@@ -159,7 +159,7 @@
 
                     <a href="#" class="btn btn-primary mb-1 ml-3 px-2 create_button">
                         <span class="fas fa-plus pr-2"></span>
-                        Создать зал
+                        {% trans 'Create hall' %}
                     </a>`
             let createCardButton = $("a[class*='create_button']")
 
@@ -167,7 +167,7 @@
             let url = $(this).prop('href').split('#')[1]
 
             if (url === '') {
-                toastr.error('Сперва выберите кинотеатр');
+                toastr.error('{% trans 'Select cinema first' %}');
             }
         })
     </script>

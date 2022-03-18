@@ -1,6 +1,5 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load crispy_forms_tags %}
-{% load static %}
+{% load static i18n crispy_forms_tags %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'admin/css/custom_delete_checkbox.css' %}">
@@ -17,11 +16,11 @@
 
 {% block cinemas %}active{% endblock %}
 
-{% block current_page %}Карточка кинотеатра{% endblock %}
+{% block current_page %}{% trans 'Cinema card' %}{% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item"><a href="{% url 'admin:movies' %}">Кинотеатры</a></li>
-    <li class="breadcrumb-item active">Карточка кинотеатра</li>
+    <li class="breadcrumb-item"><a href="{% url 'admin:movies' %}">{% trans 'Cinemas' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Cinema card' %}</li>
     <li class="breadcrumb-item active">{{ pk }}</li>
 {% endblock %}
 
@@ -64,7 +63,7 @@
                     </div>
 
 
-                    <label>Галерея фото кинотеатра</label>
+                    <label>{% trans 'Cinema photo gallery' %}</label>
                     <h5 id="cinema_image-image-required_size" class="mr-auto"></h5>
                     <div class="container-fluid">
                         {% with gallery.formset as formset %}
@@ -106,7 +105,7 @@
                         {% endwith %}
                     </div>
 
-                    <label>SEO блок:</label>
+                    <label>{% trans 'SEO block:' %}</label>
                     <div class="container">
                         {% for field in seo.form %}
                             {{ field|as_crispy_field }}
@@ -114,15 +113,15 @@
                     </div>
                 {% endwith %}
                 <div class="text-center mt-4">
-                    <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
-                    <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
+                    <input type="submit" class="btn btn-success px-4" value="{% trans 'Save' %}" style="font-size: 20px;">
+                    <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">{% trans 'Return initial condition' %}</a>
 
                     <a href="{% if pk %}
                                 {% url 'admin:delete_cinema_card' pk %}
                              {% else %}
                                 {% url 'admin:cinemas' %}
                             {% endif %}" class="btn btn-danger px-4 ml-5 mt-4 mt-xl-0" style="font-size: 20px;">
-                        Удалить карточку
+                        {% trans 'Delete card' %}
                     </a>
 
                 </div>

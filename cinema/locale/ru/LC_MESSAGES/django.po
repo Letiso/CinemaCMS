@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-18 16:54+0200\n"
+"POT-Creation-Date: 2022-03-18 17:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,6 +71,10 @@ msgid "Movies"
 msgstr "Фильмы"
 
 #: admin/templates/admin/admin_layout.html:147
+#: admin/templates/admin/cinemas/cinema_card.html:22
+#: admin/templates/admin/cinemas/hall_card.html:23
+#: admin/templates/admin/cinemas/index.html:10
+#: admin/templates/admin/cinemas/index.html:13
 msgid "Cinemas"
 msgstr "Кинотеатры"
 
@@ -122,6 +126,112 @@ msgstr "На главной Новости | Акции"
 msgid " s"
 msgstr " с"
 
+#: admin/templates/admin/cinemas/cinema_card.html:19
+#: admin/templates/admin/cinemas/cinema_card.html:23
+msgid "Cinema card"
+msgstr "Карточка кинотеатра"
+
+#: admin/templates/admin/cinemas/cinema_card.html:66
+msgid "Cinema photo gallery"
+msgstr "Галерея фото кинотеатра"
+
+#: admin/templates/admin/cinemas/cinema_card.html:108
+#: admin/templates/admin/cinemas/hall_card.html:105
+#: admin/templates/admin/movies/movie_card.html:121
+msgid "SEO block:"
+msgstr "SEO блок:"
+
+#: admin/templates/admin/cinemas/cinema_card.html:116
+#: admin/templates/admin/cinemas/hall_card.html:113
+#: admin/templates/admin/movies/movie_card.html:128
+#: user/templates/user/update.html:16
+msgid "Save"
+msgstr "Сохранить"
+
+#: admin/templates/admin/cinemas/cinema_card.html:117
+#: admin/templates/admin/cinemas/hall_card.html:114
+#: admin/templates/admin/movies/movie_card.html:129
+msgid "Return initial condition"
+msgstr "Вернуть исходное состояние"
+
+#: admin/templates/admin/cinemas/cinema_card.html:124
+#: admin/templates/admin/movies/movie_card.html:136
+msgid "Delete card"
+msgstr "Удалить карточку"
+
+#: admin/templates/admin/cinemas/hall_card.html:20
+#: admin/templates/admin/cinemas/hall_card.html:24
+msgid "Hall card"
+msgstr "Карточка зала"
+
+#: admin/templates/admin/cinemas/hall_card.html:45
+msgid "Hall scheme"
+msgstr "Схема зала"
+
+#: admin/templates/admin/cinemas/hall_card.html:63
+msgid "Hall photo gallery"
+msgstr "Галерея фото зала"
+
+#: admin/templates/admin/cinemas/index.html:20
+msgid "All cinemas"
+msgstr "Все кинотеатры"
+
+#: admin/templates/admin/cinemas/index.html:50
+msgid "Halls list"
+msgstr "Список залов"
+
+#: admin/templates/admin/cinemas/index.html:62 main/models.py:180
+msgid "Hall number"
+msgstr "Номер зала"
+
+#: admin/templates/admin/cinemas/index.html:63
+msgid "Date created"
+msgstr "Дата создания"
+
+#: admin/templates/admin/cinemas/index.html:64
+msgid "Status"
+msgstr "Статус"
+
+#: admin/templates/admin/cinemas/index.html:65
+msgid "Edit"
+msgstr "Редактировать"
+
+#: admin/templates/admin/cinemas/index.html:76
+msgid "On"
+msgstr "Вкл."
+
+#: admin/templates/admin/cinemas/index.html:78
+msgid "Off"
+msgstr "Выкл."
+
+#: admin/templates/admin/cinemas/index.html:94
+msgid "Confirm deletion"
+msgstr "Подтверждение удаления"
+
+#: admin/templates/admin/cinemas/index.html:99
+msgid "Are you sure to delete this hall?"
+msgstr "Вы уверены, что хотите удалить этот зал?"
+
+#: admin/templates/admin/cinemas/index.html:107
+msgid "Back"
+msgstr "Назад"
+
+#: admin/templates/admin/cinemas/index.html:110
+msgid "Delete hall"
+msgstr "Удалить зал"
+
+#: admin/templates/admin/cinemas/index.html:146
+msgid "Select cinema"
+msgstr "Выберите кинотеатр"
+
+#: admin/templates/admin/cinemas/index.html:162
+msgid "Create hall"
+msgstr "Создать зал"
+
+#: admin/templates/admin/cinemas/index.html:170
+msgid "Select cinema first"
+msgstr "Сперва выберите кинотеатр"
+
 #: admin/templates/admin/movies/index.html:19
 msgid "Released movies"
 msgstr "Вышедшие фильмы"
@@ -148,23 +258,6 @@ msgstr "Галерея кадров из фильма"
 #: admin/templates/admin/movies/movie_card.html:108
 msgid "Movie type"
 msgstr "Тип кино"
-
-#: admin/templates/admin/movies/movie_card.html:121
-msgid "SEO block"
-msgstr "SEO блок"
-
-#: admin/templates/admin/movies/movie_card.html:128
-#: user/templates/user/update.html:16
-msgid "Save"
-msgstr "Сохранить"
-
-#: admin/templates/admin/movies/movie_card.html:129
-msgid "Return initial condition"
-msgstr "Вернуть исходное состояние"
-
-#: admin/templates/admin/movies/movie_card.html:136
-msgid "Delete card"
-msgstr "Удалить карточку"
 
 #: main/models.py:30
 msgid "Title"
@@ -241,10 +334,6 @@ msgstr "Главная картинка"
 #: main/models.py:169 main/models.py:384
 msgid "Cinema photo"
 msgstr "Фото кинотеатра"
-
-#: main/models.py:180
-msgid "Hall number"
-msgstr "Номер зала"
 
 #: main/models.py:181
 msgid "Hall description"
@@ -482,6 +571,3 @@ msgstr "Изменить данные пользователя"
 
 #~ msgid "Every user"
 #~ msgstr "Все пользователи"
-
-#~ msgid "Select users"
-#~ msgstr "Выборочно"
