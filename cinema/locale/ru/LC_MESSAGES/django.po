@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-19 13:38+0200\n"
+"POT-Creation-Date: 2022-03-19 14:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,6 +36,16 @@ msgstr "Цвет на фоне"
 #: admin/forms.py:312 admin/forms.py:328
 msgid "Select mailing type"
 msgstr "Выберите тип рассылки"
+
+#: admin/forms.py:314 admin/forms.py:330
+msgid "Every user"
+msgstr "Все пользователи"
+
+#: admin/forms.py:314 admin/forms.py:330
+#: admin/templates/admin/mailing/mailing.html:59
+#: admin/templates/admin/mailing/mailing.html:219
+msgid "Select users"
+msgstr "Выбрать пользователей"
 
 #: admin/forms.py:318
 msgid "SMS text"
@@ -110,6 +120,7 @@ msgid "Users"
 msgstr "Пользователи"
 
 #: admin/templates/admin/admin_layout.html:192
+#: admin/templates/admin/mailing/mailing.html:26
 #: admin/templates/admin/mailing/mailing.html:30
 msgid "Mailing"
 msgstr "Рассылка"
@@ -399,9 +410,11 @@ msgstr "Начать рассылку"
 msgid "Last uploaded html-messages list"
 msgstr "Список последних загруженных html-сообщений"
 
+#: admin/templates/admin/mailing/mailing.html:345
+msgid "Delete"
+msgstr "Удалить"
+
 #: admin/templates/admin/mailing/mailing.html:406
-#, fuzzy
-#| msgid "Select cinema"
 msgid "Select all"
 msgstr "Выделить всех"
 
@@ -515,7 +528,7 @@ msgstr "Удалить акцию"
 
 #: admin/templates/admin/promotion/index.html:103
 msgid "Create promotion"
-msgstr "Акции"
+msgstr "Создать акцию"
 
 #: admin/templates/admin/promotion/promotion_card.html:24
 #: admin/templates/admin/promotion/promotion_card.html:29
@@ -821,6 +834,3 @@ msgstr "Зарегистрироваться"
 #: user/templates/user/update.html:6 user/templates/user/update.html:11
 msgid "Change user data"
 msgstr "Изменить данные пользователя"
-
-#~ msgid "Symbols number"
-#~ msgstr "Номер зала"

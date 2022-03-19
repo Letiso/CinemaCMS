@@ -6,7 +6,7 @@ from user.forms import UserUpdateForm
 from main.models import *
 from django.forms import modelformset_factory
 from django.utils.translation import gettext as _
-from django.utils.translation import gettext_lazy as _lazy
+from django.utils.translation import gettext_lazy
 
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -309,13 +309,13 @@ class SEOForm(forms.ModelForm):
 class SendSMSForm(forms.Form):
     prefix = 'SMS'
     mailing_type = forms.TypedChoiceField(
-        label=_('Select mailing type'),
+        label=gettext_lazy('Select mailing type'),
         coerce=lambda x: x == 'True',
-        choices=((True, _lazy('Every user')), (False, _lazy('Select users'))),
+        choices=((True, gettext_lazy('Every user')), (False, gettext_lazy('Select users'))),
         widget=forms.RadioSelect(),
         initial=True,
     )
-    message = forms.CharField(label=_('SMS text'), widget=forms.Textarea(attrs={
+    message = forms.CharField(label=gettext_lazy('SMS text'), widget=forms.Textarea(attrs={
         'class': 'textarea form-control'
     }))
     checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -325,13 +325,13 @@ class SendEmailForm(forms.Form):
     prefix = 'email'
 
     mailing_type = forms.TypedChoiceField(
-        label=_('Select mailing type'),
+        label=gettext_lazy('Select mailing type'),
         coerce=lambda x: x == 'True',
-        choices=((True, _lazy('Every user')), (False, _lazy('Select users'))),
+        choices=((True, gettext_lazy('Every user')), (False, gettext_lazy('Select users'))),
         widget=forms.RadioSelect,
         initial=True,
     )
-    message = forms.FileField(label=_('Upload HTML-mail'), widget=forms.FileInput(attrs={'accept': '.html'}),
+    message = forms.FileField(label=gettext_lazy('Upload HTML-mail'), widget=forms.FileInput(attrs={'accept': '.html'}),
                               required=False)
 
     checked_users = forms.CharField(widget=forms.HiddenInput(), required=False)

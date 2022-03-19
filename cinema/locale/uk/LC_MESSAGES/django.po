@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-19 13:38+0200\n"
+"POT-Creation-Date: 2022-03-19 14:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,6 +36,16 @@ msgstr ""
 
 #: admin/forms.py:312 admin/forms.py:328
 msgid "Select mailing type"
+msgstr ""
+
+#: admin/forms.py:314 admin/forms.py:330
+msgid "Every user"
+msgstr ""
+
+#: admin/forms.py:314 admin/forms.py:330
+#: admin/templates/admin/mailing/mailing.html:59
+#: admin/templates/admin/mailing/mailing.html:219
+msgid "Select users"
 msgstr ""
 
 #: admin/forms.py:318
@@ -111,6 +121,7 @@ msgid "Users"
 msgstr ""
 
 #: admin/templates/admin/admin_layout.html:192
+#: admin/templates/admin/mailing/mailing.html:26
 #: admin/templates/admin/mailing/mailing.html:30
 msgid "Mailing"
 msgstr ""
@@ -398,6 +409,10 @@ msgstr ""
 
 #: admin/templates/admin/mailing/mailing.html:332
 msgid "Last uploaded html-messages list"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:345
+msgid "Delete"
 msgstr ""
 
 #: admin/templates/admin/mailing/mailing.html:406

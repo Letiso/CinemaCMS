@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block current_page %}
-    Рассылка
+    {% trans 'Mailing' %}
 {% endblock %}
 
 {% block path %}
@@ -56,14 +56,14 @@
                                         </div>
 
                                         <!-- Button trigger modal -->
-                                        <a id="id_{{ form.prefix }}-select_users" class="btn btn-light m-auto" data-toggle="modal" data-target="#modal_{{ form.prefix }}-select_users" style="font-size:20px;">Выбрать пользователей</a>
+                                        <a id="id_{{ form.prefix }}-select_users" class="btn btn-light m-auto" data-toggle="modal" data-target="#modal_{{ form.prefix }}-select_users" style="font-size:20px;">{% trans 'Select users' %}</a>
                                         <!-- Modal -->
                                         <div class="modal fade" id="modal_{{ form.prefix }}-select_users" tabindex="-1" role="dialog" aria-hidden="true">
                                             <div class="modal-dialog modal-xl" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-dark">
                                                         <h5 class="modal-title">
-                                                            {% trans 'Select users for mailing start' %}Выберите пользователей для начала рассылки
+                                                            {% trans 'Select users for mailing start' %}
                                                         </h5>
                                                     </div>
                                                 <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
@@ -156,7 +156,7 @@
                                                 </div>
                                                 <div class="modal-footer bg-dark">
                                                     <button type="button" class="btn btn-success" data-dismiss="modal">
-                                                        {% trans 'Accept' %}Принять
+                                                        {% trans 'Accept' %}
                                                     </button>
 
                                                 </div>
@@ -172,7 +172,7 @@
                                     {{ form.message }}
                                 </div>
                                 <div class="col ml-5 mt-5">
-                                    <h4 class="mx-auto my-5 text-center">{% trans 'Count of selected users' %}: <span id="{{ form.prefix }}-checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
+                                    <h4 class="mx-auto my-5 text-center">{% trans 'Count of selected users' %}: <span id="{{ form.prefix }}-checked_users" class="text-info ml-2" style="font-size: 25px;">0</span></h4>
                                     <div class="mx-auto my-5 text-center">
                                         <label id="{{ form.prefix }}-mailing_progress_bar-label" for="{{ form.prefix }}-mailing_progress_bar">{% trans "Mailing wasn't started yet" %}</label>
                                         <div class="progress">
@@ -216,7 +216,7 @@
                                             {{ form.mailing_type|as_crispy_field }}
                                         </div>
                                         <!-- Button trigger modal -->
-                                        <a id="id_{{ form.prefix }}-select_users" class="btn btn-light m-auto" data-toggle="modal" data-target="#modal_{{ form.prefix }}-select_users" style="font-size:20px;">Выбрать пользователей</a>
+                                        <a id="id_{{ form.prefix }}-select_users" class="btn btn-light m-auto" data-toggle="modal" data-target="#modal_{{ form.prefix }}-select_users" style="font-size:20px;">{% trans 'Select users' %}</a>
                                         <!-- Modal -->
                                         <div class="modal fade" id="modal_{{ form.prefix }}-select_users" tabindex="-1" role="dialog" aria-hidden="true">
                                             <div class="modal-dialog modal-xl" role="document">
@@ -351,7 +351,7 @@
                                     </div>
                                 </div>
                                 <div class="col ml-5 mt-5">
-                                    <h4 class="mx-auto my-5 text-center">{% trans 'Count of selected users' %}:<span id="{{ form.prefix }}-checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
+                                    <h4 class="mx-auto my-5 text-center">{% trans 'Count of selected users' %}:<span id="{{ form.prefix }}-checked_users" class="text-info ml-2" style="font-size: 25px;">0</span></h4>
                                     <div class="mx-auto my-5 text-center">
                                         <label id="{{ form.prefix }}-mailing_progress_bar-label" for="{{ form.prefix }}-mailing_progress_bar">{% trans "Mailing wasn't started yet" %}</label>
                                         <div class="progress">
