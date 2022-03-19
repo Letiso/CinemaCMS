@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-19 13:08+0200\n"
+"POT-Creation-Date: 2022-03-19 13:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,7 +100,9 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:183 user/models.py:60
+#: admin/templates/admin/admin_layout.html:183
+#: admin/templates/admin/users/index.html:15
+#: admin/templates/admin/users/index.html:20 user/models.py:60
 msgid "Users"
 msgstr ""
 
@@ -228,6 +230,7 @@ msgstr ""
 #: admin/templates/admin/news/index.html:26
 #: admin/templates/admin/pages/index.html:27
 #: admin/templates/admin/promotion/index.html:26
+#: admin/templates/admin/users/index.html:46
 msgid "Edit"
 msgstr ""
 
@@ -257,6 +260,7 @@ msgstr ""
 #: admin/templates/admin/news/index.html:54
 #: admin/templates/admin/pages/index.html:108
 #: admin/templates/admin/promotion/index.html:54
+#: admin/templates/admin/users/index.html:143
 msgid "Confirm deletion"
 msgstr ""
 
@@ -268,6 +272,7 @@ msgstr ""
 #: admin/templates/admin/news/index.html:67
 #: admin/templates/admin/pages/index.html:121
 #: admin/templates/admin/promotion/index.html:67
+#: admin/templates/admin/users/index.html:156
 msgid "Back"
 msgstr ""
 
@@ -398,6 +403,78 @@ msgstr ""
 
 #: admin/templates/admin/promotion/promotion_card.html:66
 msgid "Promotion images gallery"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:33 user/forms.py:138
+#: user/models.py:24
+msgid "Login"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:35 user/models.py:33
+msgid "Phone number"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:36 user/models.py:35
+msgid "First name"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:37 user/models.py:36
+msgid "Last name"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:38 user/models.py:38
+msgid "Gender"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:39
+#: main/templates/main/main_layout.html:271 user/models.py:39
+msgid "Language"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:40 user/models.py:40
+msgid "Birth date"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:41 main/models.py:377
+#: user/models.py:41
+msgid "Address"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:42
+msgid "Last visit"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:43 user/templates/user/signup.html:4
+#: user/templates/user/signup.html:10
+msgid "Registration"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:44
+msgid "Employee"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:45
+msgid "Admin"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:84 user/models.py:14
+msgid "Male"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:86 user/models.py:15
+msgid "Female"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:148
+msgid "Are you sure to delete this user?"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:159
+msgid "Delete account"
+msgstr ""
+
+#: admin/templates/admin/users/index.html:179
+msgid "Admin permissions needed"
 msgstr ""
 
 #: main/models.py:31
@@ -552,10 +629,6 @@ msgstr ""
 msgid "Page image"
 msgstr ""
 
-#: main/models.py:377 user/models.py:41
-msgid "Address"
-msgstr ""
-
 #: main/models.py:378
 msgid "Map coordinates"
 msgstr ""
@@ -570,10 +643,6 @@ msgstr ""
 
 #: main/templates/main/main_layout.html:232
 msgid "Hello, "
-msgstr ""
-
-#: main/templates/main/main_layout.html:271 user/models.py:39
-msgid "Language"
 msgstr ""
 
 #: user/forms.py:9 user/forms.py:78 user/forms.py:148
@@ -604,10 +673,6 @@ msgstr ""
 msgid "Brain"
 msgstr ""
 
-#: user/forms.py:138 user/models.py:24
-msgid "Login"
-msgstr ""
-
 #: user/forms.py:142
 msgid "Username or email"
 msgstr ""
@@ -628,40 +693,12 @@ msgstr ""
 msgid "Invalid password"
 msgstr ""
 
-#: user/models.py:14
-msgid "Male"
-msgstr ""
-
-#: user/models.py:15
-msgid "Female"
-msgstr ""
-
 #: user/models.py:29
 msgid "An user with that username already exists."
 msgstr ""
 
 #: user/models.py:32
 msgid "Email address"
-msgstr ""
-
-#: user/models.py:33
-msgid "Phone number"
-msgstr ""
-
-#: user/models.py:35
-msgid "First name"
-msgstr ""
-
-#: user/models.py:36
-msgid "Last name"
-msgstr ""
-
-#: user/models.py:38
-msgid "Gender"
-msgstr ""
-
-#: user/models.py:40
-msgid "Birth date"
 msgstr ""
 
 #: user/models.py:44
@@ -696,10 +733,6 @@ msgstr ""
 
 #: user/templates/user/login.html:25 user/templates/user/signup.html:17
 msgid "Registrate"
-msgstr ""
-
-#: user/templates/user/signup.html:4 user/templates/user/signup.html:10
-msgid "Registration"
 msgstr ""
 
 #: user/templates/user/update.html:6 user/templates/user/update.html:11

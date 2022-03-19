@@ -1,5 +1,5 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block stylesheets %}
   <!-- DataTables -->
@@ -7,182 +7,188 @@
   <link rel="stylesheet" href="{% static 'admin/css/users.css' %}">
 {% endblock %}
 
-{% block users %}active{% endblock %}
+{% block users %}
+    active
+{% endblock %}
 
-{% block current_page %}Пользователи{% endblock %}
+{% block current_page %}
+    {% trans 'Users' %}
+{% endblock %}
 
 {% block path %}
-<li class="breadcrumb-item active">Пользователи</li>
+    <li class="breadcrumb-item active">
+        {% trans 'Users' %}
+    </li>
 {% endblock %}
 
 {% block content %}
-{% if user.is_superuser %}
-    <!-- Main content -->
-    <div class="card">
-      <div class="card-body">
-        <table id="usersList" class="table table-bordered table-striped">
-          <thead>
-             <tr>
-                 <th>ID</th>
-                 <th>Логин</th>
-                 <th>Email</th>
-                 <th>Номер телефона</th>
-                 <th>Имя</th>
-                 <th>Фамилия</th>
-                 <th>Пол</th>
-                 <th>Язык</th>
-                 <th>Дата рождения</th>
-                 <th>Адрес</th>
-                 <th>Был(а)</th>
-                 <th>Регистрация</th>
-                 <th>Сотрудник</th>
-                 <th>Админ</th>
-                 <th>Ред.</th>
-             </tr>
-          </thead>
-          <tbody>
-            {% for user in users %}
-              <tr>
-                  <td>{{ user.id }}</td>
-                  <td>{{ user.username }}</td>
-                  <td>{{ user.email }}</td>
-                  <td>
-                      {% if user.phone %}
-                      +38{{ user.phone }}
-                      {% else %}
-                      <div class="text-center">
-                        <i class="fas fa-times text-dark"></i>
-                      </div>
-                      {% endif %}
-                  </td>
-                  <td>
-                      {% if user.first_name %}
-                      {{ user.first_name }}
-                      {% else %}
-                      <div class="text-center">
-                        <i class="fas fa-times text-dark"></i>
-                      </div>
-                      {% endif %}
-                  </td>
-                  <td>
-                      {% if user.last_name %}
-                      {{ user.last_name }}
-                      {% else %}
-                      <div class="text-center">
-                        <i class="fas fa-times text-dark"></i>
-                      </div>
-                      {% endif %}
-                  </td>
-                  <td>
-                      {% if user.gender == 'm' %}
-                      <p>Мужской</p>
-                      {% elif user.gender == 'f' %}
-                      <p>Женский</p>
-                      {% endif %}
-                  </td>
-                  <td>
-                      {% if user.language == 'ru' %}
-                      <p>RU</p>
-                      {% elif user.language == 'ua' %}
-                      <p>UA</p>
-                      {% elif user.language == 'en' %}
-                      <p>EN</p>
-                      {% endif %}
-                  </td>
-                  <td>{{ user.birth_date }}</td>
-                  <td>
-                      {% if user.address %}
-                      {{ user.address }}
-                      {% else %}
-                      <div class="text-center">
-                        <i class="fas fa-times text-dark"></i>
-                      </div>
-                      {% endif %}
-                  </td>
-                  <td>{{ user.last_login }}</td>
-                  <td>{{ user.date_joined }}</td>
-                  <td>
-                      <div class="text-center">
-                          {% if user.is_staff %}
-                          <i class="fas fa-check text-success"></i>
+    {% if user.is_superuser %}
+        <!-- Main content -->
+        <div class="card">
+          <div class="card-body">
+            <table id="usersList" class="table table-bordered table-striped">
+              <thead>
+                 <tr>
+                     <th>ID</th>
+                     <th>{% trans 'Login' %}</th>
+                     <th>Email</th>
+                     <th>{% trans 'Phone number' %}</th>
+                     <th>{% trans 'First name' %}</th>
+                     <th>{% trans 'Last name' %}</th>
+                     <th>{% trans 'Gender' %}</th>
+                     <th>{% trans 'Language' %}</th>
+                     <th>{% trans 'Birth date' %}</th>
+                     <th>{% trans 'Address' %}</th>
+                     <th>{% trans 'Last visit' %}</th>
+                     <th>{% trans 'Registration' %}</th>
+                     <th>{% trans 'Employee' %}</th>
+                     <th>{% trans 'Admin' %}</th>
+                     <th>{% trans 'Edit' %}</th>
+                 </tr>
+              </thead>
+              <tbody>
+                {% for user in users %}
+                  <tr>
+                      <td>{{ user.id }}</td>
+                      <td>{{ user.username }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>
+                          {% if user.phone %}
+                          +38{{ user.phone }}
                           {% else %}
-                          <!-- space '<i> </i>' needed for filtering -->
-                          <i class="fas fa-times text-dark"> </i>
+                          <div class="text-center">
+                            <i class="fas fa-times text-dark"></i>
+                          </div>
                           {% endif %}
-                      </div>
-                  </td>
-                  <td>
-                      <div class="text-center">
-                          {% if user.is_superuser %}
-                          <i class="fas fa-check text-success"></i>
+                      </td>
+                      <td>
+                          {% if user.first_name %}
+                          {{ user.first_name }}
                           {% else %}
-                          <!-- space '<i> </i>' needed for filtering -->
-                          <i class="fas fa-times text-dark"> </i>
+                          <div class="text-center">
+                            <i class="fas fa-times text-dark"></i>
+                          </div>
                           {% endif %}
-                      </div>
-                  </td>
-                  <td>
-                      <div class="row buttons">
-                          <a href="{% url 'admin:update_user' user.pk %}"
-                             class="fas fa-pen text-primary mx-auto"></a>
-                          <!-- Button trigger modal -->
-                          <a class="fas fa-minus-circle text-danger ml-2 mr-auto"
-                             data-toggle="modal" data-target="#deleteUserModal-{{ forloop.counter }}"></a>
-                          <!-- Modal -->
-                        <div class="modal fade" id="deleteUserModal-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header bg-dark">
-                                <h5 class="modal-title" id="exampleModalLongTitle-{{ forloop.counter }}">
-                                    Подтверждение удаления
-                                </h5>
-                              </div>
-                              <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
-                                <span style="font-size: 20px;">
-                                    Вы уверены, что хотите удалить этого пользователя?
-                                </span>
-                                <span class="text-primary" style="font-size: 35px;">
-                                    {{ user.username }}
-                                </span>
-                              </div>
-                              <div class="modal-footer bg-dark">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    Назад
-                                </button>
-                                  <a href="{% url 'admin:delete_user' user.pk %}" class="btn btn-danger">
-                                      Удалить учетную запись
-                                  </a>
+                      </td>
+                      <td>
+                          {% if user.last_name %}
+                          {{ user.last_name }}
+                          {% else %}
+                          <div class="text-center">
+                            <i class="fas fa-times text-dark"></i>
+                          </div>
+                          {% endif %}
+                      </td>
+                      <td>
+                          {% if user.gender == 'm' %}
+                          <p>{% trans 'Male' %}</p>
+                          {% elif user.gender == 'f' %}
+                          <p>{% trans 'Female' %}</p>
+                          {% endif %}
+                      </td>
+                      <td>
+                          {% if user.language == 'ru' %}
+                          <p>RU</p>
+                          {% elif user.language == 'ua' %}
+                          <p>UA</p>
+                          {% elif user.language == 'en' %}
+                          <p>EN</p>
+                          {% endif %}
+                      </td>
+                      <td>{{ user.birth_date }}</td>
+                      <td>
+                          {% if user.address %}
+                          {{ user.address }}
+                          {% else %}
+                          <div class="text-center">
+                            <i class="fas fa-times text-dark"></i>
+                          </div>
+                          {% endif %}
+                      </td>
+                      <td>{{ user.last_login }}</td>
+                      <td>{{ user.date_joined }}</td>
+                      <td>
+                          <div class="text-center">
+                              {% if user.is_staff %}
+                              <i class="fas fa-check text-success"></i>
+                              {% else %}
+                              <!-- space '<i> </i>' needed for filtering -->
+                              <i class="fas fa-times text-dark"> </i>
+                              {% endif %}
+                          </div>
+                      </td>
+                      <td>
+                          <div class="text-center">
+                              {% if user.is_superuser %}
+                              <i class="fas fa-check text-success"></i>
+                              {% else %}
+                              <!-- space '<i> </i>' needed for filtering -->
+                              <i class="fas fa-times text-dark"> </i>
+                              {% endif %}
+                          </div>
+                      </td>
+                      <td>
+                          <div class="row buttons">
+                              <a href="{% url 'admin:update_user' user.pk %}"
+                                 class="fas fa-pen text-primary mx-auto"></a>
+                              <!-- Button trigger modal -->
+                              <a class="fas fa-minus-circle text-danger ml-2 mr-auto"
+                                 data-toggle="modal" data-target="#deleteUserModal-{{ forloop.counter }}"></a>
+                              <!-- Modal -->
+                            <div class="modal fade" id="deleteUserModal-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header bg-dark">
+                                    <h5 class="modal-title" id="exampleModalLongTitle-{{ forloop.counter }}">
+                                        {% trans 'Confirm deletion' %}
+                                    </h5>
+                                  </div>
+                                  <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
+                                    <span style="font-size: 20px;">
+                                        {% trans 'Are you sure to delete this user?' %}
+                                    </span>
+                                    <span class="text-primary" style="font-size: 35px;">
+                                        {{ user.username }}
+                                    </span>
+                                  </div>
+                                  <div class="modal-footer bg-dark">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        {% trans 'Back' %}
+                                    </button>
+                                      <a href="{% url 'admin:delete_user' user.pk %}" class="btn btn-danger">
+                                          {% trans 'Delete account' %}
+                                      </a>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                  </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
-    <!-- /.content -->
+                      </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <!-- /.content -->
 
-{% else %}
-<div class="card row bg-dark" style="margin-top: 200px;">
-    <p class="text-light mx-auto mt-3" style="font-size: 40px;">Требуется статус администратора</p>
-</div>
-{% endif %}
+    {% else %}
+    <div class="card row bg-dark" style="margin-top: 200px;">
+        <p class="text-light mx-auto mt-3" style="font-size: 40px;">{% trans 'Admin permissions needed' %}</p>
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block scripts %}
-<!-- DataTables  & Plugins -->
-<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
-<script src="{% static 'admin/js/get_data_table.js' %}"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'admin/js/get_data_table.js' %}"></script>
 
-<script>
-    const dataTableId = "usersList"
-    getDataTable(dataTableId)
-</script>
+    <script>
+        const dataTableId = "usersList"
+        getDataTable(dataTableId)
+    </script>
 {% endblock %}
