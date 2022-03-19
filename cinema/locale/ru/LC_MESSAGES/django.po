@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-19 13:04+0200\n"
+"POT-Creation-Date: 2022-03-19 13:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,6 +94,7 @@ msgstr "Акции"
 
 #: admin/templates/admin/admin_layout.html:174
 #: admin/templates/admin/pages/about_the_cinema_page_card.html:25
+#: admin/templates/admin/pages/contacts_page_card.html:23
 #: admin/templates/admin/pages/index.html:11
 #: admin/templates/admin/pages/index.html:14
 #: admin/templates/admin/pages/main_page_card.html:14
@@ -149,6 +150,7 @@ msgstr "Галерея фото кинотеатра"
 #: admin/templates/admin/movies/movie_card.html:121
 #: admin/templates/admin/news/news_card.html:104
 #: admin/templates/admin/pages/about_the_cinema_page_card.html:95
+#: admin/templates/admin/pages/contacts_page_card.html:117
 #: admin/templates/admin/pages/main_page_card.html:45
 #: admin/templates/admin/pages/page_card.html:132
 #: admin/templates/admin/promotion/promotion_card.html:107
@@ -160,6 +162,7 @@ msgstr "SEO блок:"
 #: admin/templates/admin/movies/movie_card.html:128
 #: admin/templates/admin/news/news_card.html:112
 #: admin/templates/admin/pages/about_the_cinema_page_card.html:103
+#: admin/templates/admin/pages/contacts_page_card.html:126
 #: admin/templates/admin/pages/main_page_card.html:53
 #: admin/templates/admin/pages/page_card.html:140
 #: admin/templates/admin/promotion/promotion_card.html:115
@@ -172,6 +175,7 @@ msgstr "Сохранить"
 #: admin/templates/admin/movies/movie_card.html:129
 #: admin/templates/admin/news/news_card.html:113
 #: admin/templates/admin/pages/about_the_cinema_page_card.html:104
+#: admin/templates/admin/pages/contacts_page_card.html:127
 #: admin/templates/admin/pages/main_page_card.html:54
 #: admin/templates/admin/pages/page_card.html:141
 #: admin/templates/admin/promotion/promotion_card.html:116
@@ -346,6 +350,11 @@ msgstr "Карточка страницы"
 #: admin/templates/admin/pages/about_the_cinema_page_card.html:26
 msgid "Page card \"About the cinema\""
 msgstr "Карточка страницы \"О кинотеатре\""
+
+#: admin/templates/admin/pages/contacts_page_card.html:19
+#: admin/templates/admin/pages/contacts_page_card.html:24
+msgid "Page card \"Contacts\""
+msgstr "Карточка страницы \"Контакты\""
 
 #: admin/templates/admin/pages/index.html:113
 msgid "Are you sure to delete this page?"
