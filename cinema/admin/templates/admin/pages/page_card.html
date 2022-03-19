@@ -1,6 +1,5 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load crispy_forms_tags %}
-{% load static %}
+{% load static i18n crispy_forms_tags%}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'admin/css/custom_delete_checkbox.css' %}">
@@ -19,12 +18,12 @@
 {% endblock %}
 
 {% block current_page %}
-    Карточка страницы
+    {% trans 'Page card' %}
 {% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item"><a href="{% url 'admin:pages' %}">Страницы </a></li>
-    <li class="breadcrumb-item active">Карточка страницы</li>
+    <li class="breadcrumb-item"><a href="{% url 'admin:pages' %}">{% trans 'Pages' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Page card' %}</li>
     <li class="breadcrumb-item active">{{ pk }}</li>
 {% endblock %}
 
@@ -90,7 +89,7 @@
                         </div>
                     </div>
 
-                    <label>Галерея изображений акции</label>
+                    <label>{% trans 'Page images gallery' %}</label>
                     <h5 id="page-main_image-required_size" class="mr-auto"></h5>
                     <div class="container-fluid">
                         {% with gallery.formset as formset %}
@@ -130,7 +129,7 @@
                         {% endwith %}
                     </div>
 
-                    <label>SEO блок:</label>
+                    <label>{% trans 'SEO block:' %}</label>
                     <div class="container">
                         {% for field in seo.form %}
                             {{ field|as_crispy_field }}
@@ -138,8 +137,8 @@
                     </div>
                 {% endwith %}
                 <div class="text-center mt-4">
-                    <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
-                    <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
+                    <input type="submit" class="btn btn-success px-4" value="{% trans 'Save' %}" style="font-size: 20px;">
+                    <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">{% trans 'Return initial condition' %}</a>
                 </div>
             </form>
         </div>
