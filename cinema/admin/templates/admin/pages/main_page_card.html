@@ -1,17 +1,18 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load crispy_forms_tags %}
-{% load static %}
+{% load static i18n crispy_forms_tags%}
 
 {% block stylesheets %}
 {% endblock %}
 
-{% block pages %}active{% endblock %}
+{% block pages %}
+    active
+{% endblock %}
 
-{% block current_page %}Карточка главной страницы{% endblock %}
+{% block current_page %}{% trans 'Main page card' %}{% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item"><a href="{% url 'admin:pages' %}">Cтраницы</a></li>
-    <li class="breadcrumb-item active">Карточка главной страницы</li>
+    <li class="breadcrumb-item"><a href="{% url 'admin:pages' %}">{% trans 'Pages' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Main page card' %}</li>
 {% endblock %}
 
 {% block content %}
@@ -41,7 +42,7 @@
                     {{ form.second_phone_number|as_crispy_field }}
                     {{ form.seo_text|as_crispy_field }}
 
-                    <label>SEO блок:</label>
+                    <label>{% trans 'SEO block:' %}</label>
                     <div class="container">
                         {% for field in seo.form %}
                             {{ field|as_crispy_field }}
@@ -49,8 +50,8 @@
                     </div>
                 {% endwith %}
                 <div class="text-center mt-4">
-                    <input type="submit" class="btn btn-success px-4" value="Сохранить" style="font-size: 20px;">
-                    <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">Вернуть исходное состояние</a>
+                    <input type="submit" class="btn btn-success px-4" value="{% trans 'Save' %}" style="font-size: 20px;">
+                    <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">{% trans 'Return initial condition' %}</a>
                 </div>
             </form>
         </div>

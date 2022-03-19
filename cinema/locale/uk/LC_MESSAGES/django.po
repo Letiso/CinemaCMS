@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-19 12:53+0200\n"
+"POT-Creation-Date: 2022-03-19 12:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,6 +96,7 @@ msgstr ""
 #: admin/templates/admin/admin_layout.html:174
 #: admin/templates/admin/pages/index.html:11
 #: admin/templates/admin/pages/index.html:14
+#: admin/templates/admin/pages/main_page_card.html:14
 #: admin/templates/admin/pages/page_card.html:25
 msgid "Pages"
 msgstr ""
@@ -147,6 +148,7 @@ msgstr ""
 #: admin/templates/admin/cinemas/hall_card.html:105
 #: admin/templates/admin/movies/movie_card.html:121
 #: admin/templates/admin/news/news_card.html:104
+#: admin/templates/admin/pages/main_page_card.html:45
 #: admin/templates/admin/pages/page_card.html:132
 #: admin/templates/admin/promotion/promotion_card.html:107
 msgid "SEO block:"
@@ -156,6 +158,7 @@ msgstr ""
 #: admin/templates/admin/cinemas/hall_card.html:113
 #: admin/templates/admin/movies/movie_card.html:128
 #: admin/templates/admin/news/news_card.html:112
+#: admin/templates/admin/pages/main_page_card.html:53
 #: admin/templates/admin/pages/page_card.html:140
 #: admin/templates/admin/promotion/promotion_card.html:115
 #: user/templates/user/update.html:16
@@ -166,6 +169,7 @@ msgstr ""
 #: admin/templates/admin/cinemas/hall_card.html:114
 #: admin/templates/admin/movies/movie_card.html:129
 #: admin/templates/admin/news/news_card.html:113
+#: admin/templates/admin/pages/main_page_card.html:54
 #: admin/templates/admin/pages/page_card.html:141
 #: admin/templates/admin/promotion/promotion_card.html:116
 msgid "Return initial condition"
@@ -344,6 +348,11 @@ msgstr ""
 
 #: admin/templates/admin/pages/index.html:168
 msgid "Create page"
+msgstr ""
+
+#: admin/templates/admin/pages/main_page_card.html:11
+#: admin/templates/admin/pages/main_page_card.html:15
+msgid "Main page card"
 msgstr ""
 
 #: admin/templates/admin/pages/page_card.html:21
