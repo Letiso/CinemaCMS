@@ -1,6 +1,5 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load static %}
-{% load crispy_forms_tags %}
+{% load static i18n crispy_forms_tags%}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
@@ -19,12 +18,16 @@
     </style>
 {% endblock %}
 
-{% block mailing %}active{% endblock %}
+{% block mailing %}
+    active
+{% endblock %}
 
-{% block current_page %}Рассылка{% endblock %}
+{% block current_page %}
+    Рассылка
+{% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item active">Рассылка</li>
+    <li class="breadcrumb-item active">{% trans 'Mailing' %}</li>
 {% endblock %}
 
 {% block content %}
@@ -60,7 +63,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-dark">
                                                         <h5 class="modal-title">
-                                                            Выберите пользователей для начала рассылки
+                                                            {% trans 'Select users for mailing start' %}Выберите пользователей для начала рассылки
                                                         </h5>
                                                     </div>
                                                 <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
@@ -69,16 +72,16 @@
                                                         <thead>
                                                             <tr>
                                                                 <th></th>
-                                                                <th>Логин</th>
+                                                                <th>{% trans 'Login' %}</th>
                                                                 <th>Email</th>
-                                                                <th>Номер телефона</th>
-                                                                <th>Имя</th>
-                                                                <th>Фамилия</th>
-                                                                <th>Пол</th>
-                                                                <th>Язык</th>
-                                                                <th>Дата рождения</th>
-                                                                <th>Адрес</th>
-                                                                <th>Был(а)</th>
+                                                                <th>{% trans 'Phone number' %}</th>
+                                                                <th>{% trans 'First name' %}</th>
+                                                                <th>{% trans 'Last name' %}</th>
+                                                                <th>{% trans 'Gender' %}</th>
+                                                                <th>{% trans 'Language' %}</th>
+                                                                <th>{% trans 'Birth date' %}</th>
+                                                                <th>{% trans 'Address' %}</th>
+                                                                <th>{% trans 'Last visit' %}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -120,9 +123,9 @@
                                                                     </td>
                                                                     <td>
                                                                         {% if user.gender == 'm' %}
-                                                                            <p>Мужской</p>
+                                                                            <p>{% trans 'Male' %}</p>
                                                                         {% elif user.gender == 'f' %}
-                                                                            <p>Женский</p>
+                                                                            <p>{% trans 'Female' %}</p>
                                                                         {% endif %}
                                                                     </td>
                                                                     <td>
@@ -153,7 +156,7 @@
                                                 </div>
                                                 <div class="modal-footer bg-dark">
                                                     <button type="button" class="btn btn-success" data-dismiss="modal">
-                                                        Принять
+                                                        {% trans 'Accept' %}Принять
                                                     </button>
 
                                                 </div>
@@ -164,14 +167,14 @@
                                     </div>
                                     <div class="row justify-content-between mt-3">
                                         <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
-                                        <p>Символов: <span id="id_{{ form.prefix }}-symbols_counter">0</span></p>
+                                        <p>{% trans 'Symbols count' %}: <span id="id_{{ form.prefix }}-symbols_counter">0</span></p>
                                     </div>
                                     {{ form.message }}
                                 </div>
                                 <div class="col ml-5 mt-5">
-                                    <h4 class="mx-auto my-5 text-center">Пользователей выбрано: <span id="{{ form.prefix }}-checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
+                                    <h4 class="mx-auto my-5 text-center">{% trans 'Count of selected users' %}: <span id="{{ form.prefix }}-checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
                                     <div class="mx-auto my-5 text-center">
-                                        <label id="{{ form.prefix }}-mailing_progress_bar-label" for="{{ form.prefix }}-mailing_progress_bar">Рассылка еще не началась</label>
+                                        <label id="{{ form.prefix }}-mailing_progress_bar-label" for="{{ form.prefix }}-mailing_progress_bar">{% trans "Mailing wasn't started yet" %}</label>
                                         <div class="progress">
                                             <div id="{{ form.prefix }}-mailing_progress_bar" class="progress-bar bg-primary w-0" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
@@ -180,7 +183,7 @@
                                 </div>
                             </div>
                         <div class="text-center mt-4">
-                            <input type="submit" name="{{ form.prefix }}" id="start_{{ form.prefix }}_mailing" class="btn btn-info" value="Начать рассылку" style="font-size: 20px">
+                            <input type="submit" name="{{ form.prefix }}" id="start_{{ form.prefix }}_mailing" class="btn btn-info" value="{% trans 'Start mailing' %}" style="font-size: 20px">
                         </div>
                         {% endwith %}
 
@@ -220,7 +223,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-dark">
                                                         <h5 class="modal-title">
-                                                            Выберите пользователей для начала рассылки
+                                                            {% trans 'Select users for mailing start' %}
                                                         </h5>
                                                     </div>
                                                 <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
@@ -229,16 +232,16 @@
                                                         <thead>
                                                             <tr>
                                                                 <th></th>
-                                                                <th>Логин</th>
+                                                                <th>{% trans 'Login' %}</th>
                                                                 <th>Email</th>
-                                                                <th>Номер телефона</th>
-                                                                <th>Имя</th>
-                                                                <th>Фамилия</th>
-                                                                <th>Пол</th>
-                                                                <th>Язык</th>
-                                                                <th>Дата рождения</th>
-                                                                <th>Адрес</th>
-                                                                <th>Был(а)</th>
+                                                                <th>{% trans 'Phone number' %}</th>
+                                                                <th>{% trans 'First name' %}</th>
+                                                                <th>{% trans 'Last name' %}</th>
+                                                                <th>{% trans 'Gender' %}</th>
+                                                                <th>{% trans 'Language' %}</th>
+                                                                <th>{% trans 'Birth date' %}</th>
+                                                                <th>{% trans 'Address' %}</th>
+                                                                <th>{% trans 'Last visit' %}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -280,9 +283,9 @@
                                                                     </td>
                                                                     <td>
                                                                         {% if user.gender == 'm' %}
-                                                                            <p>Мужской</p>
+                                                                            <p>{% trans 'Male' %}</p>
                                                                         {% elif user.gender == 'f' %}
-                                                                            <p>Женский</p>
+                                                                            <p>{% trans 'Female' %}</p>
                                                                         {% endif %}
                                                                     </td>
                                                                     <td>
@@ -313,7 +316,7 @@
                                                 </div>
                                                 <div class="modal-footer bg-dark">
                                                     <button type="button" class="btn btn-success" data-dismiss="modal">
-                                                        Принять
+                                                        {% trans 'Accept' %}
                                                     </button>
 
                                                 </div>
@@ -326,7 +329,7 @@
                                         {{ form.message|as_crispy_field }}
                                         <div class="card">
                                             <div class="card-header">
-                                                <span>Список последних загруженных шаблонов</span>
+                                                <span>{% trans 'Last uploaded html-messages list' %}</span>
                                             </div>
                                             <div class="card-body">
                                                 {% for html_message in last_html_messages %}
@@ -339,7 +342,7 @@
                                                         </div>
 
                                                         <div class="ml-auto">
-                                                            <input type="button" id="{{ form.prefix }}-on_delete-{{ html_message.pk }}" class="py-0" value="Удалить">
+                                                            <input type="button" id="{{ form.prefix }}-on_delete-{{ html_message.pk }}" class="py-0" value="{% trans 'Delete' %}">
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -348,9 +351,9 @@
                                     </div>
                                 </div>
                                 <div class="col ml-5 mt-5">
-                                    <h4 class="mx-auto my-5 text-center">Пользователей выбрано: <span id="{{ form.prefix }}-checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
+                                    <h4 class="mx-auto my-5 text-center">{% trans 'Count of selected users' %}:<span id="{{ form.prefix }}-checked_users" class="text-info" style="font-size: 25px;">0</span></h4>
                                     <div class="mx-auto my-5 text-center">
-                                        <label id="{{ form.prefix }}-mailing_progress_bar-label" for="{{ form.prefix }}-mailing_progress_bar">Рассылка еще не началась</label>
+                                        <label id="{{ form.prefix }}-mailing_progress_bar-label" for="{{ form.prefix }}-mailing_progress_bar">{% trans "Mailing wasn't started yet" %}</label>
                                         <div class="progress">
                                             <div id="{{ form.prefix }}-mailing_progress_bar" class="progress-bar bg-primary w-0" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
@@ -359,7 +362,7 @@
                                 </div>
                             </div>
                         <div class="text-center mt-4">
-                            <button type="submit" name="{{ form.prefix }}" id="start_{{ form.prefix }}_mailing" class="btn btn-info" style="font-size: 20px">Начать рассылку</button>
+                            <button type="submit" name="{{ form.prefix }}" id="start_{{ form.prefix }}_mailing" class="btn btn-info" style="font-size: 20px">{% trans 'Start mailing' %}</button>
                         </div>
                         {% endwith %}
 
@@ -400,8 +403,8 @@
         let left_header_part = document.getElementById(`${prefix}-usersList_wrapper`).getElementsByClassName('col-sm-12')[0]
         left_header_part.innerHTML = `
             <div class="text-left">
-                <span class="btn btn-light mt-2 ml-3 px-2" onclick="toggleAllCheckboxes(true, '${prefix}')"><i class="fas fa-check pr-2 text-success"></i>Выделить всех</span>
-                <span class="btn btn-light mt-2 ml-3 px-2" onclick="toggleAllCheckboxes(false, '${prefix}')"><i class="fas fa-minus pr-2 text-secondary"></i>Очистить</span>
+                <span class="btn btn-light mt-2 ml-3 px-2" onclick="toggleAllCheckboxes(true, '${prefix}')"><i class="fas fa-check pr-2 text-success"></i>{% trans 'Select all' %}</span>
+                <span class="btn btn-light mt-2 ml-3 px-2" onclick="toggleAllCheckboxes(false, '${prefix}')"><i class="fas fa-minus pr-2 text-secondary"></i>{% trans 'Clear all' %}</span>
             </div>
         `
     }
@@ -532,7 +535,7 @@
             let progress = event.data;
             let progress_bar = document.getElementById(`${prefix}-mailing_progress_bar`);
 
-            document.getElementById(`${prefix}-mailing_progress_bar-label`).innerHTML = `Рассылка завершена на ${progress}%`;
+            document.getElementById(`${prefix}-mailing_progress_bar-label`).innerHTML = `{% trans 'Mailing complete on ' %}${progress}%`;
             progress_bar['aria-valuenow'] = progress;
             progress_bar.style = `width: ${progress}%;`;
 

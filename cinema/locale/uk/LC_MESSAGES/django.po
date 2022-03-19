@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-19 13:23+0200\n"
+"POT-Creation-Date: 2022-03-19 13:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,6 +111,7 @@ msgid "Users"
 msgstr ""
 
 #: admin/templates/admin/admin_layout.html:192
+#: admin/templates/admin/mailing/mailing.html:30
 msgid "Mailing"
 msgstr ""
 
@@ -297,6 +298,120 @@ msgstr ""
 msgid "Select cinema first"
 msgstr ""
 
+#: admin/templates/admin/mailing/mailing.html:66
+#: admin/templates/admin/mailing/mailing.html:226
+msgid "Select users for mailing start"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:75
+#: admin/templates/admin/mailing/mailing.html:235
+#: admin/templates/admin/users/index.html:33 user/forms.py:138
+#: user/models.py:24
+msgid "Login"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:77
+#: admin/templates/admin/mailing/mailing.html:237
+#: admin/templates/admin/users/index.html:35 user/models.py:33
+msgid "Phone number"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:78
+#: admin/templates/admin/mailing/mailing.html:238
+#: admin/templates/admin/users/index.html:36 user/models.py:35
+msgid "First name"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:79
+#: admin/templates/admin/mailing/mailing.html:239
+#: admin/templates/admin/users/index.html:37 user/models.py:36
+msgid "Last name"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:80
+#: admin/templates/admin/mailing/mailing.html:240
+#: admin/templates/admin/users/index.html:38 user/models.py:38
+msgid "Gender"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:81
+#: admin/templates/admin/mailing/mailing.html:241
+#: admin/templates/admin/users/index.html:39
+#: main/templates/main/main_layout.html:271 user/models.py:39
+msgid "Language"
+msgstr "Мова"
+
+#: admin/templates/admin/mailing/mailing.html:82
+#: admin/templates/admin/mailing/mailing.html:242
+#: admin/templates/admin/users/index.html:40 user/models.py:40
+msgid "Birth date"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:83
+#: admin/templates/admin/mailing/mailing.html:243
+#: admin/templates/admin/users/index.html:41 main/models.py:377
+#: user/models.py:41
+msgid "Address"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:84
+#: admin/templates/admin/mailing/mailing.html:244
+#: admin/templates/admin/users/index.html:42
+msgid "Last visit"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:126
+#: admin/templates/admin/mailing/mailing.html:286
+#: admin/templates/admin/users/index.html:84 user/models.py:14
+msgid "Male"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:128
+#: admin/templates/admin/mailing/mailing.html:288
+#: admin/templates/admin/users/index.html:86 user/models.py:15
+msgid "Female"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:159
+#: admin/templates/admin/mailing/mailing.html:319
+msgid "Accept"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:170
+msgid "Symbols count"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:175
+#: admin/templates/admin/mailing/mailing.html:354
+msgid "Count of selected users"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:177
+#: admin/templates/admin/mailing/mailing.html:356
+msgid "Mailing wasn't started yet"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:186
+#: admin/templates/admin/mailing/mailing.html:365
+msgid "Start mailing"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:332
+msgid "Last uploaded html-messages list"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:406
+msgid "Select all"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:407
+msgid "Clear all"
+msgstr ""
+
+#: admin/templates/admin/mailing/mailing.html:538
+msgid "Mailing complete on "
+msgstr ""
+
 #: admin/templates/admin/movies/index.html:19
 msgid "Released movies"
 msgstr ""
@@ -410,45 +525,6 @@ msgstr ""
 msgid "Promotion images gallery"
 msgstr ""
 
-#: admin/templates/admin/users/index.html:33 user/forms.py:138
-#: user/models.py:24
-msgid "Login"
-msgstr ""
-
-#: admin/templates/admin/users/index.html:35 user/models.py:33
-msgid "Phone number"
-msgstr ""
-
-#: admin/templates/admin/users/index.html:36 user/models.py:35
-msgid "First name"
-msgstr ""
-
-#: admin/templates/admin/users/index.html:37 user/models.py:36
-msgid "Last name"
-msgstr ""
-
-#: admin/templates/admin/users/index.html:38 user/models.py:38
-msgid "Gender"
-msgstr ""
-
-#: admin/templates/admin/users/index.html:39
-#: main/templates/main/main_layout.html:271 user/models.py:39
-msgid "Language"
-msgstr "Мова"
-
-#: admin/templates/admin/users/index.html:40 user/models.py:40
-msgid "Birth date"
-msgstr ""
-
-#: admin/templates/admin/users/index.html:41 main/models.py:377
-#: user/models.py:41
-msgid "Address"
-msgstr ""
-
-#: admin/templates/admin/users/index.html:42
-msgid "Last visit"
-msgstr ""
-
 #: admin/templates/admin/users/index.html:43 user/templates/user/signup.html:4
 #: user/templates/user/signup.html:10
 msgid "Registration"
@@ -460,14 +536,6 @@ msgstr ""
 
 #: admin/templates/admin/users/index.html:45
 msgid "Admin"
-msgstr ""
-
-#: admin/templates/admin/users/index.html:84 user/models.py:14
-msgid "Male"
-msgstr ""
-
-#: admin/templates/admin/users/index.html:86 user/models.py:15
-msgid "Female"
 msgstr ""
 
 #: admin/templates/admin/users/index.html:148
