@@ -17,11 +17,11 @@ const original_thumbnail_urls = {}
 
 
 // TODO * PAY ATTENTION * you have to define:
-//  (you just can copy the code below and paste it at your template)
 //  <script>
 //      const REQUIRED_SIZES = JSON.parse('{{ required_sizes|safe }}')
 //  initRequiredSizeLabels()
 //  <script>
+//  (you just can copy the code below and paste it at your template)
 
 //   because we need to take data from django's context to js for dynamic validation
 

@@ -1,5 +1,5 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block stylesheets %}
 {% endblock %}
@@ -8,10 +8,10 @@
     active
 {% endblock %}
 
-{% block current_page %}Страницы{% endblock %}
+{% block current_page %}{% trans 'Pages' %}{% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item active">Страницы</li>
+    <li class="breadcrumb-item active">{% trans 'Pages' %}</li>
 {% endblock %}
 
 {% block content %}
@@ -21,17 +21,17 @@
         <table id="pagesList" class="table table-bordered table-striped">
           <thead>
              <tr>
-                <th>Название</th>
-                <th>Дата создания</th>
-                <th>Статус</th>
-                <th>Редактировать</th>
+                <th>{% trans 'Title' %}</th>
+                <th>{% trans 'Date created' %}</th>
+                <th>{% trans 'Status' %}</th>
+                <th>{% trans 'Edit' %}</th>
              </tr>
           </thead>
           <tbody>
             <tr>
                 <td>{{ main_page.title }}</td>
                 <td>{{ main_page.date_created }}</td>
-                <td>{% if main_page.is_active %}<span>Вкл.</span>{% else %}<span>Выкл.</span>{% endif %}</td>
+                <td>{% if main_page.is_active %}<span>{% trans 'On' %}</span>{% else %}<span>{% trans 'Off' %}</span>{% endif %}</td>
                 <td class="col-1">
                    <div class="row buttons">
                       <a href="{% url 'admin:main_page_card' %}"
@@ -49,11 +49,11 @@
                 <td>
                     {% if about_the_cinema_page.is_active %}
                         <span>
-                            Вкл.
+                            {% trans 'On' %}
                         </span>
                     {% else %}
                         <span>
-                            Выкл.
+                            {% trans 'Off' %}
                         </span>
                     {% endif %}
                 </td>
@@ -70,9 +70,9 @@
                   <td>{{ page.date_created }}</td>
                   <td>
                       {% if page.is_active %}
-                        <span>Вкл.</span>
+                        <span>{% trans 'On' %}</span>
                       {% else %}
-                        <span>Выкл.</span>
+                        <span>{% trans 'Off' %}</span>
                       {% endif %}</td>
                   <td class="col-1">
                       <div class="row buttons">
@@ -88,9 +88,9 @@
                   <td>{{ page.date_created }}</td>
                   <td>
                       {% if page.is_active %}
-                        <span>Вкл.</span>
+                        <span>{% trans 'On' %}</span>
                       {% else %}
-                        <span>Выкл.</span>
+                        <span>{% trans 'Off' %}</span>
                       {% endif %}</td>
                   <td class="col-1">
                       <div class="row buttons">
@@ -105,12 +105,12 @@
                             <div class="modal-content">
                               <div class="modal-header bg-dark">
                                 <h5 class="modal-title" id="exampleModalLongTitle-{{ forloop.counter }}">
-                                    Подтверждение удаления
+                                    {% trans 'Confirm deletion' %}
                                 </h5>
                               </div>
                               <div class="modal-body text-center bg-light" style="padding-top: 4vh; padding-bottom: 4vh;">
                                 <span style="font-size: 20px;">
-                                    Вы уверены, что хотите удалить эту новость?
+                                    {% trans 'Are you sure to delete this page?' %}
                                 </span>
                                 <span class="text-primary" style="font-size: 35px;">
                                     {{ page.title }}
@@ -118,10 +118,10 @@
                               </div>
                               <div class="modal-footer bg-dark">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    Назад
+                                    {% trans 'Back' %}
                                 </button>
                                   <a href="{% url 'admin:delete_page' page.pk %}" class="btn btn-danger">
-                                      Удалить новость
+                                      {% trans 'Delete page' %}
                                   </a>
                               </div>
                             </div>
@@ -133,9 +133,9 @@
             {% endfor %}
 
             <tr>
-                <td>Контакты</td>
+                <td>{% trans 'Contacts' %}</td>
                 <td>{{ contacts_page.date_created }}</td>
-                <td>{% if contacts_page.is_active %}<span>Вкл.</span>{% else %}<span>Выкл.</span>{% endif %}</td>
+                <td>{% if contacts_page.is_active %}<span>{% trans 'On' %}</span>{% else %}<span>{% trans 'Off' %}</span>{% endif %}</td>
                 <td class="col-1">
                       <div class="row buttons">
                           <a href="{% url 'admin:contacts_page_card' %}"
@@ -165,7 +165,7 @@
 
     function add_create_button(dataTable) {
         let left_header = document.getElementById(`${dataTable}_wrapper`).getElementsByClassName('col-sm-12')[0]
-        left_header.innerHTML = `<a href="{% url 'admin:page_card' 'new' %}" class="btn btn-primary mt-2 ml-3 px-2"><i class="fas fa-plus pr-2"></i>Создать страницу</a>`
+        left_header.innerHTML = `<a href="{% url 'admin:page_card' 'new' %}" class="btn btn-primary mt-2 ml-3 px-2"><i class="fas fa-plus pr-2"></i>{% trans 'Create page' %}</a>`
         }
 
     add_create_button("pagesList");
