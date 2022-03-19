@@ -1,30 +1,38 @@
 {% extends 'admin/admin_layout.html' %}
-{% load crispy_forms_tags %}
-{% block users %}active{% endblock %}
+{% load i18n crispy_forms_tags %}
 
-{% block current_page %}Обновить данные пользователя: <span class="text-primary">{{ chosen_user.username }}</span>{% endblock %}
+{% block users %}
+    active
+{% endblock %}
+
+{% block current_page %}
+    {% trans 'Update user data:' %}
+    <span class="text-primary">
+        {{ chosen_user.username }}
+    </span>
+{% endblock %}
 
 {% block path %}
-<li class="breadcrumb-item"><a href="{% url 'admin:users' %}">Пользователи</a></li>
-<li class="breadcrumb-item active">Обновить данные пользователя</li>
+    <li class="breadcrumb-item"><a href="{% url 'admin:users' %}">{% trans 'Users' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Update user data' %}</li>
 {% endblock %}
 
 {% block content %}
-{% if user.is_superuser %}
-<div class="row col" style="margin-top: 50px; padding-bottom: 100px;">
-  <div class="card col-md-4 mx-auto py-4 px-5">
-    <form action="" method="POST">
-      {% csrf_token %}
-        {{ form|crispy }}
-        <div class="container text-center mt-4">
-            <input type="submit" class="btn btn-success px-5" value="Сохранить изменения" style="font-size: 20px;">
+    {% if user.is_superuser %}
+    <div class="row col" style="margin-top: 50px; padding-bottom: 100px;">
+      <div class="card col-md-4 mx-auto py-4 px-5">
+        <form action="" method="POST">
+          {% csrf_token %}
+            {{ form|crispy }}
+            <div class="container text-center mt-4">
+                <input type="submit" class="btn btn-success px-5" value="{% trans 'Save changes' %}" style="font-size: 20px;">
+            </div>
+        </form>
+      </div>
+    </div>
+    {% else %}
+        <div class="card row bg-dark" style="margin-top: 200px;">
+            <p class="text-light mx-auto mt-3" style="font-size: 40px;">{% trans 'Admin permissions needed' %}</p>
         </div>
-    </form>
-  </div>
-</div>
-{% else %}
-<div class="card row bg-dark" style="margin-top: 200px;">
-    <p class="text-light mx-auto mt-3" style="font-size: 40px;">Требуется статус администратора</p>
-</div>
-{% endif %}
+    {% endif %}
 {% endblock %}

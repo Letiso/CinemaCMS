@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-19 13:16+0200\n"
+"POT-Creation-Date: 2022-03-19 13:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,7 +105,8 @@ msgstr ""
 
 #: admin/templates/admin/admin_layout.html:183
 #: admin/templates/admin/users/index.html:15
-#: admin/templates/admin/users/index.html:20 user/models.py:60
+#: admin/templates/admin/users/index.html:20
+#: admin/templates/admin/users/update_user.html:16 user/models.py:60
 msgid "Users"
 msgstr ""
 
@@ -120,6 +121,7 @@ msgstr ""
 #: admin/templates/admin/banners/background_image.html:17
 #: admin/templates/admin/banners/news_banners.html:53
 #: admin/templates/admin/banners/top_banners.html:55
+#: admin/templates/admin/users/update_user.html:28
 msgid "Save changes"
 msgstr ""
 
@@ -477,7 +479,16 @@ msgid "Delete account"
 msgstr ""
 
 #: admin/templates/admin/users/index.html:179
+#: admin/templates/admin/users/update_user.html:35
 msgid "Admin permissions needed"
+msgstr ""
+
+#: admin/templates/admin/users/update_user.html:9
+msgid "Update user data:"
+msgstr ""
+
+#: admin/templates/admin/users/update_user.html:17
+msgid "Update user data"
 msgstr ""
 
 #: main/models.py:31
