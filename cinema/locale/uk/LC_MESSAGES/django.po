@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 11:09+0200\n"
+"POT-Creation-Date: 2022-03-21 11:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -299,6 +299,8 @@ msgstr ""
 #: admin/templates/admin/users/index.html:156
 #: main/templates/main/poster/index.html:85
 #: main/templates/main/poster/index.html:90
+#: main/templates/main/poster/soon.html:80
+#: main/templates/main/poster/soon.html:85
 msgid "Back"
 msgstr ""
 
@@ -773,6 +775,7 @@ msgid "News and Promotions"
 msgstr ""
 
 #: main/templates/main/index.html:223 main/templates/main/poster/index.html:25
+#: main/templates/main/poster/soon.html:24
 msgid "Context ads"
 msgstr ""
 
@@ -806,6 +809,7 @@ msgstr ""
 
 #: main/templates/main/main_layout.html:145
 #: main/templates/main/main_layout.html:343
+#: main/templates/main/poster/soon.html:5
 msgid "Soon"
 msgstr ""
 
@@ -867,6 +871,8 @@ msgstr ""
 
 #: main/templates/main/poster/index.html:106
 #: main/templates/main/poster/index.html:114
+#: main/templates/main/poster/soon.html:101
+#: main/templates/main/poster/soon.html:109
 msgid "Next"
 msgstr ""
 
