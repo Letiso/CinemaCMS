@@ -36,7 +36,7 @@
                     <div class="row my-5 mx-4">
                         {% for movie_card in page_obj %}
                             <div class="col-2 text-center my-5">
-                                <h5>{% trans 'Since' %} {{ movie_card.release_date|date:"d E, Y" }}</h5>
+                                <h5>{% trans 'Since' %} {{ movie_card.release_date|date:"j E, Y" }}</h5>
 
                                 <div class="image_with_badge">
                                     <img class="rounded img-fluid" src="{{ movie_card.main_image.url }}" alt="">

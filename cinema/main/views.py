@@ -70,11 +70,11 @@ class MainPageView(CustomAbstractView):
 
         time_now = timezone.now()
         self.context['time_now'] = time_now
-
-        watch_now = MovieSession.objects.filter(start_datetime__gte=time_now).order_by('-start_datetime').select_related()
+        watch_now = MovieSession.objects.filter(start_datetime__lte=time_now
+                                                ).order_by('-start_datetime').select_related()
         self.context['watch_now'] = watch_now[:18]
 
-        watch_soon = MovieCard.objects.filter(release_date__gt=time_now).order_by('-release_date').select_related()
+        watch_soon = MovieCard.objects.filter(release_date__lt=time_now).order_by('-release_date').select_related()
         self.context['watch_soon'] = watch_soon[:18]
 
         return self.context

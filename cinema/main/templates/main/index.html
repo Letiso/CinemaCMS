@@ -175,7 +175,7 @@
                                     <h4>{{ movie_card.title }}</h4>
                                 </a>
 
-                                <h4 class="mt-2 text-success">С {{ movie_card.release_date|date:"d E" }}</h4>
+                                <h4 class="mt-2 text-success">{% trans 'Since' %} {{ movie_card.release_date|date:"j E" }}</h4>
 
                             </div>
                         {% endfor %}

@@ -236,7 +236,7 @@
 
     <script>
         // show or hide error message when no movie_sessions is visible
-        const errorMessage = `<h2 id="emptyError" class="text-center text-danger my-5" style="display: none;">Сеансы, соответствующие выбранному кинотеатру, не найдены<\h2>`
+        const errorMessage = `<h2 id="emptyError" class="text-center text-danger my-5" style="display: none;">{% trans 'No equal results for such filters' %}<\h2>`
         $('#hall_filter_links').append(errorMessage)
         const emptyError = $('#emptyError')
 

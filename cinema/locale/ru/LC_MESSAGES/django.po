@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 12:04+0200\n"
+"POT-Creation-Date: 2022-03-21 12:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -924,6 +924,11 @@ msgstr "Купить билет"
 #: main/templates/main/poster/movie_card.html:182
 msgid "Frames and posters"
 msgstr "Кадры и постеры"
+
+#: main/templates/main/poster/movie_card.html:239
+#: main/templates/main/timetable/timetable.html:272
+msgid "No equal results for such filters"
+msgstr "Сеансы, соответствующие выбранным фильтрам, не найдены"
 
 #: main/templates/main/poster/soon.html:39
 msgid "Since"
