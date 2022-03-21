@@ -1,9 +1,13 @@
 {% extends 'main/main_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Расписание{% endblock %}
+{% block title %}
+    {% trans 'Timetable' %}
+{% endblock %}
 
-{% block main_timetable %}active{% endblock %}
+{% block main_timetable %}
+    active
+{% endblock %}
 
 {% block content %}
     <div class="row">
@@ -12,7 +16,7 @@
                 <div id="movie_session_filters" class="row justify-content-center mt-5">
                     <div>
                         <label>
-                            Показывать только:
+                            {% trans 'Show only' %}:
                         </label>
                         {% for movie_type in movie_types %}
                             <div class="form-check form-check-inline ml-2">
@@ -29,7 +33,7 @@
                     <div>
                         <label class="mx-2">
                             <select id="cinema_filter" class="custom-select">
-                                <option value="0">Кинотеатр: все</option>
+                                <option value="0">{% trans 'Cinema: all' %}</option>
                                 {% for cinema in cinemas %}
                                     <option value="{{ cinema.pk }}">{{ cinema.name }}</option>
                                 {% endfor %}
@@ -38,7 +42,7 @@
 
                         <label class="mx-2">
                             <select  id="date_filter" class="custom-select">
-                                <option value="0">Дата: все</option>
+                                <option value="0">{% trans 'Date: all' %}</option>
                                 {% for day in session_days %}
                                     <option value="{{ day|date:"d-m-Y" }}">{{ day|date:"j E, D" }}</option>
                                 {% endfor %}
@@ -47,7 +51,7 @@
 
                         <label class="mx-2">
                             <select  id="movie_filter" class="custom-select">
-                                <option value="0">Фильм: все</option>
+                                <option value="0">{% trans 'Movie: all' %}</option>
                                 {% for movie_card in movies %}
                                     <option value="{{ movie_card.pk }}">{{ movie_card.title }}</option>
                                 {% endfor %}
@@ -56,7 +60,7 @@
 
                         <label class="mx-2">
                             <select id="hall_filter" class="custom-select">
-                                <option value="0">Зал: все</option>
+                                <option value="0">{% trans 'Hall: all' %}</option>
                                 {% for hall_card in halls %}
                                     <option id="{{ hall_card.cinema.pk }}" value="{{ hall_card.pk }}">{{ hall_card.number }}</option>
                                 {% endfor %}
@@ -72,17 +76,17 @@
                             <table id="sessions_table-{{ forloop.counter }}" class="table table-striped table-bordered text-center" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th style="display: none">Тип кино</th>
-                                        <th style="display:none;">Кинотеатр</th>
-                                        <th style="display:none;">Дата</th>
-                                        <th style="display:none;">Фильм</th>
-                                        <th style="display:none;">Зал</th>
+                                        <th style="display: none">{% trans 'Movie type' %}</th>
+                                        <th style="display:none;">{% trans 'Cinema' %}</th>
+                                        <th style="display:none;">{% trans 'Date' %}</th>
+                                        <th style="display:none;">{% trans 'Movie' %}</th>
+                                        <th style="display:none;">{% trans 'Hall' %}Зал</th>
 
-                                        <th>Время</th>
-                                        <th>Фильм</th>
-                                        <th>Зал</th>
-                                        <th>Цена в грн.</th>
-                                        <th class="text-danger">Бронировать</th>
+                                        <th>{% trans 'Time' %}</th>
+                                        <th>{% trans 'Movie' %}</th>
+                                        <th>{% trans 'Hall' %}</th>
+                                        <th>{% trans 'Price in uan' %}.</th>
+                                        <th class="text-danger">{% trans 'Booking' %}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -123,7 +127,7 @@
                     <div class="col my-5 text-center p-5 black-text" style="background: lightgray;">
                         <a href="#">
                             <h5>
-                                Контекстная реклама
+                                {% trans 'Context ads' %}
                             </h5>
                         </a>
                     </div>

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 11:29+0200\n"
+"POT-Creation-Date: 2022-03-21 12:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -461,6 +461,7 @@ msgid "Movie frames gallery"
 msgstr ""
 
 #: admin/templates/admin/movies/movie_card.html:108
+#: main/templates/main/timetable/timetable.html:79
 msgid "Movie type"
 msgstr ""
 
@@ -778,6 +779,7 @@ msgstr ""
 #: main/templates/main/index.html:223 main/templates/main/poster/index.html:25
 #: main/templates/main/poster/movie_card.html:225
 #: main/templates/main/poster/soon.html:24
+#: main/templates/main/timetable/timetable.html:130
 msgid "Context ads"
 msgstr ""
 
@@ -806,6 +808,7 @@ msgstr ""
 
 #: main/templates/main/main_layout.html:138
 #: main/templates/main/main_layout.html:340
+#: main/templates/main/timetable/timetable.html:5
 msgid "Timetable"
 msgstr ""
 
@@ -883,6 +886,7 @@ msgid "Cinema session timetable"
 msgstr ""
 
 #: main/templates/main/poster/movie_card.html:25
+#: main/templates/main/timetable/timetable.html:36
 msgid "Cinema: all"
 msgstr ""
 
@@ -891,6 +895,8 @@ msgid "All"
 msgstr ""
 
 #: main/templates/main/poster/movie_card.html:88
+#: main/templates/main/timetable/timetable.html:83
+#: main/templates/main/timetable/timetable.html:87
 msgid "Hall"
 msgstr ""
 
@@ -904,6 +910,7 @@ msgid "Country"
 msgstr ""
 
 #: main/templates/main/poster/movie_card.html:157
+#: main/templates/main/timetable/timetable.html:85
 msgid "Time"
 msgstr ""
 
@@ -921,6 +928,43 @@ msgstr ""
 
 #: main/templates/main/poster/soon.html:39
 msgid "Since"
+msgstr ""
+
+#: main/templates/main/timetable/timetable.html:19
+msgid "Show only"
+msgstr ""
+
+#: main/templates/main/timetable/timetable.html:45
+msgid "Date: all"
+msgstr ""
+
+#: main/templates/main/timetable/timetable.html:54
+msgid "Movie: all"
+msgstr ""
+
+#: main/templates/main/timetable/timetable.html:63
+msgid "Hall: all"
+msgstr ""
+
+#: main/templates/main/timetable/timetable.html:80
+msgid "Cinema"
+msgstr ""
+
+#: main/templates/main/timetable/timetable.html:81
+msgid "Date"
+msgstr ""
+
+#: main/templates/main/timetable/timetable.html:82
+#: main/templates/main/timetable/timetable.html:86
+msgid "Movie"
+msgstr ""
+
+#: main/templates/main/timetable/timetable.html:88
+msgid "Price in uan"
+msgstr ""
+
+#: main/templates/main/timetable/timetable.html:89
+msgid "Booking"
 msgstr ""
 
 #: user/forms.py:9 user/forms.py:78 user/forms.py:148
