@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 11:23+0200\n"
+"POT-Creation-Date: 2022-03-21 11:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -914,6 +914,10 @@ msgstr ""
 
 #: main/templates/main/poster/movie_card.html:182
 msgid "Frames and posters"
+msgstr ""
+
+#: main/templates/main/poster/soon.html:39
+msgid "Since"
 msgstr ""
 
 #: user/forms.py:9 user/forms.py:78 user/forms.py:148
