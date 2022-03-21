@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 11:16+0200\n"
+"POT-Creation-Date: 2022-03-21 11:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -451,6 +451,7 @@ msgstr "Неактивные карточки"
 
 #: admin/templates/admin/movies/movie_card.html:22
 #: admin/templates/admin/movies/movie_card.html:27
+#: main/templates/main/poster/movie_card.html:5
 msgid "Movie card"
 msgstr "Карточка фильма"
 
@@ -632,7 +633,7 @@ msgstr "Афиша"
 msgid "Trailer link"
 msgstr "Ссылка на трейлер"
 
-#: main/models.py:94
+#: main/models.py:94 main/templates/main/poster/movie_card.html:152
 msgid "Age rating"
 msgstr "Возрастной рейтинг"
 
@@ -774,6 +775,7 @@ msgid "News and Promotions"
 msgstr "Новости и Акции"
 
 #: main/templates/main/index.html:223 main/templates/main/poster/index.html:25
+#: main/templates/main/poster/movie_card.html:225
 #: main/templates/main/poster/soon.html:24
 msgid "Context ads"
 msgstr "Контекстная реклама"
@@ -874,6 +876,49 @@ msgstr "Сейчас в кино"
 #: main/templates/main/poster/soon.html:109
 msgid "Next"
 msgstr "Вперед"
+
+#: main/templates/main/poster/movie_card.html:21
+msgid "Cinema session timetable"
+msgstr "Расписание сеансов кинотеатра"
+
+#: main/templates/main/poster/movie_card.html:25
+msgid "Cinema: all"
+msgstr "Кинотеатр: все"
+
+#: main/templates/main/poster/movie_card.html:34
+msgid "All"
+msgstr "Все"
+
+#: main/templates/main/poster/movie_card.html:88
+msgid "Hall"
+msgstr "Зал"
+
+#: main/templates/main/poster/movie_card.html:112
+msgid "Year"
+msgstr "Год"
+
+#: main/templates/main/poster/movie_card.html:117
+#: main/templates/main/poster/movie_card.html:118
+msgid "Country"
+msgstr "Страна"
+
+#: main/templates/main/poster/movie_card.html:157
+#, fuzzy
+#| msgid "Timetable"
+msgid "Время"
+msgstr "Расписание"
+
+#: main/templates/main/poster/movie_card.html:158
+msgid "min."
+msgstr "мин."
+
+#: main/templates/main/poster/movie_card.html:169
+msgid "Buy a ticket"
+msgstr "Купить билет"
+
+#: main/templates/main/poster/movie_card.html:182
+msgid "Frames and posters"
+msgstr "Кадры и постеры"
 
 #: user/forms.py:9 user/forms.py:78 user/forms.py:148
 msgid "Password"

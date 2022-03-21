@@ -1,6 +1,9 @@
 {% extends 'main/main_layout.html' %}
+{% load i18n %}
 
-{% block title %}Карточка фильма{% endblock %}
+{% block title %}
+    {% trans 'Movie card' %}
+{% endblock %}
 
 {% block main_poster %}active{% endblock %}
 
@@ -15,11 +18,11 @@
 
             <div class="d-inline-flex mx-auto">
                 <h2 class="ml-5">
-                    Расписание сеансов кинотеатра:
+                    {% trans 'Cinema session timetable' %}:
                 </h2>
                 <label class="mx-5">
                     <select  id="cinema_filter" class="custom-select">
-                        <option value="0">Кинотеатр: все</option>
+                        <option value="0">{% trans 'Cinema: all' %}</option>
                         {% for cinema in cinemas %}
                             <option value="{{ cinema.pk }}">{{ cinema.name }}</option>
                         {% endfor %}
@@ -28,7 +31,7 @@
 
                 <a class="btn btn-light mx-5"
                    href="{% url 'main:timetable' movie_id=card.pk %}" style="font-size: 25px;">
-                    Все
+                    {% trans 'All' %}
                 </a>
 
                 {% for movie_type in movie_types %}
@@ -82,7 +85,7 @@
                                 </tr>
                                 <tr>
                                     <td class="px-1">
-                                        Зал {{ movie_session.hall.number }}
+                                        {% trans 'Hall' %} {{ movie_session.hall.number }}
                                     </td>
                                     <td class="px-2">
                                         {{ movie_session.ticket_price }}/56/120
@@ -106,13 +109,13 @@
                           <tbody>
 
                             <tr>
-                              <th scope="row">Год</th>
+                              <th scope="row">{% trans 'Year' %}</th>
                               <td>{{ card.release_date|date:"Y" }}</td>
                             </tr>
 
                             <tr>
-                              <th scope="row">Страна</th>
-                              <td>Страна</td>
+                              <th scope="row">{% trans 'Country' %}</th>
+                              <td>{% trans 'Country' %}</td>
                             </tr>
 
                             <tr>
@@ -146,13 +149,13 @@
                             </tr>
 
                             <tr>
-                              <th scope="row">Возрастной рейтинг</th>
+                              <th scope="row">{% trans 'Age rating' %}</th>
                               <td>{{ card.age_rating }}</td>
                             </tr>
 
                             <tr>
-                              <th scope="row">Время</th>
-                              <td>117 мин / 1:57</td>
+                              <th scope="row">{% trans 'Time' %}</th>
+                              <td>117 {% trans 'min.' %} / 1:57</td>
                             </tr>
                           </tbody>
                         </table>
@@ -163,7 +166,7 @@
                     <div class="text-center mr-5">
                         <a class="btn btn-success"
                            href="{% url 'main:timetable' card.pk %}" style="font-size: 25px;">
-                            Купить билет
+                            {% trans 'Buy a ticket' %}
                         </a>
                         <h3 class="my-5">
                             {{ card.title }}
@@ -176,7 +179,7 @@
 
                     <div class="text-center mr-5">
                         <h3 class="my-5">
-                            Кадры и постеры
+                            {% trans 'Frames and posters' %}
                         </h3>
 
                         {# gallery #}
@@ -200,12 +203,12 @@
 
                               <button class="carousel-control-prev" type="button" data-target="#carouselGallery" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Предыдущая</span>
+                                <span class="sr-only">Previous</span>
                               </button>
 
                               <button class="carousel-control-next" type="button" data-target="#carouselGallery" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Следующая</span>
+                                <span class="sr-only">Next</span>
                               </button>
                             </div>
                         {# gallery end #}
@@ -219,7 +222,7 @@
             <div class="col-12 mt-5 text-center p-5 black-text" style="background: lightgray;">
                 <a href="#">
                     <h5>
-                        Контекстная реклама
+                        {% trans 'Context ads' %}
                     </h5>
                 </a>
             </div>
