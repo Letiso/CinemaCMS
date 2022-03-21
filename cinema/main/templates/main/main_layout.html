@@ -55,10 +55,14 @@
               <form class="form-inline mr-lg-1">
                 <input class="form-control navbar-item mr-2"
                        type="search"
-                       placeholder="Поиск"
+                       placeholder="{% trans 'Search' %}"
                        aria-label="Search">
                 <button class="btn btn-outline-success"
-                        type="submit">Найти</button></form></li>
+                        type="submit">
+                    {% trans 'Search' %}
+                </button>
+              </form>
+            </li>
           </ul>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -70,10 +74,10 @@
                    title="Twitter"><img class="link-height"
                                         src="{% static 'main/main_layout/img/social_icons/twitter.png' %}"></a>
                 <a href="#"
-                   title="Вконтакте"><img class="link-height"
+                   title="{% trans 'Vkontakte' %}"><img class="link-height"
                                           src="{% static 'main/main_layout/img/social_icons/vkontakte.png' %}"></a>
                 <a href="#"
-                   title="Одноклассники"><img class="link-height"
+                   title="{% trans 'Odnoklassniki' %}"><img class="link-height"
                                               src="{% static 'main/main_layout/img//social_icons/odnoklassniki.png' %}"></a>
                 <a href="#"
                    title="Google +"><img class="link-height"
@@ -90,7 +94,9 @@
                      role="button"
                      data-toggle="dropdown"
                      aria-haspopup="true"
-                     aria-expanded="false">Позвонить</a>
+                     aria-expanded="false">
+                      {% trans 'Make a call' %}
+                  </a>
 
                   <div class="dropdown-menu dropdown-menu-right"
                        aria-labelledby="langDropdown">
@@ -98,7 +104,9 @@
                           {% if forloop.counter != 1 %}
                               <div class="dropdown-divider"></div>
                           {% endif %}
-                          <div class="dropdown-header">Номер {{ forloop.counter }}</div>
+                          <div class="dropdown-header">
+                              {% trans 'Number' %} {{ forloop.counter }}
+                          </div>
                             <a class="dropdown-item"
                                href="#">{{ phone_number }}</a>
                       {% endfor %}
@@ -120,42 +128,42 @@
             <li class="nav-item {% block main_poster %} {% endblock %}">
               <a class="nav-link"
                  href="{% url 'main:poster' %}">
-                  Афиша
+                  {% trans 'Poster' %}
               </a>
             </li>
 
             <li class="nav-item {% block main_timetable %} {% endblock %}">
               <a class="nav-link"
                  href="{% url 'main:timetable' %}">
-                  Расписание
+                  {% trans 'Timetable' %}
               </a>
             </li>
 
             <li class="nav-item {% block main_soon %} {% endblock %}">
               <a class="nav-link"
                  href="{% url 'main:soon' %}">
-                  Скоро
+                  {% trans 'Soon' %}
               </a>
             </li>
 
             <li class="nav-item {% block main_cinemas %} {% endblock %}">
               <a class="nav-link"
                  href="{% url 'main:cinemas' %}">
-                  Кинотеатры
+                  {% trans 'Cinemas' %}
               </a>
             </li>
 
             <li class="nav-item {% block main_promotion %} {% endblock %}">
               <a class="nav-link"
                  href="{% url 'main:promotion' %}">
-                  Акции
+                  {% trans 'Promotions' %}
               </a>
             </li>
 
             <li class="nav-item {% block main_about_the_cinema %} {% endblock %}">
                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                   <a href="{% url 'main:about_the_cinema' %}" class="nav-link">
-                      О кинотеатре
+                      {% trans 'About the cinema' %}
                   </a>
 
                   <div class="btn-group" role="group">
@@ -166,40 +174,40 @@
 
                     <a class="dropdown-item"
                        href="{% url 'main:news' %}">
-                        Новости
+                        {% trans 'News' %}
                     </a>
                     <a class="dropdown-item"
                        href="{% url 'main:advertising' %}">
-                        Реклама
+                        {% trans 'Advertising' %}
                     </a>
 
                     <div class="dropdown-divider"></div>
 
                     <a class="dropdown-item"
                        href="{% url 'main:cafe_bar' %}">
-                        Кафе
+                        {% trans 'Cafe' %}
                     </a>
                     <a class="dropdown-item"
                        href="{% url 'main:child_room' %}">
-                        Детская комната
+                        {% trans 'Child room' %}
                     </a>
                       <a class="dropdown-item"
                        href="{% url 'main:vip_hall' %}">
-                        VIP-зал
+                        VIP-{% trans 'hall' %}
                     </a>
 
                     <div class="dropdown-divider"></div>
 
                     <a class="dropdown-item"
                        href="{% url 'main:mobile_applications' %}">
-                        Мобильные приложения
+                        {% trans 'Mobile applications' %}
                     </a>
 
                     <div class="dropdown-divider"></div>
 
                     <a class="dropdown-item"
                        href="{% url 'main:contacts' %}">
-                        Контакты
+                        {% trans 'Contacts' %}
                     </a>
                   </div>
 
@@ -213,11 +221,11 @@
             {% if not user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link"
-                   href="{% url 'user:login' %}">Войти</a>
+                   href="{% url 'user:login' %}">{% trans 'Signin' %}</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link"
-                   href="{% url 'user:signup' %}">Регистрация</a>
+                   href="{% url 'user:signup' %}">{% trans 'Registration' %}</a>
               </li>
             {% endif %}
             {% if user.is_authenticated %}
@@ -237,20 +245,20 @@
                        aria-labelledby="langDropdown">
                     <a class="dropdown-item"
                        href="{% url 'user:update_account' user.pk %}">
-                        Изменить мои данные
+                        {% trans 'Change my data' %}
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">
-                        Мои билеты
+                        {% trans 'My tickets' %}
                     </a>
                     {% if user.is_staff or user.is_superuser %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item"
-                       href="{% url 'admin:statistics' %}">Панель администратора</a>
+                       href="{% url 'admin:statistics' %}">{% trans 'Admin panel' %}</a>
                     {% endif %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger"
-                       href="{% url 'user:logout' %}">Выйти</a>
+                       href="{% url 'user:logout' %}">{% trans 'Logout' %}</a>
                   </div>
                 </li>
             {% endif %}
@@ -304,7 +312,7 @@
             <div class="col-4 row ml-5">
                 <a href="{% url 'main:mobile_applications' %}">
                     <h5>
-                        Мобильные приложения
+                        {% trans 'Mobile applications' %}
                     </h5>
                 </a>
                 <div class="row my-3">
@@ -317,7 +325,7 @@
                 </div>
                 <div class="col-12 mt-5">
                     <h5>
-                        Разработка сайтов: AVADA-MEDIA
+                        {% trans 'Websites development' %}: AVADA-MEDIA
                     </h5>
                 </div>
             </div>
@@ -325,40 +333,40 @@
             <div class="col row">
                 <a href="{% url 'main:poster' %}">
                    <h5 class="col-12">
-                        Афиша
+                        {% trans 'Poster' %}
                     </h5>
                 </a>
                 <a href="{% url 'main:timetable' %}" class="col-12">
-                    Расписание
+                    {% trans 'Timetable' %}
                 </a>
                 <a href="{% url 'main:soon' %}" class="col-12">
-                    Скоро в прокате
+                    {% trans 'Soon' %}
                 </a>
                 <a href="{% url 'main:cinemas' %}" class="col-12">
-                    Кинотеатры
+                    {% trans 'Cinemas' %}
                 </a>
                 <a href="{% url 'main:promotion' %}" class="col-12">
-                    Акции
+                    {% trans 'Promotions' %}
                 </a>
             </div>
 
             <div class="col row">
                 <a href="{% url 'main:about_the_cinema' %}">
                    <h5 class="col-12">
-                        О кинотеатре
+                        {% trans 'About the cinema' %}
                     </h5>
                 </a>
                 <a href="{% url 'main:news' %}" class="col-12">
-                    Новости
+                    {% trans 'News' %}
                 </a>
                 <a href="{% url 'main:advertising' %}" class="col-12">
-                    Реклама
+                    {% trans 'Advertising' %}
                 </a>
                 <a href="{% url 'main:cafe_bar' %}" class="col-12">
-                    Кафе-бар
+                    {% trans 'Cafe' %}
                 </a>
                 <a href="{% url 'main:contacts' %}" class="col-12">
-                    Контакты
+                    {% trans 'Contacts' %}
                 </a>
             </div>
 
@@ -373,11 +381,11 @@
                         <img class="link-height" src="{% static 'main/main_layout/img/social_icons/twitter.png' %}" alt="">
                     </a>
                     <a href="#"
-                       title="Вконтакте">
+                       title="{% trans 'Vkontakte' %}">
                         <img class="link-height" src="{% static 'main/main_layout/img/social_icons/vkontakte.png' %}" alt="">
                     </a>
                     <a href="#"
-                       title="Одноклассники">
+                       title="{% trans 'Odnoklassniki' %}">
                         <img class="link-height" src="{% static 'main/main_layout/img//social_icons/odnoklassniki.png' %}" alt="">
                     </a>
                 </div>

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-19 14:12+0200\n"
+"POT-Creation-Date: 2022-03-21 10:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,6 +83,8 @@ msgstr ""
 #: admin/templates/admin/cinemas/hall_card.html:23
 #: admin/templates/admin/cinemas/index.html:10
 #: admin/templates/admin/cinemas/index.html:13
+#: main/templates/main/main_layout.html:152
+#: main/templates/main/main_layout.html:346
 msgid "Cinemas"
 msgstr ""
 
@@ -90,6 +92,8 @@ msgstr ""
 #: admin/templates/admin/news/index.html:9
 #: admin/templates/admin/news/index.html:12
 #: admin/templates/admin/news/news_card.html:25
+#: main/templates/main/main_layout.html:177
+#: main/templates/main/main_layout.html:360
 msgid "News"
 msgstr ""
 
@@ -97,6 +101,8 @@ msgstr ""
 #: admin/templates/admin/promotion/index.html:9
 #: admin/templates/admin/promotion/index.html:12
 #: admin/templates/admin/promotion/promotion_card.html:28
+#: main/templates/main/main_layout.html:159
+#: main/templates/main/main_layout.html:349
 msgid "Promotions"
 msgstr ""
 
@@ -124,6 +130,7 @@ msgid "Mailing"
 msgstr ""
 
 #: admin/templates/admin/admin_layout.html:217
+#: main/templates/main/main_layout.html:257
 msgid "Admin panel"
 msgstr ""
 
@@ -345,7 +352,7 @@ msgstr ""
 #: admin/templates/admin/mailing/mailing.html:81
 #: admin/templates/admin/mailing/mailing.html:241
 #: admin/templates/admin/users/index.html:39
-#: main/templates/main/main_layout.html:271 user/models.py:39
+#: main/templates/main/main_layout.html:279 user/models.py:39
 msgid "Language"
 msgstr ""
 
@@ -500,6 +507,8 @@ msgid "Delete page"
 msgstr ""
 
 #: admin/templates/admin/pages/index.html:136
+#: main/templates/main/main_layout.html:210
+#: main/templates/main/main_layout.html:369
 msgid "Contacts"
 msgstr ""
 
@@ -537,7 +546,8 @@ msgstr ""
 msgid "Promotion images gallery"
 msgstr ""
 
-#: admin/templates/admin/users/index.html:43 user/templates/user/signup.html:4
+#: admin/templates/admin/users/index.html:43
+#: main/templates/main/main_layout.html:228 user/templates/user/signup.html:4
 #: user/templates/user/signup.html:10
 msgid "Registration"
 msgstr ""
@@ -606,7 +616,8 @@ msgstr ""
 msgid "Release date"
 msgstr ""
 
-#: main/models.py:90
+#: main/models.py:90 main/templates/main/main_layout.html:131
+#: main/templates/main/main_layout.html:336
 msgid "Poster"
 msgstr ""
 
@@ -735,8 +746,89 @@ msgstr ""
 msgid "Booked"
 msgstr ""
 
-#: main/templates/main/main_layout.html:232
+#: main/templates/main/main_layout.html:58
+#: main/templates/main/main_layout.html:62
+msgid "Search"
+msgstr ""
+
+#: main/templates/main/main_layout.html:77
+#: main/templates/main/main_layout.html:384
+msgid "Vkontakte"
+msgstr ""
+
+#: main/templates/main/main_layout.html:80
+#: main/templates/main/main_layout.html:388
+msgid "Odnoklassniki"
+msgstr ""
+
+#: main/templates/main/main_layout.html:98
+msgid "Make a call"
+msgstr ""
+
+#: main/templates/main/main_layout.html:108
+msgid "Number"
+msgstr ""
+
+#: main/templates/main/main_layout.html:138
+#: main/templates/main/main_layout.html:340
+msgid "Timetable"
+msgstr ""
+
+#: main/templates/main/main_layout.html:145
+#: main/templates/main/main_layout.html:343
+msgid "Soon"
+msgstr ""
+
+#: main/templates/main/main_layout.html:166
+#: main/templates/main/main_layout.html:356
+msgid "About the cinema"
+msgstr ""
+
+#: main/templates/main/main_layout.html:181
+#: main/templates/main/main_layout.html:363
+msgid "Advertising"
+msgstr ""
+
+#: main/templates/main/main_layout.html:188
+#: main/templates/main/main_layout.html:366
+msgid "Cafe"
+msgstr ""
+
+#: main/templates/main/main_layout.html:192
+msgid "Child room"
+msgstr ""
+
+#: main/templates/main/main_layout.html:196
+msgid "hall"
+msgstr ""
+
+#: main/templates/main/main_layout.html:203
+#: main/templates/main/main_layout.html:315
+msgid "Mobile applications"
+msgstr ""
+
+#: main/templates/main/main_layout.html:224 user/templates/user/login.html:19
+msgid "Signin"
+msgstr ""
+
+#: main/templates/main/main_layout.html:240
 msgid "Hello, "
+msgstr ""
+
+#: main/templates/main/main_layout.html:248
+msgid "Change my data"
+msgstr ""
+
+#: main/templates/main/main_layout.html:252
+msgid "My tickets"
+msgstr ""
+
+#: main/templates/main/main_layout.html:261
+msgid "Logout"
+msgstr ""
+
+#: main/templates/main/main_layout.html:328
+msgid "Websites development"
 msgstr ""
 
 #: user/forms.py:9 user/forms.py:78 user/forms.py:148
@@ -815,10 +907,6 @@ msgstr ""
 
 #: user/models.py:56
 msgid "Date joined"
-msgstr ""
-
-#: user/templates/user/login.html:19
-msgid "Signin"
 msgstr ""
 
 #: user/templates/user/login.html:24
