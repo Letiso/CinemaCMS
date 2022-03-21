@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 10:11+0200\n"
+"POT-Creation-Date: 2022-03-21 10:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -747,6 +747,30 @@ msgstr "Продано"
 #: main/models.py:472
 msgid "Booked"
 msgstr "Забронировано"
+
+#: main/templates/main/index.html:5
+msgid "Main"
+msgstr "Главная"
+
+#: main/templates/main/index.html:96
+msgid "Watch today"
+msgstr "Смотрите сегодня"
+
+#: main/templates/main/index.html:129
+msgid "Buy"
+msgstr "Купить"
+
+#: main/templates/main/index.html:144
+msgid "Watch soon"
+msgstr "Смотрите скоро"
+
+#: main/templates/main/index.html:193
+msgid "News and Promotions"
+msgstr "Новости и Акции"
+
+#: main/templates/main/index.html:223
+msgid "Context ads"
+msgstr "Контекстная реклама"
 
 #: main/templates/main/main_layout.html:58
 #: main/templates/main/main_layout.html:62

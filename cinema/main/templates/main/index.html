@@ -1,8 +1,8 @@
 {% extends 'main/main_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-    Cinema CMS | Главная
+    Cinema CMS | {% trans 'Main' %}
 {% endblock %}
 
 {% block main_main %}
@@ -35,11 +35,11 @@
           </div>
            <button class="carousel-control-prev" type="button" data-target="#topBannersCarousel" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Предыдущий</span>
+            <span class="sr-only">Previous</span>
           </button>
           <button class="carousel-control-next" type="button" data-target="#topBannersCarousel" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Следующий</span>
+            <span class="sr-only">Next</span>
           </button>
         </div>
     {% endif %}
@@ -78,11 +78,11 @@
           </div>
            <button class="carousel-control-prev" type="button" data-target="#MovieSessionCarousel" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Предыдущий</span>
+            <span class="sr-only">Previous</span>
           </button>
           <button class="carousel-control-next" type="button" data-target="#MovieSessionCarousel" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Следующий</span>
+            <span class="sr-only">Next</span>
           </button>
         </div>
 
@@ -93,7 +93,7 @@
             <div class="col mr-5">
                 {# movie_sessions #}
                     <div class="mt-5 text-center">
-                        <h3>Смотрите сегодня, {{ time_now|date:"d E" }}</h3>
+                        <h3>{% trans 'Watch today' %}, {{ time_now|date:"d E" }}</h3>
                     </div>
 
                     <div class="row mb-5 mx-4">
@@ -126,7 +126,7 @@
                                 <a href="#">
                                     <span class="badge badge-pill badge-warning px-4 py-2 text-white" style="font-size: 18px;">
                                         <i class="fas fa-ticket-alt mr-2"></i>
-                                        Купить
+                                        {% trans 'Buy' %}
                                     </span>
                                 </a>
 
@@ -141,7 +141,7 @@
             <div class="col mr-5">
                 {# movie_sessions #}
                     <div class="mt-5 text-center">
-                        <h3>Смотрите скоро</h3>
+                        <h3>{% trans 'Watch soon' %}</h3>
                     </div>
 
                     <div class="row mb-5 mx-4">
@@ -190,7 +190,7 @@
         {# news_banners #}
             {% if news_banners.carousel.is_active %}
                 <div class="col text-center mx-auto mt-5">
-                    <h4 class="mb-4">Новости и Акции</h4>
+                    <h4 class="mb-4">{% trans 'News and Promotions' %}</h4>
 
                     <div id="newsBannersCarousel" class=" carousel slide" data-ride="carousel">
                       <div class="carousel-inner">
@@ -204,11 +204,11 @@
                       </div>
                        <button class="carousel-control-prev" type="button" data-target="#newsBannersCarousel" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Предыдущий</span>
+                        <span class="sr-only">Previous</span>
                       </button>
                       <button class="carousel-control-next" type="button" data-target="#newsBannersCarousel" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Следующий</span>
+                        <span class="sr-only">Next</span>
                       </button>
                     </div>
                 </div>
@@ -220,7 +220,7 @@
             <div class="col-12 mt-5 text-center p-5 black-text" style="background: lightgray;">
                 <a href="#">
                     <h5>
-                        Контекстная реклама
+                        {% trans 'Context ads' %}
                     </h5>
                 </a>
             </div>
