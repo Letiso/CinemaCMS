@@ -1,8 +1,8 @@
 {% extends 'main/main_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-    Афиша
+    {% trans 'Poster' %}
 {% endblock %}
 
 {% block stylesheets %}
@@ -22,7 +22,7 @@
                     <div class="col my-5 text-center p-5 black-text" style="background: lightgray;">
                         <a href="#">
                             <h5>
-                                Контекстная реклама
+                                {% trans 'Context ads' %}
                             </h5>
                         </a>
                     </div>
@@ -37,7 +37,7 @@
                     <div class="row my-5 mx-4">
                         {% for movie_session in page_obj %}
                             <div class="col-2 text-center my-5">
-                                <h5>Сейчас в кино</h5>
+                                <h5>{% trans 'In the cinema now' %}</h5>
 
                                 <div class="image_with_badge">
                                     <img class="rounded img-fluid" src="{{ movie_session.movie.main_image.url }}" alt="">
@@ -66,7 +66,7 @@
                                 <a href="#">
                                     <span class="badge badge-pill badge-warning px-4 py-2 text-white" style="font-size: 18px;">
                                         <i class="fas fa-ticket-alt mr-2"></i>
-                                        Купить
+                                        {% trans 'Buy' %}
                                     </span>
                                 </a>
 
@@ -82,12 +82,12 @@
                               <a class="page-link" href="?page=1">&laquo;</a>
                           </li>
                           <li class="page-item">
-                              <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                              <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans 'Back' %}</a>
                           </li>
 
                         {% else %}
                             <li class="page-item disabled">
-                              <a class="page-link" href="?page=0">Назад</a>
+                              <a class="page-link" href="?page=0">{% trans 'Back' %}</a>
                           </li>
 
                         {% endif %}
@@ -103,7 +103,7 @@
 
                         {% if page_obj.has_next %}
                           <li class="page-item">
-                              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед</a>
+                              <a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a>
                           </li>
                           <li>
                               <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
@@ -111,7 +111,7 @@
 
                         {% else %}
                             <li class="page-item disabled">
-                                <a class="page-link" href="?page=0">Вперед</a>
+                                <a class="page-link" href="?page=0">{% trans 'Next' %}</a>
                             </li>
 
                         {% endif %}

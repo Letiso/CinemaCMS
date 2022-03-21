@@ -68,7 +68,7 @@ class SignUpForm(forms.ModelForm):
                 'class': 'form-control mb-2',
             }),
             'address': forms.TextInput(attrs={
-                'placeholder': _(''),  # Приморский район, ул. Екатерининская, 156  # TODO
+                'placeholder': _('Any District, Very famous st., 1/a'),
             }),
         }
 
@@ -128,7 +128,7 @@ class UserUpdateForm(forms.ModelForm):
                 'class': 'form-control mb-2',
             }),
             'address': forms.TextInput(attrs={
-                'placeholder': _(''),   # Приморский район, ул. Екатерининская, 156  # TODO
+                'placeholder': _('Any District, Very famous st., 1/a'),
             }),
         }
 
