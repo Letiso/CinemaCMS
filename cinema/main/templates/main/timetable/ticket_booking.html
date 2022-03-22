@@ -216,7 +216,7 @@
                 {# buy links #}
                 <div class="col">
                     <h5>
-                        {% trans 'Ticket booking price - 3 uan each place' %}
+                        {% trans 'Ticket booking price - 3 uan for each place' %}
                     </h5>
 
                     <h5>
@@ -229,7 +229,7 @@
                             {% trans 'Booking' %}
                         </a>
 
-                        <a href="{% url 'main:ticket_pay' tickets='tickets_array' mode='pay' user_pk=user.pk  movie_session_pk=movie_session.pk %}"
+                        <a href="{% url 'main:ticket_pay' tickets='tickets_array' mode='buy' user_pk=user.pk  movie_session_pk=movie_session.pk %}"
                            class="btn btn-success mx-2 pay_link"
                            style="border: 2px solid black; width: 220px;">
                             {% trans 'Buy' %}

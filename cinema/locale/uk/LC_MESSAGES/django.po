@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 11:28+0200\n"
+"POT-Creation-Date: 2022-03-22 12:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,6 +86,7 @@ msgstr ""
 #: admin/templates/admin/cinemas/hall_card.html:23
 #: admin/templates/admin/cinemas/index.html:10
 #: admin/templates/admin/cinemas/index.html:13
+#: main/templates/main/cinemas/index.html:5
 #: main/templates/main/main_layout.html:152
 #: main/templates/main/main_layout.html:346
 msgid "Cinemas"
@@ -297,6 +298,8 @@ msgstr ""
 #: admin/templates/admin/pages/index.html:121
 #: admin/templates/admin/promotion/index.html:67
 #: admin/templates/admin/users/index.html:156
+#: main/templates/main/cinemas/index.html:49
+#: main/templates/main/cinemas/index.html:54
 #: main/templates/main/poster/index.html:85
 #: main/templates/main/poster/index.html:90
 #: main/templates/main/poster/soon.html:80
@@ -756,6 +759,28 @@ msgstr ""
 msgid "Booked"
 msgstr ""
 
+#: main/templates/main/cinemas/index.html:24
+msgid "Our cinemas"
+msgstr ""
+
+#: main/templates/main/cinemas/index.html:70
+#: main/templates/main/cinemas/index.html:78
+#: main/templates/main/poster/index.html:106
+#: main/templates/main/poster/index.html:114
+#: main/templates/main/poster/soon.html:101
+#: main/templates/main/poster/soon.html:109
+msgid "Next"
+msgstr ""
+
+#: main/templates/main/cinemas/index.html:95 main/templates/main/index.html:223
+#: main/templates/main/poster/index.html:25
+#: main/templates/main/poster/movie_card.html:227
+#: main/templates/main/poster/soon.html:24
+#: main/templates/main/timetable/ticket_booking.html:114
+#: main/templates/main/timetable/timetable.html:130
+msgid "Context ads"
+msgstr ""
+
 #: main/templates/main/index.html:5
 msgid "Main"
 msgstr ""
@@ -765,6 +790,7 @@ msgid "Watch today"
 msgstr ""
 
 #: main/templates/main/index.html:129 main/templates/main/poster/index.html:69
+#: main/templates/main/timetable/pay.html:5
 #: main/templates/main/timetable/ticket_booking.html:235
 msgid "Buy"
 msgstr ""
@@ -779,14 +805,6 @@ msgstr ""
 
 #: main/templates/main/index.html:193
 msgid "News and Promotions"
-msgstr ""
-
-#: main/templates/main/index.html:223 main/templates/main/poster/index.html:25
-#: main/templates/main/poster/movie_card.html:227
-#: main/templates/main/poster/soon.html:24
-#: main/templates/main/timetable/ticket_booking.html:114
-#: main/templates/main/timetable/timetable.html:130
-msgid "Context ads"
 msgstr ""
 
 #: main/templates/main/main_layout.html:58
@@ -880,13 +898,6 @@ msgstr ""
 msgid "In the cinema now"
 msgstr ""
 
-#: main/templates/main/poster/index.html:106
-#: main/templates/main/poster/index.html:114
-#: main/templates/main/poster/soon.html:101
-#: main/templates/main/poster/soon.html:109
-msgid "Next"
-msgstr ""
-
 #: main/templates/main/poster/movie_card.html:23
 msgid "Cinema session timetable"
 msgstr ""
@@ -937,6 +948,46 @@ msgstr ""
 msgid "No equal results for such filters"
 msgstr ""
 
+#: main/templates/main/timetable/pay.html:6
+#: main/templates/main/timetable/pay.html:19
+#: main/templates/main/timetable/ticket_booking.html:229
+#: main/templates/main/timetable/timetable.html:89
+msgid "Booking"
+msgstr ""
+
+#: main/templates/main/timetable/pay.html:18
+#: main/templates/main/timetable/pay.html:58
+msgid "Pay"
+msgstr ""
+
+#: main/templates/main/timetable/pay.html:25
+#: main/templates/main/timetable/ticket_booking.html:155
+msgid "YOUR ORDER"
+msgstr ""
+
+#: main/templates/main/timetable/pay.html:29
+#: main/templates/main/timetable/ticket_booking.html:158
+msgid "TICKETS COUNT"
+msgstr ""
+
+#: main/templates/main/timetable/pay.html:34
+#: main/templates/main/timetable/ticket_booking.html:163
+msgid "SUM"
+msgstr ""
+
+#: main/templates/main/timetable/pay.html:40
+#: main/templates/main/timetable/ticket_booking.html:168
+msgid "uan"
+msgstr ""
+
+#: main/templates/main/timetable/pay.html:46
+msgid "ENTER YOUR CARD NUMBER"
+msgstr ""
+
+#: main/templates/main/timetable/pay.html:56
+msgid "Cancel"
+msgstr ""
+
 #: main/templates/main/timetable/ticket_booking.html:5
 msgid "Ticket booking"
 msgstr ""
@@ -953,22 +1004,6 @@ msgstr ""
 msgid "SOLD"
 msgstr ""
 
-#: main/templates/main/timetable/ticket_booking.html:155
-msgid "YOUR ORDER"
-msgstr ""
-
-#: main/templates/main/timetable/ticket_booking.html:158
-msgid "TICKETS COUNT"
-msgstr ""
-
-#: main/templates/main/timetable/ticket_booking.html:163
-msgid "SUM"
-msgstr ""
-
-#: main/templates/main/timetable/ticket_booking.html:168
-msgid "uan"
-msgstr ""
-
 #: main/templates/main/timetable/ticket_booking.html:181
 msgid "DISPLAY"
 msgstr ""
@@ -978,18 +1013,13 @@ msgid "Row"
 msgstr ""
 
 #: main/templates/main/timetable/ticket_booking.html:219
-msgid "Ticket booking price - 3 uan each place"
+msgid "Ticket booking price - 3 uan for each place"
 msgstr ""
 
 #: main/templates/main/timetable/ticket_booking.html:223
 msgid ""
 "BOOKED TICKETS HAVE TO BE SOLD IN THE CASS OF A CINEMA NOT LATER 30 MIN "
 "BEFORE SESSION STARTED"
-msgstr ""
-
-#: main/templates/main/timetable/ticket_booking.html:229
-#: main/templates/main/timetable/timetable.html:89
-msgid "Booking"
 msgstr ""
 
 #: main/templates/main/timetable/timetable.html:19
