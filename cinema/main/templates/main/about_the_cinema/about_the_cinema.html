@@ -1,8 +1,8 @@
 {% extends 'main/main_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-    О кинотеатре
+    {% trans 'About the cinema' %}
 {% endblock %}
 
 {% block main_about_the_cinema %}
@@ -22,7 +22,7 @@
                 {# promotion description #}
                     <div class="col my-5 mx-4">
                         <h3 class="mb-3 ml-5">
-                            О кинотеатре
+                            {% trans 'About the cinema' %}
                         </h3>
 
                         <div class="col">
@@ -36,7 +36,7 @@
                         </div>
 
                         <h3 class="mb-3 ml-5">
-                            Оборудование
+                            {% trans 'Equipment' %}
                         </h3>
 
                         <div class="col">
@@ -68,7 +68,7 @@
                         <div class="col-11 my-5 text-center p-5 black-text" style="background: lightgray;">
                             <a href="#">
                                 <h5>
-                                    Контекстная реклама
+                                    {% trans 'Context ads' %}
                                 </h5>
                             </a>
                         </div>

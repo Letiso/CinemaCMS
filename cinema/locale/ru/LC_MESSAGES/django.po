@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 14:35+0200\n"
+"POT-Creation-Date: 2022-03-22 14:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -731,6 +731,7 @@ msgid "Description image"
 msgstr "Картинка описания"
 
 #: main/models.py:310
+#: main/templates/main/about_the_cinema/about_the_cinema.html:39
 msgid "Equipment"
 msgstr "Оборудование"
 
@@ -762,6 +763,14 @@ msgstr "Продано"
 msgid "Booked"
 msgstr "Забронировано"
 
+#: main/templates/main/about_the_cinema/about_the_cinema.html:5
+#: main/templates/main/about_the_cinema/about_the_cinema.html:25
+#: main/templates/main/main_layout.html:166
+#: main/templates/main/main_layout.html:356
+msgid "About the cinema"
+msgstr "О кинотеатре"
+
+#: main/templates/main/about_the_cinema/about_the_cinema.html:71
 #: main/templates/main/cinemas/cinema_card.html:26
 #: main/templates/main/cinemas/index.html:95 main/templates/main/index.html:223
 #: main/templates/main/poster/index.html:25
@@ -879,11 +888,6 @@ msgstr "Расписание"
 #: main/templates/main/poster/soon.html:5
 msgid "Soon"
 msgstr "Скоро"
-
-#: main/templates/main/main_layout.html:166
-#: main/templates/main/main_layout.html:356
-msgid "About the cinema"
-msgstr "О кинотеатре"
 
 #: main/templates/main/main_layout.html:181
 #: main/templates/main/main_layout.html:363
