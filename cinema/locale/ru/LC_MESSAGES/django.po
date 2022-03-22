@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-21 12:11+0200\n"
+"POT-Creation-Date: 2022-03-22 11:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -634,7 +634,7 @@ msgstr "Афиша"
 msgid "Trailer link"
 msgstr "Ссылка на трейлер"
 
-#: main/models.py:94 main/templates/main/poster/movie_card.html:152
+#: main/models.py:94 main/templates/main/poster/movie_card.html:154
 msgid "Age rating"
 msgstr "Возрастной рейтинг"
 
@@ -764,6 +764,7 @@ msgid "Watch today"
 msgstr "Смотрите сегодня"
 
 #: main/templates/main/index.html:129 main/templates/main/poster/index.html:69
+#: main/templates/main/timetable/ticket_booking.html:235
 msgid "Buy"
 msgstr "Купить"
 
@@ -771,13 +772,18 @@ msgstr "Купить"
 msgid "Watch soon"
 msgstr "Смотрите скоро"
 
+#: main/templates/main/index.html:178 main/templates/main/poster/soon.html:39
+msgid "Since"
+msgstr "С"
+
 #: main/templates/main/index.html:193
 msgid "News and Promotions"
 msgstr "Новости и Акции"
 
 #: main/templates/main/index.html:223 main/templates/main/poster/index.html:25
-#: main/templates/main/poster/movie_card.html:225
+#: main/templates/main/poster/movie_card.html:227
 #: main/templates/main/poster/soon.html:24
+#: main/templates/main/timetable/ticket_booking.html:114
 #: main/templates/main/timetable/timetable.html:130
 msgid "Context ads"
 msgstr "Контекстная реклама"
@@ -880,59 +886,112 @@ msgstr "Сейчас в кино"
 msgid "Next"
 msgstr "Вперед"
 
-#: main/templates/main/poster/movie_card.html:21
+#: main/templates/main/poster/movie_card.html:23
 msgid "Cinema session timetable"
 msgstr "Расписание сеансов кинотеатра"
 
-#: main/templates/main/poster/movie_card.html:25
+#: main/templates/main/poster/movie_card.html:27
 #: main/templates/main/timetable/timetable.html:36
 msgid "Cinema: all"
 msgstr "Кинотеатр: все"
 
-#: main/templates/main/poster/movie_card.html:34
+#: main/templates/main/poster/movie_card.html:36
 msgid "All"
 msgstr "Все"
 
-#: main/templates/main/poster/movie_card.html:88
+#: main/templates/main/poster/movie_card.html:90
 #: main/templates/main/timetable/timetable.html:83
 #: main/templates/main/timetable/timetable.html:87
 msgid "Hall"
 msgstr "Зал"
 
-#: main/templates/main/poster/movie_card.html:112
+#: main/templates/main/poster/movie_card.html:114
 msgid "Year"
 msgstr "Год"
 
-#: main/templates/main/poster/movie_card.html:117
-#: main/templates/main/poster/movie_card.html:118
+#: main/templates/main/poster/movie_card.html:119
+#: main/templates/main/poster/movie_card.html:120
 msgid "Country"
 msgstr "Страна"
 
-#: main/templates/main/poster/movie_card.html:157
+#: main/templates/main/poster/movie_card.html:159
 #: main/templates/main/timetable/timetable.html:85
 msgid "Time"
 msgstr "Расписание"
 
-#: main/templates/main/poster/movie_card.html:158
+#: main/templates/main/poster/movie_card.html:160
 msgid "min."
 msgstr "мин."
 
-#: main/templates/main/poster/movie_card.html:169
+#: main/templates/main/poster/movie_card.html:171
 msgid "Buy a ticket"
 msgstr "Купить билет"
 
-#: main/templates/main/poster/movie_card.html:182
+#: main/templates/main/poster/movie_card.html:184
 msgid "Frames and posters"
 msgstr "Кадры и постеры"
 
-#: main/templates/main/poster/movie_card.html:239
+#: main/templates/main/poster/movie_card.html:241
 #: main/templates/main/timetable/timetable.html:272
 msgid "No equal results for such filters"
 msgstr "Сеансы, соответствующие выбранным фильтрам, не найдены"
 
-#: main/templates/main/poster/soon.html:39
-msgid "Since"
-msgstr "С"
+#: main/templates/main/timetable/ticket_booking.html:5
+msgid "Ticket booking"
+msgstr "Бронирование билета"
+
+#: main/templates/main/timetable/ticket_booking.html:130
+msgid "PRICE IN UAN"
+msgstr "ЦЕНА В ГРН"
+
+#: main/templates/main/timetable/ticket_booking.html:138
+msgid "BOOKED"
+msgstr "ЗАБРОНИРОВАНО"
+
+#: main/templates/main/timetable/ticket_booking.html:147
+msgid "SOLD"
+msgstr "КУПЛЕНО"
+
+#: main/templates/main/timetable/ticket_booking.html:155
+msgid "YOUR ORDER"
+msgstr "ВАШ ЗАКАЗ"
+
+#: main/templates/main/timetable/ticket_booking.html:158
+msgid "TICKETS COUNT"
+msgstr "БИЛЕТОВ"
+
+#: main/templates/main/timetable/ticket_booking.html:163
+msgid "SUM"
+msgstr "СУММА"
+
+#: main/templates/main/timetable/ticket_booking.html:168
+msgid "uan"
+msgstr "грн"
+
+#: main/templates/main/timetable/ticket_booking.html:181
+msgid "DISPLAY"
+msgstr "ЭКРАН"
+
+#: main/templates/main/timetable/ticket_booking.html:190
+msgid "Row"
+msgstr "Ряд"
+
+#: main/templates/main/timetable/ticket_booking.html:219
+msgid "Ticket booking price - 3 uan each place"
+msgstr "Стоимость услуги бронирования - 3 грн. за каждое место"
+
+#: main/templates/main/timetable/ticket_booking.html:223
+msgid ""
+"BOOKED TICKETS HAVE TO BE SOLD IN THE CASS OF A CINEMA NOT LATER 30 MIN "
+"BEFORE SESSION STARTED"
+msgstr ""
+"ЗАБРОНИРОВАННЫЕ БИЛЕТЫ НУЖНО ВЫКУПИТЬ В КАССЕ КИНОТЕАТРА НЕ ПОЗДНЕЕ ЧЕМ ЗА "
+"ПОЛЧАСА ДО НАЧАЛА СЕАНСА"
+
+#: main/templates/main/timetable/ticket_booking.html:229
+#: main/templates/main/timetable/timetable.html:89
+msgid "Booking"
+msgstr "Бронировать"
 
 #: main/templates/main/timetable/timetable.html:19
 msgid "Show only"
@@ -966,10 +1025,6 @@ msgstr "Фильм"
 #: main/templates/main/timetable/timetable.html:88
 msgid "Price in uan"
 msgstr "Цена в грн"
-
-#: main/templates/main/timetable/timetable.html:89
-msgid "Booking"
-msgstr "Бронировать"
 
 #: user/forms.py:9 user/forms.py:78 user/forms.py:148
 msgid "Password"

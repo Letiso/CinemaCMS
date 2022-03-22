@@ -1,9 +1,13 @@
 {% extends 'main/main_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Бронирование билета{% endblock %}
+{% block title %}
+    {% trans 'Ticket booking' %}
+{% endblock %}
 
-{% block main_timetable %}active{% endblock %}
+{% block main_timetable %}
+    active
+{% endblock %}
 
 {% block stylesheets %}
     <style>
@@ -107,7 +111,7 @@
                     <div class="col my-5 text-center p-5 black-text" style="background: lightgray;">
                         <a href="#">
                             <h5>
-                                Контекстная реклама
+                                {% trans 'Context ads' %}
                             </h5>
                         </a>
                     </div>
@@ -123,7 +127,7 @@
                     <h6 class="text-gray mt-3">{{ movie_session.start_datetime|date:"j E, H:i"|upper }}, ЗАЛ №{{ movie_session.hall.number }}</h6>
                     <div class="row">
                         <div class="col">
-                            <h5 class="mt-3">ЦЕНА В ГРН.:
+                            <h5 class="mt-3">{% trans 'PRICE IN UAN' %}.:
                                 <span id="ticket_price" style="background: orange; color: white; font-weight: bold; padding: 8px; margin-left: 15px;">
                                     {{ movie_session.ticket_price }}
                                 </span>
@@ -131,7 +135,7 @@
                         </div>
                         <div class="col-9 row justify-content-center">
                             <h5 class="mt-3">
-                                ЗАБРОНИРОВАНО:
+                                {% trans 'BOOKED' %}:
                             </h5>
                             <div class="ticket-card ticket-booked mr-5">
                                 <span class="ticket_number">
@@ -140,7 +144,7 @@
                             </div>
 
                             <h5 class="mt-3">
-                                КУПЛЕНО:
+                                {% trans 'SOLD' %}:
                             </h5>
                             <div class="ticket-card ticket-sold mr-5">
                                 <span class="ticket_number">
@@ -148,20 +152,20 @@
                                 </span>
                             </div>
                             <h5 class="mt-3 mr-3">
-                                ВАШ ЗАКАЗ:
+                                {% trans 'YOUR ORDER' %}:
                             </h5>
                             <div class="d-inline-flex pt-3 px-4" style="border: 3px solid orange">
-                                <p>БИЛЕТОВ:
+                                <p>{% trans 'TICKETS COUNT' %}:
                                     <span id="chosen_tickets_count" class="text-danger mr-5" style="font-weight: bold">
                                         0
                                     </span>
                                 </p>
-                                <p>СУММА:
+                                <p>{% trans 'SUM' %}:
                                     <span id="chosen_tickets_total_price" class="text-danger" style="font-weight: bold">
                                         0
                                     </span>
                                     <span class="text-danger" style="font-weight: bold">
-                                        грн.
+                                        {% trans 'uan' %}.
                                     </span>
                                 </p>
                             </div>
@@ -174,7 +178,7 @@
                     <div class="col-10 ml-auto mb-5 text-center">
                         <hr style="border-width: 2px; border-color: black">
                         <h3>
-                            ЭКРАН
+                            {% trans 'DISPLAY' %}
                         </h3>
                     </div>
                 </div>
@@ -183,7 +187,7 @@
                     {% for row_number in places_rows %}
                         <div class="row mt-3">
                             <div id="rows" class="col mt-1 ml-5">
-                                <h3>Ряд {{ row_number }}</h3>
+                                <h3>{% trans 'Row' %} {{ row_number }}</h3>
                             </div>
                             <div id="tickets" class="col-10 d-inline-flex justify-content-center">
                                 {% for ticket in tickets %}
@@ -212,23 +216,23 @@
                 {# buy links #}
                 <div class="col">
                     <h5>
-                        Стоимость услуги бронирования - 3 грн. за каждое место
+                        {% trans 'Ticket booking price - 3 uan each place' %}
                     </h5>
 
                     <h5>
-                        ЗАБРОНИРОВАННЫЕ БИЛЕТЫ НУЖНО ВЫКУПИТЬ В КАССЕ КИНОТЕАТРА НЕ ПОЗДНЕЕ ЧЕМ ЗА ПОЛЧАСА ДО НАЧАЛА СЕАНСА
+                        {% trans 'BOOKED TICKETS HAVE TO BE SOLD IN THE CASS OF A CINEMA NOT LATER 30 MIN BEFORE SESSION STARTED' %}
                     </h5>
                     <div class="row justify-content-center mt-3">
                         <a href="{% url 'main:ticket_pay' tickets='tickets_array' mode='booking' user_pk=user.pk movie_session_pk=movie_session.pk %}"
                            class="btn btn-light mx-2 pay_link {% if cancel_booking_time == now %}disabled{% endif %}"
                            style="border: 2px solid black; width: 220px;">
-                            Забронировать
+                            {% trans 'Booking' %}
                         </a>
 
                         <a href="{% url 'main:ticket_pay' tickets='tickets_array' mode='pay' user_pk=user.pk  movie_session_pk=movie_session.pk %}"
                            class="btn btn-success mx-2 pay_link"
                            style="border: 2px solid black; width: 220px;">
-                            Купить
+                            {% trans 'Buy' %}
                         </a>
                     </div>
                 </div>
