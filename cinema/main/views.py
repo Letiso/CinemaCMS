@@ -70,7 +70,7 @@ class MainPageView(CustomAbstractView):
 
         time_now = timezone.now()
         self.context['time_now'] = time_now
-        watch_now = MovieSession.objects.filter(start_datetime__lte=time_now
+        watch_now = MovieSession.objects.filter(start_datetime__gte=time_now
                                                 ).order_by('-start_datetime').select_related()
         self.context['watch_now'] = watch_now[:18]
 

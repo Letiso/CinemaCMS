@@ -63,8 +63,8 @@
                                     <h4>{{ movie_session.movie.title }}</h4>
                                 </a>
 
-                                <a href="#">
-                                    <span class="badge badge-pill badge-warning px-4 py-2 text-white" style="font-size: 18px;">
+                                <a href="{% url 'main:ticket_booking' movie_session.pk %}">
+                                    <span class="btn btn-warning px-4 py-1 text-white" style="font-size: 18px; border-radius: 18px;">
                                         <i class="fas fa-ticket-alt mr-2"></i>
                                         {% trans 'Buy' %}
                                     </span>
