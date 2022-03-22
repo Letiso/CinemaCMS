@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 13:16+0200\n"
+"POT-Creation-Date: 2022-03-22 14:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -106,6 +106,7 @@ msgstr "Новости"
 #: admin/templates/admin/promotion/promotion_card.html:28
 #: main/templates/main/main_layout.html:159
 #: main/templates/main/main_layout.html:349
+#: main/templates/main/promotion/index.html:5
 msgid "Promotions"
 msgstr "Акции"
 
@@ -304,6 +305,7 @@ msgstr "Вы уверены, что хотите удалить этот зал?
 #: main/templates/main/poster/index.html:90
 #: main/templates/main/poster/soon.html:80
 #: main/templates/main/poster/soon.html:85
+#: main/templates/main/promotion/index.html:62
 msgid "Back"
 msgstr "Назад"
 
@@ -551,6 +553,7 @@ msgstr "Создать акцию"
 
 #: admin/templates/admin/promotion/promotion_card.html:24
 #: admin/templates/admin/promotion/promotion_card.html:29
+#: main/templates/main/promotion/promotion_card.html:5
 msgid "Promotion card"
 msgstr "Карточка акции"
 
@@ -650,7 +653,7 @@ msgstr "Кадр из фильма"
 msgid "Cinema name"
 msgstr "Название кинотеатра"
 
-#: main/models.py:148 main/templates/main/cinemas/cinema_card.html:102
+#: main/models.py:148 main/templates/main/cinemas/cinema_card.html:109
 msgid "Amenities"
 msgstr "Условия"
 
@@ -764,6 +767,8 @@ msgstr "Забронировано"
 #: main/templates/main/poster/index.html:25
 #: main/templates/main/poster/movie_card.html:227
 #: main/templates/main/poster/soon.html:24
+#: main/templates/main/promotion/index.html:103
+#: main/templates/main/promotion/promotion_card.html:92
 #: main/templates/main/timetable/ticket_booking.html:114
 #: main/templates/main/timetable/timetable.html:130
 msgid "Context ads"
@@ -785,44 +790,38 @@ msgstr "Зал"
 msgid "Watch today"
 msgstr "Смотрите сегодня"
 
-#: main/templates/main/cinemas/cinema_card.html:57
-msgid "Session"
-msgstr "Сеанс"
-
-#: main/templates/main/cinemas/cinema_card.html:64
+#: main/templates/main/cinemas/cinema_card.html:69
 msgid "All sessions timetable"
 msgstr "Расписание всех сеансов"
 
-#: main/templates/main/cinemas/cinema_card.html:74
+#: main/templates/main/cinemas/cinema_card.html:81
 #: main/templates/main/timetable/timetable.html:80
 msgid "Cinema"
 msgstr "Кинотеатр"
 
-#: main/templates/main/cinemas/cinema_card.html:84
+#: main/templates/main/cinemas/cinema_card.html:91
 msgid "Sessions timetable"
 msgstr "Расписание сеансов"
 
-#: main/templates/main/cinemas/cinema_card.html:112
+#: main/templates/main/cinemas/cinema_card.html:119
 msgid "Photo gallery"
-msgstr "Галерея фото зала"
+msgstr "Фотогалерея"
 
-#: main/templates/main/cinemas/cinema_card.html:135
-msgid "Previous"
-msgstr ""
+#: main/templates/main/cinemas/index.html:24
+msgid "Our cinemas"
+msgstr "Наши кинотеатры"
 
-#: main/templates/main/cinemas/cinema_card.html:140
 #: main/templates/main/cinemas/index.html:70
 #: main/templates/main/cinemas/index.html:78
 #: main/templates/main/poster/index.html:106
 #: main/templates/main/poster/index.html:114
 #: main/templates/main/poster/soon.html:101
 #: main/templates/main/poster/soon.html:109
+#: main/templates/main/promotion/index.html:57
+#: main/templates/main/promotion/index.html:78
+#: main/templates/main/promotion/index.html:86
 msgid "Next"
 msgstr "Вперед"
-
-#: main/templates/main/cinemas/index.html:24
-msgid "Our cinemas"
-msgstr "Наши кинотеатры"
 
 #: main/templates/main/index.html:5
 msgid "Main"
@@ -980,6 +979,18 @@ msgstr "Кадры и постеры"
 #: main/templates/main/timetable/timetable.html:272
 msgid "No equal results for such filters"
 msgstr "Сеансы, соответствующие выбранным фильтрам, не найдены"
+
+#: main/templates/main/promotion/index.html:24
+msgid "Our promotions"
+msgstr "Наши акции"
+
+#: main/templates/main/promotion/promotion_card.html:25
+msgid "Promotion"
+msgstr "Акция"
+
+#: main/templates/main/promotion/promotion_card.html:50
+msgid "Gallery"
+msgstr "Галерея"
 
 #: main/templates/main/timetable/pay.html:6
 #: main/templates/main/timetable/pay.html:19

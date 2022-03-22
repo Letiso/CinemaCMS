@@ -1,8 +1,8 @@
 {% extends 'main/main_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-    Акции
+    {% trans 'Promotions'%}
 {% endblock %}
 
 {% block main_promotion %}
@@ -21,7 +21,7 @@
             {# main_content #}
                 <div class="col">
                     <h2 class="mb-5 ml-5">
-                        Наши акции
+                        {% trans 'Our promotions'%}
                     </h2>
 
                     <div class="row justify-content-center">
@@ -54,12 +54,12 @@
                               <a class="page-link" href="?page=1">&laquo;</a>
                           </li>
                           <li class="page-item">
-                              <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                              <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans 'Next' %}</a>
                           </li>
 
                         {% else %}
                             <li class="page-item disabled">
-                              <a class="page-link" href="?page=0">Назад</a>
+                              <a class="page-link" href="?page=0">{% trans 'Back'%}</a>
                           </li>
 
                         {% endif %}
@@ -75,7 +75,7 @@
 
                         {% if page_obj.has_next %}
                           <li class="page-item">
-                              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед</a>
+                              <a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a>
                           </li>
                           <li>
                               <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
@@ -83,7 +83,7 @@
 
                         {% else %}
                             <li class="page-item disabled">
-                                <a class="page-link" href="?page=0">Вперед</a>
+                                <a class="page-link" href="?page=0">{% trans 'Next' %}</a>
                             </li>
 
                         {% endif %}
@@ -100,7 +100,7 @@
                             <div class="col-11 my-5 text-center p-5 black-text" style="background: lightgray;">
                                 <a href="#">
                                     <h5>
-                                        Контекстная реклама
+                                        {% trans 'Context ads' %}
                                     </h5>
                                 </a>
                             </div>

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 13:16+0200\n"
+"POT-Creation-Date: 2022-03-22 14:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -107,6 +107,7 @@ msgstr ""
 #: admin/templates/admin/promotion/promotion_card.html:28
 #: main/templates/main/main_layout.html:159
 #: main/templates/main/main_layout.html:349
+#: main/templates/main/promotion/index.html:5
 msgid "Promotions"
 msgstr ""
 
@@ -305,6 +306,7 @@ msgstr ""
 #: main/templates/main/poster/index.html:90
 #: main/templates/main/poster/soon.html:80
 #: main/templates/main/poster/soon.html:85
+#: main/templates/main/promotion/index.html:62
 msgid "Back"
 msgstr ""
 
@@ -552,6 +554,7 @@ msgstr ""
 
 #: admin/templates/admin/promotion/promotion_card.html:24
 #: admin/templates/admin/promotion/promotion_card.html:29
+#: main/templates/main/promotion/promotion_card.html:5
 msgid "Promotion card"
 msgstr ""
 
@@ -651,7 +654,7 @@ msgstr ""
 msgid "Cinema name"
 msgstr ""
 
-#: main/models.py:148 main/templates/main/cinemas/cinema_card.html:102
+#: main/models.py:148 main/templates/main/cinemas/cinema_card.html:109
 msgid "Amenities"
 msgstr ""
 
@@ -765,6 +768,8 @@ msgstr ""
 #: main/templates/main/poster/index.html:25
 #: main/templates/main/poster/movie_card.html:227
 #: main/templates/main/poster/soon.html:24
+#: main/templates/main/promotion/index.html:103
+#: main/templates/main/promotion/promotion_card.html:92
 #: main/templates/main/timetable/ticket_booking.html:114
 #: main/templates/main/timetable/timetable.html:130
 msgid "Context ads"
@@ -786,43 +791,37 @@ msgstr ""
 msgid "Watch today"
 msgstr ""
 
-#: main/templates/main/cinemas/cinema_card.html:57
-msgid "Session"
-msgstr ""
-
-#: main/templates/main/cinemas/cinema_card.html:64
+#: main/templates/main/cinemas/cinema_card.html:69
 msgid "All sessions timetable"
 msgstr ""
 
-#: main/templates/main/cinemas/cinema_card.html:74
+#: main/templates/main/cinemas/cinema_card.html:81
 #: main/templates/main/timetable/timetable.html:80
 msgid "Cinema"
 msgstr ""
 
-#: main/templates/main/cinemas/cinema_card.html:84
+#: main/templates/main/cinemas/cinema_card.html:91
 msgid "Sessions timetable"
 msgstr ""
 
-#: main/templates/main/cinemas/cinema_card.html:112
+#: main/templates/main/cinemas/cinema_card.html:119
 msgid "Photo gallery"
 msgstr ""
 
-#: main/templates/main/cinemas/cinema_card.html:135
-msgid "Previous"
+#: main/templates/main/cinemas/index.html:24
+msgid "Our cinemas"
 msgstr ""
 
-#: main/templates/main/cinemas/cinema_card.html:140
 #: main/templates/main/cinemas/index.html:70
 #: main/templates/main/cinemas/index.html:78
 #: main/templates/main/poster/index.html:106
 #: main/templates/main/poster/index.html:114
 #: main/templates/main/poster/soon.html:101
 #: main/templates/main/poster/soon.html:109
+#: main/templates/main/promotion/index.html:57
+#: main/templates/main/promotion/index.html:78
+#: main/templates/main/promotion/index.html:86
 msgid "Next"
-msgstr ""
-
-#: main/templates/main/cinemas/index.html:24
-msgid "Our cinemas"
 msgstr ""
 
 #: main/templates/main/index.html:5
@@ -980,6 +979,18 @@ msgstr ""
 #: main/templates/main/poster/movie_card.html:241
 #: main/templates/main/timetable/timetable.html:272
 msgid "No equal results for such filters"
+msgstr ""
+
+#: main/templates/main/promotion/index.html:24
+msgid "Our promotions"
+msgstr ""
+
+#: main/templates/main/promotion/promotion_card.html:25
+msgid "Promotion"
+msgstr ""
+
+#: main/templates/main/promotion/promotion_card.html:50
+msgid "Gallery"
 msgstr ""
 
 #: main/templates/main/timetable/pay.html:6
