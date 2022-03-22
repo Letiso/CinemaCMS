@@ -149,9 +149,10 @@ class MoviesSoonView(MoviesPosterView):
 class MovieSessionsTimetableView(CustomAbstractView):
     template_name = 'main/timetable/timetable.html'
 
-    def get_context(self, request, movie_id='0', movie_type='0', start_date='0', hall_id='0'):
+    def get_context(self, request, cinema_id='0', movie_id='0', movie_type='0', start_date='0', hall_id='0'):
         self.context = super().get_context(request, movie_id)
 
+        self.context['cinema_id'] = cinema_id
         self.context['movie_id'] = movie_id
         self.context['movie_type'] = movie_type
         self.context['start_date'] = start_date
@@ -259,9 +260,10 @@ class CinemaCardView(CustomAbstractView):
         cinema = get_object_or_404(CinemaCard, pk=pk)
         self.context['cinema'] = cinema
 
-        self.context['halls'] = cinema.halls.all()
+        self.context['halls'] = cinema.halls.order_by('-date_created')
         self.context['gallery'] = cinema.gallery.all()
-        self.context['movie_sessions'] = list(range(6))
+        self.context['movie_sessions'], other_values = MovieSession.get_movie_sessions_context()
+        self.context['movie_sessions'] = self.context['movie_sessions'][:10]
 
         return self.context
 

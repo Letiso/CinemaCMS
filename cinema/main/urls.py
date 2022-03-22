@@ -11,15 +11,31 @@ urlpatterns = [
 
     path('soon', views.MoviesSoonView.as_view(), name="soon"),
 
-    path('timetable', views.MovieSessionsTimetableView.as_view(), name="timetable"),
-    *[
-        path(f'timetable/movie_id=<int:movie_id>{optional_parameter}',
-             views.MovieSessionsTimetableView.as_view(), name="timetable") for optional_parameter in (
-            '', '/movie_type=<str:movie_type>', '/start_date=<str:start_date>',
-            '/movie_type=<str:movie_type>/hall_id=<int:hall_id>')
-      ],
-    path('timetable/ticket_booking/<int:pk>', views.TicketBookingView.as_view(), name="ticket_booking"),
-    path('timetable/ticket_booking/pay/<str:tickets>/<str:mode>/<int:user_pk>/<int:movie_session_pk>', views.TicketBookingPayView.as_view(), name="ticket_pay"),
+
+    path('timetable',
+         views.MovieSessionsTimetableView.as_view(), name="timetable"),
+    path(f'timetable/movie_id=<int:movie_id>',
+         views.MovieSessionsTimetableView.as_view(), name="timetable"),
+
+    path(f'timetable/movie_id=<int:movie_id>/movie_type=<str:movie_type>',
+         views.MovieSessionsTimetableView.as_view(), name="timetable"),
+    path(f'timetable/movie_id=<int:movie_id>/start_date=<str:start_date>',
+         views.MovieSessionsTimetableView.as_view(), name="timetable"),
+    path(f'timetable/movie_id=<int:movie_id>/movie_type=<str:movie_type>/hall_id=<int:hall_id>',
+         views.MovieSessionsTimetableView.as_view(), name="timetable"),
+
+    path(f'timetable/movie_id=<int:movie_id>',
+         views.MovieSessionsTimetableView.as_view(), name="timetable"),
+    path(f'timetable/cinema_id=<int:cinema_id>',
+         views.MovieSessionsTimetableView.as_view(), name="timetable"),
+    path(f'timetable/movie_id=<int:movie_id>/cinema_id=<int:cinema_id>',
+         views.MovieSessionsTimetableView.as_view(), name="timetable"),
+
+    path('timetable/ticket_booking/<int:pk>',
+         views.TicketBookingView.as_view(), name="ticket_booking"),
+    path('timetable/ticket_booking/pay/<str:tickets>/<str:mode>/<int:user_pk>/<int:movie_session_pk>',
+         views.TicketBookingPayView.as_view(), name="ticket_pay"),
+
 
     path('cinemas', views.CinemasListView.as_view(), name="cinemas"),
     path('cinemas/cinema_card/<int:pk>', views.CinemaCardView.as_view(), name="cinema_card"),

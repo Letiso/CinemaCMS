@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 12:39+0200\n"
+"POT-Creation-Date: 2022-03-22 13:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,6 +163,7 @@ msgstr ""
 
 #: admin/templates/admin/cinemas/cinema_card.html:19
 #: admin/templates/admin/cinemas/cinema_card.html:23
+#: main/templates/main/cinemas/cinema_card.html:5
 msgid "Cinema card"
 msgstr ""
 
@@ -650,7 +651,7 @@ msgstr ""
 msgid "Cinema name"
 msgstr ""
 
-#: main/models.py:148
+#: main/models.py:148 main/templates/main/cinemas/cinema_card.html:102
 msgid "Amenities"
 msgstr ""
 
@@ -759,19 +760,7 @@ msgstr ""
 msgid "Booked"
 msgstr ""
 
-#: main/templates/main/cinemas/index.html:24
-msgid "Our cinemas"
-msgstr ""
-
-#: main/templates/main/cinemas/index.html:70
-#: main/templates/main/cinemas/index.html:78
-#: main/templates/main/poster/index.html:106
-#: main/templates/main/poster/index.html:114
-#: main/templates/main/poster/soon.html:101
-#: main/templates/main/poster/soon.html:109
-msgid "Next"
-msgstr ""
-
+#: main/templates/main/cinemas/cinema_card.html:26
 #: main/templates/main/cinemas/index.html:95 main/templates/main/index.html:223
 #: main/templates/main/poster/index.html:25
 #: main/templates/main/poster/movie_card.html:227
@@ -781,12 +770,63 @@ msgstr ""
 msgid "Context ads"
 msgstr ""
 
-#: main/templates/main/index.html:5
-msgid "Main"
+#: main/templates/main/cinemas/cinema_card.html:34
+msgid "Halls count"
 msgstr ""
 
+#: main/templates/main/cinemas/cinema_card.html:41
+#: main/templates/main/poster/movie_card.html:90
+#: main/templates/main/timetable/timetable.html:83
+#: main/templates/main/timetable/timetable.html:87
+msgid "Hall"
+msgstr ""
+
+#: main/templates/main/cinemas/cinema_card.html:50
 #: main/templates/main/index.html:96
 msgid "Watch today"
+msgstr ""
+
+#: main/templates/main/cinemas/cinema_card.html:57
+msgid "Session"
+msgstr ""
+
+#: main/templates/main/cinemas/cinema_card.html:64
+msgid "All sessions timetable"
+msgstr ""
+
+#: main/templates/main/cinemas/cinema_card.html:74
+#: main/templates/main/timetable/timetable.html:80
+msgid "Cinema"
+msgstr ""
+
+#: main/templates/main/cinemas/cinema_card.html:84
+msgid "Sessions timetable"
+msgstr ""
+
+#: main/templates/main/cinemas/cinema_card.html:112
+msgid "Photo gallery"
+msgstr ""
+
+#: main/templates/main/cinemas/cinema_card.html:135
+msgid "Previous"
+msgstr ""
+
+#: main/templates/main/cinemas/cinema_card.html:140
+#: main/templates/main/cinemas/index.html:70
+#: main/templates/main/cinemas/index.html:78
+#: main/templates/main/poster/index.html:106
+#: main/templates/main/poster/index.html:114
+#: main/templates/main/poster/soon.html:101
+#: main/templates/main/poster/soon.html:109
+msgid "Next"
+msgstr ""
+
+#: main/templates/main/cinemas/index.html:24
+msgid "Our cinemas"
+msgstr ""
+
+#: main/templates/main/index.html:5
+msgid "Main"
 msgstr ""
 
 #: main/templates/main/index.html:129 main/templates/main/poster/index.html:69
@@ -911,12 +951,6 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: main/templates/main/poster/movie_card.html:90
-#: main/templates/main/timetable/timetable.html:83
-#: main/templates/main/timetable/timetable.html:87
-msgid "Hall"
-msgstr ""
-
 #: main/templates/main/poster/movie_card.html:114
 msgid "Year"
 msgstr ""
@@ -1036,10 +1070,6 @@ msgstr ""
 
 #: main/templates/main/timetable/timetable.html:63
 msgid "Hall: all"
-msgstr ""
-
-#: main/templates/main/timetable/timetable.html:80
-msgid "Cinema"
 msgstr ""
 
 #: main/templates/main/timetable/timetable.html:81
