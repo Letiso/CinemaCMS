@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 14:45+0200\n"
+"POT-Creation-Date: 2022-03-23 17:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -251,8 +251,8 @@ msgstr "Дата создания"
 #: admin/templates/admin/news/index.html:25
 #: admin/templates/admin/pages/index.html:26
 #: admin/templates/admin/promotion/index.html:25
-#: user/templates/user/my_tickets.html:22
-#: user/templates/user/my_tickets.html:70
+#: user/templates/user/my_tickets.html:23
+#: user/templates/user/my_tickets.html:83
 msgid "Status"
 msgstr "Статус"
 
@@ -473,6 +473,8 @@ msgstr "Галерея кадров из фильма"
 
 #: admin/templates/admin/movies/movie_card.html:108
 #: main/templates/main/timetable/timetable.html:79
+#: user/templates/user/my_tickets.html:18
+#: user/templates/user/my_tickets.html:78
 msgid "Movie type"
 msgstr "Тип кино"
 
@@ -633,7 +635,7 @@ msgid "Rotation speed"
 msgstr "Скорость вращения"
 
 #: main/models.py:85 user/templates/user/my_tickets.html:17
-#: user/templates/user/my_tickets.html:67
+#: user/templates/user/my_tickets.html:77
 msgid "Movie title"
 msgstr "Название фильма"
 
@@ -660,7 +662,7 @@ msgid "Movie frame"
 msgstr "Кадр из фильма"
 
 #: main/models.py:146 main/models.py:376 user/templates/user/my_tickets.html:16
-#: user/templates/user/my_tickets.html:66
+#: user/templates/user/my_tickets.html:76
 msgid "Cinema name"
 msgstr "Название кинотеатра"
 
@@ -766,12 +768,12 @@ msgstr "Картинка к странице"
 msgid "Map coordinates"
 msgstr "Координаты для карты"
 
-#: main/models.py:471 user/templates/user/my_tickets.html:39
+#: main/models.py:471
 msgid "Sold"
 msgstr "Продано"
 
-#: main/models.py:472 user/templates/user/my_tickets.html:40
-#: user/templates/user/my_tickets.html:85
+#: main/models.py:472 user/templates/user/my_tickets.html:50
+#: user/templates/user/my_tickets.html:101
 msgid "Booked"
 msgstr "Забронировано"
 
@@ -853,6 +855,7 @@ msgstr "Мобильные приложения"
 #: main/templates/main/promotion/index.html:57
 #: main/templates/main/promotion/index.html:78
 #: main/templates/main/promotion/index.html:86
+#: user/templates/user/my_tickets.html:135
 msgid "Next"
 msgstr "Вперед"
 
@@ -911,7 +914,7 @@ msgstr "Главная"
 #: main/templates/main/index.html:129 main/templates/main/poster/index.html:69
 #: main/templates/main/timetable/pay.html:5
 #: main/templates/main/timetable/ticket_booking.html:235
-#: user/templates/user/my_tickets.html:49
+#: user/templates/user/my_tickets.html:59
 msgid "Buy"
 msgstr "Купить"
 
@@ -929,6 +932,7 @@ msgstr "Новости и Акции"
 
 #: main/templates/main/main_layout.html:58
 #: main/templates/main/main_layout.html:62
+#: user/templates/user/my_tickets.html:131
 msgid "Search"
 msgstr "Поиск"
 
@@ -1056,7 +1060,7 @@ msgid "Booking"
 msgstr "Бронирование"
 
 #: main/templates/main/timetable/pay.html:18
-#: main/templates/main/timetable/pay.html:58
+#: main/templates/main/timetable/pay.html:57
 msgid "Pay"
 msgstr "Оплата"
 
@@ -1075,16 +1079,16 @@ msgstr "БИЛЕТОВ"
 msgid "SUM"
 msgstr "СУММА"
 
-#: main/templates/main/timetable/pay.html:40
+#: main/templates/main/timetable/pay.html:39
 #: main/templates/main/timetable/ticket_booking.html:168
 msgid "uan"
 msgstr "грн"
 
-#: main/templates/main/timetable/pay.html:46
+#: main/templates/main/timetable/pay.html:45
 msgid "ENTER YOUR CARD NUMBER"
 msgstr "ВВЕДИТЕ НОМЕР КАРТЫ"
 
-#: main/templates/main/timetable/pay.html:56
+#: main/templates/main/timetable/pay.html:55
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -1109,7 +1113,8 @@ msgid "DISPLAY"
 msgstr "ЭКРАН"
 
 #: main/templates/main/timetable/ticket_booking.html:190
-#: user/templates/user/my_tickets.html:18
+#: user/templates/user/my_tickets.html:19
+#: user/templates/user/my_tickets.html:79
 msgid "Row"
 msgstr "Ряд"
 
@@ -1248,35 +1253,73 @@ msgstr "Зарегистрироваться"
 msgid "My active tickets"
 msgstr "Мои текущие билеты"
 
-#: user/templates/user/my_tickets.html:19
-#: user/templates/user/my_tickets.html:68
+#: user/templates/user/my_tickets.html:20
+#: user/templates/user/my_tickets.html:80
 msgid "Place"
 msgstr "Место"
 
-#: user/templates/user/my_tickets.html:20
-#: user/templates/user/my_tickets.html:69
+#: user/templates/user/my_tickets.html:21
+#: user/templates/user/my_tickets.html:81
 msgid "Start time"
 msgstr "Время начала"
 
-#: user/templates/user/my_tickets.html:21
+#: user/templates/user/my_tickets.html:22
+#: user/templates/user/my_tickets.html:82
 msgid "Cost in uan"
 msgstr "Цена в грн"
 
-#: user/templates/user/my_tickets.html:23
+#: user/templates/user/my_tickets.html:24
 msgid "Action"
 msgstr "Действие"
 
-#: user/templates/user/my_tickets.html:48
+#: user/templates/user/my_tickets.html:49
+#: user/templates/user/my_tickets.html:100
+msgid "Bought"
+msgstr "Куплено"
+
+#: user/templates/user/my_tickets.html:58
 msgid "Return"
 msgstr "Вернуть"
 
-#: user/templates/user/my_tickets.html:61
+#: user/templates/user/my_tickets.html:71
 msgid "My tickets archive"
 msgstr "Архив моих билетов"
 
-#: user/templates/user/my_tickets.html:84
-msgid "Bought"
-msgstr "Куплено"
+#: user/templates/user/my_tickets.html:127
+msgid "Filtered "
+msgstr "Отфильтровано "
+
+#: user/templates/user/my_tickets.html:127
+msgid " records"
+msgstr " записей"
+
+#: user/templates/user/my_tickets.html:128
+msgid "No records found"
+msgstr "Записей не найдено"
+
+#: user/templates/user/my_tickets.html:129
+msgid "Showing "
+msgstr "Показано с "
+
+#: user/templates/user/my_tickets.html:129
+msgid " to "
+msgstr " по "
+
+#: user/templates/user/my_tickets.html:129
+msgid " of "
+msgstr " из "
+
+#: user/templates/user/my_tickets.html:130
+msgid "No records"
+msgstr "Нет записей"
+
+#: user/templates/user/my_tickets.html:132
+msgid "Count"
+msgstr "Количество"
+
+#: user/templates/user/my_tickets.html:134
+msgid "Previous"
+msgstr "Назад"
 
 #: user/templates/user/update.html:6 user/templates/user/update.html:11
 msgid "Change user data"

@@ -202,7 +202,7 @@ class TicketBookingPayView(CustomAbstractView):
         tickets_id_list = json.loads(tickets)
         tickets_count = len(tickets_id_list)
         self.context['tickets_count'] = tickets_count
-        self.context['tickets_total_price'] = tickets_count * int(movie_session.ticket_price if mode == 'pay' else 3)
+        self.context['tickets_total_price'] = tickets_count * int(movie_session.ticket_price if mode == 'buy' else 3)
 
         return self.context
 

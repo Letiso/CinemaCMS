@@ -10,7 +10,7 @@
         <div class="col-md-9 mx-auto" style="margin-top: 100px;">
             <h3 class="text-center">{% trans 'My active tickets' %}</h3>
             <hr>
-            <table id="usersList" class="table table-bordered table-striped mx-auto" style="width: auto;">
+            <table id="tickets_list" class="table table-bordered table-striped mx-auto" style="width: auto;">
                 <thead>
                     <tr>
                         <th>{% trans 'Cinema name' %}</th>
@@ -47,8 +47,8 @@
                                                                          {% else %}secondary
                                                                          {% endif %}"
                                       style="font-size: 18px;">{% if ticket.is_sold %}{% trans 'Bought' %}
-                                                                      {% else %}{% trans 'Booked' %}
-                                                                      {% endif %}
+                                                               {% else %}{% trans 'Booked' %}
+                                                               {% endif %}
                                 </span>
                             </td>
                             <td class="text-white">
@@ -70,7 +70,7 @@
         <div class="col-md-9 mx-auto" style="margin-top: 100px; margin-bottom: 100px;">
             <h3 class="text-center">{% trans 'My tickets archive' %}</h3>
             <hr>
-            <table id="usersList" class="table table-bordered table-striped mx-auto" style="width: auto;">
+            <table id="tickets_list_archive" class="table table-bordered table-striped mx-auto" style="width: auto;">
                 <thead>
                     <tr>
                         <th>{% trans 'Cinema name' %}</th>
@@ -98,8 +98,8 @@
                                                                          {% else %}secondary
                                                                          {% endif %}"
                                       style="font-size: 18px;">{% if ticket.is_sold %}{% trans 'Bought' %}
-                                                                      {% else %}{% trans 'Booked' %}
-                                                                      {% endif %}
+                                                               {% else %}{% trans 'Booked' %}
+                                                               {% endif %}
                                 </span>
                             </td>
                         </tr>
@@ -109,4 +109,39 @@
             <hr>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+    {# initDataTable #}
+    <script >
+        function initDataTable (tablesList) {
+            return tablesList.DataTable({
+                    "search": {
+                        "regex": true,
+                    },
+                    "order": [],
+                    "language": {
+                        "infoFiltered": "({% trans 'Filtered ' %}_MAX_{% trans ' records' %})",
+                        "zeroRecords": "{% trans 'No records found' %}",
+                        "info": "{% trans 'Showing ' %}_START_{% trans ' to ' %}_END_{% trans ' of ' %}_TOTAL_",
+                        "infoEmpty": "{% trans 'No records' %}",
+                        "search": "{% trans 'Search' %}",
+                        "lengthMenu": "{% trans 'Count' %}_MENU_",
+                        "paginate": {
+                            "previous": "{% trans 'Previous' %}",
+                            "next": "{% trans 'Next' %}",
+                        }
+                    }
+                });
+        }
+    </script>
+
+    <script>
+        let tablesList = $("table[id*='tickets_list']")
+
+        let DATA_TABLES = initDataTable(tablesList)
+    </script>
 {% endblock %}
