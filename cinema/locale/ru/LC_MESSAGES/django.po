@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 14:38+0200\n"
+"POT-Creation-Date: 2022-03-23 11:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,6 +95,8 @@ msgstr "Кинотеатры"
 #: admin/templates/admin/news/index.html:9
 #: admin/templates/admin/news/index.html:12
 #: admin/templates/admin/news/news_card.html:25
+#: main/templates/main/about_the_cinema/news/index.html:5
+#: main/templates/main/about_the_cinema/news/index.html:24
 #: main/templates/main/main_layout.html:177
 #: main/templates/main/main_layout.html:360
 msgid "News"
@@ -299,6 +301,8 @@ msgstr "Вы уверены, что хотите удалить этот зал?
 #: admin/templates/admin/pages/index.html:121
 #: admin/templates/admin/promotion/index.html:67
 #: admin/templates/admin/users/index.html:156
+#: main/templates/main/about_the_cinema/news/index.html:57
+#: main/templates/main/about_the_cinema/news/index.html:62
 #: main/templates/main/cinemas/index.html:49
 #: main/templates/main/cinemas/index.html:54
 #: main/templates/main/poster/index.html:85
@@ -553,6 +557,7 @@ msgstr "Создать акцию"
 
 #: admin/templates/admin/promotion/promotion_card.html:24
 #: admin/templates/admin/promotion/promotion_card.html:29
+#: main/templates/main/about_the_cinema/news/news_card.html:5
 #: main/templates/main/promotion/promotion_card.html:5
 msgid "Promotion card"
 msgstr "Карточка акции"
@@ -771,6 +776,8 @@ msgid "About the cinema"
 msgstr "О кинотеатре"
 
 #: main/templates/main/about_the_cinema/about_the_cinema.html:71
+#: main/templates/main/about_the_cinema/news/index.html:104
+#: main/templates/main/about_the_cinema/news/news_card.html:92
 #: main/templates/main/cinemas/cinema_card.html:26
 #: main/templates/main/cinemas/index.html:95 main/templates/main/index.html:223
 #: main/templates/main/poster/index.html:25
@@ -782,6 +789,29 @@ msgstr "О кинотеатре"
 #: main/templates/main/timetable/timetable.html:130
 msgid "Context ads"
 msgstr "Контекстная реклама"
+
+#: main/templates/main/about_the_cinema/news/index.html:78
+#: main/templates/main/about_the_cinema/news/index.html:86
+#: main/templates/main/cinemas/index.html:70
+#: main/templates/main/cinemas/index.html:78
+#: main/templates/main/poster/index.html:106
+#: main/templates/main/poster/index.html:114
+#: main/templates/main/poster/soon.html:101
+#: main/templates/main/poster/soon.html:109
+#: main/templates/main/promotion/index.html:57
+#: main/templates/main/promotion/index.html:78
+#: main/templates/main/promotion/index.html:86
+msgid "Next"
+msgstr "Вперед"
+
+#: main/templates/main/about_the_cinema/news/news_card.html:25
+msgid "News "
+msgstr "Новость "
+
+#: main/templates/main/about_the_cinema/news/news_card.html:50
+#: main/templates/main/promotion/promotion_card.html:50
+msgid "Gallery"
+msgstr "Галерея"
 
 #: main/templates/main/cinemas/cinema_card.html:34
 msgid "Halls count"
@@ -819,18 +849,6 @@ msgstr "Фотогалерея"
 #: main/templates/main/cinemas/index.html:24
 msgid "Our cinemas"
 msgstr "Наши кинотеатры"
-
-#: main/templates/main/cinemas/index.html:70
-#: main/templates/main/cinemas/index.html:78
-#: main/templates/main/poster/index.html:106
-#: main/templates/main/poster/index.html:114
-#: main/templates/main/poster/soon.html:101
-#: main/templates/main/poster/soon.html:109
-#: main/templates/main/promotion/index.html:57
-#: main/templates/main/promotion/index.html:78
-#: main/templates/main/promotion/index.html:86
-msgid "Next"
-msgstr "Вперед"
 
 #: main/templates/main/index.html:5
 msgid "Main"
@@ -991,10 +1009,6 @@ msgstr "Наши акции"
 #: main/templates/main/promotion/promotion_card.html:25
 msgid "Promotion"
 msgstr "Акция"
-
-#: main/templates/main/promotion/promotion_card.html:50
-msgid "Gallery"
-msgstr "Галерея"
 
 #: main/templates/main/timetable/pay.html:6
 #: main/templates/main/timetable/pay.html:19
