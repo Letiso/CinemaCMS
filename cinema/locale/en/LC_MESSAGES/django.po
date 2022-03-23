@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 11:35+0200\n"
+"POT-Creation-Date: 2022-03-23 11:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -777,6 +777,7 @@ msgstr ""
 #: main/templates/main/about_the_cinema/advertising.html:88
 #: main/templates/main/about_the_cinema/cafe_bar.html:111
 #: main/templates/main/about_the_cinema/child_room.html:88
+#: main/templates/main/about_the_cinema/mobile_applications.html:69
 #: main/templates/main/about_the_cinema/news/index.html:104
 #: main/templates/main/about_the_cinema/news/news_card.html:92
 #: main/templates/main/cinemas/cinema_card.html:26
@@ -822,6 +823,13 @@ msgstr ""
 #: main/templates/main/about_the_cinema/child_room.html:25
 #: main/templates/main/main_layout.html:192
 msgid "Child room"
+msgstr ""
+
+#: main/templates/main/about_the_cinema/mobile_applications.html:5
+#: main/templates/main/about_the_cinema/mobile_applications.html:25
+#: main/templates/main/main_layout.html:203
+#: main/templates/main/main_layout.html:315
+msgid "Mobile applications"
 msgstr ""
 
 #: main/templates/main/about_the_cinema/news/index.html:78
@@ -946,11 +954,6 @@ msgstr ""
 #: main/templates/main/main_layout.html:188
 #: main/templates/main/main_layout.html:366
 msgid "Cafe"
-msgstr ""
-
-#: main/templates/main/main_layout.html:203
-#: main/templates/main/main_layout.html:315
-msgid "Mobile applications"
 msgstr ""
 
 #: main/templates/main/main_layout.html:224 user/templates/user/login.html:19
