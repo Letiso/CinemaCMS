@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 11:16+0200\n"
+"POT-Creation-Date: 2022-03-23 11:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -774,6 +774,7 @@ msgid "About the cinema"
 msgstr ""
 
 #: main/templates/main/about_the_cinema/about_the_cinema.html:71
+#: main/templates/main/about_the_cinema/advertising.html:88
 #: main/templates/main/about_the_cinema/news/index.html:104
 #: main/templates/main/about_the_cinema/news/news_card.html:92
 #: main/templates/main/cinemas/cinema_card.html:26
@@ -786,6 +787,21 @@ msgstr ""
 #: main/templates/main/timetable/ticket_booking.html:114
 #: main/templates/main/timetable/timetable.html:130
 msgid "Context ads"
+msgstr ""
+
+#: main/templates/main/about_the_cinema/advertising.html:5
+#: main/templates/main/main_layout.html:181
+#: main/templates/main/main_layout.html:363
+msgid "Advertising"
+msgstr ""
+
+#: main/templates/main/about_the_cinema/advertising.html:25
+msgid "For ads dealers"
+msgstr ""
+
+#: main/templates/main/about_the_cinema/advertising.html:47
+#: main/templates/main/cinemas/cinema_card.html:119
+msgid "Photo gallery"
 msgstr ""
 
 #: main/templates/main/about_the_cinema/news/index.html:78
@@ -838,10 +854,6 @@ msgstr ""
 
 #: main/templates/main/cinemas/cinema_card.html:91
 msgid "Sessions timetable"
-msgstr ""
-
-#: main/templates/main/cinemas/cinema_card.html:119
-msgid "Photo gallery"
 msgstr ""
 
 #: main/templates/main/cinemas/index.html:24
@@ -903,11 +915,6 @@ msgstr ""
 #: main/templates/main/main_layout.html:343
 #: main/templates/main/poster/soon.html:5
 msgid "Soon"
-msgstr ""
-
-#: main/templates/main/main_layout.html:181
-#: main/templates/main/main_layout.html:363
-msgid "Advertising"
 msgstr ""
 
 #: main/templates/main/main_layout.html:188
