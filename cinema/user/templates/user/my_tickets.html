@@ -15,6 +15,7 @@
                     <tr>
                         <th>{% trans 'Cinema name' %}</th>
                         <th>{% trans 'Movie title' %}</th>
+                        <th>{% trans 'Movie type' %}</th>
                         <th>{% trans 'Row' %}</th>
                         <th>{% trans 'Place' %}</th>
                         <th>{% trans 'Start time' %}</th>
@@ -26,8 +27,17 @@
                 <tbody>
                     {% for ticket in active_tickets %}
                         <tr>
-                            <td>{{ ticket.movie_session.hall.cinema.name }}</td>
-                            <td>{{ ticket.movie_session.movie.title }}</td>
+                            <td class="black-text">
+                                <a href="{% url 'main:cinema_card' pk=ticket.movie_session.hall.cinema.pk %}">
+                                    {{ ticket.movie_session.hall.cinema.name }}
+                                </a>
+                            </td>
+                            <td class="black-text">
+                                <a href="{% url 'main:movie_card' pk=ticket.movie_session.movie.pk %}">
+                                    {{ ticket.movie_session.movie.title }}
+                                </a>
+                            </td>
+                            <td>{{ ticket.movie_session.movie_type }}</td>
                             <td>{{ ticket.row }}</td>
                             <td>{{ ticket.place_number }}</td>
                             <td>{{ ticket.movie_session.start_datetime }}</td>
@@ -36,7 +46,7 @@
                                 <span class="badge badge-pill py-2 badge-{% if ticket.is_sold %}success
                                                                          {% else %}secondary
                                                                          {% endif %}"
-                                      style="font-size: 18px;">{% if ticket.is_sold %}{% trans 'Sold' %}
+                                      style="font-size: 18px;">{% if ticket.is_sold %}{% trans 'Bought' %}
                                                                       {% else %}{% trans 'Booked' %}
                                                                       {% endif %}
                                 </span>
@@ -65,8 +75,11 @@
                     <tr>
                         <th>{% trans 'Cinema name' %}</th>
                         <th>{% trans 'Movie title' %}</th>
+                        <th>{% trans 'Movie type' %}</th>
+                        <th>{% trans 'Row' %}</th>
                         <th>{% trans 'Place' %}</th>
                         <th>{% trans 'Start time' %}</th>
+                        <th>{% trans 'Cost in uan' %}</th>
                         <th>{% trans 'Status' %}</th>
                     </tr>
                 </thead>
@@ -75,8 +88,11 @@
                         <tr>
                             <td>{{ ticket.movie_session.hall.cinema.name }}</td>
                             <td>{{ ticket.movie_session.movie.title }}</td>
+                            <td>{{ ticket.movie_session.movie_type }}</td>
+                            <td>{{ ticket.row }}</td>
                             <td>{{ ticket.place_number }}</td>
                             <td>{{ ticket.movie_session.start_datetime }}</td>
+                            <td>{{ ticket.movie_session.ticket_price }}</td>
                             <td class="text-white">
                                 <span class="badge badge-pill py-2 badge-{% if ticket.is_sold %}success
                                                                          {% else %}secondary
@@ -90,6 +106,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <hr>
         </div>
     </div>
 {% endblock %}

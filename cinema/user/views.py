@@ -96,9 +96,8 @@ class MyTicketsView(CustomAbstractView):
 
         self.context['active_tickets'] = Ticket.objects.filter(user_id=pk,
                                                                movie_session__start_datetime__gt=timezone.now()
-                                                               ).order_by('movie_session__start_datetime', 'is_sold')
+                                                               ).order_by('datetime_updated')
         self.context['tickets_archive'] = Ticket.objects.filter(user_id=pk,
                                                                 movie_session__start_datetime__lt=timezone.now()
-                                                                ).order_by('-is_sold')
-
+                                                                ).order_by('datetime_updated')
         return self.context
