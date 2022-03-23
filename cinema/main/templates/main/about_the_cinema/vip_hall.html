@@ -1,8 +1,8 @@
 {% extends 'main/main_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-    VIP-зал
+    VIP-{% trans 'hall' %}
 {% endblock %}
 
 {% block main_about_the_cinema %}
@@ -22,7 +22,7 @@
                 {# page description #}
                     <div class="col mt-5">
                         <h3 class="text-center mb-3">
-                            VIP-зал
+                            VIP-{% trans 'hall' %}
                         </h3>
 
                         <div class="">
@@ -44,7 +44,7 @@
 
                 {# gallery #}
                     <div class="col text-center mt-5 mb-5">
-                        <h3>Фотогалерея</h3>
+                        <h3>{% trans 'Photo gallery' %}</h3>
                     </div>
 
                     <div id="carouselGallery" class="carousel slide" data-ride="carousel">
@@ -67,12 +67,12 @@
 
                       <button class="carousel-control-prev" type="button" data-target="#carouselGallery" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Предыдущая</span>
+                        <span class="sr-only">Previous</span>
                       </button>
 
                       <button class="carousel-control-next" type="button" data-target="#carouselGallery" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Следующая</span>
+                        <span class="sr-only">Next</span>
                       </button>
                     </div>
                 {# gallery end #}
@@ -85,7 +85,7 @@
                         <div class="col-11 my-5 text-center p-5 black-text" style="background: lightgray;">
                             <a href="#">
                                 <h5>
-                                    Контекстная реклама
+                                    {% trans 'Photo gallery' %}
                                 </h5>
                             </a>
                         </div>

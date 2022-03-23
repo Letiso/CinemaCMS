@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 11:32+0200\n"
+"POT-Creation-Date: 2022-03-23 11:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -803,6 +803,8 @@ msgstr ""
 
 #: main/templates/main/about_the_cinema/advertising.html:47
 #: main/templates/main/about_the_cinema/child_room.html:47
+#: main/templates/main/about_the_cinema/vip_hall.html:47
+#: main/templates/main/about_the_cinema/vip_hall.html:88
 #: main/templates/main/cinemas/cinema_card.html:119
 msgid "Photo gallery"
 msgstr ""
@@ -843,6 +845,12 @@ msgstr ""
 #: main/templates/main/about_the_cinema/news/news_card.html:50
 #: main/templates/main/promotion/promotion_card.html:50
 msgid "Gallery"
+msgstr ""
+
+#: main/templates/main/about_the_cinema/vip_hall.html:5
+#: main/templates/main/about_the_cinema/vip_hall.html:25
+#: main/templates/main/main_layout.html:196
+msgid "hall"
 msgstr ""
 
 #: main/templates/main/cinemas/cinema_card.html:34
@@ -938,10 +946,6 @@ msgstr ""
 #: main/templates/main/main_layout.html:188
 #: main/templates/main/main_layout.html:366
 msgid "Cafe"
-msgstr ""
-
-#: main/templates/main/main_layout.html:196
-msgid "hall"
 msgstr ""
 
 #: main/templates/main/main_layout.html:203
