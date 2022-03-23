@@ -1,8 +1,8 @@
 {% extends 'main/main_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-    Контакты
+    {% trans 'Contacts' %}
 {% endblock %}
 
 {% block main_about_the_cinema %}
@@ -22,7 +22,7 @@
                 {# page description #}
                     <div class="col mt-5">
                         <h3 class="text-center mb-3">
-                            Контакты
+                            {% trans 'Contacts' %}
                         </h3>
 
                         <div class="container-fluid">
@@ -58,7 +58,7 @@
                         <div class="col-11 my-5 text-center p-5 black-text" style="background: lightgray;">
                             <a href="#">
                                 <h5>
-                                    Контекстная реклама
+                                    {% trans 'Context ads' %}
                                 </h5>
                             </a>
                         </div>

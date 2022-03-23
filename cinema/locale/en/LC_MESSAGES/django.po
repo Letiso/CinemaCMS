@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 11:37+0200\n"
+"POT-Creation-Date: 2022-03-23 11:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -523,6 +523,8 @@ msgid "Delete page"
 msgstr ""
 
 #: admin/templates/admin/pages/index.html:136
+#: main/templates/main/about_the_cinema/contacts.html:5
+#: main/templates/main/about_the_cinema/contacts.html:25
 #: main/templates/main/main_layout.html:210
 #: main/templates/main/main_layout.html:369
 msgid "Contacts"
@@ -777,6 +779,7 @@ msgstr ""
 #: main/templates/main/about_the_cinema/advertising.html:88
 #: main/templates/main/about_the_cinema/cafe_bar.html:111
 #: main/templates/main/about_the_cinema/child_room.html:88
+#: main/templates/main/about_the_cinema/contacts.html:61
 #: main/templates/main/about_the_cinema/mobile_applications.html:69
 #: main/templates/main/about_the_cinema/news/index.html:104
 #: main/templates/main/about_the_cinema/news/news_card.html:92
