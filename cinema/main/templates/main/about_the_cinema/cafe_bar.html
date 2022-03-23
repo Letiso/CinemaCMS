@@ -1,8 +1,8 @@
 {% extends 'main/main_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-    Кафе-бар
+    {% trans 'Cafe-bar' %}
 {% endblock %}
 
 {% block main_about_the_cinema %}
@@ -22,7 +22,7 @@
                 {# page description #}
                     <div class="col mt-5">
                         <h3 class="text-center mb-3">
-                            Кафе-бар
+                            {% trans 'Cafe-bar' %}
                         </h3>
 
                         <div class="">
@@ -44,7 +44,7 @@
 
                 {# gallery #}
                     <div class="col text-center m-5">
-                        <h3>Меню</h3>
+                        <h3>{% trans 'Menu' %}</h3>
                     </div>
                     <table class=" col-8 table table-bordered mx-auto">
                       <thead>
@@ -94,7 +94,8 @@
                               <label>
                                   <input type="radio">
                               </label>
-                          </td>                         </tr>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                 {# gallery end #}
@@ -107,7 +108,7 @@
                         <div class="col-11 my-5 text-center p-5 black-text" style="background: lightgray;">
                             <a href="#">
                                 <h5>
-                                    Контекстная реклама
+                                    {% trans 'Context ads' %}
                                 </h5>
                             </a>
                         </div>
