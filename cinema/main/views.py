@@ -210,10 +210,12 @@ class TicketBookingPayView(CustomAbstractView):
     def save_ticket(ticket, mode, user_pk):
         ticket.user_id = get_user_model().objects.get(pk=user_pk)
 
-        if mode == 'pay':
+        if mode == 'buy':
             ticket.is_sold = True
         else:
             ticket.is_booked = True
+        ticket.datetime_updated = timezone.now()
+
         ticket.save()
 
     def post(self, request, mode, tickets, user_pk, movie_session_pk):

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 11:39+0200\n"
+"POT-Creation-Date: 2022-03-23 14:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -252,6 +252,8 @@ msgstr ""
 #: admin/templates/admin/news/index.html:25
 #: admin/templates/admin/pages/index.html:26
 #: admin/templates/admin/promotion/index.html:25
+#: user/templates/user/my_tickets.html:22
+#: user/templates/user/my_tickets.html:70
 msgid "Status"
 msgstr ""
 
@@ -631,7 +633,8 @@ msgstr ""
 msgid "Rotation speed"
 msgstr ""
 
-#: main/models.py:85
+#: main/models.py:85 user/templates/user/my_tickets.html:17
+#: user/templates/user/my_tickets.html:67
 msgid "Movie title"
 msgstr ""
 
@@ -657,7 +660,8 @@ msgstr ""
 msgid "Movie frame"
 msgstr ""
 
-#: main/models.py:146 main/models.py:376
+#: main/models.py:146 main/models.py:376 user/templates/user/my_tickets.html:16
+#: user/templates/user/my_tickets.html:66
 msgid "Cinema name"
 msgstr ""
 
@@ -763,11 +767,12 @@ msgstr ""
 msgid "Map coordinates"
 msgstr ""
 
-#: main/models.py:471
+#: main/models.py:471 user/templates/user/my_tickets.html:39
 msgid "Sold"
 msgstr ""
 
-#: main/models.py:472
+#: main/models.py:472 user/templates/user/my_tickets.html:40
+#: user/templates/user/my_tickets.html:85
 msgid "Booked"
 msgstr ""
 
@@ -907,6 +912,7 @@ msgstr ""
 #: main/templates/main/index.html:129 main/templates/main/poster/index.html:69
 #: main/templates/main/timetable/pay.html:5
 #: main/templates/main/timetable/ticket_booking.html:235
+#: user/templates/user/my_tickets.html:49
 msgid "Buy"
 msgstr ""
 
@@ -975,6 +981,7 @@ msgid "Change my data"
 msgstr ""
 
 #: main/templates/main/main_layout.html:252
+#: user/templates/user/my_tickets.html:5
 msgid "My tickets"
 msgstr ""
 
@@ -1103,6 +1110,7 @@ msgid "DISPLAY"
 msgstr ""
 
 #: main/templates/main/timetable/ticket_booking.html:190
+#: user/templates/user/my_tickets.html:18
 msgid "Row"
 msgstr ""
 
@@ -1233,6 +1241,40 @@ msgstr ""
 
 #: user/templates/user/login.html:25 user/templates/user/signup.html:17
 msgid "Registrate"
+msgstr ""
+
+#: user/templates/user/my_tickets.html:11
+msgid "My active tickets"
+msgstr ""
+
+#: user/templates/user/my_tickets.html:19
+#: user/templates/user/my_tickets.html:68
+msgid "Place"
+msgstr ""
+
+#: user/templates/user/my_tickets.html:20
+#: user/templates/user/my_tickets.html:69
+msgid "Start time"
+msgstr ""
+
+#: user/templates/user/my_tickets.html:21
+msgid "Cost in uan"
+msgstr ""
+
+#: user/templates/user/my_tickets.html:23
+msgid "Action"
+msgstr ""
+
+#: user/templates/user/my_tickets.html:48
+msgid "Return"
+msgstr ""
+
+#: user/templates/user/my_tickets.html:61
+msgid "My tickets archive"
+msgstr ""
+
+#: user/templates/user/my_tickets.html:84
+msgid "Bought"
 msgstr ""
 
 #: user/templates/user/update.html:6 user/templates/user/update.html:11

@@ -3,9 +3,11 @@ from django.views.generic import View, UpdateView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LogoutView
 from django.http import HttpResponseRedirect
+from django.utils import timezone
 
 from .models import CustomUser
 from .forms import LoginForm, SignUpForm, UserUpdateForm
+from main.models import Ticket
 from django.http import HttpResponseRedirect, HttpResponse
 
 
@@ -84,3 +86,19 @@ class UserUpdateView(UpdateView):
     success_url = '/'
 
     form_class = UserUpdateForm
+
+
+class MyTicketsView(CustomAbstractView):
+    template_name = 'user/my_tickets.html'
+
+    def get_context(self, request, pk) -> dict:
+        self.context = super().get_context()
+
+        self.context['active_tickets'] = Ticket.objects.filter(user_id=pk,
+                                                               movie_session__start_datetime__gt=timezone.now()
+                                                               ).order_by('movie_session__start_datetime', 'is_sold')
+        self.context['tickets_archive'] = Ticket.objects.filter(user_id=pk,
+                                                                movie_session__start_datetime__lt=timezone.now()
+                                                                ).order_by('-is_sold')
+
+        return self.context

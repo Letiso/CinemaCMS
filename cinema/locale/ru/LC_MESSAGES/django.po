@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 11:39+0200\n"
+"POT-Creation-Date: 2022-03-23 14:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -251,6 +251,8 @@ msgstr "Дата создания"
 #: admin/templates/admin/news/index.html:25
 #: admin/templates/admin/pages/index.html:26
 #: admin/templates/admin/promotion/index.html:25
+#: user/templates/user/my_tickets.html:22
+#: user/templates/user/my_tickets.html:70
 msgid "Status"
 msgstr "Статус"
 
@@ -630,7 +632,8 @@ msgstr "Фоновое изображение"
 msgid "Rotation speed"
 msgstr "Скорость вращения"
 
-#: main/models.py:85
+#: main/models.py:85 user/templates/user/my_tickets.html:17
+#: user/templates/user/my_tickets.html:67
 msgid "Movie title"
 msgstr "Название фильма"
 
@@ -656,7 +659,8 @@ msgstr "Возрастной рейтинг"
 msgid "Movie frame"
 msgstr "Кадр из фильма"
 
-#: main/models.py:146 main/models.py:376
+#: main/models.py:146 main/models.py:376 user/templates/user/my_tickets.html:16
+#: user/templates/user/my_tickets.html:66
 msgid "Cinema name"
 msgstr "Название кинотеатра"
 
@@ -762,11 +766,12 @@ msgstr "Картинка к странице"
 msgid "Map coordinates"
 msgstr "Координаты для карты"
 
-#: main/models.py:471
+#: main/models.py:471 user/templates/user/my_tickets.html:39
 msgid "Sold"
 msgstr "Продано"
 
-#: main/models.py:472
+#: main/models.py:472 user/templates/user/my_tickets.html:40
+#: user/templates/user/my_tickets.html:85
 msgid "Booked"
 msgstr "Забронировано"
 
@@ -906,6 +911,7 @@ msgstr "Главная"
 #: main/templates/main/index.html:129 main/templates/main/poster/index.html:69
 #: main/templates/main/timetable/pay.html:5
 #: main/templates/main/timetable/ticket_booking.html:235
+#: user/templates/user/my_tickets.html:49
 msgid "Buy"
 msgstr "Купить"
 
@@ -974,6 +980,7 @@ msgid "Change my data"
 msgstr "Изменить мои данные"
 
 #: main/templates/main/main_layout.html:252
+#: user/templates/user/my_tickets.html:5
 msgid "My tickets"
 msgstr "Мои билеты"
 
@@ -1102,6 +1109,7 @@ msgid "DISPLAY"
 msgstr "ЭКРАН"
 
 #: main/templates/main/timetable/ticket_booking.html:190
+#: user/templates/user/my_tickets.html:18
 msgid "Row"
 msgstr "Ряд"
 
@@ -1235,6 +1243,40 @@ msgstr "Еще нет учетной записи?"
 #: user/templates/user/login.html:25 user/templates/user/signup.html:17
 msgid "Registrate"
 msgstr "Зарегистрироваться"
+
+#: user/templates/user/my_tickets.html:11
+msgid "My active tickets"
+msgstr "Мои текущие билеты"
+
+#: user/templates/user/my_tickets.html:19
+#: user/templates/user/my_tickets.html:68
+msgid "Place"
+msgstr "Место"
+
+#: user/templates/user/my_tickets.html:20
+#: user/templates/user/my_tickets.html:69
+msgid "Start time"
+msgstr "Время начала"
+
+#: user/templates/user/my_tickets.html:21
+msgid "Cost in uan"
+msgstr "Цена в грн"
+
+#: user/templates/user/my_tickets.html:23
+msgid "Action"
+msgstr "Действие"
+
+#: user/templates/user/my_tickets.html:48
+msgid "Return"
+msgstr "Вернуть"
+
+#: user/templates/user/my_tickets.html:61
+msgid "My tickets archive"
+msgstr "Архив моих билетов"
+
+#: user/templates/user/my_tickets.html:84
+msgid "Bought"
+msgstr "Куплено"
 
 #: user/templates/user/update.html:6 user/templates/user/update.html:11
 msgid "Change user data"

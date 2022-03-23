@@ -1,0 +1,95 @@
+{% extends 'main/main_layout.html' %}
+{% load static i18n %}
+
+{% block title %}
+    {% trans 'My tickets' %}
+{% endblock %}
+
+{% block content %}
+    <div class="row text-center">
+        <div class="col-md-9 mx-auto" style="margin-top: 100px;">
+            <h3 class="text-center">{% trans 'My active tickets' %}</h3>
+            <hr>
+            <table id="usersList" class="table table-bordered table-striped mx-auto" style="width: auto;">
+                <thead>
+                    <tr>
+                        <th>{% trans 'Cinema name' %}</th>
+                        <th>{% trans 'Movie title' %}</th>
+                        <th>{% trans 'Row' %}</th>
+                        <th>{% trans 'Place' %}</th>
+                        <th>{% trans 'Start time' %}</th>
+                        <th>{% trans 'Cost in uan' %}</th>
+                        <th>{% trans 'Status' %}</th>
+                        <th>{% trans 'Action' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in active_tickets %}
+                        <tr>
+                            <td>{{ ticket.movie_session.hall.cinema.name }}</td>
+                            <td>{{ ticket.movie_session.movie.title }}</td>
+                            <td>{{ ticket.row }}</td>
+                            <td>{{ ticket.place_number }}</td>
+                            <td>{{ ticket.movie_session.start_datetime }}</td>
+                            <td>{{ ticket.movie_session.ticket_price }}</td>
+                            <td class="text-white">
+                                <span class="badge badge-pill py-2 badge-{% if ticket.is_sold %}success
+                                                                         {% else %}secondary
+                                                                         {% endif %}"
+                                      style="font-size: 18px;">{% if ticket.is_sold %}{% trans 'Sold' %}
+                                                                      {% else %}{% trans 'Booked' %}
+                                                                      {% endif %}
+                                </span>
+                            </td>
+                            <td class="text-white">
+                                <span class="btn py-1 btn-{% if ticket.is_sold %}danger
+                                                          {% else %}primary
+                                                          {% endif %}"
+                                      style="font-size: 18px;">{% if ticket.is_sold %}{% trans 'Return' %}
+                                                               {% else %}{% trans 'Buy' %}
+                                                               {% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr>
+        </div>
+
+        <div class="col-md-9 mx-auto" style="margin-top: 100px; margin-bottom: 100px;">
+            <h3 class="text-center">{% trans 'My tickets archive' %}</h3>
+            <hr>
+            <table id="usersList" class="table table-bordered table-striped mx-auto" style="width: auto;">
+                <thead>
+                    <tr>
+                        <th>{% trans 'Cinema name' %}</th>
+                        <th>{% trans 'Movie title' %}</th>
+                        <th>{% trans 'Place' %}</th>
+                        <th>{% trans 'Start time' %}</th>
+                        <th>{% trans 'Status' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in tickets_archive %}
+                        <tr>
+                            <td>{{ ticket.movie_session.hall.cinema.name }}</td>
+                            <td>{{ ticket.movie_session.movie.title }}</td>
+                            <td>{{ ticket.place_number }}</td>
+                            <td>{{ ticket.movie_session.start_datetime }}</td>
+                            <td class="text-white">
+                                <span class="badge badge-pill py-2 badge-{% if ticket.is_sold %}success
+                                                                         {% else %}secondary
+                                                                         {% endif %}"
+                                      style="font-size: 18px;">{% if ticket.is_sold %}{% trans 'Bought' %}
+                                                                      {% else %}{% trans 'Booked' %}
+                                                                      {% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
