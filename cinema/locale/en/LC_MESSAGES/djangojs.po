@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-26 10:34+0200\n"
+"POT-Creation-Date: 2022-03-26 12:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin/static/admin/js/dynamic_image_select.js:41
+msgid "Size"
+msgstr ""
+
+#: admin/static/admin/js/dynamic_image_select.js:75
+msgid "Data is valid"
+msgstr ""
+
+#: admin/static/admin/js/dynamic_image_select.js:80
+msgid "Invalid data"
+msgstr ""
+
+#: admin/static/admin/js/dynamic_image_select.js:119
+msgid "Select image with next resolution"
+msgstr ""
 
 #: admin/static/admin/js/get_data_table.js:10
 msgid "Filtered "

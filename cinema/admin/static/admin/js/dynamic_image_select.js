@@ -38,7 +38,7 @@ function initRequiredSizeLabels() {
             let required_size_label = $(
                 `*[id*="${form_prefix}"][id*="${field_name}"][id$="-required_size"]`
             )
-            required_size_label.html(`Размер ${required_size[0]}x${required_size[1]}`)
+            required_size_label.html(`${gettext('Size')} ${required_size[0]}x${required_size[1]}`)
         }
     }
 }
@@ -72,12 +72,12 @@ function validate_then_set_thumbnail(event) {
                 thumbnail.src = reader.result;
                 toggle_error_message(true, imageInput, required_size);
 
-                toastr.success('Данные валидны');
+                toastr.success(gettext('Data is valid'));
             } else {
                 original_thumb_url_backup(imageInput.name, thumbnail, true);
                 toggle_error_message(false, imageInput, required_size);
 
-                toastr.error('Данные невалидны');
+                toastr.error(gettext('Invalid data'));
             }
         })
     };
@@ -116,7 +116,7 @@ function toggle_error_message(validation_succeed, imageInput, required_size) {
             const p = document.createElement("p");
             p.id = `error_1_${imageInput.id}`;
             p.className = "invalid-feedback";
-            p.innerHTML = `<strong>Выберите изображение с разрешением ${required_size[0]}x${required_size[1]}</strong>`;
+            p.innerHTML = `<strong>${gettext('Select image with next resolution')}: ${required_size[0]}x${required_size[1]}</strong>`;
 
             imageField.append(p);
         }
