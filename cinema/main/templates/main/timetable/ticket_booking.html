@@ -248,6 +248,15 @@
         let allTickets = $('.ticket_checkbox')
         const pay_links = $('.pay_link')
 
+        pay_links.each(function () {
+            this.className = this.className + ' disabled'
+        })
+
+        pay_links.on('click', function () {
+            this.href = this.href.replace('tickets_array', JSON_TICKETS_ID)
+        });
+
+
         allTickets.on('change', () => {
             let selectedTicketsId = []
 
@@ -268,33 +277,22 @@
             JSON_TICKETS_ID = JSON.stringify(selectedTicketsId)
 
             pay_links.each(function () {
-                let class_name;
+                let class_name = this.className
 
-                console.log(selectedTicketsId.length)
-                console.log(selectedTicketsId.length > 0)
-                console.log(this.className)
-                console.log(this.className.includes(' disabled '))
-
-                if (
-                    (selectedTicketsId.length > 0) && (this.className.includes(' disabled '))
-                ) {
-                    class_name = this.className.replace(RegExp(' disabled ', 'g'), '');
+                if (selectedTicketsId.length > 0) {
+                    if (this.className.includes(' disabled')) {
+                        class_name = this.className.replace(RegExp(' disabled', 'g'), '');
+                    }
                 } else {
-                    class_name = this.className + ' disabled '
+                    if (!this.className.includes(' disabled')) {
+                        class_name = this.className + ' disabled'
+                    }
                 }
 
                 this.className = class_name
             });
         });
 
-
-        pay_links.each(function () {
-            this.className = this.className + ' disabled '
-        })
-
-        pay_links.on('click', function () {
-            this.href = this.href.replace('tickets_array', JSON_TICKETS_ID)
-        });
     </script>
 
 {% endblock %}
