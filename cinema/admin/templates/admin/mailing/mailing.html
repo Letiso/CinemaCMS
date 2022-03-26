@@ -377,6 +377,7 @@
 <!-- DataTables  & Plugins -->
 <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% url 'javascript-catalog' %}"></script>
 
 <!--init DataTable and checkboxes toggle engine-->
 <script>
@@ -387,6 +388,17 @@
 
         USERS_TABLE[prefix] = $(`#${prefix}-usersList`).DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
+            "language": {
+                "infoFiltered": "({% trans 'Filtered ' %}_MAX_{% trans ' records' %})",
+                "zeroRecords": "{% trans 'No records found' %}",
+                "info": "{% trans 'Showing ' %}_START_{% trans ' to ' %}_END_{% trans ' of ' %}_TOTAL_",
+                "infoEmpty": "{% trans 'No records' %}",
+                "search": "{% trans 'Search' %}",
+                "paginate": {
+                    "previous": "{% trans 'Previous' %}",
+                    "next": "{% trans 'Next' %}",
+                }
+            }
         });
 
         // checkboxes EventListener for the dynamic counter label change
