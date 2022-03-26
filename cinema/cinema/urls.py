@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
+from django.views.i18n import JavaScriptCatalog
 
 from decorator_include import decorator_include
 from django.contrib.admin.views.decorators import staff_member_required
@@ -10,6 +11,7 @@ urlpatterns = [
     path('admin/', decorator_include(staff_member_required(login_url='/user/login'), include('admin.urls'))),
     path('user/', include('user.urls')),
     path(r'^i18n/', include('django.conf.urls.i18n')),
+    path(r'^jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog')
 ]
 
 

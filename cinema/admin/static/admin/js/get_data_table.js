@@ -7,14 +7,14 @@ function getDataTable (id) {
         "lengthChange": false,
         "autoWidth": false,
         "language": {
-            "infoFiltered": "(Отфильтровано _MAX_ записей)",
-            "zeroRecords": "Записей не найдено",
-            "info": "Показано с _START_ по _END_ из _TOTAL_",
-            "infoEmpty": "Нет записей",
-            "search": "Поиск",
+            "infoFiltered": `(${gettext('Filtered ')}_MAX_(${gettext(' records')})`,
+            "zeroRecords": gettext('No records found'),
+            "info": `${gettext('Showing ')}_START_${gettext(' to ')}_END_${gettext(' of ')}_TOTAL_`,
+            "infoEmpty": gettext('No records'),
+            "search": gettext('Search'),
             "paginate": {
-                "previous": "Предыдущая",
-                "next": "Следующая",
+                "previous": gettext('Previous'),
+                "next": gettext('Next'),
             }
         }
     })
