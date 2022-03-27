@@ -22,6 +22,16 @@ class ImageFieldsValidationMixin:
         return cls.get_required_sizes().keys()
 
 
+class MultilangModelMeta(type):
+    def __new__(mcs, class_name: str, superclasses: tuple, class_attrs: dict):
+        print('In MultilangModelMeta:', mcs, class_name, superclasses, class_attrs, sep='\n...')
+
+        return type.__new__(mcs, class_name, superclasses, class_attrs)
+
+    # def __init__(self):
+    #     pass
+
+
 # endregion Mixins
 
 # region SEO
@@ -474,6 +484,6 @@ class Ticket(models.Model):
     UserModel = get_user_model()
     user = models.ForeignKey(UserModel, related_name='tickets', on_delete=models.DO_NOTHING, blank=True, null=True)
 
-    datetime_updated = models.DateTimeField(default=timezone.now())
+    datetime_updated = models.DateTimeField(default=timezone.now)
 
 # endregion MovieSessions
