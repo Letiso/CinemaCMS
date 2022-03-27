@@ -22,14 +22,16 @@ class ImageFieldsValidationMixin:
         return cls.get_required_sizes().keys()
 
 
-class MultilangModelMeta(type):
+class MultilangModelMeta(models.base.ModelBase):
     def __new__(mcs, class_name: str, superclasses: tuple, class_attrs: dict):
         print('In MultilangModelMeta:', mcs, class_name, superclasses, class_attrs, sep='\n...')
 
-        return type.__new__(mcs, class_name, superclasses, class_attrs)
+        return super().__new__(mcs, class_name, superclasses, class_attrs)
 
-    # def __init__(self):
-    #     pass
+    def __init__(cls, class_name, superclasses, class_attrs):
+        print('In MultilangModelMeta:', cls, class_name, superclasses, class_attrs, sep='\n...')
+
+        super().__init__(class_name, superclasses, class_attrs)
 
 
 # endregion Mixins
@@ -56,7 +58,7 @@ class TopBanner(ImageFieldsValidationMixin, models.Model):
         return {'image': cls.image_required_size}
 
 
-class BackgroundImage(ImageFieldsValidationMixin, models.Model):
+class BackgroundImage(ImageFieldsValidationMixin, models.Model, metaclass=MultilangModelMeta):
     image_required_size = (2000, 3000)
     image = models.ImageField(_('Background image'), upload_to='main/banners/background_image')
 
