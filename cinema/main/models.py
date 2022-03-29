@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import get_language
 from django.contrib.auth import get_user_model
 import datetime
+from cinema.settings import LANGUAGES
 
 from abc import abstractmethod
 from typing import Dict, Tuple
@@ -23,15 +24,34 @@ class ImageFieldsValidationMixin:
 
 
 class MultilangModelMeta(models.base.ModelBase):
+    def __call__(cls, *args, **kwargs):
+        if not cls.models_by_lang:
+            super().__call__(*args, **kwargs)
+        else:
+            return cls.models_by_lang[get_language()](*args, **kwargs)
+
     def __new__(mcs, class_name: str, superclasses: tuple, class_attrs: dict):
-        print('In MultilangModelMeta:', mcs, class_name, superclasses, class_attrs, sep='\n...')
+        class_attrs['Meta'] = type('Meta', (), {
+            'abstract': True,
+        })
+
+        print('In MultilangModelMeta.__new__:', mcs, class_name, superclasses, class_attrs, sep='\n...')
 
         return super().__new__(mcs, class_name, superclasses, class_attrs)
 
     def __init__(cls, class_name, superclasses, class_attrs):
-        print('In MultilangModelMeta:', cls, class_name, superclasses, class_attrs, sep='\n...')
+        lang_codes = tuple(lang[0] for lang in LANGUAGES)
+        cls.models_by_lang = {}
 
         super().__init__(class_name, superclasses, class_attrs)
+
+        print('In MultilangModelMeta.__init__:', cls, class_name, superclasses, class_attrs, sep='\n...')
+
+        for lang_code in lang_codes:
+            child_class_name = class_name + lang_code.upper()
+            cls.models_by_lang[lang_code] = type(child_class_name, (cls, ), class_attrs)
+
+        cls.__call__(class_name, superclasses, class_attrs)
 
 
 # endregion Mixins

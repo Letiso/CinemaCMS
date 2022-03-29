@@ -6,7 +6,8 @@ from user.forms import UserUpdateForm
 from main.models import *
 from django.forms import modelformset_factory
 from django.utils.translation import gettext as _
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext_lazy, activate
+from cinema.settings import LANGUAGES
 
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -50,6 +51,42 @@ class ImageValidationMixin:
         return self.cleaned_data
 
 
+class MultilangForm:
+    forms_by_lang = []
+
+    def __new__(cls, data=None, files=None, instance=None, prefix=None, **kwargs):
+        lang_codes = [language[0] for language in LANGUAGES]
+        forms_by_lang = []
+        current_lang_code = get_language()
+
+        for lang_code in lang_codes:
+            activate(lang_code)
+            forms_by_lang.append(super().__new__(data=data, files=files, instance=instance,
+                                                 prefix=f'{prefix}_{lang_code}',
+                                                 **kwargs))
+        activate(current_lang_code)
+        return cls(forms_by_lang=forms_by_lang, prefix=prefix, **kwargs)
+
+    def __init__(self, forms_by_lang: list = None, prefix: str = None, **kwargs):
+        if not forms_by_lang:
+            super().__init__(prefix=prefix, **kwargs)
+        else:
+            self.forms_by_lang = tuple(forms_by_lang)
+            self.prefix = prefix
+
+    def __iter__(self):
+        for form_by_lang in self.forms_by_lang:
+            yield form_by_lang
+
+    def is_valid(self):
+        return all(form_by_lang.is_valid()
+                   for form_by_lang in self)
+
+    def save(self):
+        all(form_by_lang.save()
+            for form_by_lang in self)
+
+
 # endregion Mixins
 
 # region User
@@ -71,7 +108,7 @@ TopBannerFormSet = modelformset_factory(TopBannerForm.Meta.model, form=TopBanner
                                         extra=0, can_delete=True)
 
 
-class BackgroundImageForm(ImageValidationMixin, forms.ModelForm):
+class BackgroundImageForm(MultilangForm, ImageValidationMixin, forms.ModelForm):
     is_active = forms.TypedChoiceField(
         label='',
         coerce=lambda x: x == 'True',
@@ -158,7 +195,8 @@ class CinemaGalleryForm(ImageValidationMixin, forms.ModelForm):
 
 
 CinemaGalleryFormset = modelformset_factory(CinemaGallery, form=MovieFrameForm,
-                                         extra=0, can_delete=True)
+                                            extra=0, can_delete=True)
+
 
 class CinemaHallCardForm(forms.ModelForm):
     class Meta:
@@ -355,7 +393,7 @@ class SendEmailForm(forms.Form):
 
             if not message:
                 if not html_messages_cache.exists():
-                    raise forms.ValidationError(_(''), code='invalid')     # Загрузите хотя бы один html-файл # TODO
+                    raise forms.ValidationError(_(''), code='invalid')  # Загрузите хотя бы один html-файл # TODO
                 raise forms.ValidationError(_('Upload html-file or select the recent one'), code='invalid')
             else:
                 # Deletion of every extra cached html-file above files limit
@@ -372,6 +410,5 @@ class SendEmailForm(forms.Form):
         html_message = render_to_string(message.path)
 
         return html_message
-
 
 # endregion Mailing
