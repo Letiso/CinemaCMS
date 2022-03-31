@@ -56,10 +56,13 @@ class ImageFieldsValidationMixin:
 #
 #         # cls.__call__(class_name, superclasses, class_attrs)
 class MultilangModelDecorator:
+    abstract_model = models_by_lang = None
 
     def __call__(self, *args, **kwargs):
-        if self.models_by_lang:
-            return self.models_by_lang[get_language()](*args, **kwargs)
+        if not self.models_by_lang:
+            super().__init__(*args, **kwargs)
+
+        return self.models_by_lang[get_language()](*args, **kwargs)
 
     def __init__(self, abstract_model, *args, **kwargs):
         self.abstract_model = abstract_model
@@ -80,11 +83,24 @@ class MultilangModelDecorator:
             child_class_name = abstract_model.__name__ + lang_code.upper()
             self.models_by_lang[lang_code] = type(child_class_name, (abstract_model, ), {'__module__': __name__})
 
-    def __getattribute__(self, item):
-        return self.abstract_model.__getattribute__(item)
+    def __getattribute__(self, name):
+        if name in self.__dict__:
+            return object.__getattribute__(self, name)
+        else:
+            return getattr(self.abstract_model, name)
 
-    def __setattr__(self, key, value):
-        return self.abstract_model.__setattr__(item)
+    def __setattr__(self, name, value):
+        if name in self.__dict__:
+            self.__dict__[name] = value
+        else:
+            setattr(self.abstract_model, name, value)
+
+    def __delattr__(self, name):
+        if name in self.__dict__:
+            raise AttributeError('Cannot del attributes for this decorator')
+        else:
+            raise AttributeError('Cannot del attributes for this abstract model')
+        # delattr(self.abstract_model, name)
 
 
 # endregion Mixins
