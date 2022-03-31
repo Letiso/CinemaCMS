@@ -23,35 +23,68 @@ class ImageFieldsValidationMixin:
         return cls.get_required_sizes().keys()
 
 
-class MultilangModelMeta(models.base.ModelBase):
-    def __call__(cls, *args, **kwargs):
-        if not cls.models_by_lang:
-            super().__call__(*args, **kwargs)
+# def __call__(cls, *args, **kwargs):
+#     print('In MultilangModelMeta.__call__')
+#     if not cls.models_by_lang:
+#         super().__call__(*args, **kwargs)
+#     else:
+#         return cls.models_by_lang[get_language()](*args, **kwargs)
+# class MultilangModelMeta(models.base.ModelBase):
+#     pass
+#     # def __new__(mcs, class_name: str, superclasses: tuple, class_attrs: dict, **kwargs):
+#     #     class_attrs['Meta'] = type('Meta', (), {
+#     #         'abstract': True,
+#     #         '__module__': f'{__name__}.{class_name}'
+#     #     })
+#     #
+#     #     print('In MultilangModelMeta.__new__:', mcs, class_name, superclasses, class_attrs, sep='\n...')
+#     #
+#     #     result = super().__new__(mcs, class_name, superclasses, class_attrs, **kwargs)
+#     #     return result
+#
+#     # def __init__(cls, class_name, superclasses, class_attrs, **kwargs):
+#     #     super().__init__(class_name, superclasses, class_attrs, **kwargs)
+#     #
+#     #     lang_codes = tuple(lang[0] for lang in LANGUAGES)
+#     #     cls.models_by_lang = {}
+#     #
+#     #     for lang_code in lang_codes:
+#     #         child_class_name = class_name + lang_code.upper()
+#     #         cls.models_by_lang[lang_code] = type(child_class_name, (), {'__module__': __name__})
+#     #         cls.models_by_lang[lang_code].__bases__ = cls, *cls.models_by_lang[lang_code].__bases__
+#     #     print('In MultilangModelMeta.__init__:', cls, class_name, superclasses, class_attrs, sep='\n...')
+#
+#         # cls.__call__(class_name, superclasses, class_attrs)
+class MultilangModelDecorator:
+
+    def __call__(self, *args, **kwargs):
+        if self.models_by_lang:
+            return self.models_by_lang[get_language()](*args, **kwargs)
+
+    def __init__(self, abstract_model, *args, **kwargs):
+        self.abstract_model = abstract_model
+
+        Meta = abstract_model.__dict__.get('Meta')
+        if Meta:
+            Meta.abstract = True
         else:
-            return cls.models_by_lang[get_language()](*args, **kwargs)
+            abstract_model.Meta = type(
+                'Meta', (abstract_model.__class__, ), {'abstract': True,
+                                                       '__module__': f'{__name__}.{abstract_model.__name__}'}
+            )
 
-    def __new__(mcs, class_name: str, superclasses: tuple, class_attrs: dict):
-        class_attrs['Meta'] = type('Meta', (), {
-            'abstract': True,
-        })
-
-        print('In MultilangModelMeta.__new__:', mcs, class_name, superclasses, class_attrs, sep='\n...')
-
-        return super().__new__(mcs, class_name, superclasses, class_attrs)
-
-    def __init__(cls, class_name, superclasses, class_attrs):
+        self.models_by_lang = {}
         lang_codes = tuple(lang[0] for lang in LANGUAGES)
-        cls.models_by_lang = {}
-
-        super().__init__(class_name, superclasses, class_attrs)
-
-        print('In MultilangModelMeta.__init__:', cls, class_name, superclasses, class_attrs, sep='\n...')
 
         for lang_code in lang_codes:
-            child_class_name = class_name + lang_code.upper()
-            cls.models_by_lang[lang_code] = type(child_class_name, (cls, ), class_attrs)
+            child_class_name = abstract_model.__name__ + lang_code.upper()
+            self.models_by_lang[lang_code] = type(child_class_name, (abstract_model, ), {'__module__': __name__})
 
-        cls.__call__(class_name, superclasses, class_attrs)
+    def __getattribute__(self, item):
+        return self.abstract_model.__getattribute__(item)
+
+    def __setattr__(self, key, value):
+        return self.abstract_model.__setattr__(item)
 
 
 # endregion Mixins
@@ -78,11 +111,15 @@ class TopBanner(ImageFieldsValidationMixin, models.Model):
         return {'image': cls.image_required_size}
 
 
-class BackgroundImage(ImageFieldsValidationMixin, models.Model, metaclass=MultilangModelMeta):
+@MultilangModelDecorator
+class BackgroundImage(ImageFieldsValidationMixin, models.Model):
     image_required_size = (2000, 3000)
     image = models.ImageField(_('Background image'), upload_to='main/banners/background_image')
 
     is_active = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
 
     @classmethod
     def get_required_sizes(cls):
@@ -101,7 +138,6 @@ class NewsBanner(ImageFieldsValidationMixin, models.Model):
 
 
 class BannersCarousel(models.Model):
-
     TIME = (
         (f'{second}000', str(second)) for second in range(1, 10)
     )
