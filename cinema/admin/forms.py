@@ -51,42 +51,6 @@ class ImageValidationMixin:
         return self.cleaned_data
 
 
-class MultilangForm:
-    forms_by_lang = []
-
-    def __new__(cls, data=None, files=None, instance=None, prefix=None, **kwargs):
-        lang_codes = [language[0] for language in LANGUAGES]
-        forms_by_lang = []
-        current_lang_code = get_language()
-
-        for lang_code in lang_codes:
-            activate(lang_code)
-            forms_by_lang.append(super().__new__(data=data, files=files, instance=instance,
-                                                 prefix=f'{prefix}_{lang_code}',
-                                                 **kwargs))
-        activate(current_lang_code)
-        return cls(forms_by_lang=forms_by_lang, prefix=prefix, **kwargs)
-
-    def __init__(self, forms_by_lang: list = None, prefix: str = None, **kwargs):
-        if not forms_by_lang:
-            super().__init__(prefix=prefix, **kwargs)
-        else:
-            self.forms_by_lang = tuple(forms_by_lang)
-            self.prefix = prefix
-
-    def __iter__(self):
-        for form_by_lang in self.forms_by_lang:
-            yield form_by_lang
-
-    def is_valid(self):
-        return all(form_by_lang.is_valid()
-                   for form_by_lang in self)
-
-    def save(self):
-        all(form_by_lang.save()
-            for form_by_lang in self)
-
-
 # endregion Mixins
 
 # region User

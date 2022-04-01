@@ -23,86 +23,6 @@ class ImageFieldsValidationMixin:
         return cls.get_required_sizes().keys()
 
 
-# def __call__(cls, *args, **kwargs):
-#     print('In MultilangModelMeta.__call__')
-#     if not cls.models_by_lang:
-#         super().__call__(*args, **kwargs)
-#     else:
-#         return cls.models_by_lang[get_language()](*args, **kwargs)
-# class MultilangModelMeta(models.base.ModelBase):
-#     pass
-#     # def __new__(mcs, class_name: str, superclasses: tuple, class_attrs: dict, **kwargs):
-#     #     class_attrs['Meta'] = type('Meta', (), {
-#     #         'abstract': True,
-#     #         '__module__': f'{__name__}.{class_name}'
-#     #     })
-#     #
-#     #     print('In MultilangModelMeta.__new__:', mcs, class_name, superclasses, class_attrs, sep='\n...')
-#     #
-#     #     result = super().__new__(mcs, class_name, superclasses, class_attrs, **kwargs)
-#     #     return result
-#
-#     # def __init__(cls, class_name, superclasses, class_attrs, **kwargs):
-#     #     super().__init__(class_name, superclasses, class_attrs, **kwargs)
-#     #
-#     #     lang_codes = tuple(lang[0] for lang in LANGUAGES)
-#     #     cls.models_by_lang = {}
-#     #
-#     #     for lang_code in lang_codes:
-#     #         child_class_name = class_name + lang_code.upper()
-#     #         cls.models_by_lang[lang_code] = type(child_class_name, (), {'__module__': __name__})
-#     #         cls.models_by_lang[lang_code].__bases__ = cls, *cls.models_by_lang[lang_code].__bases__
-#     #     print('In MultilangModelMeta.__init__:', cls, class_name, superclasses, class_attrs, sep='\n...')
-#
-#         # cls.__call__(class_name, superclasses, class_attrs)
-class MultilangModelDecorator:
-    abstract_model = models_by_lang = None
-
-    def __call__(self, *args, **kwargs):
-        if not self.models_by_lang:
-            super().__init__(*args, **kwargs)
-
-        return self.models_by_lang[get_language()](*args, **kwargs)
-
-    def __init__(self, abstract_model, *args, **kwargs):
-        self.abstract_model = abstract_model
-
-        Meta = abstract_model.__dict__.get('Meta')
-        if Meta:
-            Meta.abstract = True
-        else:
-            abstract_model.Meta = type(
-                'Meta', (abstract_model.__class__, ), {'abstract': True,
-                                                       '__module__': f'{__name__}.{abstract_model.__name__}'}
-            )
-
-        self.models_by_lang = {}
-        lang_codes = tuple(lang[0] for lang in LANGUAGES)
-
-        for lang_code in lang_codes:
-            child_class_name = abstract_model.__name__ + lang_code.upper()
-            self.models_by_lang[lang_code] = type(child_class_name, (abstract_model, ), {'__module__': __name__})
-
-    def __getattribute__(self, name):
-        if name in self.__dict__:
-            return object.__getattribute__(self, name)
-        else:
-            return getattr(self.abstract_model, name)
-
-    def __setattr__(self, name, value):
-        if name in self.__dict__:
-            self.__dict__[name] = value
-        else:
-            setattr(self.abstract_model, name, value)
-
-    def __delattr__(self, name):
-        if name in self.__dict__:
-            raise AttributeError('Cannot del attributes for this decorator')
-        else:
-            raise AttributeError('Cannot del attributes for this abstract model')
-        # delattr(self.abstract_model, name)
-
-
 # endregion Mixins
 
 # region SEO
@@ -133,9 +53,6 @@ class BackgroundImage(ImageFieldsValidationMixin, models.Model):
     image = models.ImageField(_('Background image'), upload_to='main/banners/background_image')
 
     is_active = models.BooleanField(default=False)
-
-    class Meta:
-        abstract = True
 
     @classmethod
     def get_required_sizes(cls):
