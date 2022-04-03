@@ -142,17 +142,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-# def gettext(string): return string      # Required for modeltranslation lib
-
 
 LANGUAGE_CODE = 'ru-RU'
 
-gettext = lambda s: s
+
+def gettext(string): return string      # Required for modeltranslation lib
 LANGUAGES = (
     ('en', gettext('English')),
     ('ru', gettext('Russian')),
-    # ('ru', gettext('Русский')),
-    # ('uk', gettext('Українська')),
     ('uk', gettext('Ukrainian')),
 )
 
