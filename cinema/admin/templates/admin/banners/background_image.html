@@ -4,7 +4,7 @@
     <h4 id="background_image-image-required_size" class="mr-auto"></h4>
 </div>
 
-{% with background_image.form.forms_by_lang as form %}
+{% with background_image.form as form %}
     <div id="{{ form.prefix }}"
          class="col-sm-12 col-lg-5 card px-0 mx-auto" style="min-width: 25vw;">
         <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image %}{{ form.instance.image.url }}{% endif %}" alt="">

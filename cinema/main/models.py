@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import get_language
 from django.contrib.auth import get_user_model
 import datetime
 from cinema.settings import LANGUAGES
@@ -47,7 +46,6 @@ class TopBanner(ImageFieldsValidationMixin, models.Model):
         return {'image': cls.image_required_size}
 
 
-@MultilangModelDecorator
 class BackgroundImage(ImageFieldsValidationMixin, models.Model):
     image_required_size = (2000, 3000)
     image = models.ImageField(_('Background image'), upload_to='main/banners/background_image')

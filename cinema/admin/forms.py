@@ -72,7 +72,6 @@ TopBannerFormSet = modelformset_factory(TopBannerForm.Meta.model, form=TopBanner
                                         extra=0, can_delete=True)
 
 
-# class BackgroundImageForm(MultilangForm, ImageValidationMixin, forms.ModelForm):
 class BackgroundImageForm(ImageValidationMixin, forms.ModelForm):
     is_active = forms.TypedChoiceField(
         label='',

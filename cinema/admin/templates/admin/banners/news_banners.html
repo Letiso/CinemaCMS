@@ -17,17 +17,20 @@
                 {% for hidden in form.hidden_fields %}
                     {{ hidden }}
                 {% endfor %}
-            <div class="col-sm-12 col-lg-5 card px-0 mt-5 {{ formset.prefix }}">
-                <div class="card-header text-right">
-                    {{ form.DELETE|as_crispy_field }}
-                </div>
+
+                <div class="col-sm-12 col-lg-5 card px-0 mt-5 {{ formset.prefix }}">
+                    <div class="card-header text-right">
+                        {{ form.DELETE|as_crispy_field }}
+                    </div>
+
                     <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image %}{{ form.instance.image.url }}{% endif %}" alt="">
-                <div class="card-body">
-                    {{ form.image|as_crispy_field }}
-                    {{ form.is_active|as_crispy_field }}
+                    <div class="card-body">
+                        {{ form.image|as_crispy_field }}
+                        {{ form.is_active|as_crispy_field }}
+                    </div>
                 </div>
-            </div>
             {% endfor %}
+
             <div id="{{ formset.prefix }}-empty-form" class="col-sm-12 col-lg-5 card px-0 mt-5 hidden">
                 {% with formset.empty_form as empty_form %}
                     <div class="card-header text-right">
@@ -41,6 +44,7 @@
                 {% endwith %}
             </div>
         </div>
+
         <div class="text-center mt-5">
             <input type="button" onclick="add_empty_form(event, '{{ formset.prefix }}')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
         </div>

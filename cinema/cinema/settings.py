@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'channels',
 
     # custom libs
+    # 'modeltranslation',
     'django_cleanup.apps.CleanupConfig',
     'crispy_forms',
 
@@ -141,12 +142,22 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
+# def gettext(string): return string      # Required for modeltranslation lib
+
+
 LANGUAGE_CODE = 'ru-RU'
 
+gettext = lambda s: s
 LANGUAGES = (
-    ('ru', 'Русский'),
-    ('uk', 'Українська'),
-    ('en', 'English')
+    ('en', gettext('English')),
+    ('ru', gettext('Russian')),
+    # ('ru', gettext('Русский')),
+    # ('uk', gettext('Українська')),
+    ('uk', gettext('Ukrainian')),
+)
+
+MODELTRANSLATION_TRANSLATION_FILES = (
+    'main.translation',
 )
 
 TIME_ZONE = 'Europe/Kiev'
