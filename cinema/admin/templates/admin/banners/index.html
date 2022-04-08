@@ -1,6 +1,5 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load i18n %}
-{% load static %}
+{% load static i18n crispy_forms_tags %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{% static 'admin/css/custom_delete_checkbox.css' %}">
@@ -16,10 +15,11 @@
 {% block banners %}
     active
 {% endblock %}
-x
+
 {% block current_page %}
     {% trans 'Banners' %}
 {% endblock %}
+
 {% block path %}
     <li class="breadcrumb-item active">
         {% trans 'Banners' %}
@@ -30,21 +30,39 @@ x
 {% block content %}
     <form enctype="multipart/form-data" method="POST">
         {% csrf_token %}
-        <div class="card mx-4">
-          <div class="card-header d-flex mt-2">
-            <h4 class="col-11 text-center">
-                {% trans 'Main page top' %}
-            </h4>
-            <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseTopBanner" role="button" aria-expanded="false" aria-controls="collapseTopBanner">
-            <i class="fas fa-bars" style="font-size: 22px;"></i>
-            </a>
-          </div>
-            <div class="collapse bg-light" id="collapseTopBanner">
-                <div class="card-body mx-5 mt-1 mb-3">
-                    {% include './top_banners.html' %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+
+        <div class="card card-primary card-outline card-outline-tabs mx-4">
+            {% with top_banners.formset as formset %}
+                <div class="card-header p-0">
+                    <ul class="nav nav-tabs" id="{{ formset.prefix }}-language-tabs">
+                        {% for language in languages %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if LANGUAGE_CODE == language.code %}active{% endif %}" data-toggle="pill" href=""
+                                   id="{{ formset.prefix }}-{{ language.code }}">
+                                    {{ language.name_translated }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="container-fluid d-flex mt-3 mb-2">
+                        <h4 class="col-11 text-center">
+                            {% trans 'Main page top' %}
+                        </h4>
+                        <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseTopBanner" role="button" aria-expanded="false" aria-controls="collapseTopBanner">
+                            <i class="fas fa-bars" style="font-size: 22px;"></i>
+                        </a>
+                    </div>
                 </div>
-                <!-- /.card-body -->
-            </div>
+                <div class="collapse bg-light" id="collapseTopBanner">
+                    <div class="card-body mx-5 mt-1 mb-3">
+                        {% include './top_banners.html' %}
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            {% endwith %}
         </div>
         <!-- /.card -->
         <div class="card mx-4">
@@ -105,6 +123,29 @@ x
         dataIntervalOptions.each(function () {
             let option = $(this)
             option.text(option.text() + " {% trans ' s' %}")
+        })
+    </script>
+
+    <script>
+        function modeltranslationLanguageSwitch (this_id) {
+            const data = this_id.split('-')
+            let prefix = data[0]
+            let lang_code = data[1]
+
+            $(`span[class^=modeltranslation-${prefix}]`).each(function () {
+                $(this).hide()
+            })
+            $(`.modeltranslation-${this_id}`).show()
+        }
+
+        {# on page load #}
+        $('ul[id$="-language-tabs"] li a[class*="active"]').each(function () {
+            modeltranslationLanguageSwitch(this.id)
+        })
+
+        {# on click #}
+        $('ul[id$="-language-tabs"] li a').on('click', function () {
+            modeltranslationLanguageSwitch(this.id)
         })
     </script>
 {% endblock %}

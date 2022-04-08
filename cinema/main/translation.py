@@ -5,3 +5,5 @@ from .models import TopBanner
 @register(TopBanner)
 class TopBannerTranslationOptions(TranslationOptions):
     fields = ('image', )
+    required_languages = ('en', 'ru', 'uk')
+

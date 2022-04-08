@@ -9,7 +9,7 @@ RUN apk update && apk add --update --no-cache --virtual .tmp-build-deps \
     postgresql-dev musl-dev zlib zlib-dev build-base
 
 COPY ./requirements.txt /requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install --default-timeout=300 -r requirements.txt
 #RUN apk del .tmp-build-deps
 
 RUN mkdir /cinema

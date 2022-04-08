@@ -29,25 +29,27 @@ class ImageValidationMixin:
 
     def clean(self):
         model = self.Meta.model
-
-        image_fields_names = model.get_image_fields_names()
         required_sizes = model.get_required_sizes()
 
-        for image_field_name in image_fields_names:
-            image = self.cleaned_data[image_field_name]
+        for image_field_name in model.get_image_fields_names():
             required_size = required_sizes[image_field_name]
 
-            if isinstance(image, InMemoryUploadedFile):
-                image_size = image.image.size
-            else:
-                image_size = (image.width, image.height)
+            for language in LANGUAGES:
+                lang_code = language[0]
+                image_field_name_loc = f'{image_field_name}_{lang_code}'
 
-            if image_size != required_size:
-                width, height = required_size
-                err_msg = _('Select image with next resolution:') + f' {width}x{height}'
+                image = self.cleaned_data.get(image_field_name_loc)
+                if image:
+                    if isinstance(image, InMemoryUploadedFile):
+                        image_size = image.image.size
+                    else:
+                        image_size = (image.width, image.height)
 
-                self.add_error(image_field_name, err_msg)
+                    if image_size != required_size:
+                        width, height = required_size
 
+                        err_msg = _('Select image with next resolution:') + f' {width}x{height}'
+                        self.add_error(image_field_name_loc, err_msg)
         return self.cleaned_data
 
 
@@ -65,14 +67,14 @@ class ExtendedUserUpdateForm(UserUpdateForm):
 class TopBannerForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = TopBanner
-        fields = ('image', 'is_active')
+        fields = '__all__'
 
 
 TopBannerFormSet = modelformset_factory(TopBannerForm.Meta.model, form=TopBannerForm,
                                         extra=0, can_delete=True)
 
 
-class BackgroundImageForm(ImageValidationMixin, forms.ModelForm):
+class BackgroundImageForm(forms.ModelForm):
     is_active = forms.TypedChoiceField(
         label='',
         coerce=lambda x: x == 'True',
@@ -82,13 +84,13 @@ class BackgroundImageForm(ImageValidationMixin, forms.ModelForm):
 
     class Meta:
         model = BackgroundImage
-        fields = ('image', 'is_active')
+        fields = '__all__'
 
 
-class NewsBannerForm(ImageValidationMixin, forms.ModelForm):
+class NewsBannerForm(forms.ModelForm):
     class Meta:
         model = NewsBanner
-        fields = ('image', 'is_active')
+        fields = '__all__'
         labels = {
             'image': 'Новости | Акции',
         }

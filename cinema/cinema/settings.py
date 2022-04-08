@@ -19,10 +19,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'modeltranslation',
     'channels',
-
-    # custom libs
-    # 'modeltranslation',
     'django_cleanup.apps.CleanupConfig',
     'crispy_forms',
 
@@ -153,9 +151,7 @@ LANGUAGES = (
     ('uk', gettext('Ukrainian')),
 )
 
-MODELTRANSLATION_TRANSLATION_FILES = (
-    'main.translation',
-)
+MODELTRANSLATION_AUTO_POPULATE = 'required'
 
 TIME_ZONE = 'Europe/Kiev'
 USE_I18N = True
