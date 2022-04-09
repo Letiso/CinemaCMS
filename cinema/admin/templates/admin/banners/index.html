@@ -65,37 +65,68 @@
             {% endwith %}
         </div>
         <!-- /.card -->
-        <div class="card mx-4">
-          <div class="card-header d-flex mt-2">
-            <h4 class="col-11 text-center">
-               {% trans 'Main page background' %}
-            </h4>
-            <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseBackgroundImage" role="button" aria-expanded="false" aria-controls="collapseBackgroundImage">
-            <i class="fas fa-bars" style="font-size: 22px;"></i>
-            </a>
-          </div>
-            <div class="collapse bg-light" id="collapseBackgroundImage">
-                <div class="card-body mx-5 mt-1 mb-3">
-                    {% include './background_image.html' %}
+
+        <div class="card card-primary card-outline card-outline-tabs mx-4">
+            {% with background_image.form as form %}
+                <div class="card-header p-0">
+                    <ul class="nav nav-tabs" id="{{ form.prefix }}-language-tabs">
+                        {% for language in languages %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if LANGUAGE_CODE == language.code %}active{% endif %}" data-toggle="pill" href=""
+                                   id="{{ form.prefix }}-{{ language.code }}">
+                                    {{ language.name_translated }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="container-fluid d-flex mt-3 mb-2">
+                        <h4 class="col-11 text-center">
+                            {% trans 'Main page background' %}
+                        </h4>
+                        <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseBackgroundImage" role="button" aria-expanded="false" aria-controls="collapseBackgroundImage">
+                            <i class="fas fa-bars" style="font-size: 22px;"></i>
+                        </a>
+                    </div>
                 </div>
-                <!-- /.card-body -->
-            </div>
+                <div class="collapse bg-light" id="collapseBackgroundImage">
+                    <div class="card-body mx-5 mt-1 mb-3">
+                        {% include './background_image.html' %}
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            {% endwith %}
+
         </div>
         <!-- /.card -->
-        <div class="card mx-4">
-          <div class="card-header d-flex mt-2">
-            <h4 class="col-11 text-center">
-                {% trans 'Main page News | Promotion' %}
-            </h4>
-            <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseNewsBanner" role="button" aria-expanded="false" aria-controls="collapseNewsBanner">
-            <i class="fas fa-bars" style="font-size: 22px;"></i>
-            </a>
-          </div>
-            <div class="collapse bg-light" id="collapseNewsBanner">
-                <div class="card-body mx-5 mt-1 mb-3">
-                    {% include './news_banners.html' %}
+
+    <div class="card card-primary card-outline card-outline-tabs mx-4">
+        {% with news_banners.formset as formset %}
+            <div class="card-header p-0">
+                <ul class="nav nav-tabs" id="{{ formset.prefix }}-language-tabs">
+                    {% for language in languages %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if LANGUAGE_CODE == language.code %}active{% endif %}" data-toggle="pill" href=""
+                               id="{{ formset.prefix }}-{{ language.code }}">
+                                {{ language.name_translated }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="container-fluid d-flex mt-3 mb-2">
+                    <h4 class="col-11 text-center">
+                        {% trans 'Main page News | Promotion' %}
+                    </h4>
+                    <a class="nav-link ml-auto" data-toggle="collapse" href="#collapseNewsBanner" role="button" aria-expanded="false" aria-controls="collapseNewsBanner">
+                        <i class="fas fa-bars" style="font-size: 22px;"></i>
+                    </a>
                 </div>
-                <!-- /.card-body -->
+                <div class="collapse bg-light" id="collapseNewsBanner">
+                    <div class="card-body mx-5 mt-1 mb-3">
+                        {% include './news_banners.html' %}
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            {% endwith %}
             </div>
         </div>
         <!-- /.card -->

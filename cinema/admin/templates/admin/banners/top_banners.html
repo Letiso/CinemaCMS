@@ -23,14 +23,17 @@
                     <div class="card-header text-right">
                         {{ form.DELETE|as_crispy_field }}
                     </div>
-                    <span class="modeltranslation-{{ formset.prefix }}-en" >
-                        <img id="{{ form.image_en.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image_en %}{{ form.instance.image_en.url }}{% endif %}" alt="">
-                    </span>
-                    <span class="modeltranslation-{{ formset.prefix }}-ru" >
-                        <img id="{{ form.image_ru.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image_ru %}{{ form.instance.image_ru.url }}{% endif %}" alt="">
-                    </span>
-                    <span class="modeltranslation-{{ formset.prefix }}-uk" >
-                        <img id="{{ form.image_uk.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image_uk %}{{ form.instance.image_uk.url }}{% endif %}" alt="">
+
+                    <span id="card-thumbnail">
+                        <span class="modeltranslation-{{ formset.prefix }}-en" >
+                            <img id="{{ form.image_en.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image_en %}{{ form.instance.image_en.url }}{% endif %}" alt="">
+                        </span>
+                        <span class="modeltranslation-{{ formset.prefix }}-ru" >
+                            <img id="{{ form.image_ru.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image_ru %}{{ form.instance.image_ru.url }}{% endif %}" alt="">
+                        </span>
+                        <span class="modeltranslation-{{ formset.prefix }}-uk" >
+                            <img id="{{ form.image_uk.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image_uk %}{{ form.instance.image_uk.url }}{% endif %}" alt="">
+                        </span>
                     </span>
 
                     <div class="card-body">
