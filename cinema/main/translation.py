@@ -27,7 +27,7 @@ class NewsBannerTranslationOptions(RequiredLangsMixin, TranslationOptions):
 # region Movies
 @register(MovieCard)
 class MovieCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
-    fields = ('main_image', )
+    fields = ('title', 'description', 'main_image', )
 
 
 @register(MovieFrame)
