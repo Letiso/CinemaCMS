@@ -83,13 +83,13 @@ class BackgroundImageForm(forms.ModelForm):
 
     class Meta:
         model = BackgroundImage
-        fields = '__all__'
+        exclude = 'image',
 
 
 class NewsBannerForm(forms.ModelForm):
     class Meta:
         model = NewsBanner
-        fields = '__all__'
+        exclude = 'image',
         labels = {
             'image': 'Новости | Акции',
         }

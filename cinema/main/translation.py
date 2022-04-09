@@ -1,9 +1,39 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import TopBanner
+from .models import TopBanner, BackgroundImage, NewsBanner, MovieCard, MovieFrame
 
 
-@register(TopBanner)
-class TopBannerTranslationOptions(TranslationOptions):
-    fields = ('image', )
+class RequiredLangsMixin:
     required_languages = ('en', 'ru', 'uk')
+
+
+# region Banners
+@register(TopBanner)
+class TopBannerTranslationOptions(RequiredLangsMixin, TranslationOptions):
+    fields = ('image', )
+
+
+@register(BackgroundImage)
+class BackgroundImageTranslationOptions(RequiredLangsMixin, TranslationOptions):
+    fields = ('image', )
+
+
+@register(NewsBanner)
+class NewsBannerTranslationOptions(RequiredLangsMixin, TranslationOptions):
+    fields = ('image', )
+
+
+# endregion Banners
+
+# region Movies
+@register(MovieCard)
+class MovieCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
+    fields = ('main_image', )
+
+
+@register(MovieFrame)
+class MovieFrameTranslationOptions(RequiredLangsMixin, TranslationOptions):
+    fields = ('image', )
+
+
+# endregion Movies
 

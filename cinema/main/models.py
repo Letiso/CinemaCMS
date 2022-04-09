@@ -37,7 +37,7 @@ class SEO(models.Model):
 # region Banners
 class TopBanner(ImageFieldsValidationMixin, models.Model):
     image_required_size = (1000, 190)
-    image = models.ImageField(_('Banner'), upload_to='main/banners/top_banners')
+    image = models.ImageField(_('Banner'), upload_to='main/banners/top_banners', default='')
 
     is_active = models.BooleanField(_('Is active'), default=False)
 
@@ -48,7 +48,7 @@ class TopBanner(ImageFieldsValidationMixin, models.Model):
 
 class BackgroundImage(ImageFieldsValidationMixin, models.Model):
     image_required_size = (2000, 3000)
-    image = models.ImageField(_('Background image'), upload_to='main/banners/background_image')
+    image = models.ImageField(_('Background image'), upload_to='main/banners/background_image', default='')
 
     is_active = models.BooleanField(default=False)
 
@@ -59,7 +59,7 @@ class BackgroundImage(ImageFieldsValidationMixin, models.Model):
 
 class NewsBanner(ImageFieldsValidationMixin, models.Model):
     image_required_size = (1000, 190)
-    image = models.ImageField(_('Banner'), upload_to='main/banners/news_banners')
+    image = models.ImageField(_('Banner'), upload_to='main/banners/news_banners', default='')
 
     is_active = models.BooleanField(_('Is active'), default=False)
 

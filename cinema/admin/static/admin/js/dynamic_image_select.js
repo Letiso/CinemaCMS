@@ -67,10 +67,8 @@ function validate_then_set_thumbnail(event) {
             const split_field_name = field_name.split('_')
             const last_element = split_field_name.length - 1
             split_field_name.pop()
-            console.log(field_name, split_field_name)
 
             let field_name_fixed = split_field_name.join('_')
-            console.log(field_name_fixed)
             return  REQUIRED_SIZES[form_prefix][field_name_fixed];
 
         }

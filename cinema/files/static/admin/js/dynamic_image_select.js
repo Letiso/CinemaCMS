@@ -35,6 +35,7 @@ function initRequiredSizeLabels() {
 
             // also, you have to set id for every required_size_label looking like:
             // <tag id="form_prefix-field_name-required_size">
+            // console.log(form_prefix, field_name, required_size)
             let required_size_label = $(
                 `*[id*="${form_prefix}"][id*="${field_name}"][id$="-required_size"]`
             )
@@ -62,7 +63,16 @@ function validate_then_set_thumbnail(event) {
         const form_prefix = fileInputData[0];
         const field_name = fileInputData[fileInputData.length - 1];
 
-        const required_size = REQUIRED_SIZES[form_prefix][field_name];
+        function transform_localized_name_to_original(field_name) {   // for case when we use django-modeltranslation lib and field_name has a _lang suffix
+            const split_field_name = field_name.split('_')
+            const last_element = split_field_name.length - 1
+            split_field_name.pop()
+
+            let field_name_fixed = split_field_name.join('_')
+            return  REQUIRED_SIZES[form_prefix][field_name_fixed];
+
+        }
+        let required_size = REQUIRED_SIZES[form_prefix][field_name] || transform_localized_name_to_original(field_name);
 
         image_validation(reader.result, required_size, (is_valid) => {
             const thumbnail = document.getElementById(`${imageInput.id}-thumbnail`);
