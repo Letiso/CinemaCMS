@@ -4,12 +4,18 @@
 {% block stylesheets %}
 {% endblock %}
 
-{% block movies %}active{% endblock %}
+{% block movies %}
+    active
+{% endblock %}
 
-{% block current_page %}{% trans 'Movies' %}{% endblock %}
+{% block current_page %}
+    {% trans 'Movies' %}
+{% endblock %}
 
 {% block path %}
-    <li class="breadcrumb-item active">{% trans 'Movies' %}</li>
+    <li class="breadcrumb-item active">
+        {% trans 'Movies' %}
+    </li>
 {% endblock %}
 
 {% block content %}

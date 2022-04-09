@@ -30,14 +30,28 @@
 
 {% block content %}
     <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
-        <div class="col-11 card pb-5 mx-auto releases">
+        <div class="col-11 card card-primary card-outline card-outline-tabs pb-5 mx-auto">
             {% csrf_token %}
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+
             {% with card.form as form %}
-                <div class="card-header p-0 pb-3">
-                    <div class="custom-control custom-switch ml-5 mt-2">
-                        {{ form.is_active }}
-                        <label for="{{ form.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
-                    </div>
+                <div class="card-header p-0 border-bottom-0">
+                    <ul class="nav nav-tabs" id="{{ formset.prefix }}-language-tabs">
+                        {% for language in languages %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if LANGUAGE_CODE == language.code %}active{% endif %}" data-toggle="pill" href=""
+                                   id="{{ formset.prefix }}-{{ language.code }}">
+                                    {{ language.name_translated }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        <div class="custom-control custom-switch ml-auto mt-1">
+                            {{ form.is_active }}
+                            <label for="{{ form.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
+                        </div>
+                    </ul>
                 </div>
                 <div class="card-body" id="released-movies-list">
                     <div class="col-5 p-0">

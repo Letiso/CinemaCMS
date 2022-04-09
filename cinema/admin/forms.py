@@ -132,7 +132,7 @@ class MovieCardForm(ImageValidationMixin, forms.ModelForm):
 class MovieFrameForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = MovieFrame
-        exclude = ('card',)
+        exclude = ('card', )
 
 
 MovieFrameFormset = modelformset_factory(MovieFrameForm.Meta.model, form=MovieFrameForm,
