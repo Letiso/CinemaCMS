@@ -40,16 +40,15 @@ class ImageValidationMixin:
 
                 image = self.cleaned_data.get(image_field_name_loc)
                 if image:
-                    if isinstance(image, InMemoryUploadedFile):
-                        image_size = image.image.size
-                    else:
-                        image_size = (image.width, image.height)
+                    image_size = image.image.size if isinstance(image, InMemoryUploadedFile) \
+                            else (image.width, image.height)
 
                     if image_size != required_size:
                         width, height = required_size
 
                         err_msg = _('Select image with next resolution:') + f' {width}x{height}'
                         self.add_error(image_field_name_loc, err_msg)
+
         return self.cleaned_data
 
 
@@ -67,7 +66,7 @@ class ExtendedUserUpdateForm(UserUpdateForm):
 class TopBannerForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = TopBanner
-        fields = '__all__'
+        exclude = 'image',
 
 
 TopBannerFormSet = modelformset_factory(TopBannerForm.Meta.model, form=TopBannerForm,

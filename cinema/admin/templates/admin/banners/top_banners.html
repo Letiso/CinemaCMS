@@ -54,14 +54,16 @@
                     <div class="card-header text-right">
                         {{ empty_form.DELETE|as_crispy_field }}
                     </div>
-                    <span class="modeltranslation-{{ formset.prefix }}-en" >
-                        <img id="{{ empty_form.image_en.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
-                    </span>
-                    <span class="modeltranslation-{{ formset.prefix }}-ru" >
-                        <img id="{{ empty_form.image_ru.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
-                    </span>
-                    <span class="modeltranslation-{{ formset.prefix }}-uk" >
-                        <img id="{{ empty_form.image_uk.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
+                    <span id="card-thumbnail">
+                        <span class="modeltranslation-{{ formset.prefix }}-en" >
+                            <img id="{{ empty_form.image_en.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
+                        </span>
+                        <span class="modeltranslation-{{ formset.prefix }}-ru" >
+                            <img id="{{ empty_form.image_ru.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
+                        </span>
+                        <span class="modeltranslation-{{ formset.prefix }}-uk" >
+                            <img id="{{ empty_form.image_uk.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
+                        </span>
                     </span>
 
                     <div class="card-body">
