@@ -84,9 +84,29 @@
                         <div class="card-header">
                             <p id="{{ form.main_image.id_for_label }}-required_size"></p>
                         </div>
-                        <img id="{{ form.main_image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image %}{{ form.instance.main_image.url }}{% endif %}" alt="">
+
+                        <span id="card-thumbnail">
+                            <span class="modeltranslation-{{ form.prefix }}-en" >
+                                <img id="{{ form.main_image_en.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image_en %}{{ form.instance.main_image_en.url }}{% endif %}" alt="">
+                            </span>
+                            <span class="modeltranslation-{{ form.prefix }}-ru" >
+                                <img id="{{ form.main_image_ru.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image_ru %}{{ form.instance.main_image_ru.url }}{% endif %}" alt="">
+                            </span>
+                            <span class="modeltranslation-{{ form.prefix }}-uk" >
+                                <img id="{{ form.main_image_uk.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image_uk %}{{ form.instance.main_image_uk.url }}{% endif %}" alt="">
+                            </span>
+                        </span>
+
                         <div class="card-body">
-                            {{ form.main_image|as_crispy_field }}
+                            <span class="modeltranslation-{{ form.prefix }}-en" >
+                                {{ form.main_image_en|as_crispy_field }}
+                            </span>
+                            <span class="modeltranslation-{{ form.prefix }}-ru" >
+                                {{ form.main_image_ru|as_crispy_field }}
+                            </span>
+                            <span class="modeltranslation-{{ form.prefix }}-uk" >
+                                {{ form.main_image_uk|as_crispy_field }}
+                            </span>
                         </div>
                     </div>
 
