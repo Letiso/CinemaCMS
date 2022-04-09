@@ -30,10 +30,5 @@ class MovieCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
     fields = ('title', 'description', 'main_image', )
 
 
-@register(MovieFrame)
-class MovieFrameTranslationOptions(RequiredLangsMixin, TranslationOptions):
-    fields = ('image', )
-
-
 # endregion Movies
 
