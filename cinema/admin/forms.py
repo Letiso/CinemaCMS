@@ -120,7 +120,7 @@ class BannersCarouselForm(forms.ModelForm):
 class MovieCardForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = MovieCard
-        exclude = ('date_created', 'seo')
+        exclude = ('title', 'description', 'main_image', 'date_created', 'seo')
         widgets = {
             'release_date': DateInput(),
             'is_active': forms.CheckboxInput(attrs={
@@ -145,7 +145,7 @@ MovieFrameFormset = modelformset_factory(MovieFrameForm.Meta.model, form=MovieFr
 class CinemaCardForm(forms.ModelForm):
     class Meta:
         model = CinemaCard
-        exclude = ('date_created', 'seo')
+        exclude = ('name', 'description', 'amenities', 'date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
@@ -166,7 +166,7 @@ CinemaGalleryFormset = modelformset_factory(CinemaGallery, form=MovieFrameForm,
 class CinemaHallCardForm(forms.ModelForm):
     class Meta:
         model = CinemaHallCard
-        exclude = ('cinema', 'date_created', 'seo')
+        exclude = ('description', 'cinema', 'date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
@@ -190,7 +190,7 @@ CinemaHallGalleryFormset = modelformset_factory(CinemaHallGallery, form=MovieFra
 class NewsCardForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = NewsCard
-        exclude = ('date_created', 'seo')
+        exclude = ('title', 'description', 'main_image', 'date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
@@ -203,7 +203,7 @@ class NewsCardForm(ImageValidationMixin, forms.ModelForm):
 class NewsGalleryForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = NewsGallery
-        exclude = ('card',)
+        exclude = ('image', 'card',)
 
 
 NewsGalleryFormset = modelformset_factory(NewsGalleryForm.Meta.model, form=NewsGalleryForm,
@@ -216,7 +216,7 @@ NewsGalleryFormset = modelformset_factory(NewsGalleryForm.Meta.model, form=NewsG
 class PromotionCardForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = PromotionCard
-        exclude = ('date_created', 'seo')
+        exclude = ('title', 'description', 'main_image', 'date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
@@ -229,7 +229,7 @@ class PromotionCardForm(ImageValidationMixin, forms.ModelForm):
 class PromotionGalleryForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = PromotionGallery
-        exclude = ('card',)
+        exclude = ('image', 'card',)
 
 
 PromotionGalleryFormset = modelformset_factory(PromotionGalleryForm.Meta.model, form=PromotionGalleryForm,
@@ -242,7 +242,7 @@ PromotionGalleryFormset = modelformset_factory(PromotionGalleryForm.Meta.model, 
 class MainPageCardForm(forms.ModelForm):
     class Meta:
         model = MainPageCard
-        exclude = ('date_created', 'seo')
+        exclude = ('title', 'date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
