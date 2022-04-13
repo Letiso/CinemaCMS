@@ -1,7 +1,8 @@
 from modeltranslation.translator import register, TranslationOptions
 from .models import (TopBanner, BackgroundImage, NewsBanner,
                      MovieCard, MovieFrame,
-                     CinemaCard, CinemaHallCard, )
+                     CinemaCard, CinemaHallCard,
+                     NewsCard, NewsGallery, )
 
 
 class RequiredLangsMixin:
@@ -47,3 +48,14 @@ class CinemaHallCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
 
 # endregion Cinemas
 
+# region News
+@register(NewsCard)
+class MovieCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
+    fields = ('title', 'description', 'main_image', )
+
+
+@register(NewsGallery)
+class MovieCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
+    fields = ('image', )
+
+# endregion News
