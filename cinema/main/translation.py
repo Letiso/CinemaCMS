@@ -1,5 +1,7 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import TopBanner, BackgroundImage, NewsBanner, MovieCard, MovieFrame, CinemaCard, CinemaHallCard
+from .models import (TopBanner, BackgroundImage, NewsBanner,
+                     MovieCard, MovieFrame,
+                     CinemaCard, CinemaHallCard, )
 
 
 class RequiredLangsMixin:

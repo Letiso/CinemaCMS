@@ -1,12 +1,10 @@
 
 function modeltranslationLanguageSwitch (this_id) {
-    const data = this_id.split('-')
-    let prefix = data[0]
-    let lang_code = data[1]
+    const data = this_id.split('--')
+    const prefix = data[0]
+    const lang_code = data[1]
 
-    $(`span[class^=modeltranslation-${prefix}]`).each(function () {
-        $(this).hide()
-    })
+    $(`span[class*=modeltranslation-${prefix}]`).hide()
     $(`.modeltranslation-${this_id}`).show()
 }
 
