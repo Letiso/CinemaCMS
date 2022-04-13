@@ -4,6 +4,7 @@ from .models import (TopBanner, BackgroundImage, NewsBanner,
                      CinemaCard, CinemaHallCard,
                      NewsCard, NewsGallery,
                      PromotionCard, PromotionGallery,
+                     MainPageCard, AboutTheCinemaPageCard, PageCard, ContactsPageCard,
                      )
 
 
@@ -75,3 +76,26 @@ class PromotionGalleryTranslationOptions(RequiredLangsMixin, TranslationOptions)
 
 
 # endregion News
+
+# region Pages
+@register(MainPageCard)
+class MainPageCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
+    fields = ('title', )
+
+
+@register(AboutTheCinemaPageCard)
+class AboutTheCinemaPageCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
+    fields = ('title', 'description', )
+
+
+@register(PageCard)
+class PageCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
+    fields = ('title', 'description', )
+
+
+@register(ContactsPageCard)
+class ContactsPageCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
+    fields = ('title', 'address', )
+
+
+# endregion Pages
