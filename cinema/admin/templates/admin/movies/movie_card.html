@@ -42,7 +42,7 @@
                         {% for language in languages %}
                             <li class="nav-item">
                                 <a class="nav-link {% if LANGUAGE_CODE == language.code %}active{% endif %}" data-toggle="pill" href=""
-                                   id="{{ form.prefix }}-{{ language.code }}">
+                                   id="{{ form.prefix }}--{{ language.code }}">
                                     {{ language.name_translated }}
                                 </a>
                             </li>
@@ -55,24 +55,24 @@
                 </div>
                 <div class="card-body">
                     <div class="col-5 p-0">
-                        <span class="modeltranslation-{{ form.prefix }}-en">
+                        <span class="modeltranslation-{{ form.prefix }}--en">
                             {{ form.title_en|as_crispy_field }}
                         </span>
-                        <span class="modeltranslation-{{ form.prefix }}-ru">
+                        <span class="modeltranslation-{{ form.prefix }}--ru">
                             {{ form.title_ru|as_crispy_field }}
                         </span>
-                        <span class="modeltranslation-{{ form.prefix }}-uk">
+                        <span class="modeltranslation-{{ form.prefix }}--uk">
                             {{ form.title_uk|as_crispy_field }}
                         </span>
                     </div>
 
-                    <span class="modeltranslation-{{ form.prefix }}-en">
+                    <span class="modeltranslation-{{ form.prefix }}--en">
                         {{ form.description_en|as_crispy_field }}
                     </span>
-                    <span class="modeltranslation-{{ form.prefix }}-ru">
+                    <span class="modeltranslation-{{ form.prefix }}--ru">
                         {{ form.description_ru|as_crispy_field }}
                     </span>
-                    <span class="modeltranslation-{{ form.prefix }}-uk">
+                    <span class="modeltranslation-{{ form.prefix }}--uk">
                         {{ form.description_uk|as_crispy_field }}
                     </span>
 
@@ -86,25 +86,25 @@
                         </div>
 
                         <span id="card-thumbnail">
-                            <span class="modeltranslation-{{ form.prefix }}-en" >
+                            <span class="modeltranslation-{{ form.prefix }}--en" >
                                 <img id="{{ form.main_image_en.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image_en %}{{ form.instance.main_image_en.url }}{% endif %}" alt="">
                             </span>
-                            <span class="modeltranslation-{{ form.prefix }}-ru" >
+                            <span class="modeltranslation-{{ form.prefix }}--ru" >
                                 <img id="{{ form.main_image_ru.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image_ru %}{{ form.instance.main_image_ru.url }}{% endif %}" alt="">
                             </span>
-                            <span class="modeltranslation-{{ form.prefix }}-uk" >
+                            <span class="modeltranslation-{{ form.prefix }}--uk" >
                                 <img id="{{ form.main_image_uk.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image_uk %}{{ form.instance.main_image_uk.url }}{% endif %}" alt="">
                             </span>
                         </span>
 
                         <div class="card-body">
-                            <span class="modeltranslation-{{ form.prefix }}-en" >
+                            <span class="modeltranslation-{{ form.prefix }}--en" >
                                 {{ form.main_image_en|as_crispy_field }}
                             </span>
-                            <span class="modeltranslation-{{ form.prefix }}-ru" >
+                            <span class="modeltranslation-{{ form.prefix }}--ru" >
                                 {{ form.main_image_ru|as_crispy_field }}
                             </span>
-                            <span class="modeltranslation-{{ form.prefix }}-uk" >
+                            <span class="modeltranslation-{{ form.prefix }}--uk" >
                                 {{ form.main_image_uk|as_crispy_field }}
                             </span>
                         </div>
