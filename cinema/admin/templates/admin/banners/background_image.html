@@ -8,24 +8,24 @@
     <div id="{{ form.prefix }}"
          class="col-sm-12 col-lg-5 card px-0 mx-auto" style="min-width: 25vw;">
 
-        <span class="modeltranslation-{{ form.prefix }}-en" >
+        <span class="modeltranslation-{{ form.prefix }}--en" >
             <img id="{{ form.image_en.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image_en %}{{ form.instance.image_en.url }}{% endif %}" alt="">
         </span>
-        <span class="modeltranslation-{{ form.prefix }}-ru" >
+        <span class="modeltranslation-{{ form.prefix }}--ru" >
             <img id="{{ form.image_ru.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image_ru %}{{ form.instance.image_ru.url }}{% endif %}" alt="">
         </span>
-        <span class="modeltranslation-{{ form.prefix }}-uk" >
+        <span class="modeltranslation-{{ form.prefix }}--uk" >
             <img id="{{ form.image_uk.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image_uk %}{{ form.instance.image_uk.url }}{% endif %}" alt="">
         </span>
 
         <div class="card-body">
-            <span class="modeltranslation-{{ form.prefix }}-en" >
+            <span class="modeltranslation-{{ form.prefix }}--en" >
                 {{ form.image_en|as_crispy_field }}
             </span>
-            <span class="modeltranslation-{{ form.prefix }}-ru" >
+            <span class="modeltranslation-{{ form.prefix }}--ru" >
                 {{ form.image_ru|as_crispy_field }}
             </span>
-            <span class="modeltranslation-{{ form.prefix }}-uk" >
+            <span class="modeltranslation-{{ form.prefix }}--uk" >
                 {{ form.image_uk|as_crispy_field }}
             </span>
 
