@@ -31,37 +31,88 @@
 {% endblock %}
 
 {% block content %}
-    <div class="col-11 card pb-5 mx-auto releases">
-        <div class="card-body" id="released-movies-list">
-            <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
-                {% csrf_token %}
-                {% with card.form as form %}
-                    <div class="text-right mb-4">
-                        <div class="custom-control custom-switch">
+   <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
+        <div class="col-11 card card-primary card-outline card-outline-tabs pb-5 mx-auto">
+            {% csrf_token %}
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+
+            {% with card.form as form %}
+                <div class="card-header p-0 border-bottom-0">
+                    <ul class="nav nav-tabs" id="{{ form.prefix }}-language-tabs">
+                        {% for language in languages %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if LANGUAGE_CODE == language.code %}active{% endif %}" data-toggle="pill" href=""
+                                   id="{{ form.prefix }}--{{ language.code }}">
+                                    {{ language.name_translated }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        <div class="custom-control custom-switch ml-auto mt-1">
                             {{ form.is_active }}
                             <label for="{{ form.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
                         </div>
-                    </div>
+                    </ul>
+                </div>
+                <div class="card-body">
                     <div class="row justify-content-between">
                         <div class="col-5 p-0">
-                            {{ form.title|as_crispy_field }}
+                            <span class="modeltranslation-{{ form.prefix }}--en">
+                                {{ form.title_en|as_crispy_field }}
+                            </span>
+                            <span class="modeltranslation-{{ form.prefix }}--ru">
+                                {{ form.title_ru|as_crispy_field }}
+                            </span>
+                            <span class="modeltranslation-{{ form.prefix }}--uk">
+                                {{ form.title_uk|as_crispy_field }}
+                            </span>
                         </div>
                         <div class="col-3 p-0">
                             {{ form.publication_date|as_crispy_field }}
                         </div>
                     </div>
-                    {{ form.description|as_crispy_field }}
+                    <div class="col-5 p-0">
+                        <span class="modeltranslation-{{ form.prefix }}--en">
+                            {{ form.description_en|as_crispy_field }}
+                        </span>
+                        <span class="modeltranslation-{{ form.prefix }}--ru">
+                            {{ form.description_ru|as_crispy_field }}
+                        </span>
+                        <span class="modeltranslation-{{ form.prefix }}--uk">
+                            {{ form.description_uk|as_crispy_field }}
+                        </span>
+                    </div>
 
                     <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
                         <div class="card-header">
                             <p id="{{ form.main_image.id_for_label }}-required_size"></p>
                         </div>
-                        <img id="{{ form.main_image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image %}{{ form.instance.main_image.url }}{% endif %}" alt="">
+                        <div>
+                            <span class="modeltranslation-{{ form.prefix }}--en">
+                                <img id="{{ form.main_image_en.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image_en %}{{ form.instance.main_image_en.url }}{% endif %}" alt="">
+                            </span>
+                            <span class="modeltranslation-{{ form.prefix }}--ru">
+                                <img id="{{ form.main_image_ru.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image_ru %}{{ form.instance.main_image_ru.url }}{% endif %}" alt="">
+                            </span>
+                            <span class="modeltranslation-{{ form.prefix }}--uk">
+                                <img id="{{ form.main_image_uk.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image_uk %}{{ form.instance.main_image_uk.url }}{% endif %}" alt="">
+                            </span>
+                        </div>
                         <div class="card-body">
-                            {{ form.main_image|as_crispy_field }}
+                            <div>
+                                <span class="modeltranslation-{{ form.prefix }}--en">
+                                    {{ form.main_image_en|as_crispy_field }}
+                                </span>
+                                <span class="modeltranslation-{{ form.prefix }}--ru">
+                                    {{ form.main_image_ru|as_crispy_field }}
+                                </span>
+                                <span class="modeltranslation-{{ form.prefix }}--uk">
+                                    {{ form.main_image_uk|as_crispy_field }}
+                                </span>
+                            </div>
                         </div>
                     </div>
-
 
                     <label>{% trans 'Promotion images gallery' %}</label>
                     <h5 id="promotion-main_image-required_size" class="mr-auto"></h5>
@@ -110,14 +161,15 @@
                             {{ field|as_crispy_field }}
                         {% endfor %}
                     </div>
-                {% endwith %}
-                <div class="text-center mt-4">
-                    <input type="submit" class="btn btn-success px-4" value="{% trans 'Save' %}" style="font-size: 20px;">
-                    <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">{% trans 'Return initial condition' %}</a>
+                    <div class="text-center mt-4">
+                        <input type="submit" class="btn btn-success px-4" value="{% trans 'Save' %}" style="font-size: 20px;">
+                        <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">{% trans 'Return initial condition' %}</a>
+                    </div>
                 </div>
-            </form>
+            {% endwith %}
         </div>
-    </div>
+   </form>
+
 {% endblock %}
 
 {% block scripts %}
