@@ -264,7 +264,7 @@ class AboutTheCinemaPageCardForm(ImageValidationMixin, forms.ModelForm):
 class PageCardForm(ImageValidationMixin, forms.ModelForm):
     class Meta:
         model = PageCard
-        exclude = ('date_created', 'seo')
+        exclude = ('title', 'description', 'date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',
