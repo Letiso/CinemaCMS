@@ -57,22 +57,12 @@ class NewsCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
     fields = ('title', 'description', 'main_image', )
 
 
-@register(NewsGallery)
-class NewsGalleryTranslationOptions(RequiredLangsMixin, TranslationOptions):
-    fields = ('image', )
-
-
 # endregion News
 
 # region Promotion
 @register(PromotionCard)
 class PromotionCardTranslationOptions(RequiredLangsMixin, TranslationOptions):
     fields = ('title', 'description', 'main_image', )
-
-
-@register(PromotionGallery)
-class PromotionGalleryTranslationOptions(RequiredLangsMixin, TranslationOptions):
-    fields = ('image', )
 
 
 # endregion News

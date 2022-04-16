@@ -11,7 +11,7 @@
 
 {% block content %}
     {# about_the_cinema static banner #}
-        <img src="{% static 'main/cinemas/img/movie-cinema.jpg' %}"
+        <img src="{{ page_card.main_image.url }}"
              alt=""
              style="width: 100vw; height: 21vw; background: gray;">
     {# about_the_cinema static banner end #}
