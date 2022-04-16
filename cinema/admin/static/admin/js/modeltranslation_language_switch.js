@@ -5,7 +5,7 @@ function modeltranslationLanguageSwitch (this_id) {
     const lang_code = data[1]
 
     $(`span[class*=modeltranslation-${prefix}]`).hide()
-    $(`.modeltranslation-${this_id}`).show()
+    $(`span[class*=modeltranslation-${prefix}][class*=${lang_code}]`).show()
 }
 
 // on page load

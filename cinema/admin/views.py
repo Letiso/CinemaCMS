@@ -17,8 +17,8 @@ from cinema.tasks import send_mail
 
 # region Mixins
 class CustomAbstractView(View):
-    template_name:str = None
-    context:dict = None
+    template_name: str = None
+    context: dict = None
 
     @staticmethod
     def get_context(*args, **kwargs) -> dict:

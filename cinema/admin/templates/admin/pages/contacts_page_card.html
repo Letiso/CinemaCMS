@@ -26,11 +26,27 @@
 
 {% block content %}
     <form method="POST" enctype="multipart/form-data" class="mx-5 mt-4">
-        <div class="col-11 card pb-5 mx-auto bg-light">
-            <div class="card-body" id="released-movies-list">
-                {% csrf_token %}
-                <div class="container-fluid">
-                    {% with card.formset as formset %}
+        {% csrf_token %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+
+        {% with card.formset as formset %}
+            <div class="col-11 card card-primary card-outline card-outline-tabs pb-5 mx-auto bg-light">
+                <div class="card-header p-0 bg-white mx-auto">
+                    <ul class="nav nav-tabs" id="{{ formset.prefix }}-language-tabs">
+                        {% for language in languages %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if LANGUAGE_CODE == language.code %}active{% endif %}" data-toggle="pill" href=""
+                                   id="{{ formset.prefix }}--{{ language.code }}">
+                                    {{ language.name_translated }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="container-fluid">
                         {{ formset.management_form }}
 
                         <div class="row justify-content-between justify-content-around" id="{{ formset.prefix }}-list">
@@ -38,45 +54,66 @@
                                 {% for hidden in form.hidden_fields %}
                                     {{ hidden }}
                                 {% endfor %}
-                            <div class="col-12 card px-0 mt-5 {{ formset.prefix }}">
-                                <div class="card-header p-0">
-                                    <div class="custom-control custom-switch ml-5 mt-2">
-                                        {{ form.is_active }}
-                                        <label for="{{ form.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
+                                <div class="col-12 card px-0 mt-5 {{ formset.prefix }}">
+                                    <div class="card-header p-0">
+                                        <div class="custom-control custom-switch ml-5 mt-2">
+                                            {{ form.is_active }}
+                                            <label for="{{ form.is_active.id_for_label }}" class="custom-control-label" style="transform: scale(1.5)"></label>
+                                        </div>
+                                        <div class="text-right mr-4 mb-4">{% if forloop.counter != 1 %}{{ form.DELETE|as_crispy_field }}{% endif %}</div>
                                     </div>
-                                    <div class="text-right mr-4 mb-4">{% if forloop.counter != 1 %}{{ form.DELETE|as_crispy_field }}{% endif %}</div>
-                                </div>
                                     <img id="{{ form.image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.image %}{{ form.instance.image.url }}{% endif %}" alt="">
-                                <div class="card-body">
-                                    <div class="col-5 p-0">
-                                        {{ form.title|as_crispy_field }}
-                                    </div>
-                                    {{ form.address|as_crispy_field }}
-                                    {{ form.map_coordinates|as_crispy_field }}
 
-                                    <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
-                                        <div class="card-header">
-                                            <p id="{{ form.logo.id_for_label }}-required_size"></p>
+                                    <div class="card-body">
+                                        <div class="col-5 p-0">
+                                            <span class="modeltranslation-{{ formset.prefix }}--en">
+                                                {{ form.title_en|as_crispy_field }}
+                                            </span>
+                                            <span class="modeltranslation-{{ formset.prefix }}--ru">
+                                                {{ form.title_ru|as_crispy_field }}
+                                            </span>
+                                            <span class="modeltranslation-{{ formset.prefix }}--uk">
+                                                {{ form.title_uk|as_crispy_field }}
+                                            </span>
                                         </div>
-                                        <img id="{{ form.logo.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.logo %}{{ form.instance.logo.url }}{% endif %}" alt="">
-                                        <div class="card-body">
-                                            {{ form.logo|as_crispy_field }}
+                                        <div>
+                                            <span class="modeltranslation-{{ formset.prefix }}--en">
+                                                {{ form.address_en|as_crispy_field }}
+                                            </span>
+                                            <span class="modeltranslation-{{ formset.prefix }}--ru">
+                                                {{ form.address_ru|as_crispy_field }}
+                                            </span>
+                                            <span class="modeltranslation-{{ formset.prefix }}--uk">
+                                                {{ form.address_uk|as_crispy_field }}
+                                            </span>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
-                                        <div class="card-header">
-                                            <p id="{{ form.main_image.id_for_label }}-required_size"></p>
-                                        </div>
-                                        <img id="{{ form.main_image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image %}{{ form.instance.main_image.url }}{% endif %}" alt="">
-                                        <div class="card-body">
-                                            {{ form.main_image|as_crispy_field }}
-                                        </div>
-                                    </div>
+                                        {{ form.map_coordinates|as_crispy_field }}
 
+                                        <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
+                                            <div class="card-header">
+                                                <p id="{{ form.logo.id_for_label }}-required_size"></p>
+                                            </div>
+                                            <img id="{{ form.logo.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.logo %}{{ form.instance.logo.url }}{% endif %}" alt="">
+                                            <div class="card-body">
+                                                {{ form.logo|as_crispy_field }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
+                                            <div class="card-header">
+                                                <p id="{{ form.main_image.id_for_label }}-required_size"></p>
+                                            </div>
+                                            <img id="{{ form.main_image.id_for_label }}-thumbnail" class="card-img-top" src="{% if form.instance.main_image %}{{ form.instance.main_image.url }}{% endif %}" alt="">
+                                            <div class="card-body">
+                                                {{ form.main_image|as_crispy_field }}
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
-                            </div>
                             {% endfor %}
+
                             <div id="{{ formset.prefix }}-empty-form" class="col-12 card px-0 mt-5 hidden">
                                 {% with formset.empty_form as empty_form %}
                                     <div class="card-header p-0">
@@ -91,10 +128,30 @@
                                     <img id="{{ empty_form.image.id_for_label }}-thumbnail" class="card-img-top" src="" alt="">
                                     <div class="card-body">
                                         <div class="col-5 p-0">
-                                            {{ empty_form.title|as_crispy_field }}
+                                            <span class="modeltranslation-{{ formset.prefix }}--en">
+                                                {{ empty_form.title_en|as_crispy_field }}
+                                            </span>
+                                            <span class="modeltranslation-{{ formset.prefix }}--ru">
+                                                {{ empty_form.title_ru|as_crispy_field }}
+                                            </span>
+                                            <span class="modeltranslation-{{ formset.prefix }}--uk">
+                                                {{ empty_form.title_uk|as_crispy_field }}
+                                            </span>
                                         </div>
-                                        {{ empty_form.address|as_crispy_field }}
+                                        <div>
+                                            <span class="modeltranslation-{{ formset.prefix }}--en">
+                                                {{ empty_form.address_en|as_crispy_field }}
+                                            </span>
+                                            <span class="modeltranslation-{{ formset.prefix }}--ru">
+                                                {{ empty_form.address_ru|as_crispy_field }}
+                                            </span>
+                                            <span class="modeltranslation-{{ formset.prefix }}--uk">
+                                                {{ empty_form.address_uk|as_crispy_field }}
+                                            </span>
+                                        </div>
+
                                         {{ empty_form.map_coordinates|as_crispy_field }}
+
                                         <div class="col-md-4 col-lg-5 card px-0 mt-5 mx-auto mb-5">
                                             <div class="card-header">
                                                 <p id="{{ empty_form.main_image.id_for_label }}-required_size"></p>
@@ -107,28 +164,32 @@
                                     </div>
                                 {% endwith %}
                             </div>
+
                         </div>
                         <div class="text-center mt-5">
-                            <input type="button" onclick="add_empty_form(event, '{{ formset.prefix }}')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
-                        </div>
-                    {% endwith %}
-                    <div class="card my-5">
-                        <div class="card-body mx-4">
-                            <label>{% trans 'SEO block:' %}</label>
-                            <div class="container">
-                                {% for field in seo.form %}
-                                    {{ field|as_crispy_field }}
-                                {% endfor %}
+                                <input type="button" onclick="add_empty_form(event, '{{ formset.prefix }}')" class="btn btn-light px-5" value="+" style="font-size: 75px;">
+                            </div>
+
+                        <div class="card my-5">
+                            <div class="card-body mx-4">
+                                <label>{% trans 'SEO block:' %}</label>
+                                <div class="container">
+                                    {% for field in seo.form %}
+                                        {{ field|as_crispy_field }}
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="text-center mt-4">
-                        <input type="submit" class="btn btn-success px-4" value="{% trans 'Save' %}" style="font-size: 20px;">
-                        <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">{% trans 'Return initial condition' %}</a>
+
+                        <div class="text-center mt-4">
+                            <input type="submit" class="btn btn-success px-4" value="{% trans 'Save' %}" style="font-size: 20px;">
+                            <a href="{{ currentUrl }}" class="btn btn-primary px-4 ml-5" style="font-size: 20px;">{% trans 'Return initial condition' %}</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
+        {% endwith %}
     </form>
 {% endblock %}
 
@@ -139,6 +200,8 @@
 
     <script src="{% url 'javascript-catalog' %}"></script>
     <script src="{% static 'admin/js/dynamic_image_select.js' %}"></script>
+    <script src="{% static 'admin/js/modeltranslation_language_switch.js' %}"></script>
+
     <script>
         //read data from django context, then init required sizes labels.
         // REQUIRED_SIZES also needed for the front-end image validation at 'static/admin/js/dynamic_image_select.js'

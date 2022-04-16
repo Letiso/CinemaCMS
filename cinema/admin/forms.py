@@ -285,7 +285,7 @@ PageGalleryFormset = modelformset_factory(PageGalleryForm.Meta.model, form=PageG
 class ContactsPageCardForm(forms.ModelForm):
     class Meta:
         model = ContactsPageCard
-        exclude = ('date_created', 'seo')
+        exclude = ('title', 'address', 'date_created', 'seo')
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
                 'class': 'custom-control-input',

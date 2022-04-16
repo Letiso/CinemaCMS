@@ -35,7 +35,7 @@
         {% get_language_info_list for LANGUAGES as languages %}
 
         {% with card.form as form %}
-            <div class="col-11 card pb-5 mx-auto releases">
+            <div class="col-11 card card-primary card-outline card-outline-tabs pb-5 mx-auto releases">
                 <div class="card-header p-0 border-bottom-0">
                     <ul class="nav nav-tabs" id="{{ form.prefix }}-language-tabs">
                         {% for language in languages %}
