@@ -58,7 +58,7 @@ class CardView(CustomAbstractView):
 
     def get_gallery_context(self, pk):
         self.gallery_queryset = self.gallery_model.objects.filter(card_id=pk) \
-                     if pk else self.gallery_model.objects.none()
+            if pk else self.gallery_model.objects.none()
 
         request_data = self.request.POST or None, self.request.FILES or None
         formset = self.gallery_formset(*request_data, queryset=self.gallery_queryset, prefix=self.gallery_prefix)
@@ -104,7 +104,7 @@ class CardView(CustomAbstractView):
             self.context['seo']['form'],
 
             self.context['gallery']['formset'] if self.contains_gallery else None
-        ) # getting tuple of form/formset objects
+        )  # getting tuple of form/formset objects
 
         return forms_to_save
 
@@ -153,6 +153,17 @@ class CardDeleteView(View):
 # region Statistics
 class StatisticsView(CustomAbstractView):
     template_name = 'admin/statistics.html'
+
+    def get_context(self, request) -> dict:
+        self.context = super().get_context()
+
+        self.context['users'] = get_user_model().objects.order_by('date_joined')
+
+        active_users_range = timezone.now() - datetime.timedelta(days=31)
+        self.context['active_users'] = get_user_model().objects.filter(last_login__gte=active_users_range
+                                                                       ).order_by('last_login')
+
+        return self.context
 
 
 # endregion Statistics
@@ -236,7 +247,7 @@ class BannersView(CustomAbstractView):
     def post(self, request) -> HttpResponse:
         self.context = self.get_context(request)
 
-        forms_to_save = self.get_forms_to_save()    # getting tuple of form/formset objects
+        forms_to_save = self.get_forms_to_save()  # getting tuple of form/formset objects
         is_valid = [form.is_valid() for form in forms_to_save]
 
         if all(is_valid):
@@ -410,6 +421,7 @@ class PromotionListView(CustomAbstractView):
         self.context['promotion_list'] = PromotionCard.objects.all()
 
         return self.context
+
 
 class PromotionCardView(CardView):
     template_name = 'admin/promotion/promotion_card.html'
@@ -596,7 +608,7 @@ class UsersListView(CustomAbstractView):
 
     def get_context(self, request) -> dict:
         self.context = super().get_context()
-        self.context['users'] = get_user_model().objects.all()
+        self.context['users'] = get_user_model().objects.order_by('date_joined')
 
         return self.context
 
@@ -673,6 +685,5 @@ class MailingView(CustomAbstractView):
             return redirect('admin:mailing')
 
         return super().post(request)
-
 
 # endregion Mailing

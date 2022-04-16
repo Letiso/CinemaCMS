@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: admin/forms.py:358
+#: admin/forms.py:361
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-23 17:00+0200\n"
+"POT-Creation-Date: 2022-04-16 19:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,41 +21,41 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admin/forms.py:46
+#: admin/forms.py:49
 msgid "Select image with next resolution:"
 msgstr "Выберите изображение со следующим разрешением:"
 
-#: admin/forms.py:78
+#: admin/forms.py:80
 msgid "Image as background"
 msgstr "Изображение на фоне"
 
-#: admin/forms.py:78
+#: admin/forms.py:80
 msgid "Color as background"
 msgstr "Цвет на фоне"
 
-#: admin/forms.py:312 admin/forms.py:328
+#: admin/forms.py:315 admin/forms.py:331
 msgid "Select mailing type"
 msgstr "Выберите тип рассылки"
 
-#: admin/forms.py:314 admin/forms.py:330
+#: admin/forms.py:317 admin/forms.py:333
 msgid "Every user"
 msgstr "Все пользователи"
 
-#: admin/forms.py:314 admin/forms.py:330
+#: admin/forms.py:317 admin/forms.py:333
 #: admin/templates/admin/mailing/mailing.html:59
 #: admin/templates/admin/mailing/mailing.html:219
 msgid "Select users"
 msgstr "Выбрать пользователей"
 
-#: admin/forms.py:318
+#: admin/forms.py:321
 msgid "SMS text"
 msgstr "Текст SMS"
 
-#: admin/forms.py:334 main/models.py:404
+#: admin/forms.py:337 main/models.py:403
 msgid "Upload HTML-mail"
 msgstr "Загрузить HTML-письмо"
 
-#: admin/forms.py:359
+#: admin/forms.py:362
 msgid "Upload html-file or select the recent one"
 msgstr "Загрузите html-файл или выберите один из недавних"
 
@@ -64,24 +64,26 @@ msgid "Main page"
 msgstr "Главная страница"
 
 #: admin/templates/admin/admin_layout.html:119
+#: admin/templates/admin/statistics.html:13
+#: admin/templates/admin/statistics.html:18
 msgid "Statistics"
 msgstr "Статистика"
 
 #: admin/templates/admin/admin_layout.html:128
-#: admin/templates/admin/banners/index.html:21
+#: admin/templates/admin/banners/index.html:20
 #: admin/templates/admin/banners/index.html:25
 msgid "Banners"
 msgstr "Баннеры"
 
 #: admin/templates/admin/admin_layout.html:138
-#: admin/templates/admin/movies/index.html:9
 #: admin/templates/admin/movies/index.html:12
+#: admin/templates/admin/movies/index.html:17
 #: admin/templates/admin/movies/movie_card.html:26
 msgid "Movies"
 msgstr "Фильмы"
 
 #: admin/templates/admin/admin_layout.html:147
-#: admin/templates/admin/cinemas/cinema_card.html:22
+#: admin/templates/admin/cinemas/cinema_card.html:26
 #: admin/templates/admin/cinemas/hall_card.html:23
 #: admin/templates/admin/cinemas/index.html:10
 #: admin/templates/admin/cinemas/index.html:13
@@ -117,7 +119,7 @@ msgstr "Акции"
 #: admin/templates/admin/pages/contacts_page_card.html:23
 #: admin/templates/admin/pages/index.html:11
 #: admin/templates/admin/pages/index.html:14
-#: admin/templates/admin/pages/main_page_card.html:14
+#: admin/templates/admin/pages/main_page_card.html:19
 #: admin/templates/admin/pages/page_card.html:25
 msgid "Pages"
 msgstr "Страницы"
@@ -140,78 +142,78 @@ msgstr "Рассылка"
 msgid "Admin panel"
 msgstr "Панель администратора"
 
-#: admin/templates/admin/banners/background_image.html:17
-#: admin/templates/admin/banners/news_banners.html:53
-#: admin/templates/admin/banners/top_banners.html:55
+#: admin/templates/admin/banners/background_image.html:38
+#: admin/templates/admin/banners/news_banners.html:98
+#: admin/templates/admin/banners/top_banners.html:99
 #: admin/templates/admin/users/update_user.html:28
 msgid "Save changes"
 msgstr "Сохранить изменения"
 
-#: admin/templates/admin/banners/index.html:36
+#: admin/templates/admin/banners/index.html:52
 msgid "Main page top"
 msgstr "На главной верхний"
 
-#: admin/templates/admin/banners/index.html:53
+#: admin/templates/admin/banners/index.html:84
 msgid "Main page background"
 msgstr "На главной фон"
 
-#: admin/templates/admin/banners/index.html:70
+#: admin/templates/admin/banners/index.html:117
 msgid "Main page News | Promotion"
 msgstr "На главной Новости | Акции"
 
-#: admin/templates/admin/banners/index.html:105
+#: admin/templates/admin/banners/index.html:157
 msgid " s"
 msgstr " с"
 
-#: admin/templates/admin/cinemas/cinema_card.html:19
-#: admin/templates/admin/cinemas/cinema_card.html:23
+#: admin/templates/admin/cinemas/cinema_card.html:22
+#: admin/templates/admin/cinemas/cinema_card.html:27
 #: main/templates/main/cinemas/cinema_card.html:5
 msgid "Cinema card"
 msgstr "Карточка кинотеатра"
 
-#: admin/templates/admin/cinemas/cinema_card.html:66
+#: admin/templates/admin/cinemas/cinema_card.html:112
 msgid "Cinema photo gallery"
 msgstr "Галерея фото кинотеатра"
 
-#: admin/templates/admin/cinemas/cinema_card.html:108
+#: admin/templates/admin/cinemas/cinema_card.html:154
 #: admin/templates/admin/cinemas/hall_card.html:105
-#: admin/templates/admin/movies/movie_card.html:121
-#: admin/templates/admin/news/news_card.html:104
-#: admin/templates/admin/pages/about_the_cinema_page_card.html:95
-#: admin/templates/admin/pages/contacts_page_card.html:117
-#: admin/templates/admin/pages/main_page_card.html:45
-#: admin/templates/admin/pages/page_card.html:132
-#: admin/templates/admin/promotion/promotion_card.html:107
+#: admin/templates/admin/movies/movie_card.html:176
+#: admin/templates/admin/news/news_card.html:155
+#: admin/templates/admin/pages/about_the_cinema_page_card.html:127
+#: admin/templates/admin/pages/contacts_page_card.html:175
+#: admin/templates/admin/pages/main_page_card.html:66
+#: admin/templates/admin/pages/page_card.html:162
+#: admin/templates/admin/promotion/promotion_card.html:158
 msgid "SEO block:"
 msgstr "SEO блок:"
 
-#: admin/templates/admin/cinemas/cinema_card.html:116
+#: admin/templates/admin/cinemas/cinema_card.html:161
 #: admin/templates/admin/cinemas/hall_card.html:113
-#: admin/templates/admin/movies/movie_card.html:128
-#: admin/templates/admin/news/news_card.html:112
-#: admin/templates/admin/pages/about_the_cinema_page_card.html:103
-#: admin/templates/admin/pages/contacts_page_card.html:126
-#: admin/templates/admin/pages/main_page_card.html:53
-#: admin/templates/admin/pages/page_card.html:140
-#: admin/templates/admin/promotion/promotion_card.html:115
+#: admin/templates/admin/movies/movie_card.html:183
+#: admin/templates/admin/news/news_card.html:162
+#: admin/templates/admin/pages/about_the_cinema_page_card.html:135
+#: admin/templates/admin/pages/contacts_page_card.html:185
+#: admin/templates/admin/pages/main_page_card.html:74
+#: admin/templates/admin/pages/page_card.html:169
+#: admin/templates/admin/promotion/promotion_card.html:165
 #: user/templates/user/update.html:16
 msgid "Save"
 msgstr "Сохранить"
 
-#: admin/templates/admin/cinemas/cinema_card.html:117
+#: admin/templates/admin/cinemas/cinema_card.html:162
 #: admin/templates/admin/cinemas/hall_card.html:114
-#: admin/templates/admin/movies/movie_card.html:129
-#: admin/templates/admin/news/news_card.html:113
-#: admin/templates/admin/pages/about_the_cinema_page_card.html:104
-#: admin/templates/admin/pages/contacts_page_card.html:127
-#: admin/templates/admin/pages/main_page_card.html:54
-#: admin/templates/admin/pages/page_card.html:141
-#: admin/templates/admin/promotion/promotion_card.html:116
+#: admin/templates/admin/movies/movie_card.html:184
+#: admin/templates/admin/news/news_card.html:163
+#: admin/templates/admin/pages/about_the_cinema_page_card.html:136
+#: admin/templates/admin/pages/contacts_page_card.html:186
+#: admin/templates/admin/pages/main_page_card.html:75
+#: admin/templates/admin/pages/page_card.html:170
+#: admin/templates/admin/promotion/promotion_card.html:166
 msgid "Return initial condition"
 msgstr "Вернуть исходное состояние"
 
-#: admin/templates/admin/cinemas/cinema_card.html:124
-#: admin/templates/admin/movies/movie_card.html:136
+#: admin/templates/admin/cinemas/cinema_card.html:169
+#: admin/templates/admin/movies/movie_card.html:191
 msgid "Delete card"
 msgstr "Удалить карточку"
 
@@ -236,7 +238,7 @@ msgstr "Все кинотеатры"
 msgid "Halls list"
 msgstr "Список залов"
 
-#: admin/templates/admin/cinemas/index.html:62 main/models.py:180
+#: admin/templates/admin/cinemas/index.html:62 main/models.py:179
 msgid "Hall number"
 msgstr "Номер зала"
 
@@ -319,15 +321,15 @@ msgstr "Назад"
 msgid "Delete hall"
 msgstr "Удалить зал"
 
-#: admin/templates/admin/cinemas/index.html:146
+#: admin/templates/admin/cinemas/index.html:147
 msgid "Select cinema"
 msgstr "Выберите кинотеатр"
 
-#: admin/templates/admin/cinemas/index.html:162
+#: admin/templates/admin/cinemas/index.html:163
 msgid "Create hall"
 msgstr "Создать зал"
 
-#: admin/templates/admin/cinemas/index.html:170
+#: admin/templates/admin/cinemas/index.html:171
 msgid "Select cinema first"
 msgstr "Сперва выберите кинотеатр"
 
@@ -382,14 +384,13 @@ msgstr "Дата рождения"
 
 #: admin/templates/admin/mailing/mailing.html:83
 #: admin/templates/admin/mailing/mailing.html:243
-#: admin/templates/admin/users/index.html:41 main/models.py:377
+#: admin/templates/admin/users/index.html:41 main/models.py:376
 #: user/models.py:41
 msgid "Address"
 msgstr "Адрес"
 
 #: admin/templates/admin/mailing/mailing.html:84
 #: admin/templates/admin/mailing/mailing.html:244
-#: admin/templates/admin/users/index.html:42
 msgid "Last visit"
 msgstr "Был(а)"
 
@@ -437,27 +438,90 @@ msgstr "Список последних загруженных html-сообще
 msgid "Delete"
 msgstr "Удалить"
 
-#: admin/templates/admin/mailing/mailing.html:406
+#: admin/templates/admin/mailing/mailing.html:392
+#: user/templates/user/my_tickets.html:127
+msgid "Filtered "
+msgstr "Отфильтровано "
+
+#: admin/templates/admin/mailing/mailing.html:392
+#: user/templates/user/my_tickets.html:127
+msgid " records"
+msgstr " записей"
+
+#: admin/templates/admin/mailing/mailing.html:393
+#: user/templates/user/my_tickets.html:128
+msgid "No records found"
+msgstr "Записей не найдено"
+
+#: admin/templates/admin/mailing/mailing.html:394
+#: user/templates/user/my_tickets.html:129
+msgid "Showing "
+msgstr "Показано с "
+
+#: admin/templates/admin/mailing/mailing.html:394
+#: user/templates/user/my_tickets.html:129
+msgid " to "
+msgstr " по "
+
+#: admin/templates/admin/mailing/mailing.html:394
+#: user/templates/user/my_tickets.html:129
+msgid " of "
+msgstr " из "
+
+#: admin/templates/admin/mailing/mailing.html:395
+#: user/templates/user/my_tickets.html:130
+msgid "No records"
+msgstr "Нет записей"
+
+#: admin/templates/admin/mailing/mailing.html:396
+#: main/templates/main/main_layout.html:58
+#: main/templates/main/main_layout.html:62
+#: user/templates/user/my_tickets.html:131
+msgid "Search"
+msgstr "Поиск"
+
+#: admin/templates/admin/mailing/mailing.html:398
+#: user/templates/user/my_tickets.html:134
+msgid "Previous"
+msgstr "Назад"
+
+#: admin/templates/admin/mailing/mailing.html:399
+#: main/templates/main/about_the_cinema/news/index.html:78
+#: main/templates/main/about_the_cinema/news/index.html:86
+#: main/templates/main/cinemas/index.html:70
+#: main/templates/main/cinemas/index.html:78
+#: main/templates/main/poster/index.html:106
+#: main/templates/main/poster/index.html:114
+#: main/templates/main/poster/soon.html:101
+#: main/templates/main/poster/soon.html:109
+#: main/templates/main/promotion/index.html:57
+#: main/templates/main/promotion/index.html:78
+#: main/templates/main/promotion/index.html:86
+#: user/templates/user/my_tickets.html:135
+msgid "Next"
+msgstr "Вперед"
+
+#: admin/templates/admin/mailing/mailing.html:418
 msgid "Select all"
 msgstr "Выделить всех"
 
-#: admin/templates/admin/mailing/mailing.html:407
+#: admin/templates/admin/mailing/mailing.html:419
 msgid "Clear all"
 msgstr "Очистить"
 
-#: admin/templates/admin/mailing/mailing.html:538
+#: admin/templates/admin/mailing/mailing.html:550
 msgid "Mailing complete on "
 msgstr "Рассылка завершена на "
 
-#: admin/templates/admin/movies/index.html:19
+#: admin/templates/admin/movies/index.html:25
 msgid "Released movies"
 msgstr "Вышедшие фильмы"
 
-#: admin/templates/admin/movies/index.html:46
+#: admin/templates/admin/movies/index.html:52
 msgid "Announced movies"
 msgstr "Анонсированные фильмы"
 
-#: admin/templates/admin/movies/index.html:73
+#: admin/templates/admin/movies/index.html:79
 msgid "Inactive cards"
 msgstr "Неактивные карточки"
 
@@ -467,11 +531,11 @@ msgstr "Неактивные карточки"
 msgid "Movie card"
 msgstr "Карточка фильма"
 
-#: admin/templates/admin/movies/movie_card.html:62
+#: admin/templates/admin/movies/movie_card.html:114
 msgid "Movie frames gallery"
 msgstr "Галерея кадров из фильма"
 
-#: admin/templates/admin/movies/movie_card.html:108
+#: admin/templates/admin/movies/movie_card.html:163
 #: main/templates/main/timetable/timetable.html:79
 #: user/templates/user/my_tickets.html:18
 #: user/templates/user/my_tickets.html:78
@@ -492,7 +556,7 @@ msgstr "Вы уверены, что хотите удалить эту ново�
 msgid "Delete news"
 msgstr "Удалить новость"
 
-#: admin/templates/admin/news/index.html:102
+#: admin/templates/admin/news/index.html:103
 msgid "Create news"
 msgstr "Создать новость"
 
@@ -501,7 +565,7 @@ msgstr "Создать новость"
 msgid "News card"
 msgstr "Карточка новости"
 
-#: admin/templates/admin/news/news_card.html:63
+#: admin/templates/admin/news/news_card.html:114
 msgid "News images gallery"
 msgstr "Галерея изображений новости"
 
@@ -536,16 +600,16 @@ msgstr "Удалить страницу"
 msgid "Contacts"
 msgstr "Контакты"
 
-#: admin/templates/admin/pages/index.html:168
+#: admin/templates/admin/pages/index.html:169
 msgid "Create page"
 msgstr "Создать страницу"
 
-#: admin/templates/admin/pages/main_page_card.html:11
-#: admin/templates/admin/pages/main_page_card.html:15
+#: admin/templates/admin/pages/main_page_card.html:16
+#: admin/templates/admin/pages/main_page_card.html:20
 msgid "Main page card"
 msgstr "Карточка главной страницы"
 
-#: admin/templates/admin/pages/page_card.html:92
+#: admin/templates/admin/pages/page_card.html:122
 msgid "Page images gallery"
 msgstr "Галерея изображений страницы"
 
@@ -557,7 +621,7 @@ msgstr "Вы уверены, что хотите удалить эту акци�
 msgid "Delete promotion"
 msgstr "Удалить акцию"
 
-#: admin/templates/admin/promotion/index.html:103
+#: admin/templates/admin/promotion/index.html:104
 msgid "Create promotion"
 msgstr "Создать акцию"
 
@@ -568,9 +632,26 @@ msgstr "Создать акцию"
 msgid "Promotion card"
 msgstr "Карточка акции"
 
-#: admin/templates/admin/promotion/promotion_card.html:66
+#: admin/templates/admin/promotion/promotion_card.html:117
 msgid "Promotion images gallery"
 msgstr "Галерея изображений акции"
+
+#: admin/templates/admin/statistics.html:28
+msgid "Registered users"
+msgstr "Пользователей зарегистрировано"
+
+#: admin/templates/admin/statistics.html:34
+#: admin/templates/admin/statistics.html:49
+msgid "More info"
+msgstr "Подробнее"
+
+#: admin/templates/admin/statistics.html:43
+msgid "Active users"
+msgstr "Активных пользователей"
+
+#: admin/templates/admin/users/index.html:42
+msgid "Last login"
+msgstr "Последняя авторизация"
 
 #: admin/templates/admin/users/index.html:43
 #: main/templates/main/main_layout.html:228 user/templates/user/signup.html:4
@@ -607,22 +688,34 @@ msgstr "Обновить данные пользователя:"
 msgid "Update user data"
 msgstr "Обновить данные пользователя"
 
+#: cinema/settings.py:149
+msgid "English"
+msgstr ""
+
+#: cinema/settings.py:150
+msgid "Russian"
+msgstr ""
+
+#: cinema/settings.py:151
+msgid "Ukrainian"
+msgstr ""
+
 #: main/models.py:31
 msgid "Keywords"
 msgstr "Ключевые слова"
 
-#: main/models.py:32 main/models.py:86 main/models.py:147 main/models.py:217
-#: main/models.py:252 main/models.py:302 main/models.py:334
+#: main/models.py:32 main/models.py:85 main/models.py:146 main/models.py:216
+#: main/models.py:251 main/models.py:301 main/models.py:333
 msgid "Description"
 msgstr "Описание"
 
-#: main/models.py:40 main/models.py:62 main/models.py:187
+#: main/models.py:40 main/models.py:62 main/models.py:186
 msgid "Banner"
 msgstr "Баннер"
 
-#: main/models.py:42 main/models.py:64 main/models.py:100 main/models.py:156
-#: main/models.py:171 main/models.py:189 main/models.py:204 main/models.py:239
-#: main/models.py:274 main/models.py:368 main/models.py:386
+#: main/models.py:42 main/models.py:64 main/models.py:99 main/models.py:155
+#: main/models.py:170 main/models.py:188 main/models.py:203 main/models.py:238
+#: main/models.py:273 main/models.py:367 main/models.py:385
 msgid "Is active"
 msgstr "Активен"
 
@@ -630,149 +723,149 @@ msgstr "Активен"
 msgid "Background image"
 msgstr "Фоновое изображение"
 
-#: main/models.py:77
+#: main/models.py:76
 msgid "Rotation speed"
 msgstr "Скорость вращения"
 
-#: main/models.py:85 user/templates/user/my_tickets.html:17
+#: main/models.py:84 user/templates/user/my_tickets.html:17
 #: user/templates/user/my_tickets.html:77
 msgid "Movie title"
 msgstr "Название фильма"
 
-#: main/models.py:87
+#: main/models.py:86
 msgid "Release date"
 msgstr "Дата релиза"
 
-#: main/models.py:90 main/templates/main/main_layout.html:131
+#: main/models.py:89 main/templates/main/main_layout.html:131
 #: main/templates/main/main_layout.html:336
 #: main/templates/main/poster/index.html:5
 msgid "Poster"
 msgstr "Афиша"
 
-#: main/models.py:92
+#: main/models.py:91
 msgid "Trailer link"
 msgstr "Ссылка на трейлер"
 
-#: main/models.py:94 main/templates/main/poster/movie_card.html:154
+#: main/models.py:93 main/templates/main/poster/movie_card.html:154
 msgid "Age rating"
 msgstr "Возрастной рейтинг"
 
-#: main/models.py:133
+#: main/models.py:132
 msgid "Movie frame"
 msgstr "Кадр из фильма"
 
-#: main/models.py:146 main/models.py:376 user/templates/user/my_tickets.html:16
+#: main/models.py:145 main/models.py:375 user/templates/user/my_tickets.html:16
 #: user/templates/user/my_tickets.html:76
 msgid "Cinema name"
 msgstr "Название кинотеатра"
 
-#: main/models.py:148 main/templates/main/cinemas/cinema_card.html:109
+#: main/models.py:147 main/templates/main/cinemas/cinema_card.html:109
 msgid "Amenities"
 msgstr "Условия"
 
-#: main/models.py:151 main/models.py:381
+#: main/models.py:150 main/models.py:380
 msgid "Logo"
 msgstr "Логотип"
 
-#: main/models.py:154 main/models.py:220 main/models.py:255 main/models.py:305
-#: main/models.py:337
+#: main/models.py:153 main/models.py:219 main/models.py:254 main/models.py:304
+#: main/models.py:336
 msgid "Main image"
 msgstr "Главная картинка"
 
-#: main/models.py:169 main/models.py:384
+#: main/models.py:168 main/models.py:383
 msgid "Cinema photo"
 msgstr "Фото кинотеатра"
 
-#: main/models.py:181
+#: main/models.py:180
 msgid "Hall description"
 msgstr "Описание зала"
 
-#: main/models.py:183
+#: main/models.py:182
 msgid "Rows count"
 msgstr "Количество рядов"
 
-#: main/models.py:184
+#: main/models.py:183
 msgid "Places count at row"
 msgstr "Количество мест в ряду"
 
-#: main/models.py:202
+#: main/models.py:201
 msgid "Hall photo"
 msgstr "Фото зала"
 
-#: main/models.py:215
+#: main/models.py:214
 msgid "News title"
 msgstr "Название новости"
 
-#: main/models.py:216 main/models.py:251
+#: main/models.py:215 main/models.py:250
 msgid "Publication date"
 msgstr "Дата публикации"
 
-#: main/models.py:222 main/models.py:257
+#: main/models.py:221 main/models.py:256
 msgid "Video link"
 msgstr "Ссылка на видео"
 
-#: main/models.py:237
+#: main/models.py:236
 msgid "News image"
 msgstr "Картинка к новости"
 
-#: main/models.py:250
+#: main/models.py:249
 msgid "Promotion name"
 msgstr "Название акции"
 
-#: main/models.py:272
+#: main/models.py:271
 msgid "Promotion image"
 msgstr "Картинка к акции"
 
-#: main/models.py:285 main/models.py:301 main/models.py:333
+#: main/models.py:284 main/models.py:300 main/models.py:332
 msgid "Page title"
 msgstr "Название страницы"
 
-#: main/models.py:286
+#: main/models.py:285
 msgid "First phone number"
 msgstr "Первый номер телефона"
 
-#: main/models.py:287
+#: main/models.py:286
 msgid "Second phone number"
 msgstr "Второй номер телефона"
 
-#: main/models.py:288
+#: main/models.py:287
 msgid "SEO text"
 msgstr "SEO текст"
 
-#: main/models.py:308
+#: main/models.py:307
 msgid "Description image"
 msgstr "Картинка описания"
 
-#: main/models.py:310
+#: main/models.py:309
 #: main/templates/main/about_the_cinema/about_the_cinema.html:39
 msgid "Equipment"
 msgstr "Оборудование"
 
-#: main/models.py:313
+#: main/models.py:312
 msgid "Equipment image 1"
 msgstr "Картинка оборудования 1"
 
-#: main/models.py:316
+#: main/models.py:315
 msgid "Equipment image 2"
 msgstr "Картинка оборудования 2"
 
-#: main/models.py:340 main/models.py:343 main/models.py:346
+#: main/models.py:339 main/models.py:342 main/models.py:345
 msgid "Additional image"
 msgstr "Доп. картинка"
 
-#: main/models.py:366
+#: main/models.py:365
 msgid "Page image"
 msgstr "Картинка к странице"
 
-#: main/models.py:378
+#: main/models.py:377
 msgid "Map coordinates"
 msgstr "Координаты для карты"
 
-#: main/models.py:471
+#: main/models.py:470
 msgid "Sold"
 msgstr "Продано"
 
-#: main/models.py:472 user/templates/user/my_tickets.html:50
+#: main/models.py:471 user/templates/user/my_tickets.html:50
 #: user/templates/user/my_tickets.html:101
 msgid "Booked"
 msgstr "Забронировано"
@@ -844,21 +937,6 @@ msgstr "Детская комната"
 msgid "Mobile applications"
 msgstr "Мобильные приложения"
 
-#: main/templates/main/about_the_cinema/news/index.html:78
-#: main/templates/main/about_the_cinema/news/index.html:86
-#: main/templates/main/cinemas/index.html:70
-#: main/templates/main/cinemas/index.html:78
-#: main/templates/main/poster/index.html:106
-#: main/templates/main/poster/index.html:114
-#: main/templates/main/poster/soon.html:101
-#: main/templates/main/poster/soon.html:109
-#: main/templates/main/promotion/index.html:57
-#: main/templates/main/promotion/index.html:78
-#: main/templates/main/promotion/index.html:86
-#: user/templates/user/my_tickets.html:135
-msgid "Next"
-msgstr "Вперед"
-
 #: main/templates/main/about_the_cinema/news/news_card.html:25
 msgid "News "
 msgstr "Новость "
@@ -929,12 +1007,6 @@ msgstr "С"
 #: main/templates/main/index.html:193
 msgid "News and Promotions"
 msgstr "Новости и Акции"
-
-#: main/templates/main/main_layout.html:58
-#: main/templates/main/main_layout.html:62
-#: user/templates/user/my_tickets.html:131
-msgid "Search"
-msgstr "Поиск"
 
 #: main/templates/main/main_layout.html:77
 #: main/templates/main/main_layout.html:384
@@ -1285,41 +1357,9 @@ msgstr "Вернуть"
 msgid "My tickets archive"
 msgstr "Архив моих билетов"
 
-#: user/templates/user/my_tickets.html:127
-msgid "Filtered "
-msgstr "Отфильтровано "
-
-#: user/templates/user/my_tickets.html:127
-msgid " records"
-msgstr " записей"
-
-#: user/templates/user/my_tickets.html:128
-msgid "No records found"
-msgstr "Записей не найдено"
-
-#: user/templates/user/my_tickets.html:129
-msgid "Showing "
-msgstr "Показано с "
-
-#: user/templates/user/my_tickets.html:129
-msgid " to "
-msgstr " по "
-
-#: user/templates/user/my_tickets.html:129
-msgid " of "
-msgstr " из "
-
-#: user/templates/user/my_tickets.html:130
-msgid "No records"
-msgstr "Нет записей"
-
 #: user/templates/user/my_tickets.html:132
 msgid "Count"
 msgstr "Количество"
-
-#: user/templates/user/my_tickets.html:134
-msgid "Previous"
-msgstr "Назад"
 
 #: user/templates/user/update.html:6 user/templates/user/update.html:11
 msgid "Change user data"

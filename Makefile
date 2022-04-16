@@ -20,9 +20,9 @@ migrate:
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py migrate
 db:
 	docker exec -it cinemacms-db-1 psql -U postgres postgres
-sync:
+sync_model:
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py sync_translation_fields
-update:
+update_model:
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py update_translation_fields
 
 superuser:
@@ -37,8 +37,12 @@ init_messages:
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemessages -l ru
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemessages -l uk
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemessages -l en
-update_loc:
+
+update_js:
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemessages -d djangojs -a
+
+update_loc:
+	docker exec -it cinemacms-django_asgi-1 python3 manage.py makemessages -a
 
 compile_loc:
 	docker exec -it cinemacms-django_asgi-1 python3 manage.py compilemessages

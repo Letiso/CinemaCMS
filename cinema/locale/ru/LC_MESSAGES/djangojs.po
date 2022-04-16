@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-03 16:56+0300\n"
+"POT-Creation-Date: 2022-04-16 17:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,19 +20,19 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: admin/static/admin/js/dynamic_image_select.js:41
+#: admin/static/admin/js/dynamic_image_select.js:42
 msgid "Size"
 msgstr "Размер"
 
-#: admin/static/admin/js/dynamic_image_select.js:75
+#: admin/static/admin/js/dynamic_image_select.js:85
 msgid "Data is valid"
 msgstr "Данные валидны"
 
-#: admin/static/admin/js/dynamic_image_select.js:80
+#: admin/static/admin/js/dynamic_image_select.js:90
 msgid "Invalid data"
 msgstr "Данные невалидны"
 
-#: admin/static/admin/js/dynamic_image_select.js:119
+#: admin/static/admin/js/dynamic_image_select.js:129
 msgid "Select image with next resolution"
 msgstr "Выберите изображение со следующим разрешением"
 

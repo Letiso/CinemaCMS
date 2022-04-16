@@ -1,350 +1,59 @@
 ﻿{% extends 'admin/admin_layout.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block stylesheets %}
-<!-- Ionicons -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- uPlot -->
-<link rel="stylesheet" href="{% static 'plugins/uplot/uPlot.min.css' %}">
+
 {% endblock %}
 
-{% block statistics %}active{% endblock %}
+{% block statistics %}
+    active
+{% endblock %}
 
-{% block current_page %}Статистика{% endblock %}
+{% block current_page %}
+    {% trans 'Statistics' %}
+{% endblock %}
 
 {% block path %}
-<li class="breadcrumb-item active">{{ title }}</li>
+    <li class="breadcrumb-item active">
+        {% trans 'Statistics' %}
+    </li>
 {% endblock %}
 
 {% block content %}
-    <!-- Main content -->
-    <div class="container-fluid">
-        <!-- Top row-->
-        <div class="row">
-          <!-- DONUT CHART -->
-          <div class="col-lg-4 col-12 mx-auto">
-            <div class="card card-danger">
-                  <div class="card-header">
-                    <h3 class="card-title">Популярные жанры</h3>
-
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                      </button>
-                      <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                  </div>
-                  <!-- /.card-body -->
-                </div>
-          </div><!-- /.card -->
-          <!-- AREA CHART -->
-          <div class="col-lg-5 col-12 mx-auto">
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Сеансы</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="chart">
-                  <div id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div><!-- /.card -->
-          <!-- Small boxes (Stat box) -->
-          <div class="col-lg-3 col-12 ml-auto">
-            <!-- small box -->
+    <div class="row m-5">
+        <div class="col-lg-3 col-6">
             <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
-
-                <p>Пользователя</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">Подробнее <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-
-                <p>Уникальных посетителей</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">Подробнее <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div><!-- ./col -->
-        </div>
-        <!-- /.row (top row) -->
-        <!-- Middle section -->
-        <section class="col-12">
-          <!-- AREA CHART -->
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Подробно о сеансах</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="chart">
-                <div id="areaChartBig" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></div>
-              </div>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </section>
-        <!-- /.section (middle section) -->
-        <!-- Bottom row -->
-        <div class="row">
-          <!-- Upper col -->
-          <section class="col-12 col-lg-6">
-                <!-- MAP & BOX PANE -->
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">Статистика, которая появится позже</h3>
-
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                      </button>
-                      <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <!-- /.card-header -->
-                  <div class="card-body p-0">
-                  </div>
-                  <!-- /.card-body -->
+                <div class="inner">
+                    <h3>{{ users | length }}</h3>
+                    <p>{% trans 'Registered users' %}</p>
                 </div>
-            <!-- /.card -->
-          </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-12 col-lg-6">
-            <!-- PIE CHART -->
-            <div class="card card-danger">
-                  <div class="card-header">
-                    <h3 class="card-title">Пол пользователей</h3>
-
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                      </button>
-                      <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <canvas id="pieChartGender" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                  </div>
-                  <!-- /.card-body -->
+                <div class="icon">
+                    <i class="fas fa-user-plus"></i>
                 </div>
-            <!-- /.card -->
-          </section>
-          <!-- right col -->
+                <a href="{% url 'admin:users' %}" class="small-box-footer">
+                    {% trans 'More info' %}<i class="fas fa-arrow-circle-right ml-3"></i>
+                </a>
+            </div>
         </div>
-        <!-- /.row (bottom row) -->
+
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-gradient-success">
+                <div class="inner">
+                    <h3>{{ active_users | length }}</h3>
+                    <p>{% trans 'Active users' %}</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <span class="small-box-footer">
+                    {% trans 'Shows users with last login date' %}
+                </span>
+            </div>
+        </div>
+
     </div>
-    <!-- /.content -->
 {% endblock %}
 
 {% block scripts %}
-<!-- ChartJS -->
-<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
 
-<!-- uPlot -->
-<script src="{% static 'plugins/uplot/uPlot.iife.min.js' %}"></script>
-
-<!-- Page specific script -->
-<script>
-  $(function () {
-    //-------------
-    //- DONUT CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-    var donutData        = {
-      labels: [
-          'Chrome',
-          'IE',
-          'FireFox',
-          'Safari',
-          'Opera',
-          'Navigator',
-      ],
-      datasets: [
-        {
-          data: [700,500,400,600,300,100],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }
-      ]
-    }
-    var donutOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    new Chart(donutChartCanvas, {
-      type: 'doughnut',
-      data: donutData,
-      options: donutOptions
-    })
-
-    new Chart(stackedBarChartCanvas, {
-      type: 'bar',
-      data: stackedBarChartData,
-      options: stackedBarChartOptions
-    })
-  })
-</script>
-<!-- Page specific script -->
-<script>
-  $(function () {
-    //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChartGender').get(0).getContext('2d')
-    var pieData        = {
-      labels: [
-          'Мужской',
-          'Женский'
-      ],
-      datasets: [
-        {
-          data: [22, 22],
-          backgroundColor : ['#3c8dbc', '#f56954'],
-        }
-      ]
-    }
-    var pieOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    new Chart(pieChartCanvas, {
-      type: 'pie',
-      data: pieData,
-      options: pieOptions
-    })
-
-    new Chart(stackedBarChartCanvas, {
-      type: 'bar',
-      data: stackedBarChartData,
-      options: stackedBarChartOptions
-    })
-  })
-</script>
-<!-- Page specific script -->
-<script>
-  $(function () {
-    /* uPlot
-     * -------
-     * Here we will create a few charts using uPlot
-     */
-
-    function getSize(elementId) {
-      return {
-        width: document.getElementById(elementId).offsetWidth,
-        height: document.getElementById(elementId).offsetHeight,
-      }
-    }
-
-    let data = [
-      [0, 1, 2, 3, 4, 5, 6],
-      [28, 48, 40, 19, 86, 27, 90],
-      [65, 59, 80, 81, 56, 55, 40]
-    ];
-
-    //--------------
-    //- AREA CHART -
-    //--------------
-
-    const optsAreaChart = {
-      ... getSize('areaChart'),
-      scales: {
-        x: {
-          time: false,
-        },
-        y: {
-          range: [0, 100],
-        },
-      },
-      series: [
-        {},
-        {
-          fill: 'rgba(60,141,188,0.7)',
-          stroke: 'rgba(60,141,188,1)',
-        },
-        {
-          stroke: '#c1c7d1',
-          fill: 'rgba(210, 214, 222, .7)',
-        },
-      ],
-    };
-
-    let areaChart = new uPlot(optsAreaChart, data, document.getElementById('areaChart'));
-
-    const optsAreaChartBig = {
-      ... getSize('areaChartBig'),
-      scales: {
-        x: {
-          time: false,
-        },
-        y: {
-          range: [0, 100],
-        },
-      },
-      series: [
-        {},
-        {
-          fill: 'rgba(60,141,188,0.7)',
-          stroke: 'rgba(60,141,188,1)',
-        },
-        {
-          stroke: '#c1c7d1',
-          fill: 'rgba(210, 214, 222, .7)',
-        },
-      ],
-    };
-
-    let areaChartBig = new uPlot(optsAreaChartBig, data, document.getElementById('areaChartBig'));
-
-    window.addEventListener("resize", e => {
-      areaChartBig.setSize(getSize('areaChartBig'));
-      lineChart.setSize(getSize('lineChart'));
-    });
-  })
-</script>
 {% endblock %}
