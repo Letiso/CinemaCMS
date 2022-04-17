@@ -21,39 +21,90 @@
 
 {% block content %}
     <div class="row m-5">
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-warning">
-                <div class="inner">
-                    <h3>{{ users | length }}</h3>
-                    <p>{% trans 'Registered users' %}</p>
+        <div class="col-lg-3 col-6 mr-5">
+            <div class="col-12">
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>{{ users | length }}</h3>
+                        <p>{% trans 'Registered users' %}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <a href="{% url 'admin:users' %}" class="small-box-footer">
+                        {% trans 'More info' %}<i class="fas fa-arrow-circle-right ml-3"></i>
+                    </a>
                 </div>
-                <div class="icon">
-                    <i class="fas fa-user-plus"></i>
+            </div>
+
+            <div class="col-12">
+                <div class="small-box bg-gradient-success">
+                    <div class="inner">
+                        <h3>{{ active_users | length }}</h3>
+                        <p>{% trans 'Active users' %}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <span class="small-box-footer">
+                        {% trans 'Last login no more than 31 days ago' %}
+                    </span>
                 </div>
-                <a href="{% url 'admin:users' %}" class="small-box-footer">
-                    {% trans 'More info' %}<i class="fas fa-arrow-circle-right ml-3"></i>
-                </a>
             </div>
         </div>
 
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-gradient-success">
-                <div class="inner">
-                    <h3>{{ active_users | length }}</h3>
-                    <p>{% trans 'Active users' %}</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-user-check"></i>
-                </div>
-                <span class="small-box-footer">
-                    {% trans 'Last login no more than 31 days ago' %}
-                </span>
+        <!-- PIE CHART -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">{% trans 'Users gender' %}</h3>
             </div>
+            <div class="card-body">
+                <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+            <!-- /.card-body -->
         </div>
 
     </div>
 {% endblock %}
 
 {% block scripts %}
+    <!-- ChartJS -->
+    <script src="{% static 'plugins/chart.js/Chart.bundle.min.js' %}"></script>
+
+    <script>
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        const pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+        const pieData  = {
+            labels: [
+                '{% trans 'Male' %}',
+                '{% trans 'Female' %}',
+            ],
+            datasets: [{
+                data: [
+                    {% for users in users_gender %}
+                        parseInt({{ users | length }}),
+                    {% endfor %}
+                ],
+                backgroundColor : ['#00c0ef', '#f56954', ],
+            }]
+        }
+
+        const pieOptions     = {
+          maintainAspectRatio : false,
+          responsive : true,
+        }
+
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(pieChartCanvas, {
+          type: 'pie',
+          data: pieData,
+          options: pieOptions
+        })
+
+    </script>
 
 {% endblock %}

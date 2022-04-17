@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-17 15:05+0300\n"
+"POT-Creation-Date: 2022-04-17 15:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -396,12 +396,14 @@ msgstr "Был(а)"
 
 #: admin/templates/admin/mailing/mailing.html:126
 #: admin/templates/admin/mailing/mailing.html:286
+#: admin/templates/admin/statistics.html:82
 #: admin/templates/admin/users/index.html:84 user/models.py:14
 msgid "Male"
 msgstr "Мужской"
 
 #: admin/templates/admin/mailing/mailing.html:128
 #: admin/templates/admin/mailing/mailing.html:288
+#: admin/templates/admin/statistics.html:83
 #: admin/templates/admin/users/index.html:86 user/models.py:15
 msgid "Female"
 msgstr "Женский"
@@ -636,21 +638,25 @@ msgstr "Карточка акции"
 msgid "Promotion images gallery"
 msgstr "Галерея изображений акции"
 
-#: admin/templates/admin/statistics.html:28
+#: admin/templates/admin/statistics.html:29
 msgid "Registered users"
 msgstr "Пользователей зарегистрировано"
 
-#: admin/templates/admin/statistics.html:34
+#: admin/templates/admin/statistics.html:35
 msgid "More info"
 msgstr "Подробнее"
 
-#: admin/templates/admin/statistics.html:43
+#: admin/templates/admin/statistics.html:44
 msgid "Active users"
 msgstr "Активных пользователей"
 
-#: admin/templates/admin/statistics.html:49
+#: admin/templates/admin/statistics.html:50
 msgid "Last login no more than 31 days ago"
 msgstr "Последняя авторизации не более 31-го дня назад"
+
+#: admin/templates/admin/statistics.html:59
+msgid "Users gender"
+msgstr "Пол пользователей"
 
 #: admin/templates/admin/users/index.html:42
 msgid "Last login"

@@ -157,11 +157,13 @@ class StatisticsView(CustomAbstractView):
     def get_context(self, request) -> dict:
         self.context = super().get_context()
 
-        self.context['users'] = get_user_model().objects.order_by('date_joined')
+        user_model = get_user_model().objects
+        self.context['users'] = user_model.order_by('date_joined')
 
         active_users_range = timezone.now() - datetime.timedelta(days=31)
-        self.context['active_users'] = get_user_model().objects.filter(last_login__gte=active_users_range
-                                                                       ).order_by('last_login')
+        self.context['active_users'] = user_model.filter(last_login__gte=active_users_range
+                                                         ).order_by('last_login')
+        self.context['users_gender'] = [user_model.filter(gender='m'), user_model.filter(gender='f')]
 
         return self.context
 
