@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-16 19:48+0300\n"
+"POT-Creation-Date: 2022-04-17 15:05+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -641,13 +641,16 @@ msgid "Registered users"
 msgstr "Пользователей зарегистрировано"
 
 #: admin/templates/admin/statistics.html:34
-#: admin/templates/admin/statistics.html:49
 msgid "More info"
 msgstr "Подробнее"
 
 #: admin/templates/admin/statistics.html:43
 msgid "Active users"
 msgstr "Активных пользователей"
+
+#: admin/templates/admin/statistics.html:49
+msgid "Last login no more than 31 days ago"
+msgstr "Последняя авторизации не более 31-го дня назад"
 
 #: admin/templates/admin/users/index.html:42
 msgid "Last login"
