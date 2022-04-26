@@ -1,3 +1,4 @@
+import datetime
 import json
 from abc import abstractmethod
 
@@ -13,6 +14,32 @@ from main.models import *
 from datetime import date
 
 from cinema.tasks import send_mail
+
+
+class ColorsListGenerator:
+    cycle_counter = -1
+    COLORS = [
+        {"name": "dark", "rgb": "rgba(52, 58, 64, 0.9)", "hex": "#343a40"},
+        {"name": "secondary", "rgb": "rgba(108, 117, 125, 0.9)", "hex": "#6c757d"},
+        {"name": "primary", "rgb": "rgba(0, 123, 255, 0.9)", "hex": "#007bff"},
+        {"name": "warning", "rgb": "rgba(255, 193, 75, 0.9)", "hex": "#ffc107"},
+        {"name": "success", "rgb": "rgba(40, 167, 69, 0.9)", "hex": "#28a745"},
+        ]
+
+    @property
+    def random_color(self):
+        if self.cycle_counter < len(self.COLORS):
+            self.cycle_counter += 1
+        else:
+            self.cycle_counter = -1
+        return self.COLORS[self.cycle_counter]
+
+    def __getattr__(self, item):
+        print(item)
+        if item in ("name", "rgb", "hex"):
+            return self.random_color[item]
+        else:
+            super().__getattr__(self, item)
 
 
 # region Mixins
@@ -154,9 +181,7 @@ class CardDeleteView(View):
 class StatisticsView(CustomAbstractView):
     template_name = 'admin/statistics.html'
 
-    def get_context(self, request) -> dict:
-        self.context = super().get_context()
-
+    def set_users_context(self):
         user_model = get_user_model().objects
         self.context['users'] = user_model.order_by('date_joined')
 
@@ -165,6 +190,53 @@ class StatisticsView(CustomAbstractView):
                                                          ).order_by('last_login')
         self.context['users_gender'] = [user_model.filter(gender='m'), user_model.filter(gender='f')]
 
+    def set_months_movie_sessions_context(self):
+        # set months labels list
+        half_year_ago = timezone.now() - datetime.timedelta(days=180)
+        movie_sessions = MovieSession.objects.filter(start_datetime__gte=half_year_ago)
+
+        now = timezone.now()
+        year, month = now.year, now.month
+
+        month_datetime_list = [
+            datetime.date(year=year,
+                          month=month if month > 0 else 12 + month,
+                          day=1)
+            for month in range(month - 5, month + 1)
+        ]
+        self.context["movie_sessions_per_month"] = {"month_labels": month_datetime_list}
+
+        # set months data
+        movie_types = MovieCard.get_every_movie_type_tuple()
+        get_color = ColorsListGenerator()
+
+        total_movie_sessions_count = []
+        # на каждый тип кино
+        for movie_type in movie_types:
+            movie_sessions_count = []
+            # на каждый месяц
+            for month in month_datetime_list:
+                counter = 0
+                # количество сеансов
+                for movie_session in movie_sessions:
+                    session_month = movie_session.start_datetime.month == month.month
+                    session_type = movie_session.movie_type == movie_type
+
+                    if session_month and session_type:
+                        counter += 1
+                movie_sessions_count.append(counter)
+            total_movie_sessions_count.append(
+                (movie_type, get_color.rgb, json.dumps(movie_sessions_count), )
+            )
+        self.context["movie_sessions_per_month"]["sessions_count"] = total_movie_sessions_count
+
+    def get_context(self, request) -> dict:
+        self.context = super().get_context()
+
+        self.set_users_context()
+        self.set_months_movie_sessions_context()
+
+        # self.context[""]
         return self.context
 
 

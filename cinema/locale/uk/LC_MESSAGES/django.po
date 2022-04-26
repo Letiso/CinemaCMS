@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-17 15:37+0300\n"
+"POT-Creation-Date: 2022-04-25 18:12+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,30 +60,30 @@ msgstr ""
 msgid "Upload html-file or select the recent one"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:31
+#: admin/templates/admin/admin_layout.html:30
 msgid "Main page"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:119
+#: admin/templates/admin/admin_layout.html:118
 #: admin/templates/admin/statistics.html:13
 #: admin/templates/admin/statistics.html:18
 msgid "Statistics"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:128
+#: admin/templates/admin/admin_layout.html:127
 #: admin/templates/admin/banners/index.html:20
 #: admin/templates/admin/banners/index.html:25
 msgid "Banners"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:138
+#: admin/templates/admin/admin_layout.html:137
 #: admin/templates/admin/movies/index.html:12
 #: admin/templates/admin/movies/index.html:17
 #: admin/templates/admin/movies/movie_card.html:26
 msgid "Movies"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:147
+#: admin/templates/admin/admin_layout.html:146
 #: admin/templates/admin/cinemas/cinema_card.html:26
 #: admin/templates/admin/cinemas/hall_card.html:23
 #: admin/templates/admin/cinemas/index.html:10
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Cinemas"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:156
+#: admin/templates/admin/admin_layout.html:155
 #: admin/templates/admin/news/index.html:9
 #: admin/templates/admin/news/index.html:12
 #: admin/templates/admin/news/news_card.html:25
@@ -105,7 +105,7 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:165
+#: admin/templates/admin/admin_layout.html:164
 #: admin/templates/admin/promotion/index.html:9
 #: admin/templates/admin/promotion/index.html:12
 #: admin/templates/admin/promotion/promotion_card.html:28
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Promotions"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:174
+#: admin/templates/admin/admin_layout.html:173
 #: admin/templates/admin/pages/about_the_cinema_page_card.html:25
 #: admin/templates/admin/pages/contacts_page_card.html:23
 #: admin/templates/admin/pages/index.html:11
@@ -125,20 +125,20 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:183
+#: admin/templates/admin/admin_layout.html:182
 #: admin/templates/admin/users/index.html:15
 #: admin/templates/admin/users/index.html:20
 #: admin/templates/admin/users/update_user.html:16 user/models.py:60
 msgid "Users"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:192
+#: admin/templates/admin/admin_layout.html:191
 #: admin/templates/admin/mailing/mailing.html:26
 #: admin/templates/admin/mailing/mailing.html:30
 msgid "Mailing"
 msgstr ""
 
-#: admin/templates/admin/admin_layout.html:217
+#: admin/templates/admin/admin_layout.html:216
 #: main/templates/main/main_layout.html:257
 msgid "Admin panel"
 msgstr ""
@@ -397,14 +397,14 @@ msgstr ""
 
 #: admin/templates/admin/mailing/mailing.html:126
 #: admin/templates/admin/mailing/mailing.html:286
-#: admin/templates/admin/statistics.html:82
+#: admin/templates/admin/statistics.html:109
 #: admin/templates/admin/users/index.html:84 user/models.py:14
 msgid "Male"
 msgstr ""
 
 #: admin/templates/admin/mailing/mailing.html:128
 #: admin/templates/admin/mailing/mailing.html:288
-#: admin/templates/admin/statistics.html:83
+#: admin/templates/admin/statistics.html:110
 #: admin/templates/admin/users/index.html:86 user/models.py:15
 msgid "Female"
 msgstr ""
@@ -655,8 +655,12 @@ msgstr ""
 msgid "Last login no more than 31 days ago"
 msgstr ""
 
-#: admin/templates/admin/statistics.html:59
+#: admin/templates/admin/statistics.html:60
 msgid "Users gender"
+msgstr ""
+
+#: admin/templates/admin/statistics.html:142
+msgid "January"
 msgstr ""
 
 #: admin/templates/admin/users/index.html:42

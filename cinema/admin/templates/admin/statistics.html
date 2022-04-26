@@ -20,8 +20,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row m-5">
-        <div class="col-lg-3 col-6 mr-5">
+    <div class="row m-5 justify-content-between">
+        <div class="col-lg-3 col-6">
             <div class="col-12">
                 <div class="small-box bg-warning">
                     <div class="inner">
@@ -53,16 +53,43 @@
             </div>
         </div>
 
-        <!-- PIE CHART -->
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">{% trans 'Users gender' %}</h3>
+        <div class="col-lg-3 col-6">
+            <!-- PIE CHART -->
+            <div class="card card-light">
+                <div class="card-header">
+                    <h3 class="card-title">{% trans 'Users gender' %}</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+                <!-- /.card-body -->
             </div>
-            <div class="card-body">
-                <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-            </div>
-            <!-- /.card-body -->
         </div>
+        <div class="col-lg-6 col-12">
+            <!-- STACKED BAR CHART -->
+            <div class="card card-dark">
+              <div class="card-header">
+                <h3 class="card-title">Количество сеансов в месяц</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+
 
     </div>
 {% endblock %}
@@ -107,4 +134,48 @@
 
     </script>
 
+    <script>
+        //---------------------
+        //- STACKED BAR CHART -
+        //---------------------
+
+        const stackedBarChartCanvas = $('#stackedBarChart').get(0).getContext('2d')
+        const areaChartData = {
+          labels  : [
+              {% for month in movie_sessions_per_month.month_labels %}
+                  '{{ month|date:"F" }}',
+              {% endfor %}
+          ],
+          datasets: [
+              {% for data in movie_sessions_per_month.sessions_count %}
+                {
+                  label               : "{{ data.0 }}",
+                  backgroundColor     : "{{ data.1 }}",
+                  data                : JSON.parse("{{ data.2|safe }}")
+                },
+              {% endfor %}
+          ]
+        }
+
+        const stackedBarChartData = $.extend(true, {}, areaChartData)
+
+        const stackedBarChartOptions = {
+          responsive              : true,
+          maintainAspectRatio     : false,
+          scales: {
+            xAxes: [{
+              stacked: true,
+            }],
+            yAxes: [{
+              stacked: true
+            }]
+          }
+        }
+
+        new Chart(stackedBarChartCanvas, {
+          type: 'bar',
+          data: stackedBarChartData,
+          options: stackedBarChartOptions
+        })
+    </script>
 {% endblock %}
