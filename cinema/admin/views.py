@@ -19,15 +19,17 @@ from cinema.tasks import send_mail
 class ColorsListGenerator:
     cycle_counter = -1
     COLORS = [
-        {"name": "dark", "rgb": "rgba(52, 58, 64, 0.9)", "hex": "#343a40"},
-        {"name": "secondary", "rgb": "rgba(108, 117, 125, 0.9)", "hex": "#6c757d"},
-        {"name": "primary", "rgb": "rgba(0, 123, 255, 0.9)", "hex": "#007bff"},
-        {"name": "warning", "rgb": "rgba(255, 193, 75, 0.9)", "hex": "#ffc107"},
-        {"name": "success", "rgb": "rgba(40, 167, 69, 0.9)", "hex": "#28a745"},
-        ]
+        {"name": "dark", "rgba": "rgba(52, 58, 64, 0.9)", "hex": "#343a40"},
+        {"name": "primary", "rgba": "rgba(0, 123, 255, 0.9)", "hex": "#007bff"},
+        {"name": "secondary", "rgba": "rgba(108, 117, 125, 0.9)", "hex": "#6c757d"},
+        {"name": "danger", "rgba": "rgba(220, 53, 69, 0.9)", "hex": "#dc3545"},
+        {"name": "success", "rgba": "rgba(40, 167, 69, 0.9)", "hex": "#28a745"},
+        {"name": "warning", "rgba": "rgba(255, 193, 75, 0.9)", "hex": "#ffc107"},
+        {"name": "info", "rgba": "rgba(23, 162, 184, 0.9)", "hex": "#17a2b8"},
+    ]
 
     @property
-    def random_color(self):
+    def get_color(self):
         if self.cycle_counter < len(self.COLORS):
             self.cycle_counter += 1
         else:
@@ -35,11 +37,10 @@ class ColorsListGenerator:
         return self.COLORS[self.cycle_counter]
 
     def __getattr__(self, item):
-        print(item)
-        if item in ("name", "rgb", "hex"):
-            return self.random_color[item]
+        if item in ("name", "rgba", "hex"):
+            return self.get_color[item]
         else:
-            super().__getattr__(self, item)
+            return object.__getattribute__(self, item)
 
 
 # region Mixins
@@ -191,20 +192,20 @@ class StatisticsView(CustomAbstractView):
         self.context['users_gender'] = [user_model.filter(gender='m'), user_model.filter(gender='f')]
 
     def set_months_movie_sessions_context(self):
-        # set months labels list
         half_year_ago = timezone.now() - datetime.timedelta(days=180)
         movie_sessions = MovieSession.objects.filter(start_datetime__gte=half_year_ago)
 
+        # set months labels
         now = timezone.now()
         year, month = now.year, now.month
 
-        month_datetime_list = [
+        months_datetime_list = [
             datetime.date(year=year,
                           month=month if month > 0 else 12 + month,
                           day=1)
             for month in range(month - 5, month + 1)
         ]
-        self.context["movie_sessions_per_month"] = {"month_labels": month_datetime_list}
+        self.context["movie_sessions_per_month"] = {"month_labels": months_datetime_list}
 
         # set months data
         movie_types = MovieCard.get_every_movie_type_tuple()
@@ -215,7 +216,7 @@ class StatisticsView(CustomAbstractView):
         for movie_type in movie_types:
             movie_sessions_count = []
             # на каждый месяц
-            for month in month_datetime_list:
+            for month in months_datetime_list:
                 counter = 0
                 # количество сеансов
                 for movie_session in movie_sessions:
@@ -226,15 +227,20 @@ class StatisticsView(CustomAbstractView):
                         counter += 1
                 movie_sessions_count.append(counter)
             total_movie_sessions_count.append(
-                (movie_type, get_color.rgb, json.dumps(movie_sessions_count), )
+                (movie_type, get_color.rgba, json.dumps(movie_sessions_count), )
             )
         self.context["movie_sessions_per_month"]["sessions_count"] = total_movie_sessions_count
+
+    def set_month_tickets_sell_context(self):
+        month_ago = timezone.now() - datetime.timedelta(days=30)
+        movie_sessions = MovieSession.objects.filter(start_datetime__gt=month_ago)
 
     def get_context(self, request) -> dict:
         self.context = super().get_context()
 
         self.set_users_context()
         self.set_months_movie_sessions_context()
+        self.set_month_tickets_sell_context()
 
         # self.context[""]
         return self.context
